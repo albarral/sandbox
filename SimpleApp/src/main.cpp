@@ -6,13 +6,16 @@
 #include <unistd.h> // for sleep() 
 #include <iostream> // for cout
 #include <vector>
+#include "opencv2/core/core.hpp"
 
 #include "Click.h"
+#include "distance.h"
 
 using namespace std;
 
 void testClick(int secs);
 void testClick2();
+void testLib1();
 
 // main program
 int main(int argc, char** argv) 
@@ -22,11 +25,10 @@ int main(int argc, char** argv)
     cout << "first test ..." << endl;
     
     testClick(3); 
-    //testClick(4); 
 
     cout << endl << "second test ..." << endl;
 
-    testClick2();
+    testLib1();
     
     cout << endl << "tests finished" << endl;
 
@@ -66,6 +68,19 @@ void testClick2()
     {
         testClick(*iter);
     }    
+    
+    return;
+}
+
+
+void testLib1() 
+{                
+    cv::Vec2i pos1 = {1, 1};
+    cv::Vec2i pos2 = {10, 10};
+    
+    int dist = sqrt(Distance::getEuclidean2s(pos1, pos2));
+
+    cout << "distance = " << dist << endl;
     
     return;
 }
