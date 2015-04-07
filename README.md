@@ -1,3 +1,2 @@
 # sandbox
-Repo to share experimental &amp; howto projects
-
+Repository to be used by developers team for sharing test projects. 
