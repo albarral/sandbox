@@ -17,6 +17,8 @@ void testClick2();
 // main program
 int main(int argc, char** argv) 
 {
+    cout << endl << "tests init" << endl;
+
     cout << "first test ..." << endl;
     
     testClick(3); 
