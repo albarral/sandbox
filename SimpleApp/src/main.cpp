@@ -26,7 +26,7 @@ int main(int argc, char** argv)
 
     testClick2();
     
-    cout << endl << "end of tests" << endl;
+    cout << endl << "tests finished" << endl;
 
     sleep(1);   // not needed
     
