@@ -13,6 +13,14 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="src" displayName="src" projectFiles="true">
+        <logicalFolder name="navigation" displayName="navigation" projectFiles="true">
+          <itemPath>src/navigation/Connection.cpp</itemPath>
+          <itemPath>src/navigation/Connection.h</itemPath>
+          <itemPath>src/navigation/Environment.cpp</itemPath>
+          <itemPath>src/navigation/Environment.h</itemPath>
+          <itemPath>src/navigation/Place.cpp</itemPath>
+          <itemPath>src/navigation/Place.h</itemPath>
+        </logicalFolder>
         <itemPath>src/average.cpp</itemPath>
         <itemPath>src/average.h</itemPath>
         <itemPath>src/distance.cpp</itemPath>
@@ -43,6 +51,11 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>src</pElem>
+          </incDir>
+        </ccTool>
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsimple.${CND_DLIB_EXT}</output>
         </linkerTool>
@@ -54,6 +67,18 @@
       <item path="src/distance.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/distance.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/navigation/Connection.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/navigation/Connection.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/navigation/Environment.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/navigation/Environment.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/navigation/Place.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/navigation/Place.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="2">
@@ -83,6 +108,18 @@
       <item path="src/distance.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/distance.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/navigation/Connection.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/navigation/Connection.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/navigation/Environment.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/navigation/Environment.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/navigation/Place.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/navigation/Place.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

@@ -16,7 +16,7 @@ int Distance::getEuclidean2s (cv::Vec2b& vec1, cv::Vec2b& vec2)
 }
 
 
-int Distance::getEuclidean2s (cv::Vec2i& vec1, cv::Vec2i& vec2)
+int Distance::getEuclidean3s (cv::Vec2i& vec1, cv::Vec2i& vec2)
 {
     int x = vec1[0] - vec2[0];
     int y = vec1[1] - vec2[1];

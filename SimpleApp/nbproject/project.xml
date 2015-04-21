@@ -10,6 +10,7 @@
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects>
                 <make-dep-project>../SimpleLib</make-dep-project>
+                <make-dep-project>../CppDynamicLibrary_1</make-dep-project>
             </make-dep-projects>
             <sourceRootList>
                 <sourceRootElem>src</sourceRootElem>

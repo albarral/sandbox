@@ -15,7 +15,7 @@ public:
     // calculates the squared Euclidean distance between two 2D vectors (byte - byte)
     static int getEuclidean2s (cv::Vec2b& vec1, cv::Vec2b& vec2);
     // calculates the squared Euclidean distance between two 2D vectors (int - int)
-    static int getEuclidean2s (cv::Vec2i& vec1, cv::Vec2i& vec2);
+    static int getEuclidean3s (cv::Vec2i& vec1, cv::Vec2i& vec2);
 
     // calculates the squared Euclidean distance between two 3D vectors (float -float)
     static float getEuclidean3s (cv::Vec3f& vec1, cv::Vec3f& vec2);

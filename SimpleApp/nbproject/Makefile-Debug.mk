@@ -53,13 +53,15 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../SimpleLib/dist/Debug/GNU-Linux-x86 -L../SimpleLib/dist/Debug/GNU-Linux-x86 -lsimple
+LDLIBSOPTIONS=-Wl,-rpath,../SimpleLib/dist/Debug/GNU-Linux-x86 -L../SimpleLib/dist/Debug/GNU-Linux-x86 -lsimple -Wl,-rpath,../CppDynamicLibrary_1/dist/Debug/GNU-Linux-x86 -L../CppDynamicLibrary_1/dist/Debug/GNU-Linux-x86 -lCppDynamicLibrary_1
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/simpleapp
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/simpleapp: ../SimpleLib/dist/Debug/GNU-Linux-x86/libsimple.so
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/simpleapp: ../CppDynamicLibrary_1/dist/Debug/GNU-Linux-x86/libCppDynamicLibrary_1.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/simpleapp: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
@@ -68,16 +70,17 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/simpleapp: ${OBJECTFILES}
 ${OBJECTDIR}/src/Click.o: src/Click.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../SimpleLib/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Click.o src/Click.cpp
+	$(COMPILE.cc) -g -Isrc -I../SimpleLib/src -I../CppDynamicLibrary_1/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Click.o src/Click.cpp
 
 ${OBJECTDIR}/src/main.o: src/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../SimpleLib/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
+	$(COMPILE.cc) -g -Isrc -I../SimpleLib/src -I../CppDynamicLibrary_1/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
 
 # Subprojects
 .build-subprojects:
 	cd ../SimpleLib && ${MAKE}  -f Makefile CONF=Debug
+	cd ../CppDynamicLibrary_1 && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -87,6 +90,7 @@ ${OBJECTDIR}/src/main.o: src/main.cpp
 # Subprojects
 .clean-subprojects:
 	cd ../SimpleLib && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../CppDynamicLibrary_1 && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl
