@@ -30,22 +30,15 @@ int main(int argc, char** argv)
 {
     cout << endl << "tests init" << endl;
 
-    cout << "first test ..." << endl;
-    
-    testClick(3); 
+    //cout << "test click ..." << endl;    
+    //testClick(3); 
 
-    cout << endl << "second test ..." << endl;
+    //cout << endl << "test lib ..." << endl;
+    //testLib1();
 
-    testLib1();
-    
-    cout << endl << "third test ..." << endl;
-    
-    testClick2();
-    
-    cout << endl << "learning test ..." << endl;
-    
+    cout << endl << "test testEnvironment ..." << endl;
     testEnvironment();
-    
+      
     cout << endl << "tests finished" << endl;
 
     sleep(1);   // not needed
@@ -94,7 +87,7 @@ void testLib1()
     cv::Vec2i pos1 = {1, 1};
     cv::Vec2i pos2 = {10, 10};
     
-    int dist = sqrt(Distance::getEuclidean2s(pos1, pos2));
+    int dist = sqrt(Distance::getEuclidean3s(pos1, pos2));
 
     cout << "distance = " << dist << endl;
     
@@ -106,8 +99,12 @@ void testEnvironment()
     
     VirtualEnvironment oVirtualEnvironment;
     oVirtualEnvironment.build6RoomTest();
-    oVirtualEnvironment.setPlaceNow(2);
-    oVirtualEnvironment.getConnections();
+    oVirtualEnvironment.setPlaceNow(5);
+    int conID = oVirtualEnvironment.getConnections();
+    cout<< "Returned connection: " <<conID<< endl;
+    oVirtualEnvironment.crossConnection(conID);
+    int plcnw = oVirtualEnvironment.getPlaceNow();
+    cout<< "Next place: " << plcnw<<endl;
     
     return;
 }
