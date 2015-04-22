@@ -10,12 +10,20 @@
 
 #include "Click.h"
 #include "distance.h"
+#include "Environment.h"
+#include "Place.h"
+#include "Connection.h"
+#include "Task.h"
+#include "State.h"
+#include "Transition.h"
+#include "VirtualEnvironment.h"
 
 using namespace std;
 
 void testClick(int secs);
 void testClick2();
 void testLib1();
+void testEnvironment();
 
 // main program
 int main(int argc, char** argv) 
@@ -29,6 +37,14 @@ int main(int argc, char** argv)
     cout << endl << "second test ..." << endl;
 
     testLib1();
+    
+    cout << endl << "third test ..." << endl;
+    
+    testClick2();
+    
+    cout << endl << "learning test ..." << endl;
+    
+    testEnvironment();
     
     cout << endl << "tests finished" << endl;
 
@@ -58,7 +74,7 @@ void testClick2()
 {                
     // set vector of waiting times
     vector<int> list;
-    list.push_back(2);
+    list.push_back(2); 
     //list.push_back(3);
     //list.push_back(1);
     
@@ -81,6 +97,17 @@ void testLib1()
     int dist = sqrt(Distance::getEuclidean2s(pos1, pos2));
 
     cout << "distance = " << dist << endl;
+    
+    return;
+}
+
+void testEnvironment()
+{
+    
+    VirtualEnvironment oVirtualEnvironment;
+    oVirtualEnvironment.build6RoomTest();
+    oVirtualEnvironment.setPlaceNow(2);
+    oVirtualEnvironment.getConnections();
     
     return;
 }
