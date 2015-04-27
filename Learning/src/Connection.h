@@ -5,12 +5,12 @@
  *
  */
 
-#include <iostream>
+//#include <iostream>
 #include <string>
 #ifndef __CONNECTION_H
 #define __CONNECTION_H
 
-#include "opencv2/core/core.hpp"
+//#include "opencv2/core/core.hpp"
 
 using namespace std;
 
@@ -54,6 +54,9 @@ public:
     int getAbruptness() const;
     void setAbruptness(int);
    
+    float computeCost();
+    
+    void showData();
 };
 
 #endif

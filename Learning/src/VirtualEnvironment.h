@@ -5,15 +5,16 @@
  *
  */
 
-#include <iostream>
-#include <string>
+//#include <iostream>
+//#include <string>
+#include <vector>
 #ifndef __VITUALENVIRONMENT_H
 #define __VIRTUALENVIRONMENT_H
 
 #include "Environment.h"
-#include "Place.h"
+//#include "Place.h"
 #include "Connection.h"
-#include "opencv2/core/core.hpp"
+//#include "opencv2/core/core.hpp"
 
 using namespace std;
 
@@ -26,7 +27,7 @@ private:
 public:
     VirtualEnvironment();
     void build6RoomTest();
-    int getConnections();
+    std::vector<Connection>& getPresentConnections();
     void crossConnection(int connectionID);
     
     int getPlaceNow() const;

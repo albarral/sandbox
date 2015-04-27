@@ -50,13 +50,8 @@ void Environment::setType(int ty)
     type = ty;
 }   
 
-vector<Place> Environment::getListPlaces() const
+std::vector<Place>& Environment::getListPlaces()
 {
     return listPlaces;
-}
-
-void Environment::setListPlaces( vector<Place> places)
-{
-    listPlaces = places;
 }
 

@@ -4,6 +4,9 @@
  *
  */
 
+//#include <c++/4.8/bits/stl_vector.h>
+#include <iostream>
+
 #include "Place.h"
 
 Place::Place() 
@@ -14,6 +17,8 @@ Place::Place()
 
 void Place::addConnection(Connection& oConnection)
 {
+    // connection ID is assigned automatically
+    oConnection.setID(listConnections.size());
     listConnections.push_back(oConnection);
 }
 
@@ -50,12 +55,13 @@ void Place::setEnvironmentID(int eID)
     environmentID = eID;
 }   
 
-vector<Connection> Place::getListConnections() const
+std::vector<Connection>& Place::getListConnections()
 {
     return listConnections;
 }
 
-void Place::setListConnections(vector<Connection> connections)
+void Place::showData()
 {
-    listConnections = connections;
+    std::cout << "place " << ID << std::endl;
+    std::cout << "- connections = " << listConnections.size() << std::endl;    
 }

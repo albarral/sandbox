@@ -6,16 +6,17 @@
 #include <unistd.h> // for sleep() 
 #include <iostream> // for cout
 #include <vector>
-#include "opencv2/core/core.hpp"
+#include "opencv2/core/core.hpp" // for cv::Vec2i
 
 #include "Click.h"
 #include "distance.h"
-#include "Environment.h"
-#include "Place.h"
+// Learning classes
+//#include "Environment.h"
+//#include "Place.h"
 #include "Connection.h"
-#include "Task.h"
-#include "State.h"
-#include "Transition.h"
+//#include "Task.h"
+//#include "State.h"
+//#include "Transition.h"
 #include "VirtualEnvironment.h"
 
 using namespace std;
@@ -24,12 +25,11 @@ void testClick(int secs);
 void testClick2();
 void testLib1();
 void testEnvironment();
+int selectConnection(std::vector<Connection>& listConnections);
 
 // main program
 int main(int argc, char** argv) 
 {
-    cout << endl << "tests init" << endl;
-
     //cout << "test click ..." << endl;    
     //testClick(3); 
 
@@ -39,8 +39,6 @@ int main(int argc, char** argv)
     cout << endl << "test testEnvironment ..." << endl;
     testEnvironment();
       
-    cout << endl << "tests finished" << endl;
-
     sleep(1);   // not needed
     
     return 0;
@@ -96,15 +94,50 @@ void testLib1()
 
 void testEnvironment()
 {
+    int nextConnectionID;
     
     VirtualEnvironment oVirtualEnvironment;
     oVirtualEnvironment.build6RoomTest();
     oVirtualEnvironment.setPlaceNow(5);
-    int conID = oVirtualEnvironment.getConnections();
-    cout<< "Returned connection: " <<conID<< endl;
-    oVirtualEnvironment.crossConnection(conID);
-    int plcnw = oVirtualEnvironment.getPlaceNow();
-    cout<< "Next place: " << plcnw<<endl;
+    cout << "Initial place: " << oVirtualEnvironment.getPlaceNow() <<endl;
+    
+    for (int i=0; i<3; i++)
+    {
+        std::vector<Connection>& listConnections = oVirtualEnvironment.getPresentConnections();
+        nextConnectionID = selectConnection(listConnections);
+        cout << "Selected connection: " << nextConnectionID << endl;
+        oVirtualEnvironment.crossConnection(nextConnectionID);    
+        cout << "New place: " << oVirtualEnvironment.getPlaceNow() <<endl;
+    }
+    
+//    int conID = oVirtualEnvironment.getConnections();
+//    cout<< "Returned connection: " <<conID<< endl;
+//    oVirtualEnvironment.crossConnection(conID);
+//    int plcnw = oVirtualEnvironment.getPlaceNow();
+//    cout<< "Next place: " << plcnw<<endl;
     
     return;
+}
+
+// selects the connection with the lowest cost to traverse
+int selectConnection(std::vector<Connection>& listConnections)
+{        
+    vector<Connection>::iterator it_connection = listConnections.begin();
+    vector<Connection>::iterator it_end = listConnections.end();
+    float cost, minCost = 1000;
+    int connectionID, winner=-1;
+    // walk the list of connections and tracks the one with lowest cost
+    while (it_connection != it_end)
+    {
+        cost = it_connection->computeCost();
+        if (cost < minCost)
+        {
+            minCost = cost;
+            winner = it_connection->getID();
+            it_connection->showData();
+        }
+        it_connection++;	
+    }
+
+    return winner;
 }

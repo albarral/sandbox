@@ -5,15 +5,16 @@
  *
  */
 
-#include <iostream>
+//#include <iostream>
 #include <string>
+#include <vector>
 #ifndef __ENVIRONMENT_H
 #define __ENVIRONMENT_H
 
 #include "Place.h"
-#include "opencv2/core/core.hpp"
+//#include "opencv2/core/core.hpp"
 
-using namespace std;
+//using namespace std;
 
 class Environment
 {
@@ -21,7 +22,7 @@ private:
     int ID;
     string desc;
     int type;
-    vector<Place> listPlaces;
+    std::vector<Place> listPlaces;
     
 public:
     Environment();
@@ -37,8 +38,7 @@ public:
     int getType() const;
     void setType(int);
     
-    vector<Place> getListPlaces() const;
-    void setListPlaces(vector<Place>);
+    std::vector<Place>& getListPlaces();
 
 };
 

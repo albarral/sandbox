@@ -4,6 +4,8 @@
  *
  */
 
+#include <iostream>
+
 #include "Connection.h"
 
 Connection::Connection() 
@@ -99,3 +101,14 @@ void Connection::setAbruptness(int abtns)
 {
     abruptness = abtns;
 } 
+
+// computes the cost of traversing the connection
+float Connection::computeCost()
+{
+    return (length * slope * abruptness);
+}
+
+void Connection::showData()
+{
+    std::cout << "connection " << ID << ": " << placeID << " -> " << nextPlace << std::endl;
+}

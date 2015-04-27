@@ -5,15 +5,16 @@
  *
  */
 
-#include <iostream>
+//#include <iostream>
 #include <string>
+#include <vector>
 #ifndef __PLACE_H
 #define __PLACE_H
 
 #include "Connection.h"
-#include "opencv2/core/core.hpp"
+//#include "opencv2/core/core.hpp"
 
-using namespace std;
+//using namespace std;
 
 class Place
 {
@@ -21,7 +22,7 @@ private:
     int ID;
     string desc;
     int environmentID;
-    vector<Connection> listConnections;
+    std::vector<Connection> listConnections;
     
 public:
     Place();
@@ -37,9 +38,9 @@ public:
     int getEnvironmentID() const;
     void setEnvironmentID(int);
     
-    vector<Connection> getListConnections() const;
-    void setListConnections(vector<Connection>);
+    std::vector<Connection>& getListConnections();
 
+    void showData();
    
 };
 
