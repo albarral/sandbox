@@ -7,6 +7,7 @@
 
  ***************************************************************************/
 
+#include <vector>
 #include "navigation/Place.h"
 
 namespace sam 
@@ -26,7 +27,7 @@ public:
     void setID(int ID) {this->ID = ID;};
 
     void addPlace(Place& oPlace);
-    std::vector<Place> getListPlaces() {return listPlaces;};;
+    std::vector<Place>& getListPlaces() {return listPlaces;};;
     void resetPlaces();    
     
 };

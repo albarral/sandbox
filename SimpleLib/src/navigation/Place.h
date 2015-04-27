@@ -27,7 +27,7 @@ public:
     void setID(int ID) {this->ID = ID;};
 
     void addConnection(Connection& oConnection);
-    std::vector<Connection> getListConnections() {return listConnections;};;
+    std::vector<Connection>& getListConnections() {return listConnections;};
     void resetConnections();    
     
 };
