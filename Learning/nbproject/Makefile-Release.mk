@@ -41,7 +41,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/State.o \
 	${OBJECTDIR}/src/Task.o \
 	${OBJECTDIR}/src/Transition.o \
-	${OBJECTDIR}/src/VirtualEnvironment.o
+	${OBJECTDIR}/src/VirtualEnvironment.o \
+	${OBJECTDIR}/src/VirtualTask.o
 
 
 # C Compiler Flags
@@ -102,6 +103,11 @@ ${OBJECTDIR}/src/VirtualEnvironment.o: src/VirtualEnvironment.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/VirtualEnvironment.o src/VirtualEnvironment.cpp
+
+${OBJECTDIR}/src/VirtualTask.o: src/VirtualTask.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/VirtualTask.o src/VirtualTask.cpp
 
 # Subprojects
 .build-subprojects:

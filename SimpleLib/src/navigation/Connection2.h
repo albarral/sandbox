@@ -10,7 +10,7 @@
 namespace sam 
 {
 // Class to represent connections between places in a environment
-class Connection
+class Connection2
 {
 private:
     int ID;
@@ -19,7 +19,7 @@ private:
 
 public:
 
-    Connection();
+    Connection2();
     
     int getID() {return ID;};
     void setID(int ID) {this->ID = ID;};

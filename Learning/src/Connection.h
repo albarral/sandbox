@@ -1,24 +1,20 @@
-
-/* 
- * 
- * Author: Ainoa Millán
- *
- */
-
-//#include <iostream>
-#include <string>
 #ifndef __CONNECTION_H
 #define __CONNECTION_H
 
-//#include "opencv2/core/core.hpp"
+/***************************************************************************
+ *   Copyright (C) 2015 by Migtron Robotics   *
+ *   ainoa@migtron.com   *
+ ***************************************************************************/
 
-using namespace std;
+#include <string>
 
+namespace sam
+{
 class Connection
 {
 private:
     int ID;
-    string desc;
+    std::string desc;
     int environmentID;
     int placeID;
     int nextPlace;
@@ -33,8 +29,8 @@ public:
     int getID() const;
     void setID(int);
     
-    string getDesc() const;
-    void setDesc(string);
+    std::string getDesc() const;
+    void setDesc(std::string);
     
     int getEnvironmentID() const;
     void setEnvironmentID(int);
@@ -58,5 +54,6 @@ public:
     
     void showData();
 };
+}
 
 #endif

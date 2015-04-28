@@ -37,9 +37,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/src/average.o \
 	${OBJECTDIR}/src/distance.o \
-	${OBJECTDIR}/src/navigation/Connection.o \
-	${OBJECTDIR}/src/navigation/Environment.o \
-	${OBJECTDIR}/src/navigation/Place.o
+	${OBJECTDIR}/src/navigation/Connection2.o \
+	${OBJECTDIR}/src/navigation/Environment2.o \
+	${OBJECTDIR}/src/navigation/Place2.o
 
 
 # C Compiler Flags
@@ -76,20 +76,20 @@ ${OBJECTDIR}/src/distance.o: src/distance.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/distance.o src/distance.cpp
 
-${OBJECTDIR}/src/navigation/Connection.o: src/navigation/Connection.cpp 
+${OBJECTDIR}/src/navigation/Connection2.o: src/navigation/Connection2.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/navigation
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/navigation/Connection.o src/navigation/Connection.cpp
+	$(COMPILE.cc) -g -Isrc -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/navigation/Connection2.o src/navigation/Connection2.cpp
 
-${OBJECTDIR}/src/navigation/Environment.o: src/navigation/Environment.cpp 
+${OBJECTDIR}/src/navigation/Environment2.o: src/navigation/Environment2.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/navigation
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/navigation/Environment.o src/navigation/Environment.cpp
+	$(COMPILE.cc) -g -Isrc -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/navigation/Environment2.o src/navigation/Environment2.cpp
 
-${OBJECTDIR}/src/navigation/Place.o: src/navigation/Place.cpp 
+${OBJECTDIR}/src/navigation/Place2.o: src/navigation/Place2.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/navigation
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/navigation/Place.o src/navigation/Place.cpp
+	$(COMPILE.cc) -g -Isrc -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/navigation/Place2.o src/navigation/Place2.cpp
 
 # Subprojects
 .build-subprojects:

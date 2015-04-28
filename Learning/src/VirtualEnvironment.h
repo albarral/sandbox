@@ -1,23 +1,18 @@
-
-/* 
- * 
- * Author: Ainoa Millán
- *
- */
-
-//#include <iostream>
-//#include <string>
-#include <vector>
 #ifndef __VITUALENVIRONMENT_H
 #define __VIRTUALENVIRONMENT_H
 
+/***************************************************************************
+ *   Copyright (C) 2015 by Migtron Robotics   *
+ *   ainoa@migtron.com   *
+ ***************************************************************************/
+
+#include <vector>
+
 #include "Environment.h"
-//#include "Place.h"
 #include "Connection.h"
-//#include "opencv2/core/core.hpp"
 
-using namespace std;
-
+namespace sam 
+{
 class VirtualEnvironment
 {
 private:
@@ -34,5 +29,6 @@ public:
     void setPlaceNow(int);  
 
 };
+}
 
 #endif

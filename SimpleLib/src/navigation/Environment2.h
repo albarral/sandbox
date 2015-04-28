@@ -1,5 +1,5 @@
-#ifndef __PLACE_H
-#define __PLACE_H
+#ifndef __ENVIRONMENT_H
+#define __ENVIRONMENT_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
@@ -8,27 +8,27 @@
  ***************************************************************************/
 
 #include <vector>
-#include "navigation/Connection.h"
+#include "navigation/Place2.h"
 
 namespace sam 
 {
-// Class to represent places in a environment
-class Place
+// Class to represent a environment as a list of places linked by connections
+class Environment2
 {
 private:
     int ID;
-    std::vector<Connection> listConnections;
+    std::vector<Place2> listPlaces;
 
 public:
 
-    Place();
+    Environment2();
 
     int getID() {return ID;};
     void setID(int ID) {this->ID = ID;};
 
-    void addConnection(Connection& oConnection);
-    std::vector<Connection>& getListConnections() {return listConnections;};
-    void resetConnections();    
+    void addPlace(Place2& oPlace);
+    std::vector<Place2>& getListPlaces() {return listPlaces;};;
+    void resetPlaces();    
     
 };
 }

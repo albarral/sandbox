@@ -1,14 +1,14 @@
-/* 
- * 
- * Author: Ainoa Millán
- *
- */
+/***************************************************************************
+ *   Copyright (C) 2015 by Migtron Robotics   *
+ *   ainoa@migtron.com   *
+ ***************************************************************************/
 
-//#include <c++/4.8/bits/stl_vector.h>
 #include <iostream>
 
 #include "Place.h"
 
+namespace sam 
+{
 Place::Place() 
 {
     ID = 0;
@@ -35,12 +35,12 @@ void Place::setID(int id)
     ID = id;
 }    
 
-string Place::getDesc() const
+std::string Place::getDesc() const
 { 
     return desc; 
 }
 
-void Place::setDesc(string de)
+void Place::setDesc(std::string de)
 {
     desc = de;
 }
@@ -64,4 +64,6 @@ void Place::showData()
 {
     std::cout << "place " << ID << std::endl;
     std::cout << "- connections = " << listConnections.size() << std::endl;    
+}
+
 }

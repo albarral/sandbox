@@ -11,12 +11,7 @@
 #include "Click.h"
 #include "distance.h"
 // Learning classes
-//#include "Environment.h"
-//#include "Place.h"
 #include "Connection.h"
-//#include "Task.h"
-//#include "State.h"
-//#include "Transition.h"
 #include "VirtualEnvironment.h"
 
 using namespace std;

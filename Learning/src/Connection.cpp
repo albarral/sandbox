@@ -1,13 +1,14 @@
-/* 
- * 
- * Author: Ainoa Millán
- *
- */
+/***************************************************************************
+ *   Copyright (C) 2015 by Migtron Robotics   *
+ *   ainoa@migtron.com   *
+ ***************************************************************************/
 
 #include <iostream>
 
 #include "Connection.h"
 
+namespace sam
+{
 Connection::Connection() 
 {
     ID = 0;
@@ -32,12 +33,12 @@ void Connection::setID(int id)
     ID = id;
 }    
 
-string Connection::getDesc() const
+std::string Connection::getDesc() const
 { 
     return desc; 
 }
 
-void Connection::setDesc(string de)
+void Connection::setDesc(std::string de)
 {
     desc = de;
 }
@@ -111,4 +112,7 @@ float Connection::computeCost()
 void Connection::showData()
 {
     std::cout << "connection " << ID << ": " << placeID << " -> " << nextPlace << std::endl;
+
+}
+
 }

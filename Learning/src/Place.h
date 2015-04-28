@@ -1,26 +1,23 @@
-
-/* 
- * 
- * Author: Ainoa Millán
- *
- */
-
-//#include <iostream>
-#include <string>
-#include <vector>
 #ifndef __PLACE_H
 #define __PLACE_H
 
+/***************************************************************************
+ *   Copyright (C) 2015 by Migtron Robotics   *
+ *   ainoa@migtron.com   *
+ ***************************************************************************/
+
+#include <string>
+#include <vector>
+
 #include "Connection.h"
-//#include "opencv2/core/core.hpp"
 
-//using namespace std;
-
+namespace sam 
+{
 class Place
 {
 private:
     int ID;
-    string desc;
+    std::string desc;
     int environmentID;
     std::vector<Connection> listConnections;
     
@@ -32,8 +29,8 @@ public:
     int getID() const; 
     void setID(int);
     
-    string getDesc() const;
-    void setDesc(string);
+    std::string getDesc() const;
+    void setDesc(std::string);
     
     int getEnvironmentID() const;
     void setEnvironmentID(int);
@@ -43,5 +40,6 @@ public:
     void showData();
    
 };
+}
 
 #endif

@@ -1,26 +1,23 @@
-
-/* 
- * 
- * Author: Ainoa Millán
- *
- */
-
-//#include <iostream>
-#include <string>
-#include <vector>
 #ifndef __ENVIRONMENT_H
 #define __ENVIRONMENT_H
 
+/***************************************************************************
+ *   Copyright (C) 2015 by Migtron Robotics   *
+ *   ainoa@migtron.com   *
+ ***************************************************************************/
+
+#include <string>
+#include <vector>
+
 #include "Place.h"
-//#include "opencv2/core/core.hpp"
 
-//using namespace std;
-
+namespace sam 
+{
 class Environment
 {
 private:
     int ID;
-    string desc;
+    std::string desc;
     int type;
     std::vector<Place> listPlaces;
     
@@ -32,8 +29,8 @@ public:
     int getID() const;
     void setID(int);
     
-    string getDesc() const;
-    void setDesc(string);
+    std::string getDesc() const;
+    void setDesc(std::string);
     
     int getType() const;
     void setType(int);
@@ -41,5 +38,6 @@ public:
     std::vector<Place>& getListPlaces();
 
 };
+}
 
 #endif

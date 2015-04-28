@@ -3,22 +3,14 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "Place.h"
+#include "Connection2.h"
 
-namespace sam
+namespace sam 
 {
-Place::Place()
+Connection2::Connection2()
 {
-    ID = -1;
+    place = -1;
+    nextPlace= -1;
 }
 
-void Place::addConnection(Connection& oConnection)
-{
-    listConnections.push_back(oConnection);
-}
-
-void Place::resetConnections()
-{
-    listConnections.clear();
-}
 }

@@ -1,11 +1,14 @@
-/* 
- * 
- * Author: Ainoa Millán
- *
- */
+/***************************************************************************
+ *   Copyright (C) 2015 by Migtron Robotics   *
+ *   ainoa@migtron.com   *
+ ***************************************************************************/
+
+#include <iostream>
 
 #include "Task.h"
 
+namespace sam 
+{
 Task::Task() 
 {
     ID = 0;
@@ -30,12 +33,12 @@ void Task::setID(int id)
     ID = id;
 }    
 
-string Task::getDesc() const
+std::string Task::getDesc() const
 { 
     return desc; 
 }
 
-void Task::setDesc(string de)
+void Task::setDesc(std::string de)
 {
     desc = de;
 }
@@ -50,12 +53,9 @@ void Task::setType(int ty)
     type = ty;
 }   
 
-vector<State> Task::getListStates() const
+std::vector<State> Task::getListStates() const
 {
     return listStates;
 }
 
-void Task::setListStates(vector<State> states)
-{
-    listStates = states;
 }

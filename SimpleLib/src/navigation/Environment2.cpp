@@ -3,23 +3,23 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "Environment.h"
+#include "Environment2.h"
 
 using namespace std;
 
 namespace sam
 {
-Environment::Environment()
+Environment2::Environment2()
 {
     ID = -1;
 }
 
-void Environment::addPlace(Place& oPlace)
+void Environment2::addPlace(Place2& oPlace)
 {
     listPlaces.push_back(oPlace);
 }
 
-void Environment::resetPlaces()
+void Environment2::resetPlaces()
 {
     listPlaces.clear();
 }

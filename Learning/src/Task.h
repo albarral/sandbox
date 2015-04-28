@@ -1,26 +1,25 @@
-/* 
- * 
- * Author: Ainoa Millán
- *
- */
-
-#include <iostream>
-#include <string>
 #ifndef __TASK_H
 #define __TASK_H
 
+/***************************************************************************
+ *   Copyright (C) 2015 by Migtron Robotics   *
+ *   ainoa@migtron.com   *
+ ***************************************************************************/
+
+#include <string>
+#include <vector>
+
 #include "State.h"
-#include "opencv2/core/core.hpp"
 
-using namespace std;
-
+namespace sam 
+{
 class Task
 {
 private:
     int ID;
-    string desc;
+    std::string desc;
     int type;
-    vector<State> listStates;
+    std::vector<State> listStates;
     
 public:
     Task();
@@ -30,16 +29,14 @@ public:
     int getID() const;
     void setID(int);
     
-    string getDesc() const;
-    void setDesc(string);
+    std::string getDesc() const;
+    void setDesc(std::string);
     
     int getType() const;
     void setType(int);
     
-    vector<State> getListStates() const;
-    void setListStates(vector<State>);
-
-   
+    std::vector<State> getListStates() const;
 };
+}
 
 #endif

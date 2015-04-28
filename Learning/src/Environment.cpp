@@ -1,11 +1,14 @@
-/* 
- * 
- * Author: Ainoa Millán
- *
- */
+/***************************************************************************
+ *   Copyright (C) 2015 by Migtron Robotics   *
+ *   ainoa@migtron.com   *
+ ***************************************************************************/
+
+#include <iostream>
 
 #include "Environment.h"
 
+namespace sam 
+{
 Environment::Environment() 
 {
     ID = 0;
@@ -30,12 +33,12 @@ void Environment::setID(int id)
     ID = id;
 }    
 
-string Environment::getDesc() const
+std::string Environment::getDesc() const
 { 
     return desc; 
 }
 
-void Environment::setDesc(string de)
+void Environment::setDesc(std::string de)
 {
     desc = de;
 }
@@ -55,3 +58,4 @@ std::vector<Place>& Environment::getListPlaces()
     return listPlaces;
 }
 
+}

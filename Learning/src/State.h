@@ -1,29 +1,26 @@
-
-/* 
- * 
- * Author: Ainoa Millán
- *
- */
-
-
-#include <iostream>
-#include <string>
 #ifndef __STATE_H
 #define __STATE_H
 
+/***************************************************************************
+ *   Copyright (C) 2015 by Migtron Robotics   *
+ *   ainoa@migtron.com   *
+ ***************************************************************************/
+
+#include <string>
+#include <vector>
+
 #include "Transition.h"
-#include "opencv2/core/core.hpp"
 
-using namespace std;
-
+namespace sam 
+{
 class State
 {
 private:
     int ID;
-    string desc;
+    std::string desc;
     int taskID;
     float reward;
-    vector<Transition> listTransitions;
+    std::vector<Transition> listTransitions;
     
 public:
     State();
@@ -33,8 +30,8 @@ public:
     int getID() const;
     void setID(int);
     
-    string getDesc() const;
-    void setDesc(string);
+    std::string getDesc() const;
+    void setDesc(std::string);
     
     int getTaskID() const;
     void setTaskID(int);
@@ -42,10 +39,9 @@ public:
     float getReward() const;
     void setReward(float);
     
-    vector<Transition> getListTransitions() const;
-    void setListTransitions(vector<Transition>);
+    std::vector<Transition> getListTransitions() const;
 
-   
 };
+}
 
 #endif

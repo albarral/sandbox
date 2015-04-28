@@ -1,11 +1,14 @@
-/* 
- * 
- * Author: Ainoa Millán
- *
- */
+/***************************************************************************
+ *   Copyright (C) 2015 by Migtron Robotics   *
+ *   ainoa@migtron.com   *
+ ***************************************************************************/
+
+#include <iostream>
 
 #include "Transition.h"
 
+namespace sam 
+{
 Transition::Transition() 
 {
     ID = 0;
@@ -13,7 +16,7 @@ Transition::Transition()
     stateID = 0;
     nextState = 0;
     cost = 0; // 0.0 or 0f
-    q = 0; // 0.0 or 0f
+    Q = 0; // 0.0 or 0f
 }
 
 void Transition::loadFromMemo()
@@ -29,12 +32,12 @@ void Transition::setID(int id)
     ID = id;
 }    
 
-string Transition::getDesc() const
+std::string Transition::getDesc() const
 { 
     return desc; 
 }
 
-void Transition::setDesc(string de)
+void Transition::setDesc(std::string de)
 {
     desc = de;
 }
@@ -81,10 +84,12 @@ void Transition::setCost(float cst)
 
 float Transition::getQ() const
 { 
-    return q; 
+    return Q; 
 }
 
-void Transition::setQ(float Q)
+void Transition::setQ(float q)
 {
-    q = Q;
+    Q = q;
 } 
+
+}

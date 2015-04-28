@@ -53,7 +53,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../SimpleLib/dist/Debug/GNU-Linux-x86 -L../SimpleLib/dist/Debug/GNU-Linux-x86 -lsimple -Wl,-rpath,../Learning2/dist/Debug/GNU-Linux-x86 -L../Learning2/dist/Debug/GNU-Linux-x86 -lLearning2
+LDLIBSOPTIONS=-Wl,-rpath,../SimpleLib/dist/Debug/GNU-Linux-x86 -L../SimpleLib/dist/Debug/GNU-Linux-x86 -lsimple -Wl,-rpath,../Learning/dist/Debug/GNU-Linux-x86 -L../Learning/dist/Debug/GNU-Linux-x86 -lLearning
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -61,7 +61,7 @@ LDLIBSOPTIONS=-Wl,-rpath,../SimpleLib/dist/Debug/GNU-Linux-x86 -L../SimpleLib/di
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/simpleapp: ../SimpleLib/dist/Debug/GNU-Linux-x86/libsimple.so
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/simpleapp: ../Learning2/dist/Debug/GNU-Linux-x86/libLearning2.so
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/simpleapp: ../Learning/dist/Debug/GNU-Linux-x86/libLearning.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/simpleapp: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
@@ -70,17 +70,17 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/simpleapp: ${OBJECTFILES}
 ${OBJECTDIR}/src/Click.o: src/Click.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../SimpleLib/src -I../Learning2/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Click.o src/Click.cpp
+	$(COMPILE.cc) -g -Isrc -I../SimpleLib/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Click.o src/Click.cpp
 
 ${OBJECTDIR}/src/main.o: src/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../SimpleLib/src -I../Learning2/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
+	$(COMPILE.cc) -g -Isrc -I../SimpleLib/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
 
 # Subprojects
 .build-subprojects:
 	cd ../SimpleLib && ${MAKE}  -f Makefile CONF=Debug
-	cd ../Learning2 && ${MAKE}  -f Makefile CONF=Debug
+	cd ../Learning && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -90,7 +90,7 @@ ${OBJECTDIR}/src/main.o: src/main.cpp
 # Subprojects
 .clean-subprojects:
 	cd ../SimpleLib && ${MAKE}  -f Makefile CONF=Debug clean
-	cd ../Learning2 && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../Learning && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

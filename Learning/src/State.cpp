@@ -1,12 +1,14 @@
-/* 
- * 
- * Author: Ainoa Millán
- *
- */
+/***************************************************************************
+ *   Copyright (C) 2015 by Migtron Robotics   *
+ *   ainoa@migtron.com   *
+ ***************************************************************************/
 
+#include <iostream>
 
 #include "State.h"
 
+namespace sam 
+{
 State::State() 
 {
     ID = 0;
@@ -16,6 +18,8 @@ State::State()
 
 void State::addTransition(Transition& oTransition)
 {
+    // transition ID is assigned automatically
+    oTransition.setID(listTransitions.size());
     listTransitions.push_back(oTransition);
 }
 
@@ -32,12 +36,12 @@ void State::setID(int id)
     ID = id;
 }    
 
-string State::getDesc() const
+std::string State::getDesc() const
 { 
     return desc; 
 }
 
-void State::setDesc(string de)
+void State::setDesc(std::string de)
 {
     desc = de;
 }
@@ -62,12 +66,9 @@ void State::setReward(float rwrd)
     reward = rwrd;
 } 
 
-vector<Transition> State::getListTransitions() const
+std::vector<Transition> State::getListTransitions() const
 {
     return listTransitions;
 }
 
-void State::setListTransitions(vector<Transition> transitions)
-{
-    listTransitions = transitions;
 }

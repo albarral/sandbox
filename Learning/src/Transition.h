@@ -1,29 +1,26 @@
-
-/* 
- * 
- * Author: Ainoa Millán
- *
- */
-
-#include <iostream>
-#include <string>
 #ifndef __TRANSITION_H
 #define __TRANSITION_H
 
-#include "opencv2/core/core.hpp"
+/***************************************************************************
+ *   Copyright (C) 2015 by Migtron Robotics   *
+ *   ainoa@migtron.com   *
+ ***************************************************************************/
 
-using namespace std;
+#include <string>
 
+
+namespace sam 
+{
 class Transition
 {
 private:
     int ID;
-    string desc;
+    std::string desc;
     int taskID;
     int stateID;
     int nextState;
     float cost;
-    float q;
+    float Q;
   
 public:
     Transition();
@@ -32,8 +29,8 @@ public:
     int getID() const;
     void setID(int);
     
-    string getDesc() const;
-    void setDesc(string);
+    std::string getDesc() const;
+    void setDesc(std::string);
     
     int getTaskID() const;
     void setTaskID(int);
@@ -51,5 +48,6 @@ public:
     void setQ(float);
 
 };
+}
 
 #endif
