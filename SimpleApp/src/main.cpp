@@ -25,7 +25,7 @@ void testClick(int secs);
 void testClick2();
 void testLib1();
 void testEnvironment();
-int selectConnection(std::vector<Connection>& listConnections);
+int selectConnection(std::vector<sam::Connection>& listConnections);
 
 // main program
 int main(int argc, char** argv) 
@@ -96,14 +96,14 @@ void testEnvironment()
 {
     int nextConnectionID;
     
-    VirtualEnvironment oVirtualEnvironment;
+    sam::VirtualEnvironment oVirtualEnvironment;
     oVirtualEnvironment.build6RoomTest();
     oVirtualEnvironment.setPlaceNow(5);
     cout << "Initial place: " << oVirtualEnvironment.getPlaceNow() <<endl;
     
     for (int i=0; i<3; i++)
     {
-        std::vector<Connection>& listConnections = oVirtualEnvironment.getPresentConnections();
+        std::vector<sam::Connection>& listConnections = oVirtualEnvironment.getPresentConnections();
         nextConnectionID = selectConnection(listConnections);
         cout << "Selected connection: " << nextConnectionID << endl;
         oVirtualEnvironment.crossConnection(nextConnectionID);    
@@ -120,10 +120,10 @@ void testEnvironment()
 }
 
 // selects the connection with the lowest cost to traverse
-int selectConnection(std::vector<Connection>& listConnections)
+int selectConnection(std::vector<sam::Connection>& listConnections)
 {        
-    vector<Connection>::iterator it_connection = listConnections.begin();
-    vector<Connection>::iterator it_end = listConnections.end();
+    vector<sam::Connection>::iterator it_connection = listConnections.begin();
+    vector<sam::Connection>::iterator it_end = listConnections.end();
     float cost, minCost = 1000;
     int connectionID, winner=-1;
     // walk the list of connections and tracks the one with lowest cost
