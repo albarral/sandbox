@@ -27,6 +27,8 @@ public:
     void addPlace(Place& oPlace);
     void loadFromMemo();
     void storeInMemo();
+    void upDateInMemo();
+    void deleteFromMemo();
     
     int getID() const;
     void setID(int);

@@ -58,13 +58,13 @@ void Database::insertToDB(std::string insert)
     Database::closeConnectionDB();
     
 }
-void Database::upDateDB(std::string)
+void Database::upDateDB(std::string update)
 {
     
 }
-void Database::deleteDB(std::string)
+void Database::deleteDB(std::string deleteDb)
 {
-    
+
 }
 
 }

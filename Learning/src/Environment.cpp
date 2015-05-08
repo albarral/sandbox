@@ -28,11 +28,20 @@ void Environment::storeInMemo()
     Database oDatabase;
     
     std::string insert = "INSERT INTO TAB_ENVIRONMENTS (ID, desc, type) VALUES "
-            "(" + ID + ", " + desc + ", " + type + ")";    
+            "(" + std::to_string(ID) + ", " + desc + ", " + std::to_string(type) + ")";    
     oDatabase.insertToDB(insert);
-    
-    std::string deleteDB = "DELETE FROM TAB_ENVIRONMENTS WHERE ID= " + ID +";
-    oDatabase.deleteDB(deleteDB);
+}
+
+void Environment::upDateInMemo()
+{
+    Database oDatabase;
+}
+
+void Environment::deleteFromMemo()
+{
+    Database oDatabase;
+    std::string deleteDB = "DELETE FROM TAB_ENVIRONMENTS WHERE ID= " + std::to_string(ID);
+    oDatabase.deleteDB(deleteDB);    
 }
 
 int Environment::getID() const

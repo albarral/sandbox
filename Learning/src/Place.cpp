@@ -29,12 +29,21 @@ void Place::storeInMemo()
 {
     Database oDatabase;
     
-    std::string insertDB = "INSERT INTO TAB_PLACES (ID, desc, environmentID) VALUES "
-            "(" + ID + ", " + desc + ", " + environmentID + ")";    
+    std::string insertDB = "INSERT INTO TAB_PLACES (ID, desc, environmentID) VALUES ("
+            + std::to_string(ID) + ", " + desc + ", " + std::to_string(environmentID) + ")";    
     oDatabase.insertToDB(insertDB);
-    
-    std::string deleteDB = "DELETE FROM TAB_PLACES WHERE ID= "+ ID +";
-    oDatabase.deleteDB(deleteDB);
+}
+
+void Place::upDateInMemo()
+{
+    Database oDatabase;
+}
+
+void Place::deleteFromMemo()
+{
+    Database oDatabase;
+    std::string deleteDB = "DELETE FROM TAB_PLACES WHERE ID= "+ std::to_string(ID);
+    oDatabase.deleteDB(deleteDB);    
 }
 
 int Place::getID() const

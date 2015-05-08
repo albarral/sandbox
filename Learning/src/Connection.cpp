@@ -27,12 +27,23 @@ void Connection::storeInMemo()
 {
     Database oDatabase;
     
-    std::string insert = "INSERT INTO TAB_CONNECTIONS (ID, desc, environmentID, placeID, nextPlace, length, slope, abruptness) VALUES "
-            "(" + ID + ", " + desc + ", " + environmentID + ", " + placeID + ", " + nextPlace + ", " + length + ", " + slope + ", " + abruptness + ")";   
+    std::string insert = "INSERT INTO TAB_CONNECTIONS (ID, desc, environmentID, placeID, "
+            "nextPlace, length, slope, abruptness) VALUES (" + std::to_string(ID) + ", " + desc + ", " 
+            + std::to_string(environmentID) + ", " + std::to_string(placeID) + ", " + std::to_string(nextPlace) +
+            ", " + std::to_string(length) + ", " + std::to_string(slope) + ", " + std::to_string(abruptness) + ")";   
     oDatabase.insertToDB(insert);
-    
-    std::string deleteDB = "DELETE FROM TAB_CONNECTIONS WHERE ID= " + ID +";
-    oDatabase.deleteDB(deleteDB);    
+}
+
+void Connection::upDateInMemo()
+{
+    Database oDatabase;
+}
+
+void Connection::deleteFromMemo()
+{
+    Database oDatabase;
+    std::string deleteDB = "DELETE FROM TAB_CONNECTIONS WHERE ID= " + std::to_string(ID);
+    oDatabase.deleteDB(deleteDB);      
 }
 
 int Connection::getID() const
