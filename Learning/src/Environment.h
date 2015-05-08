@@ -10,6 +10,7 @@
 #include <vector>
 
 #include "Place.h"
+#include "Database.h"
 
 namespace sam 
 {
@@ -25,6 +26,7 @@ public:
     Environment();
     void addPlace(Place& oPlace);
     void loadFromMemo();
+    void storeInMemo();
     
     int getID() const;
     void setID(int);

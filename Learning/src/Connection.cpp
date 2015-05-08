@@ -23,6 +23,18 @@ Connection::Connection()
 void Connection::loadFromMemo()
 {}
 
+void Connection::storeInMemo()
+{
+    Database oDatabase;
+    
+    std::string insert = "INSERT INTO TAB_CONNECTIONS (ID, desc, environmentID, placeID, nextPlace, length, slope, abruptness) VALUES "
+            "(" + ID + ", " + desc + ", " + environmentID + ", " + placeID + ", " + nextPlace + ", " + length + ", " + slope + ", " + abruptness + ")";   
+    oDatabase.insertToDB(insert);
+    
+    std::string deleteDB = "DELETE FROM TAB_CONNECTIONS WHERE ID= " + ID +";
+    oDatabase.deleteDB(deleteDB);    
+}
+
 int Connection::getID() const
 { 
     return ID; 

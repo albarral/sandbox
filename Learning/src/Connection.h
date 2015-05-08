@@ -8,6 +8,8 @@
 
 #include <string>
 
+#include "Database.h"
+
 namespace sam
 {
 class Connection
@@ -25,6 +27,7 @@ private:
 public:
     Connection();
     void loadFromMemo();
+    void storeInMemo();
     
     int getID() const;
     void setID(int);

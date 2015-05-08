@@ -10,6 +10,7 @@
 #include <vector>
 
 #include "Connection.h"
+#include "Database.h"
 
 namespace sam 
 {
@@ -25,6 +26,7 @@ public:
     Place();
     void addConnection(Connection& oConnection);
     void loadFromMemo();
+    void storeInMemo();
     
     int getID() const; 
     void setID(int);

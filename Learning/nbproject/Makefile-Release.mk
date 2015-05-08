@@ -36,6 +36,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/Connection.o \
+	${OBJECTDIR}/src/Database.o \
 	${OBJECTDIR}/src/Environment.o \
 	${OBJECTDIR}/src/Place.o \
 	${OBJECTDIR}/src/State.o \
@@ -73,6 +74,11 @@ ${OBJECTDIR}/src/Connection.o: src/Connection.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Connection.o src/Connection.cpp
+
+${OBJECTDIR}/src/Database.o: src/Database.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Database.o src/Database.cpp
 
 ${OBJECTDIR}/src/Environment.o: src/Environment.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src

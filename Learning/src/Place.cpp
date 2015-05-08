@@ -25,6 +25,18 @@ void Place::addConnection(Connection& oConnection)
 void Place::loadFromMemo()
 {}
 
+void Place::storeInMemo()
+{
+    Database oDatabase;
+    
+    std::string insertDB = "INSERT INTO TAB_PLACES (ID, desc, environmentID) VALUES "
+            "(" + ID + ", " + desc + ", " + environmentID + ")";    
+    oDatabase.insertToDB(insertDB);
+    
+    std::string deleteDB = "DELETE FROM TAB_PLACES WHERE ID= "+ ID +";
+    oDatabase.deleteDB(deleteDB);
+}
+
 int Place::getID() const
 { 
     return ID; 

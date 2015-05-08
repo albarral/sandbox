@@ -23,6 +23,18 @@ void Environment::addPlace(Place& oPlace)
 void Environment::loadFromMemo()
 {}
 
+void Environment::storeInMemo()
+{
+    Database oDatabase;
+    
+    std::string insert = "INSERT INTO TAB_ENVIRONMENTS (ID, desc, type) VALUES "
+            "(" + ID + ", " + desc + ", " + type + ")";    
+    oDatabase.insertToDB(insert);
+    
+    std::string deleteDB = "DELETE FROM TAB_ENVIRONMENTS WHERE ID= " + ID +";
+    oDatabase.deleteDB(deleteDB);
+}
+
 int Environment::getID() const
 { 
     return ID; 
