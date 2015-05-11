@@ -58,13 +58,31 @@ void Database::insertToDB(std::string insert)
     Database::closeConnectionDB();
     
 }
+
 void Database::upDateDB(std::string update)
 {
+    Database::getConnectionDB();
     
+    con->setSchema(database);
+    
+    prep_stmt = con -> prepareStatement (update);
+    
+    prep_stmt->execute();
+    
+    Database::closeConnectionDB();
 }
+
 void Database::deleteDB(std::string deleteDb)
 {
-
+    Database::getConnectionDB();
+    
+    con->setSchema(database);
+    
+    prep_stmt = con -> prepareStatement (deleteDb);
+    
+    prep_stmt->execute();
+    
+    Database::closeConnectionDB();
 }
 
 }

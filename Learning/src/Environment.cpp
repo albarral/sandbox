@@ -12,12 +12,14 @@ namespace sam
 Environment::Environment() 
 {
     ID = 0;
+    desc = "default";
     type= 0;
 }
 
 void Environment::addPlace(Place& oPlace)
 {
     listPlaces.push_back(oPlace);
+    oPlace.storeInMemo();
 }
 
 void Environment::loadFromMemo()
@@ -27,7 +29,7 @@ void Environment::storeInMemo()
 {
     Database oDatabase;
     
-    std::string insert = "INSERT INTO TAB_ENVIRONMENTS (ID, desc, type) VALUES "
+    std::string insert = "INSERT INTO TAB_ENVIRONMENTS VALUES "
             "(" + std::to_string(ID) + ", " + desc + ", " + std::to_string(type) + ")";    
     oDatabase.insertToDB(insert);
 }
@@ -35,6 +37,9 @@ void Environment::storeInMemo()
 void Environment::upDateInMemo()
 {
     Database oDatabase;
+    std::string update = "UPDATE TAB_ENVIRONMENTS SET description = " + desc + ", type = " 
+            + std::to_string(type) + " WHERE ID= " + std::to_string(ID);
+    oDatabase.upDateDB(update);
 }
 
 void Environment::deleteFromMemo()

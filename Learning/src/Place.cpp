@@ -12,6 +12,7 @@ namespace sam
 Place::Place() 
 {
     ID = 0;
+    desc = "default";
     environmentID = 0;
 }
 
@@ -20,6 +21,7 @@ void Place::addConnection(Connection& oConnection)
     // connection ID is assigned automatically
     oConnection.setID(listConnections.size());
     listConnections.push_back(oConnection);
+    oConnection.storeInMemo();
 }
 
 void Place::loadFromMemo()
@@ -29,7 +31,7 @@ void Place::storeInMemo()
 {
     Database oDatabase;
     
-    std::string insertDB = "INSERT INTO TAB_PLACES (ID, desc, environmentID) VALUES ("
+    std::string insertDB = "INSERT INTO TAB_PLACES VALUES ("
             + std::to_string(ID) + ", " + desc + ", " + std::to_string(environmentID) + ")";    
     oDatabase.insertToDB(insertDB);
 }
@@ -37,12 +39,15 @@ void Place::storeInMemo()
 void Place::upDateInMemo()
 {
     Database oDatabase;
+    std::string update = "UPDATE TAB_PLACES SET description = " + desc + " WHERE ID = " + std::to_string(ID);
+    oDatabase.upDateDB(update);
 }
 
 void Place::deleteFromMemo()
 {
     Database oDatabase;
     std::string deleteDB = "DELETE FROM TAB_PLACES WHERE ID= "+ std::to_string(ID);
+//            + "AND environmentID= " + std::to_string(environmentID);
     oDatabase.deleteDB(deleteDB);    
 }
 
