@@ -39,7 +39,8 @@ void Place::storeInMemo()
 void Place::upDateInMemo()
 {
     Database oDatabase;
-    std::string update = "UPDATE TAB_PLACES SET description = " + desc + " WHERE ID = " + std::to_string(ID);
+    std::string update = "UPDATE TAB_PLACES SET description = " + desc + " WHERE ID = " + std::to_string(ID)
+            + " AND environmentID= " + std::to_string(environmentID);
     oDatabase.upDateDB(update);
 }
 
@@ -47,7 +48,7 @@ void Place::deleteFromMemo()
 {
     Database oDatabase;
     std::string deleteDB = "DELETE FROM TAB_PLACES WHERE ID= "+ std::to_string(ID);
-//            + "AND environmentID= " + std::to_string(environmentID);
+            + " AND environmentID= " + std::to_string(environmentID);
     oDatabase.deleteDB(deleteDB);    
 }
 

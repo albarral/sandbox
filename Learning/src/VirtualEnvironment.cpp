@@ -34,6 +34,7 @@ void VirtualEnvironment::build6RoomTest()
     oPlace4.setEnvironmentID(1);
     oPlace5.setID(5);
     oPlace5.setEnvironmentID(1);
+//    oPlace5.upDateInMemo();
    
     // default connection properties for an office environment
     oConnection.setEnvironmentID(1);
@@ -45,7 +46,7 @@ void VirtualEnvironment::build6RoomTest()
     oConnection.setPlaceID(0);
     oConnection.setNextPlace(4);
     oPlace0.addConnection(oConnection);
-    
+//    oConnection.upDateInMemo();
     // 1 -> 3
     oConnection.setPlaceID(1);
     oConnection.setNextPlace(3);
@@ -64,7 +65,7 @@ void VirtualEnvironment::build6RoomTest()
     oConnection.setPlaceID(3);
     oConnection.setNextPlace(1);
     oPlace3.addConnection(oConnection);    
-    
+
     // 3 -> 2
     oConnection.setNextPlace(2);
     oPlace3.addConnection(oConnection);
@@ -72,7 +73,7 @@ void VirtualEnvironment::build6RoomTest()
     // 3 -> 4
     oConnection.setNextPlace(4);
     oPlace3.addConnection(oConnection);
-    
+
     // 4 -> 0
     oConnection.setPlaceID(4);
     oConnection.setNextPlace(0);
@@ -85,7 +86,7 @@ void VirtualEnvironment::build6RoomTest()
     // 4 -> 5
     oConnection.setNextPlace(5);
     oPlace4.addConnection(oConnection);
-    
+  
     // 5 -> 1
     oConnection.setPlaceID(5);
     oConnection.setNextPlace(1);
@@ -117,6 +118,7 @@ void VirtualEnvironment::build6RoomTest()
 //    oEnvironment.deleteFromMemo();
 //    oConnection.deleteFromMemo();
 //    oPlace2.deleteFromMemo();
+//    oPlace5.upDateInMemo();
 
     std::cout << "environment built" << std::endl << std::endl;       
 }

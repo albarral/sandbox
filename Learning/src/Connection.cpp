@@ -39,7 +39,8 @@ void Connection::upDateInMemo()
     Database oDatabase;
     std::string update = "UPDATE TAB_CONNECTIONS SET description= " + desc + "placeID = " + std::to_string(placeID) + 
             " nextPlace = " + std::to_string(nextPlace) + ", length = " + std::to_string(length) + ", slope = " + 
-            std::to_string(slope) + ", abruptness = " + std::to_string(abruptness) + "WHERE ID = " + std::to_string(ID);
+            std::to_string(slope) + ", abruptness = " + std::to_string(abruptness) + " WHERE ID = " + std::to_string(ID)
+            + " AND environmentID= " + std::to_string(environmentID) + " AND placeID= " + std::to_string(placeID);
     oDatabase.upDateDB(update);
 }
 
@@ -47,7 +48,7 @@ void Connection::deleteFromMemo()
 {
     Database oDatabase;
     std::string deleteDB = "DELETE FROM TAB_CONNECTIONS WHERE ID= " + std::to_string(ID);
-//            + "AND placeID= " + std::to_string(placeID) + "AND environmentID= " + std::to_string(environmentID);
+            + " AND environmentID= " + std::to_string(environmentID) + " AND placeID= " + std::to_string(placeID);
     oDatabase.deleteDB(deleteDB);      
 }
 
