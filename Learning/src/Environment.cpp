@@ -29,7 +29,7 @@ void Environment::storeInMemo()
 {
     Database oDatabase;
     
-    std::string insert = "INSERT INTO TAB_ENVIRONMENTS VALUES "
+    std::string insert = "INSERT INTO TAB_ENVIRONMENTS (ID, description, type) VALUES "
             "(" + std::to_string(ID) + ", " + desc + ", " + std::to_string(type) + ")";    
     oDatabase.insertToDB(insert);
 }

@@ -31,7 +31,7 @@ void Place::storeInMemo()
 {
     Database oDatabase;
     
-    std::string insertDB = "INSERT INTO TAB_PLACES VALUES ("
+    std::string insertDB = "INSERT INTO TAB_PLACES (ID, description, environmentID) VALUES ("
             + std::to_string(ID) + ", " + desc + ", " + std::to_string(environmentID) + ")";    
     oDatabase.insertToDB(insertDB);
 }

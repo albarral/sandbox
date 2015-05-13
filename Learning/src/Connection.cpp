@@ -28,16 +28,17 @@ void Connection::storeInMemo()
 {
     Database oDatabase;
     
-    std::string insert = "INSERT INTO TAB_CONNECTIONS VALUES (" + std::to_string(ID) + ", " + desc + ", " 
-            + std::to_string(environmentID) + ", " + std::to_string(placeID) + ", " + std::to_string(nextPlace) +
-            ", " + std::to_string(length) + ", " + std::to_string(slope) + ", " + std::to_string(abruptness) + ")";   
+    std::string insert = "INSERT INTO TAB_CONNECTIONS (ID, description, environmentID, placeID, nextPlace, length, "
+            "slope, abruptness) VALUES (" + std::to_string(ID) + ", " + desc + ", " + std::to_string(environmentID) 
+            + ", " + std::to_string(placeID) + ", " + std::to_string(nextPlace) + ", " + std::to_string(length)
+            + ", " + std::to_string(slope) + ", " + std::to_string(abruptness) + ")";   
     oDatabase.insertToDB(insert);
 }
 
 void Connection::upDateInMemo()
 {
     Database oDatabase;
-    std::string update = "UPDATE TAB_CONNECTIONS SET description= " + desc + "placeID = " + std::to_string(placeID) + 
+    std::string update = "UPDATE TAB_CONNECTIONS SET description= " + desc +
             " nextPlace = " + std::to_string(nextPlace) + ", length = " + std::to_string(length) + ", slope = " + 
             std::to_string(slope) + ", abruptness = " + std::to_string(abruptness) + " WHERE ID = " + std::to_string(ID)
             + " AND environmentID= " + std::to_string(environmentID) + " AND placeID= " + std::to_string(placeID);

@@ -112,9 +112,11 @@ void VirtualEnvironment::build6RoomTest()
   
     
 //    oEnvironment.setType(4);
-//    oEnvironment.upDateInMemo();
+//    std::string pasa = "env";
+//    oEnvironment.setDesc(pasa);
+    oEnvironment.upDateInMemo();
     
-    oEnvironment.storeInMemo();
+//    oEnvironment.storeInMemo();
 //    oEnvironment.deleteFromMemo();
 //    oConnection.deleteFromMemo();
 //    oPlace2.deleteFromMemo();
