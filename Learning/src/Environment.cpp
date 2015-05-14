@@ -19,7 +19,6 @@ Environment::Environment()
 void Environment::addPlace(Place& oPlace)
 {
     listPlaces.push_back(oPlace);
-    oPlace.storeInMemo();
 }
 
 void Environment::loadFromMemo()
@@ -27,26 +26,35 @@ void Environment::loadFromMemo()
 
 void Environment::storeInMemo()
 {
-    Database oDatabase;
-    
     std::string insert = "INSERT INTO TAB_ENVIRONMENTS (ID, description, type) VALUES "
             "(" + std::to_string(ID) + ", " + desc + ", " + std::to_string(type) + ")";    
-    oDatabase.insertToDB(insert);
+    pDatabase->insertToDB(insert);
+    
+    storePlaces();
 }
 
 void Environment::upDateInMemo()
 {
-    Database oDatabase;
     std::string update = "UPDATE TAB_ENVIRONMENTS SET description = " + desc + ", type = " 
             + std::to_string(type) + " WHERE ID= " + std::to_string(ID);
-    oDatabase.upDateDB(update);
+    pDatabase->updateDB(update);
 }
 
 void Environment::deleteFromMemo()
 {
-    Database oDatabase;
     std::string deleteDB = "DELETE FROM TAB_ENVIRONMENTS WHERE ID= " + std::to_string(ID);
-    oDatabase.deleteDB(deleteDB);    
+    pDatabase->deleteDB(deleteDB);    
+}
+
+void Environment::storePlaces()
+{
+    std::vector<Place>::iterator it_place = listPlaces.begin();
+    std::vector<Place>::iterator it_end = listPlaces.end();
+    while (it_place != it_end)
+    {
+        it_place->storeInMemo(pDatabase);
+        it_place++;	
+    }
 }
 
 int Environment::getID() const

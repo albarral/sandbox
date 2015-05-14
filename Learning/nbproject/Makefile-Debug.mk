@@ -36,14 +36,11 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/Connection.o \
-	${OBJECTDIR}/src/Database.o \
 	${OBJECTDIR}/src/Environment.o \
 	${OBJECTDIR}/src/Place.o \
 	${OBJECTDIR}/src/State.o \
 	${OBJECTDIR}/src/Task.o \
-	${OBJECTDIR}/src/Transition.o \
-	${OBJECTDIR}/src/VirtualEnvironment.o \
-	${OBJECTDIR}/src/VirtualTask.o
+	${OBJECTDIR}/src/Transition.o
 
 
 # C Compiler Flags
@@ -60,11 +57,13 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-lmysqlcppconn
+LDLIBSOPTIONS=-Wl,-rpath,../samUtils/dist/Debug/GNU-Linux-x86 -L../samUtils/dist/Debug/GNU-Linux-x86 -lsam_utils -lmysqlcppconn
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libLearning.${CND_DLIB_EXT}
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libLearning.${CND_DLIB_EXT}: ../samUtils/dist/Debug/GNU-Linux-x86/libsam_utils.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libLearning.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
@@ -73,50 +72,36 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libLearning.${CND_DLIB_EXT}: ${OBJECT
 ${OBJECTDIR}/src/Connection.o: src/Connection.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Connection.o src/Connection.cpp
-
-${OBJECTDIR}/src/Database.o: src/Database.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Database.o src/Database.cpp
+	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Connection.o src/Connection.cpp
 
 ${OBJECTDIR}/src/Environment.o: src/Environment.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Environment.o src/Environment.cpp
+	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Environment.o src/Environment.cpp
 
 ${OBJECTDIR}/src/Place.o: src/Place.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Place.o src/Place.cpp
+	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Place.o src/Place.cpp
 
 ${OBJECTDIR}/src/State.o: src/State.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/State.o src/State.cpp
+	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/State.o src/State.cpp
 
 ${OBJECTDIR}/src/Task.o: src/Task.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Task.o src/Task.cpp
+	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Task.o src/Task.cpp
 
 ${OBJECTDIR}/src/Transition.o: src/Transition.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Transition.o src/Transition.cpp
-
-${OBJECTDIR}/src/VirtualEnvironment.o: src/VirtualEnvironment.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/VirtualEnvironment.o src/VirtualEnvironment.cpp
-
-${OBJECTDIR}/src/VirtualTask.o: src/VirtualTask.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/VirtualTask.o src/VirtualTask.cpp
+	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Transition.o src/Transition.cpp
 
 # Subprojects
 .build-subprojects:
+	cd ../samUtils && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -125,6 +110,7 @@ ${OBJECTDIR}/src/VirtualTask.o: src/VirtualTask.cpp
 
 # Subprojects
 .clean-subprojects:
+	cd ../samUtils && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

@@ -3,23 +3,26 @@
     <type>org.netbeans.modules.cnd.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>Learning</name>
+            <name>Navigator</name>
             <c-extensions/>
             <cpp-extensions>cpp</cpp-extensions>
             <header-extensions>h</header-extensions>
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects>
+                <make-dep-project>../Learning</make-dep-project>
                 <make-dep-project>../samUtils</make-dep-project>
             </make-dep-projects>
-            <sourceRootList/>
+            <sourceRootList>
+                <sourceRootElem>src</sourceRootElem>
+            </sourceRootList>
             <confList>
                 <confElem>
                     <name>Debug</name>
-                    <type>2</type>
+                    <type>1</type>
                 </confElem>
                 <confElem>
                     <name>Release</name>
-                    <type>2</type>
+                    <type>1</type>
                 </confElem>
             </confList>
             <formatting>

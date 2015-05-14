@@ -21,10 +21,13 @@ private:
     std::string desc;
     int type;
     std::vector<Place> listPlaces;
+    Database* pDatabase;
     
 public:
     Environment();
     void addPlace(Place& oPlace);
+    
+    void setDatabase(Database& oDatabase) {pDatabase = &oDatabase;}
     void loadFromMemo();
     void storeInMemo();
     void upDateInMemo();
@@ -41,6 +44,9 @@ public:
     
     std::vector<Place>& getListPlaces();
 
+private:
+    void storePlaces();
+    
 };
 }
 

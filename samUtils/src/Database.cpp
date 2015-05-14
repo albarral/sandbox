@@ -4,7 +4,6 @@
  *   ainoa@migtron.com   *
  ***************************************************************************/
 
-#include <iostream>
 
 #include <cppconn/driver.h>
 #include <cppconn/connection.h>
@@ -28,7 +27,17 @@ sql::Savepoint *savept;
 namespace sam 
 {
 Database::Database() 
-{}
+{
+    binitialized = false;
+}
+
+void Database::init(std::string url, std::string user, std::string password, std::string database)
+{
+    setURL(url);
+    setUser(user, password);
+    setTargetDatabase(database);
+    binitialized = true;    
+}
 
 int Database::getConnectionDB()
 {
@@ -59,7 +68,7 @@ void Database::insertToDB(std::string insert)
     
 }
 
-void Database::upDateDB(std::string update)
+void Database::updateDB(std::string update)
 {
     Database::getConnectionDB();
     

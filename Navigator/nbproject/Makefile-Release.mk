@@ -23,7 +23,7 @@ AS=as
 # Macros
 CND_PLATFORM=GNU-Linux-x86
 CND_DLIB_EXT=so
-CND_CONF=Debug
+CND_CONF=Release
 CND_DISTDIR=dist
 CND_BUILDDIR=build
 
@@ -35,7 +35,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/Click.o \
+	${OBJECTDIR}/src/VirtualEnvironment.o \
+	${OBJECTDIR}/src/VirtualTask.o \
 	${OBJECTDIR}/src/main.o
 
 
@@ -53,40 +54,41 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../SimpleLib/dist/Debug/GNU-Linux-x86 -L../SimpleLib/dist/Debug/GNU-Linux-x86 -lsimple
+LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/simpleapp
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/navigator
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/simpleapp: ../SimpleLib/dist/Debug/GNU-Linux-x86/libsimple.so
-
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/simpleapp: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/navigator: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/simpleapp ${OBJECTFILES} ${LDLIBSOPTIONS}
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/navigator ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/src/Click.o: src/Click.cpp 
+${OBJECTDIR}/src/VirtualEnvironment.o: src/VirtualEnvironment.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../SimpleLib/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Click.o src/Click.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/VirtualEnvironment.o src/VirtualEnvironment.cpp
+
+${OBJECTDIR}/src/VirtualTask.o: src/VirtualTask.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/VirtualTask.o src/VirtualTask.cpp
 
 ${OBJECTDIR}/src/main.o: src/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../SimpleLib/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
 
 # Subprojects
 .build-subprojects:
-	cd ../SimpleLib && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/simpleapp
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/navigator
 
 # Subprojects
 .clean-subprojects:
-	cd ../SimpleLib && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

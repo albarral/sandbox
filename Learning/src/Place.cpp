@@ -21,35 +21,43 @@ void Place::addConnection(Connection& oConnection)
     // connection ID is assigned automatically
     oConnection.setID(listConnections.size());
     listConnections.push_back(oConnection);
-    oConnection.storeInMemo();
 }
 
-void Place::loadFromMemo()
+void Place::loadFromMemo(Database* pDatabase)
 {}
 
-void Place::storeInMemo()
+void Place::storeInMemo(Database* pDatabase)
 {
-    Database oDatabase;
-    
     std::string insertDB = "INSERT INTO TAB_PLACES (ID, description, environmentID) VALUES ("
             + std::to_string(ID) + ", " + desc + ", " + std::to_string(environmentID) + ")";    
-    oDatabase.insertToDB(insertDB);
+    pDatabase->insertToDB(insertDB);
+    
+    storeConnections(pDatabase);
 }
 
-void Place::upDateInMemo()
+void Place::upDateInMemo(Database* pDatabase)
 {
-    Database oDatabase;
     std::string update = "UPDATE TAB_PLACES SET description = " + desc + " WHERE ID = " + std::to_string(ID)
             + " AND environmentID= " + std::to_string(environmentID);
-    oDatabase.upDateDB(update);
+    pDatabase->updateDB(update);
 }
 
-void Place::deleteFromMemo()
+void Place::deleteFromMemo(Database* pDatabase)
 {
-    Database oDatabase;
     std::string deleteDB = "DELETE FROM TAB_PLACES WHERE ID= "+ std::to_string(ID);
             + " AND environmentID= " + std::to_string(environmentID);
-    oDatabase.deleteDB(deleteDB);    
+    pDatabase->deleteDB(deleteDB);    
+}
+
+void Place::storeConnections(Database* pDatabase)
+{
+    std::vector<Connection>::iterator it_connetion = listConnections.begin();
+    std::vector<Connection>::iterator it_end = listConnections.end();
+    while (it_connetion != it_end)
+    {
+        it_connetion->storeInMemo(pDatabase);
+        it_connetion++;	
+    }
 }
 
 int Place::getID() const

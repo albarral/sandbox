@@ -10,6 +10,7 @@
 
 #include "Environment.h"
 #include "Connection.h"
+#include "Database.h"
 
 namespace sam 
 {
@@ -17,11 +18,14 @@ class VirtualEnvironment
 {
 private:
     Environment oEnvironment;
+    Database oDatabase;
     int placeNow;
     
 public:
     VirtualEnvironment();
     void build6RoomTest();
+    void storeInMemo();
+    void loadFromMemo();
     std::vector<Connection>& getPresentConnections();
     void crossConnection(int connectionID);
     

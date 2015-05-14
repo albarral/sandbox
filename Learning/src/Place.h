@@ -25,10 +25,10 @@ private:
 public:
     Place();
     void addConnection(Connection& oConnection);
-    void loadFromMemo();
-    void storeInMemo();
-    void upDateInMemo();
-    void deleteFromMemo();
+    void loadFromMemo(Database* pDatabase);
+    void storeInMemo(Database* pDatabase);
+    void upDateInMemo(Database* pDatabase);
+    void deleteFromMemo(Database* pDatabase);
     
     int getID() const; 
     void setID(int);
@@ -43,6 +43,9 @@ public:
 
     void showData();
    
+private:
+    void storeConnections(Database* pDatabase);
+
 };
 }
 

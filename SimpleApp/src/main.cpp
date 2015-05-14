@@ -10,17 +10,12 @@
 
 #include "Click.h"
 #include "distance.h"
-// Learning classes
-#include "Connection.h"
-#include "VirtualEnvironment.h"
 
 using namespace std;
 
 void testClick(int secs);
 void testClick2();
 void testLib1();
-void testEnvironment();
-int selectConnection(std::vector<sam::Connection>& listConnections);
 
 // main program
 int main(int argc, char** argv) 
@@ -30,9 +25,6 @@ int main(int argc, char** argv)
 
     //cout << endl << "test lib ..." << endl;
     //testLib1();
-
-    cout << endl << "test testEnvironment ..." << endl;
-    testEnvironment();
       
     sleep(1);   // not needed
     
@@ -87,52 +79,3 @@ void testLib1()
     return;
 }
 
-void testEnvironment()
-{
-    int nextConnectionID;
-    
-    sam::VirtualEnvironment oVirtualEnvironment;
-    oVirtualEnvironment.build6RoomTest();
-    oVirtualEnvironment.setPlaceNow(5);
-    cout << "Initial place: " << oVirtualEnvironment.getPlaceNow() <<endl;
-    
-    for (int i=0; i<3; i++)
-    {
-        std::vector<sam::Connection>& listConnections = oVirtualEnvironment.getPresentConnections();
-        nextConnectionID = selectConnection(listConnections);
-        cout << "Selected connection: " << nextConnectionID << endl;
-        oVirtualEnvironment.crossConnection(nextConnectionID);    
-        cout << "New place: " << oVirtualEnvironment.getPlaceNow() <<endl;
-    }
-    
-//    int conID = oVirtualEnvironment.getConnections();
-//    cout<< "Returned connection: " <<conID<< endl;
-//    oVirtualEnvironment.crossConnection(conID);
-//    int plcnw = oVirtualEnvironment.getPlaceNow();
-//    cout<< "Next place: " << plcnw<<endl;
-    
-    return;
-}
-
-// selects the connection with the lowest cost to traverse
-int selectConnection(std::vector<sam::Connection>& listConnections)
-{        
-    vector<sam::Connection>::iterator it_connection = listConnections.begin();
-    vector<sam::Connection>::iterator it_end = listConnections.end();
-    float cost, minCost = 1000;
-    int connectionID, winner=-1;
-    // walk the list of connections and tracks the one with lowest cost
-    while (it_connection != it_end)
-    {
-        cost = it_connection->computeCost();
-        if (cost < minCost)
-        {
-            minCost = cost;
-            winner = it_connection->getID();
-            it_connection->showData();
-        }
-        it_connection++;	
-    }
-
-    return winner;
-}

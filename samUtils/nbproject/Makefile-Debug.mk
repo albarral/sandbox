@@ -35,8 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/Click.o \
-	${OBJECTDIR}/src/main.o
+	${OBJECTDIR}/src/Database.o
 
 
 # C Compiler Flags
@@ -53,40 +52,31 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../SimpleLib/dist/Debug/GNU-Linux-x86 -L../SimpleLib/dist/Debug/GNU-Linux-x86 -lsimple
+LDLIBSOPTIONS=-lmysqlcppconn
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/simpleapp
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_utils.${CND_DLIB_EXT}
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/simpleapp: ../SimpleLib/dist/Debug/GNU-Linux-x86/libsimple.so
-
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/simpleapp: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_utils.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/simpleapp ${OBJECTFILES} ${LDLIBSOPTIONS}
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_utils.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
 
-${OBJECTDIR}/src/Click.o: src/Click.cpp 
+${OBJECTDIR}/src/Database.o: src/Database.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../SimpleLib/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Click.o src/Click.cpp
-
-${OBJECTDIR}/src/main.o: src/main.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../SimpleLib/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
+	$(COMPILE.cc) -g -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Database.o src/Database.cpp
 
 # Subprojects
 .build-subprojects:
-	cd ../SimpleLib && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/simpleapp
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_utils.${CND_DLIB_EXT}
 
 # Subprojects
 .clean-subprojects:
-	cd ../SimpleLib && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

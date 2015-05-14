@@ -11,7 +11,10 @@ namespace sam
 {
 VirtualEnvironment::VirtualEnvironment() 
 {
-    placeNow = 0;
+    oDatabase.init("tcp://127.0.0.1:3306", "root", "migtron2015", "samMemo");
+    //oDatabase.init("tcp://127.0.0.1:3306", "sam", "sam", "samMemo");
+    oEnvironment.setDatabase(oDatabase);
+    placeNow = 0;        
 }
 
 void VirtualEnvironment::build6RoomTest()
@@ -109,20 +112,29 @@ void VirtualEnvironment::build6RoomTest()
     oEnvironment.addPlace(oPlace3);
     oEnvironment.addPlace(oPlace4);
     oEnvironment.addPlace(oPlace5);
-  
-    
+      
 //    oEnvironment.setType(4);
 //    std::string pasa = "env";
 //    oEnvironment.setDesc(pasa);
-    oEnvironment.upDateInMemo();
+
+    std::cout << "environment built" << std::endl << std::endl;       
+}
+
+
+void VirtualEnvironment::storeInMemo()
+{    
+    oEnvironment.storeInMemo();
     
 //    oEnvironment.storeInMemo();
 //    oEnvironment.deleteFromMemo();
 //    oConnection.deleteFromMemo();
 //    oPlace2.deleteFromMemo();
-//    oPlace5.upDateInMemo();
+//    oPlace5.upDateInMemo();    
+}
 
-    std::cout << "environment built" << std::endl << std::endl;       
+void VirtualEnvironment::loadFromMemo()
+{    
+    oEnvironment.loadFromMemo();
 }
 
 std::vector<Connection>& VirtualEnvironment::getPresentConnections()

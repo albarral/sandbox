@@ -21,36 +21,32 @@ Connection::Connection()
     abruptness = 0;
 }
 
-void Connection::loadFromMemo()
+void Connection::loadFromMemo(Database* pDatabase)
 {}
 
-void Connection::storeInMemo()
+void Connection::storeInMemo(Database* pDatabase)
 {
-    Database oDatabase;
-    
     std::string insert = "INSERT INTO TAB_CONNECTIONS (ID, description, environmentID, placeID, nextPlace, length, "
             "slope, abruptness) VALUES (" + std::to_string(ID) + ", " + desc + ", " + std::to_string(environmentID) 
             + ", " + std::to_string(placeID) + ", " + std::to_string(nextPlace) + ", " + std::to_string(length)
             + ", " + std::to_string(slope) + ", " + std::to_string(abruptness) + ")";   
-    oDatabase.insertToDB(insert);
+    pDatabase->insertToDB(insert);
 }
 
-void Connection::upDateInMemo()
+void Connection::upDateInMemo(Database* pDatabase)
 {
-    Database oDatabase;
     std::string update = "UPDATE TAB_CONNECTIONS SET description= " + desc +
             " nextPlace = " + std::to_string(nextPlace) + ", length = " + std::to_string(length) + ", slope = " + 
             std::to_string(slope) + ", abruptness = " + std::to_string(abruptness) + " WHERE ID = " + std::to_string(ID)
             + " AND environmentID= " + std::to_string(environmentID) + " AND placeID= " + std::to_string(placeID);
-    oDatabase.upDateDB(update);
+    pDatabase->updateDB(update);
 }
 
-void Connection::deleteFromMemo()
+void Connection::deleteFromMemo(Database* pDatabase)
 {
-    Database oDatabase;
     std::string deleteDB = "DELETE FROM TAB_CONNECTIONS WHERE ID= " + std::to_string(ID);
             + " AND environmentID= " + std::to_string(environmentID) + " AND placeID= " + std::to_string(placeID);
-    oDatabase.deleteDB(deleteDB);      
+    pDatabase->deleteDB(deleteDB);      
 }
 
 int Connection::getID() const

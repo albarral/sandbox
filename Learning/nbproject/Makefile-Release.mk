@@ -36,14 +36,11 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/Connection.o \
-	${OBJECTDIR}/src/Database.o \
 	${OBJECTDIR}/src/Environment.o \
 	${OBJECTDIR}/src/Place.o \
 	${OBJECTDIR}/src/State.o \
 	${OBJECTDIR}/src/Task.o \
-	${OBJECTDIR}/src/Transition.o \
-	${OBJECTDIR}/src/VirtualEnvironment.o \
-	${OBJECTDIR}/src/VirtualTask.o
+	${OBJECTDIR}/src/Transition.o
 
 
 # C Compiler Flags
@@ -75,11 +72,6 @@ ${OBJECTDIR}/src/Connection.o: src/Connection.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Connection.o src/Connection.cpp
 
-${OBJECTDIR}/src/Database.o: src/Database.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Database.o src/Database.cpp
-
 ${OBJECTDIR}/src/Environment.o: src/Environment.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
@@ -104,16 +96,6 @@ ${OBJECTDIR}/src/Transition.o: src/Transition.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Transition.o src/Transition.cpp
-
-${OBJECTDIR}/src/VirtualEnvironment.o: src/VirtualEnvironment.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/VirtualEnvironment.o src/VirtualEnvironment.cpp
-
-${OBJECTDIR}/src/VirtualTask.o: src/VirtualTask.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/VirtualTask.o src/VirtualTask.cpp
 
 # Subprojects
 .build-subprojects:
