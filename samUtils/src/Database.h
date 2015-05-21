@@ -8,6 +8,16 @@
 
 #include <string>
 
+#include <cppconn/driver.h>
+#include <cppconn/connection.h>
+#include <cppconn/statement.h>
+#include <cppconn/prepared_statement.h>
+#include <cppconn/resultset.h>
+#include <cppconn/metadata.h>
+#include <cppconn/resultset_metadata.h>
+#include <cppconn/exception.h>
+#include <cppconn/warning.h>
+
 namespace sam 
 {
 class Database
@@ -18,6 +28,12 @@ private:
     std::string user;
     std::string password;
     std::string database;
+    sql::Driver *driver;
+    sql::Connection *con;
+    sql::Statement *stmt;
+    sql::ResultSet *res;
+    sql::PreparedStatement *prep_stmt;
+    sql::Savepoint *savept;
         
 public:
     Database();
@@ -29,12 +45,13 @@ public:
     void setUser(std::string value1, std::string value2) {user = value1; password = value2;};
     void setTargetDatabase(std::string value) {database = value;};
     
-    int getConnectionDB();
+    sql::Connection* getConnectionDB();
     void closeConnectionDB();
-    void insertToDB(std::string);
-    void updateDB(std::string);
-    void deleteDB(std::string);
-
+    void insertToDB(std::string, sql::Connection *con);
+    void updateDB(std::string, sql::Connection *con);
+    void deleteDB(std::string, sql::Connection *con);
+    sql::ResultSet* selectFrom(std::string, sql::Connection *con);
+    
 };
 }
 

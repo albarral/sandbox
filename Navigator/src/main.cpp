@@ -67,12 +67,6 @@ void testEnvironment(sam::VirtualEnvironment& oVirtualEnvironment)
         cout << "New place: " << oVirtualEnvironment.getPlaceNow() <<endl;
     }
     
-//    int conID = oVirtualEnvironment.getConnections();
-//    cout<< "Returned connection: " <<conID<< endl;
-//    oVirtualEnvironment.crossConnection(conID);
-//    int plcnw = oVirtualEnvironment.getPlaceNow();
-//    cout<< "Next place: " << plcnw<<endl;
-    
     return;
 }
 

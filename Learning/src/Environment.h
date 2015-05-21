@@ -45,7 +45,7 @@ public:
     std::vector<Place>& getListPlaces();
 
 private:
-    void storePlaces();
+    void storePlaces(sql::Connection *con);
     
 };
 }

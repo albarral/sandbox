@@ -4,25 +4,7 @@
  *   ainoa@migtron.com   *
  ***************************************************************************/
 
-
-#include <cppconn/driver.h>
-#include <cppconn/connection.h>
-#include <cppconn/statement.h>
-#include <cppconn/prepared_statement.h>
-#include <cppconn/resultset.h>
-#include <cppconn/metadata.h>
-#include <cppconn/resultset_metadata.h>
-#include <cppconn/exception.h>
-#include <cppconn/warning.h>
-
 #include "Database.h"
-
-sql::Driver *driver;
-sql::Connection *con;
-sql::Statement *stmt;
-sql::ResultSet *res;
-sql::PreparedStatement *prep_stmt;
-sql::Savepoint *savept;
 
 namespace sam 
 {
@@ -39,59 +21,53 @@ void Database::init(std::string url, std::string user, std::string password, std
     binitialized = true;    
 }
 
-int Database::getConnectionDB()
+sql::Connection* Database::getConnectionDB()
 {
     driver = get_driver_instance();
     con = driver -> connect(url, user, password); 
+    /* turn off the autocommit */
+    con -> setAutoCommit(0);
+    
+    return con;
 }
 
 void Database::closeConnectionDB()
 {
-    delete res;
-    delete stmt;
-    delete prep_stmt;
+    delete res; // segmentation fault al store
+    delete stmt; // segmentation fault al store
+//    delete prep_stmt;  //Segmentation fault cuando recupero datos
     con -> close();
     delete con;
 }
 
-void Database::insertToDB(std::string insert)
-{
-    Database::getConnectionDB();
-    
-    con->setSchema(database);
-    
-    prep_stmt = con -> prepareStatement (insert);
-    
-    prep_stmt->execute();
-    
-    Database::closeConnectionDB();
-    
+void Database::insertToDB(std::string insert, sql::Connection *con)
+{ 
+    con->setSchema(database);    
+    prep_stmt = con -> prepareStatement (insert);    
+    prep_stmt->execute();   
 }
 
-void Database::updateDB(std::string update)
-{
-    Database::getConnectionDB();
-    
-    con->setSchema(database);
-    
-    prep_stmt = con -> prepareStatement (update);
-    
+void Database::updateDB(std::string update, sql::Connection *con)
+{   
+    con->setSchema(database);   
+    prep_stmt = con -> prepareStatement (update);    
     prep_stmt->execute();
-    
-    Database::closeConnectionDB();
 }
 
-void Database::deleteDB(std::string deleteDb)
+void Database::deleteDB(std::string deleteDb, sql::Connection *con)
 {
-    Database::getConnectionDB();
-    
-    con->setSchema(database);
-    
+    con->setSchema(database);    
     prep_stmt = con -> prepareStatement (deleteDb);
-    
     prep_stmt->execute();
-    
-    Database::closeConnectionDB();
+}
+
+sql::ResultSet* Database::selectFrom(std::string select, sql::Connection *con)
+{  
+    con->setSchema(database);   
+    stmt = con -> createStatement();   
+    res = stmt->executeQuery(select);   
+
+    return res;
 }
 
 }

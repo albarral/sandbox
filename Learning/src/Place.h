@@ -25,8 +25,8 @@ private:
 public:
     Place();
     void addConnection(Connection& oConnection);
-    void loadFromMemo(Database* pDatabase);
-    void storeInMemo(Database* pDatabase);
+    void loadFromMemo(Database* pDatabase, sql::Connection *con);
+    void storeInMemo(Database* pDatabase, sql::Connection *con);
     void upDateInMemo(Database* pDatabase);
     void deleteFromMemo(Database* pDatabase);
     
@@ -44,7 +44,7 @@ public:
     void showData();
    
 private:
-    void storeConnections(Database* pDatabase);
+    void storeConnections(Database* pDatabase, sql::Connection *con);
 
 };
 }

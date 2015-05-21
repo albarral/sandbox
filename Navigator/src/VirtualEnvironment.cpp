@@ -117,6 +117,7 @@ void VirtualEnvironment::build6RoomTest()
 //    std::string pasa = "env";
 //    oEnvironment.setDesc(pasa);
 
+    
     std::cout << "environment built" << std::endl << std::endl;       
 }
 
@@ -135,6 +136,9 @@ void VirtualEnvironment::storeInMemo()
 void VirtualEnvironment::loadFromMemo()
 {    
     oEnvironment.loadFromMemo();
+    int id = oEnvironment.getID();
+    int ty = oEnvironment.getType();
+    std::cout << id << std::endl <<ty<<std::endl;
 }
 
 std::vector<Connection>& VirtualEnvironment::getPresentConnections()
