@@ -24,46 +24,40 @@ Connection::Connection()
 
 void Connection::loadFromMemo(Database* pDatabase, sql::Connection *con)
 {
-    std::string select = "SELECT * FROM TAB_CONNECTIONS";
-    sql::ResultSet *res = pDatabase->selectFrom(select, con);
-    Connection oConnection;
+    std::string sel = "SELECT * FROM TAB_CONNECTIONS WHERE envID = " + std::to_string(environmentID)
+            + "AND placeID = " + std::to_string(placeID) + " AND connID = " + std::to_string(ID);
+    sql::ResultSet *res = pDatabase->select(sel, con);
     
     while (res -> next())
     {
-//        std::cout <<"Connection: "<< std::endl;
-        oConnection.ID = res -> getInt("ID");
-        oConnection.desc = res -> getString("description");
-        oConnection.environmentID = res -> getInt("environmentID");
-        oConnection.placeID = res -> getInt("placeID");
-        oConnection.nextPlace = res -> getInt("nextPlace");
-        oConnection.length = res -> getInt("length");
-        oConnection.slope = res -> getInt("slope");
-        oConnection.abruptness = res -> getInt("abruptness");
-//        std::cout <<ID << std::endl << desc << std::endl << environmentID << std::endl << placeID<< std::endl 
-//                << nextPlace << std::endl << length << std::endl << slope << std::endl << abruptness << std::endl;
-        
-        Place oPlace;
-        oPlace.addConnection(oConnection);
+        std::cout <<"Connection: "<< std::endl;
+        desc = res -> getString("description");
+        nextPlace = res -> getInt("nextPlace");
+        length = res -> getInt("length");
+        slope = res -> getInt("slope");
+        abruptness = res -> getInt("abruptness");
+        std::cout <<ID << std::endl << desc << std::endl << environmentID << std::endl << placeID<< std::endl 
+                << nextPlace << std::endl << length << std::endl << slope << std::endl << abruptness << std::endl;       
     }
 }
 
 void Connection::storeInMemo(Database* pDatabase, sql::Connection *con)
 {
-    std::string insert = "INSERT INTO TAB_CONNECTIONS (ID, description, environmentID, placeID, nextPlace, length, "
-            "slope, abruptness) VALUES (" + std::to_string(ID) + ", " + desc + ", " + std::to_string(environmentID) 
+    std::string insert = "INSERT INTO TAB_CONNECTIONS (connID, description, envID, placeID, nextPlace, length, "
+            "slope, abruptness) VALUES (" + std::to_string(ID) + ", ' " + desc + " ', " + std::to_string(environmentID) 
             + ", " + std::to_string(placeID) + ", " + std::to_string(nextPlace) + ", " + std::to_string(length)
             + ", " + std::to_string(slope) + ", " + std::to_string(abruptness) + ")";   
-    pDatabase->insertToDB(insert, con);
+    pDatabase->update(insert, con);
 }
 
 void Connection::upDateInMemo(Database* pDatabase)
 {
     sql::Connection *con = pDatabase->getConnectionDB();
-    std::string update = "UPDATE TAB_CONNECTIONS SET description= " + desc +
-            " nextPlace = " + std::to_string(nextPlace) + ", length = " + std::to_string(length) + ", slope = " + 
-            std::to_string(slope) + ", abruptness = " + std::to_string(abruptness) + " WHERE ID = " + std::to_string(ID)
-            + " AND environmentID= " + std::to_string(environmentID) + " AND placeID= " + std::to_string(placeID);
-    pDatabase->updateDB(update, con);
+    std::string update = "UPDATE TAB_CONNECTIONS SET description= ' " + desc +
+            " ' nextPlace = " + std::to_string(nextPlace) + ", length = " + std::to_string(length) + ", slope = " + 
+            std::to_string(slope) + ", abruptness = " + std::to_string(abruptness) + " WHERE connID = " + std::to_string(ID)
+            + " AND envID= " + std::to_string(environmentID) + " AND placeID= " + std::to_string(placeID);
+    pDatabase->update(update, con);
     con->commit();
     pDatabase->closeConnectionDB();
 }
@@ -71,9 +65,9 @@ void Connection::upDateInMemo(Database* pDatabase)
 void Connection::deleteFromMemo(Database* pDatabase)
 {
     sql::Connection *con = pDatabase->getConnectionDB();
-    std::string deleteDB = "DELETE FROM TAB_CONNECTIONS WHERE ID= " + std::to_string(ID);
-            + " AND environmentID= " + std::to_string(environmentID) + " AND placeID= " + std::to_string(placeID);
-    pDatabase->deleteDB(deleteDB, con);   
+    std::string deleteDB = "DELETE FROM TAB_CONNECTIONS WHERE connID= " + std::to_string(ID);
+            + " AND envID= " + std::to_string(environmentID) + " AND placeID= " + std::to_string(placeID);
+    pDatabase->update(deleteDB, con);   
     con->commit();
     pDatabase->closeConnectionDB();
 }

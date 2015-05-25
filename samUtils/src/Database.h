@@ -33,7 +33,6 @@ private:
     sql::Statement *stmt;
     sql::ResultSet *res;
     sql::PreparedStatement *prep_stmt;
-    sql::Savepoint *savept;
         
 public:
     Database();
@@ -47,10 +46,8 @@ public:
     
     sql::Connection* getConnectionDB();
     void closeConnectionDB();
-    void insertToDB(std::string, sql::Connection *con);
-    void updateDB(std::string, sql::Connection *con);
-    void deleteDB(std::string, sql::Connection *con);
-    sql::ResultSet* selectFrom(std::string, sql::Connection *con);
+    void update(std::string, sql::Connection *con);
+    sql::ResultSet* select(std::string, sql::Connection *con);
     
 };
 }

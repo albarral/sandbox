@@ -11,8 +11,7 @@ namespace sam
 {
 VirtualEnvironment::VirtualEnvironment() 
 {
-    oDatabase.init("tcp://127.0.0.1:3306", "root", "migtron2015", "samMemo");
-    //oDatabase.init("tcp://127.0.0.1:3306", "sam", "sam", "samMemo");
+    oDatabase.init("tcp://127.0.0.1:3306", "sam", "sam", "samMemo");
     oEnvironment.setDatabase(oDatabase);
     placeNow = 0;        
 }

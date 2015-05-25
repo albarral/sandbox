@@ -44,6 +44,8 @@ public:
     void showData();
    
 private:
+    void connectionsFromMemo(Database* pDatabase, sql::Connection *con);
+    void loadConnections(Database* pDatabase, sql::Connection *con);
     void storeConnections(Database* pDatabase, sql::Connection *con);
 
 };

@@ -33,39 +33,25 @@ sql::Connection* Database::getConnectionDB()
 
 void Database::closeConnectionDB()
 {
-    delete res; // segmentation fault al store
-    delete stmt; // segmentation fault al store
-//    delete prep_stmt;  //Segmentation fault cuando recupero datos
+//    delete res; 
     con -> close();
     delete con;
 }
 
-void Database::insertToDB(std::string insert, sql::Connection *con)
+void Database::update(std::string insert, sql::Connection *con)
 { 
     con->setSchema(database);    
     prep_stmt = con -> prepareStatement (insert);    
-    prep_stmt->execute();   
+    prep_stmt->execute();  
+    delete prep_stmt;
 }
 
-void Database::updateDB(std::string update, sql::Connection *con)
-{   
-    con->setSchema(database);   
-    prep_stmt = con -> prepareStatement (update);    
-    prep_stmt->execute();
-}
-
-void Database::deleteDB(std::string deleteDb, sql::Connection *con)
-{
-    con->setSchema(database);    
-    prep_stmt = con -> prepareStatement (deleteDb);
-    prep_stmt->execute();
-}
-
-sql::ResultSet* Database::selectFrom(std::string select, sql::Connection *con)
+sql::ResultSet* Database::select(std::string sel, sql::Connection *con)
 {  
     con->setSchema(database);   
     stmt = con -> createStatement();   
-    res = stmt->executeQuery(select);   
+    res = stmt->executeQuery(sel);   
+    delete stmt;
 
     return res;
 }

@@ -45,6 +45,8 @@ public:
     std::vector<Place>& getListPlaces();
 
 private:
+    void placesFromMemo(sql::Connection *con);
+    void loadPlaces(sql::Connection *con);
     void storePlaces(sql::Connection *con);
     
 };
