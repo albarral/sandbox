@@ -13,8 +13,6 @@
 
 using namespace std;
 
-void createEnvironment(sam::VirtualEnvironment& oVirtualEnvironment);
-void loadEnvironment(sam::VirtualEnvironment& oVirtualEnvironment);
 void testEnvironment(sam::VirtualEnvironment& oVirtualEnvironment);
 int selectConnection(std::vector<sam::Connection>& listConnections);
 
@@ -43,19 +41,6 @@ int main(int argc, char** argv)
     return 0;
 }
 
-void createEnvironment(sam::VirtualEnvironment& oVirtualEnvironment)
-{    
-    oVirtualEnvironment.create();
-    
-    return;
-}
-
-void loadEnvironment(sam::VirtualEnvironment& oVirtualEnvironment)
-{    
-    oVirtualEnvironment.loadFromMemo();
-    
-    return;
-}
 
 void testEnvironment(sam::VirtualEnvironment& oVirtualEnvironment)
 {

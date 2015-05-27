@@ -23,18 +23,22 @@ private:
     
 public:
     VirtualEnvironment();
-    void build6RoomTest();
-    void build7RoomTest();
-    void build8RoomTest();
+
     void init(int ID);
+
+    int getPlaceNow() const;
+    void setPlaceNow(int);  
+    std::vector<Connection>& getPresentConnections();    
+    void crossConnection(int connectionID);
+    
+private:
     void create();
     void storeInMemo();
     void loadFromMemo();
-    std::vector<Connection>& getPresentConnections();
-    void crossConnection(int connectionID);
-    
-    int getPlaceNow() const;
-    void setPlaceNow(int);  
+
+    void build6RoomTest();
+    void build7RoomTest();
+    void build8RoomTest();
 
 };
 }

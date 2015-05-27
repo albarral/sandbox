@@ -25,24 +25,26 @@ private:
     
 public:
     Environment();
-    void addPlace(Place& oPlace);
     
+    int getID();
+    void setID(int);
+    
+    std::string getDesc();
+    void setDesc(std::string);
+    
+    int getType();
+    void setType(int);
+    
+    std::vector<Place>& getListPlaces();
+    void addPlace(Place& oPlace);
+
     void setDatabase(Database& oDatabase) {pDatabase = &oDatabase;}
+    
     void loadFromMemo();
     void storeInMemo();
     void upDateInMemo();
     void deleteFromMemo();
-    
-    int getID() const;
-    void setID(int);
-    
-    std::string getDesc() const;
-    void setDesc(std::string);
-    
-    int getType() const;
-    void setType(int);
-    
-    std::vector<Place>& getListPlaces();
+    void reset();
 
 private:
     void placesFromMemo(sql::Connection *con);

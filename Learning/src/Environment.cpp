@@ -11,9 +11,7 @@ namespace sam
 {
 Environment::Environment() 
 {
-    ID = 1;
-    desc = "default";
-    type= 0;
+    reset();
 }
 
 void Environment::addPlace(Place& oPlace)
@@ -108,7 +106,15 @@ void Environment::storePlaces(sql::Connection *con)
     }
 }
 
-int Environment::getID() const
+void Environment::reset()
+{
+    ID = 0;
+    desc = "";
+    type = 0;
+    listPlaces.clear();    
+}
+
+int Environment::getID()
 { 
     return ID; 
 }
@@ -118,7 +124,7 @@ void Environment::setID(int id)
     ID = id;
 }    
 
-std::string Environment::getDesc() const
+std::string Environment::getDesc()
 { 
     return desc; 
 }
@@ -128,7 +134,7 @@ void Environment::setDesc(std::string de)
     desc = de;
 }
 
-int Environment::getType() const
+int Environment::getType()
 { 
     return type; 
 }

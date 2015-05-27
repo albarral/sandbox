@@ -16,6 +16,73 @@ VirtualEnvironment::VirtualEnvironment()
     placeNow = 0;        
 }
 
+void VirtualEnvironment::init(int ID)
+{
+    oEnvironment.reset();
+    oEnvironment.setID(ID);
+    
+    loadFromMemo();
+    
+    if(oEnvironment.getListPlaces().size() == 0)
+    {
+        create();
+    }      
+}
+
+void VirtualEnvironment::create()
+{
+    switch (oEnvironment.getID())
+    {
+        case 1:
+            build6RoomTest();
+            break;
+
+        case 2:
+            build7RoomTest();
+            break;
+
+        case 3:
+            build8RoomTest();
+            break;            
+    }
+        
+    storeInMemo();
+}
+
+void VirtualEnvironment::storeInMemo()
+{    
+    oEnvironment.storeInMemo();
+}
+
+void VirtualEnvironment::loadFromMemo()
+{    
+    oEnvironment.loadFromMemo();
+}
+
+std::vector<Connection>& VirtualEnvironment::getPresentConnections()
+{
+    Place& mPlaceNow = oEnvironment.getListPlaces().at(placeNow);
+    return mPlaceNow.getListConnections();
+}
+
+
+void VirtualEnvironment::crossConnection(int connectionID)
+{
+    Place& mPlaceNow = oEnvironment.getListPlaces().at(placeNow);
+    Connection& mConnection = mPlaceNow.getListConnections().at(connectionID);
+    setPlaceNow(mConnection.getNextPlace());
+}
+
+int VirtualEnvironment::getPlaceNow() const
+{ 
+    return placeNow; 
+}
+
+void VirtualEnvironment::setPlaceNow(int pNow)
+{
+    placeNow = pNow;
+}    
+
 void VirtualEnvironment::build6RoomTest()
 {
     Place oPlace0, oPlace1, oPlace2, oPlace3, oPlace4, oPlace5;
@@ -349,81 +416,5 @@ void VirtualEnvironment::build8RoomTest()
   
     std::cout << "environment built" << std::endl << std::endl;       
 }
-
-void VirtualEnvironment::init(int ID)
-{
-    oEnvironment.setID(ID);
-    
-    loadFromMemo();
-    
-    if(oEnvironment.getListPlaces().size() <= 0)
-    {
-        create();
-    }      
-}
-
-void VirtualEnvironment::create()
-{
-    if(oEnvironment.getID() == 1)
-    {
-        build6RoomTest();
-    }
-    
-    else if(oEnvironment.getID() == 2)
-    {
-        build7RoomTest();
-    }
-    
-    else if(oEnvironment.getID() == 3)
-    {
-        build8RoomTest();
-    }
-    
-    else{}
-    
-    storeInMemo();
-}
-
-void VirtualEnvironment::storeInMemo()
-{    
-    oEnvironment.storeInMemo();
-    
-//    oEnvironment.storeInMemo();
-//    oEnvironment.deleteFromMemo();
-//    oConnection.deleteFromMemo();
-//    oPlace2.deleteFromMemo();
-//    oPlace5.upDateInMemo();    
-}
-
-void VirtualEnvironment::loadFromMemo()
-{    
-    oEnvironment.loadFromMemo();
-}
-
-std::vector<Connection>& VirtualEnvironment::getPresentConnections()
-{
-    int connectionID;
-
-    Place& mPlaceNow = oEnvironment.getListPlaces().at(placeNow);
-    return mPlaceNow.getListConnections();
-}
-
-
-void VirtualEnvironment::crossConnection(int connectionID)
-{
-    Place& mPlaceNow = oEnvironment.getListPlaces().at(placeNow);
-    Connection& mConnection = mPlaceNow.getListConnections().at(connectionID);
-    setPlaceNow(mConnection.getNextPlace());
-}
-
-int VirtualEnvironment::getPlaceNow() const
-{ 
-    return placeNow; 
-}
-
-void VirtualEnvironment::setPlaceNow(int pNow)
-{
-    placeNow = pNow;
-}    
 
 }
