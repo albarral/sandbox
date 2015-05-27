@@ -12,18 +12,24 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>src/Connection.cpp</itemPath>
-      <itemPath>src/Connection.h</itemPath>
-      <itemPath>src/Environment.cpp</itemPath>
-      <itemPath>src/Environment.h</itemPath>
-      <itemPath>src/Place.cpp</itemPath>
-      <itemPath>src/Place.h</itemPath>
-      <itemPath>src/State.cpp</itemPath>
-      <itemPath>src/State.h</itemPath>
-      <itemPath>src/Task.cpp</itemPath>
-      <itemPath>src/Task.h</itemPath>
-      <itemPath>src/Transition.cpp</itemPath>
-      <itemPath>src/Transition.h</itemPath>
+      <logicalFolder name="f1" displayName="src" projectFiles="true">
+        <logicalFolder name="f1" displayName="types" projectFiles="true">
+          <itemPath>src/types/ConnectionType.cpp</itemPath>
+          <itemPath>src/types/ConnectionType.h</itemPath>
+        </logicalFolder>
+        <itemPath>src/Connection.cpp</itemPath>
+        <itemPath>src/Connection.h</itemPath>
+        <itemPath>src/Environment.cpp</itemPath>
+        <itemPath>src/Environment.h</itemPath>
+        <itemPath>src/Place.cpp</itemPath>
+        <itemPath>src/Place.h</itemPath>
+        <itemPath>src/State.cpp</itemPath>
+        <itemPath>src/State.h</itemPath>
+        <itemPath>src/Task.cpp</itemPath>
+        <itemPath>src/Task.h</itemPath>
+        <itemPath>src/Transition.cpp</itemPath>
+        <itemPath>src/Transition.h</itemPath>
+      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -37,6 +43,9 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>src</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="Debug" type="2">
@@ -53,6 +62,7 @@
           </incDir>
         </ccTool>
         <linkerTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_learning.${CND_DLIB_EXT}</output>
           <linkerLibItems>
             <linkerLibProjectItem>
               <makeArtifact PL="../samUtils"
@@ -93,6 +103,10 @@
       <item path="src/Transition.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Transition.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/types/ConnectionType.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/types/ConnectionType.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="2">
@@ -138,6 +152,10 @@
       <item path="src/Transition.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Transition.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/types/ConnectionType.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/types/ConnectionType.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

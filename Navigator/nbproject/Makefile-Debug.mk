@@ -54,13 +54,13 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../Learning/dist/Debug/GNU-Linux-x86 -L../Learning/dist/Debug/GNU-Linux-x86 -lLearning -Wl,-rpath,../samUtils/dist/Debug/GNU-Linux-x86 -L../samUtils/dist/Debug/GNU-Linux-x86 -lsam_utils
+LDLIBSOPTIONS=-Wl,-rpath,../Learning/dist/Debug/GNU-Linux-x86 -L../Learning/dist/Debug/GNU-Linux-x86 -lsam_learning -Wl,-rpath,../samUtils/dist/Debug/GNU-Linux-x86 -L../samUtils/dist/Debug/GNU-Linux-x86 -lsam_utils
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/navigator
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/navigator: ../Learning/dist/Debug/GNU-Linux-x86/libLearning.so
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/navigator: ../Learning/dist/Debug/GNU-Linux-x86/libsam_learning.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/navigator: ../samUtils/dist/Debug/GNU-Linux-x86/libsam_utils.so
 

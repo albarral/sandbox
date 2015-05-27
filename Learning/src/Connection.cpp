@@ -7,19 +7,33 @@
 
 #include "Connection.h"
 #include "Place.h"
+#include "types/ConnectionType.h"
 
 namespace sam
 {
 Connection::Connection() 
 {
     ID = 0;
-    desc = "default";
+    desc = "";
     environmentID = 0;
     placeID = 0;
     nextPlace = 0;
     length = 0;
     slope = 0;
     abruptness = 0;
+}
+
+void Connection::set(int placeID, int nextPlace, int type)
+{    
+    this->placeID = placeID;
+    this->nextPlace = nextPlace;
+          
+    ConnectionType oType;
+    oType.set(type);
+    this->desc = oType.getDesc();    
+    this->length = oType.getLength();
+    this->slope = oType.getSlope();
+    this->abruptness = oType.getAbruptness();
 }
 
 void Connection::loadFromMemo(Database* pDatabase, sql::Connection *con)
@@ -152,7 +166,7 @@ void Connection::setAbruptness(int abtns)
 // computes the cost of traversing the connection
 float Connection::computeCost()
 {
-    return (length * slope * abruptness);
+    return (length * (1 + ((float)slope/30)) * (1 + ((float)abruptness/10)) );
 }
 
 void Connection::showData()

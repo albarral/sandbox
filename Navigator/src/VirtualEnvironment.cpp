@@ -6,6 +6,7 @@
 #include <iostream>
 
 #include "VirtualEnvironment.h"
+#include "types/ConnectionType.h"
 
 namespace sam 
 {
@@ -106,62 +107,53 @@ void VirtualEnvironment::build6RoomTest()
    
     // default connection properties for an office environment
     oConnection.setEnvironmentID(1);
-    oConnection.setLength(5);
-    oConnection.setSlope(0);
-    oConnection.setAbruptness(0);
     
     // 0 -> 4
-    oConnection.setPlaceID(0);
-    oConnection.setNextPlace(4);
+    oConnection.set(0, 4, ConnectionType::eTYPE_PLANO_CORTO);
     oPlace0.addConnection(oConnection);
 
     // 1 -> 3
-    oConnection.setPlaceID(1);
-    oConnection.setNextPlace(3);
+    oConnection.set(1, 3, ConnectionType::eTYPE_SUBIDA_LARGA);
     oPlace1.addConnection(oConnection);   
     
     // 1 -> 5
-    oConnection.setNextPlace(5);
+    oConnection.set(1, 5, ConnectionType::eTYPE_PLANO_CORTO);
     oPlace1.addConnection(oConnection);
     
     // 2 -> 3
-    oConnection.setPlaceID(2);
-    oConnection.setNextPlace(3);
+    oConnection.set(2, 3, ConnectionType::eTYPE_PLANO_CORTO);
     oPlace2.addConnection(oConnection);
     
     // 3 -> 1
-    oConnection.setPlaceID(3);
-    oConnection.setNextPlace(1);
+    oConnection.set(3, 1, ConnectionType::eTYPE_BAJADA_LARGA);
     oPlace3.addConnection(oConnection);    
 
     // 3 -> 2
-    oConnection.setNextPlace(2);
+    oConnection.set(3, 2, ConnectionType::eTYPE_PLANO_CORTO);
     oPlace3.addConnection(oConnection);
     
     // 3 -> 4
-    oConnection.setNextPlace(4);
+    oConnection.set(3, 4, ConnectionType::eTYPE_PLANO_LARGO);
     oPlace3.addConnection(oConnection);
 
     // 4 -> 0
-    oConnection.setPlaceID(4);
-    oConnection.setNextPlace(0);
+    oConnection.set(4, 0, ConnectionType::eTYPE_PLANO_CORTO);
     oPlace4.addConnection(oConnection);  
     
     // 4 -> 3
-    oConnection.setNextPlace(3);
+    oConnection.set(4, 3, ConnectionType::eTYPE_PLANO_LARGO);
     oPlace4.addConnection(oConnection); 
     
     // 4 -> 5
-    oConnection.setNextPlace(5);
+    oConnection.set(4, 5, ConnectionType::eTYPE_BAJADA_CORTA);
     oPlace4.addConnection(oConnection);
   
     // 5 -> 1
-    oConnection.setPlaceID(5);
-    oConnection.setNextPlace(1);
+    oConnection.set(5, 1, ConnectionType::eTYPE_PLANO_CORTO);
     oPlace5.addConnection(oConnection);
     
     // 5 -> 4    
-    oConnection.setNextPlace(4);
+    oConnection.set(5, 4, ConnectionType::eTYPE_SUBIDA_CORTA);
     oPlace5.addConnection(oConnection);
     
     oPlace0.showData();
@@ -207,71 +199,61 @@ void VirtualEnvironment::build7RoomTest()
    
     // default connection properties for an office environment
     oConnection.setEnvironmentID(2);
-    oConnection.setLength(5);
-    oConnection.setSlope(0);
-    oConnection.setAbruptness(0);
     
     // 0 -> 4
-    oConnection.setPlaceID(0);
-    oConnection.setNextPlace(4);
+    oConnection.set(0, 4, ConnectionType::eTYPE_PLANO_CORTO);
     oPlace0.addConnection(oConnection);
 
     // 1 -> 3
-    oConnection.setPlaceID(1);
-    oConnection.setNextPlace(3);
+    oConnection.set(1, 3, ConnectionType::eTYPE_SUBIDA_LARGA);
     oPlace1.addConnection(oConnection);   
     
     // 1 -> 5
-    oConnection.setNextPlace(5);
+    oConnection.set(1, 5, ConnectionType::eTYPE_PLANO_CORTO);
     oPlace1.addConnection(oConnection);
     
     // 2 -> 3
-    oConnection.setPlaceID(2);
-    oConnection.setNextPlace(3);
+    oConnection.set(2, 3, ConnectionType::eTYPE_PLANO_CORTO);
     oPlace2.addConnection(oConnection);
     
     // 3 -> 1
-    oConnection.setPlaceID(3);
-    oConnection.setNextPlace(1);
+    oConnection.set(3, 1, ConnectionType::eTYPE_BAJADA_LARGA);
     oPlace3.addConnection(oConnection);    
 
     // 3 -> 2
-    oConnection.setNextPlace(2);
+    oConnection.set(3, 2, ConnectionType::eTYPE_PLANO_CORTO);
     oPlace3.addConnection(oConnection);
     
     // 3 -> 4
-    oConnection.setNextPlace(4);
+    oConnection.set(3, 4, ConnectionType::eTYPE_PLANO_LARGO);
     oPlace3.addConnection(oConnection);
 
     // 4 -> 0
-    oConnection.setPlaceID(4);
-    oConnection.setNextPlace(0);
+    oConnection.set(4, 0, ConnectionType::eTYPE_PLANO_CORTO);
     oPlace4.addConnection(oConnection);  
     
     // 4 -> 3
-    oConnection.setNextPlace(3);
+    oConnection.set(4, 3, ConnectionType::eTYPE_PLANO_LARGO);
     oPlace4.addConnection(oConnection); 
     
     // 4 -> 6
-    oConnection.setNextPlace(6);
+    oConnection.set(4, 6, ConnectionType::eTYPE_BAJADA_CORTA);
     oPlace4.addConnection(oConnection);
   
     // 5 -> 1
-    oConnection.setPlaceID(5);
-    oConnection.setNextPlace(1);
+    oConnection.set(5, 1, ConnectionType::eTYPE_PLANO_CORTO);
     oPlace5.addConnection(oConnection);
     
     // 5 -> 6    
-    oConnection.setNextPlace(6);
+    oConnection.set(5, 6, ConnectionType::eTYPE_PLANO_CORTO);
     oPlace5.addConnection(oConnection);
     
     // 6 -> 4
-    oConnection.setPlaceID(6);
-    oConnection.setNextPlace(4);
+    oConnection.set(6, 4, ConnectionType::eTYPE_SUBIDA_CORTA);
     oPlace6.addConnection(oConnection);
     
     // 6 -> 5    
-    oConnection.setNextPlace(5);
+    oConnection.set(6, 5, ConnectionType::eTYPE_PLANO_CORTO);
     oPlace6.addConnection(oConnection);
     
     oPlace0.showData();
@@ -320,80 +302,69 @@ void VirtualEnvironment::build8RoomTest()
    
     // default connection properties for an office environment
     oConnection.setEnvironmentID(3);
-    oConnection.setLength(5);
-    oConnection.setSlope(0);
-    oConnection.setAbruptness(0);
     
     // 0 -> 4
-    oConnection.setPlaceID(0);
-    oConnection.setNextPlace(4);
+    oConnection.set(0, 4, ConnectionType::eTYPE_PLANO_CORTO);
     oPlace0.addConnection(oConnection);
 
     // 1 -> 3
-    oConnection.setPlaceID(1);
-    oConnection.setNextPlace(3);
+    oConnection.set(1, 3, ConnectionType::eTYPE_SUBIDA_LARGA);
     oPlace1.addConnection(oConnection);   
     
     // 1 -> 5
-    oConnection.setNextPlace(5);
+    oConnection.set(1, 5, ConnectionType::eTYPE_PLANO_CORTO);
     oPlace1.addConnection(oConnection);
     
     // 2 -> 3
-    oConnection.setPlaceID(2);
-    oConnection.setNextPlace(3);
+    oConnection.set(2, 3, ConnectionType::eTYPE_PLANO_CORTO);
     oPlace2.addConnection(oConnection);
     
     // 3 -> 1
-    oConnection.setPlaceID(3);
-    oConnection.setNextPlace(1);
+    oConnection.set(3, 1, ConnectionType::eTYPE_BAJADA_LARGA);
     oPlace3.addConnection(oConnection);    
 
     // 3 -> 2
-    oConnection.setNextPlace(2);
+    oConnection.set(3, 2, ConnectionType::eTYPE_PLANO_CORTO);
     oPlace3.addConnection(oConnection);
     
     // 3 -> 4
-    oConnection.setNextPlace(4);
+    oConnection.set(3, 4, ConnectionType::eTYPE_PLANO_LARGO);
     oPlace3.addConnection(oConnection);
 
     // 4 -> 0
-    oConnection.setPlaceID(4);
-    oConnection.setNextPlace(0);
+    oConnection.set(4, 0, ConnectionType::eTYPE_PLANO_CORTO);
     oPlace4.addConnection(oConnection);  
     
     // 4 -> 3
-    oConnection.setNextPlace(3);
+    oConnection.set(4, 3, ConnectionType::eTYPE_PLANO_LARGO);
     oPlace4.addConnection(oConnection); 
     
     // 4 -> 6
-    oConnection.setNextPlace(6);
+    oConnection.set(4, 6, ConnectionType::eTYPE_BAJADA_CORTA);
     oPlace4.addConnection(oConnection);
   
     // 5 -> 1
-    oConnection.setPlaceID(5);
-    oConnection.setNextPlace(1);
+    oConnection.set(5, 1, ConnectionType::eTYPE_PLANO_CORTO);
     oPlace5.addConnection(oConnection);
     
     // 5 -> 7    
-    oConnection.setNextPlace(7);
+    oConnection.set(5, 7, ConnectionType::eTYPE_PLANO_CORTO);
     oPlace5.addConnection(oConnection);
     
     // 6 -> 4
-    oConnection.setPlaceID(6);
-    oConnection.setNextPlace(4);
+    oConnection.set(6, 4, ConnectionType::eTYPE_SUBIDA_CORTA);
     oPlace6.addConnection(oConnection);
     
     // 6 -> 7   
-    oConnection.setNextPlace(7);
+    oConnection.set(6, 7, ConnectionType::eTYPE_PLANO_CORTO);
     oPlace6.addConnection(oConnection);
     
     // 7 -> 5
-    oConnection.setPlaceID(7);
-    oConnection.setNextPlace(5);
+    oConnection.set(7, 5, ConnectionType::eTYPE_PLANO_CORTO);
     oPlace7.addConnection(oConnection);
     
     // 7 -> 6   
-    oConnection.setNextPlace(6);
+    oConnection.set(7, 6, ConnectionType::eTYPE_PLANO_CORTO);
     oPlace7.addConnection(oConnection);
     
     oPlace0.showData();

@@ -40,7 +40,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/Place.o \
 	${OBJECTDIR}/src/State.o \
 	${OBJECTDIR}/src/Task.o \
-	${OBJECTDIR}/src/Transition.o
+	${OBJECTDIR}/src/Transition.o \
+	${OBJECTDIR}/src/types/ConnectionType.o
 
 
 # C Compiler Flags
@@ -96,6 +97,11 @@ ${OBJECTDIR}/src/Transition.o: src/Transition.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Transition.o src/Transition.cpp
+
+${OBJECTDIR}/src/types/ConnectionType.o: src/types/ConnectionType.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/types
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/types/ConnectionType.o src/types/ConnectionType.cpp
 
 # Subprojects
 .build-subprojects:

@@ -53,9 +53,8 @@ void testEnvironment(sam::VirtualEnvironment& oVirtualEnvironment)
     {
         std::vector<sam::Connection>& listConnections = oVirtualEnvironment.getPresentConnections();
         nextConnectionID = selectConnection(listConnections);
-        cout << "Selected connection: " << nextConnectionID << endl;
         oVirtualEnvironment.crossConnection(nextConnectionID);    
-        cout << "New place: " << oVirtualEnvironment.getPlaceNow() <<endl;
+        cout << "new place: " << oVirtualEnvironment.getPlaceNow() <<endl;
     }
     
     return;
@@ -67,19 +66,20 @@ int selectConnection(std::vector<sam::Connection>& listConnections)
     vector<sam::Connection>::iterator it_connection = listConnections.begin();
     vector<sam::Connection>::iterator it_end = listConnections.end();
     float cost, minCost = 1000;
-    int connectionID, winner=-1;
+    sam::Connection* winner = 0;
     // walk the list of connections and tracks the one with lowest cost
     while (it_connection != it_end)
     {
         cost = it_connection->computeCost();
+        cout << "connects -> " << it_connection->getNextPlace() << " : "  << it_connection->getDesc() << ", cost = " << cost << endl;
         if (cost < minCost)
         {
             minCost = cost;
-            winner = it_connection->getID();
-            it_connection->showData();
+            winner = &(*it_connection);
         }
         it_connection++;	
     }
 
-    return winner;
+    cout << "selected -> " << winner->getNextPlace() << endl;
+    return winner->getID();
 }

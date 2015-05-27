@@ -10,7 +10,7 @@
 #include <vector>
 
 #include "Place.h"
-#include "Database.h"
+#include "sam/utils/Database.h"
 
 namespace sam 
 {
