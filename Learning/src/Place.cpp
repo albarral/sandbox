@@ -27,14 +27,12 @@ void Place::addConnection(Connection& oConnection)
 void Place::loadFromMemo(Database* pDatabase, sql::Connection *con)
 {
     std::string sel = "SELECT * FROM TAB_PLACES WHERE envID = " + std::to_string(environmentID)
-            + "AND placeID = " + std::to_string(ID);
+            + " AND placeID = " + std::to_string(ID);
     sql::ResultSet *res = pDatabase->select(sel, con);
-    
+      
     while (res -> next())
     {
-        std::cout <<"Places" << std::endl;
         desc = res -> getString("description");
-        std::cout <<ID << std::endl << desc << std::endl << environmentID << std::endl;
     }
     
     connectionsFromMemo(pDatabase, con);
@@ -73,7 +71,7 @@ void Place::deleteFromMemo(Database* pDatabase)
 void Place::connectionsFromMemo(Database* pDatabase, sql::Connection *con)
 {
     std::string sel = "SELECT connID FROM TAB_CONNECTIONS WHERE envID = " + std::to_string(environmentID)
-            + "AND placeID = " + std::to_string(ID);
+            + " AND placeID = " + std::to_string(ID);
     sql::ResultSet *res = pDatabase->select(sel, con);
     
     while (res -> next())

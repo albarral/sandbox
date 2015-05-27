@@ -29,11 +29,9 @@ void Environment::loadFromMemo()
        
     while (res -> next())
     {
-        std::cout <<"Environment: "<< std::endl;
         ID = res -> getInt("envID");
         desc = res -> getString("description");
         type = res -> getInt("type");
-        std::cout <<ID << std::endl << desc << std::endl << type << std::endl;
     }
     
     placesFromMemo(con);
@@ -43,12 +41,12 @@ void Environment::loadFromMemo()
 }
 
 void Environment::storeInMemo()
-{
-    sql::Connection *con = pDatabase->getConnectionDB();
+{   
+    sql::Connection *con = pDatabase->getConnectionDB(); 
     std::string insert = "INSERT INTO TAB_ENVIRONMENTS (envID, description, type) VALUES "
-            "(" + std::to_string(ID) + ", ' " + desc + " ', " + std::to_string(type) + ")";    
+        "(" + std::to_string(ID) + ", ' " + desc + " ', " + std::to_string(type) + ")";    
     pDatabase->update(insert, con);
-    
+        
     storePlaces(con);
     con->commit();
     pDatabase->closeConnectionDB();

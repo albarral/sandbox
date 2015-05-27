@@ -26,7 +26,14 @@ int main(int argc, char** argv)
     // note: this must be done only the first time!
     //createEnvironment(oVirtualEnvironment);
     // note: this must be done next times!
-    loadEnvironment(oVirtualEnvironment);    
+    //loadEnvironment(oVirtualEnvironment);   
+    
+    oVirtualEnvironment.init(1);
+       
+    cout << endl << "test testEnvironment ..." << endl;
+    testEnvironment(oVirtualEnvironment);
+    
+    oVirtualEnvironment.init(2);
     
     cout << endl << "test testEnvironment ..." << endl;
     testEnvironment(oVirtualEnvironment);
@@ -38,8 +45,7 @@ int main(int argc, char** argv)
 
 void createEnvironment(sam::VirtualEnvironment& oVirtualEnvironment)
 {    
-    oVirtualEnvironment.build6RoomTest();
-    oVirtualEnvironment.storeInMemo();
+    oVirtualEnvironment.create();
     
     return;
 }

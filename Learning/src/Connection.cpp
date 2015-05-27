@@ -25,19 +25,16 @@ Connection::Connection()
 void Connection::loadFromMemo(Database* pDatabase, sql::Connection *con)
 {
     std::string sel = "SELECT * FROM TAB_CONNECTIONS WHERE envID = " + std::to_string(environmentID)
-            + "AND placeID = " + std::to_string(placeID) + " AND connID = " + std::to_string(ID);
+            + " AND placeID = " + std::to_string(placeID) + " AND connID = " + std::to_string(ID);
     sql::ResultSet *res = pDatabase->select(sel, con);
     
     while (res -> next())
     {
-        std::cout <<"Connection: "<< std::endl;
         desc = res -> getString("description");
         nextPlace = res -> getInt("nextPlace");
         length = res -> getInt("length");
         slope = res -> getInt("slope");
-        abruptness = res -> getInt("abruptness");
-        std::cout <<ID << std::endl << desc << std::endl << environmentID << std::endl << placeID<< std::endl 
-                << nextPlace << std::endl << length << std::endl << slope << std::endl << abruptness << std::endl;       
+        abruptness = res -> getInt("abruptness");   
     }
 }
 

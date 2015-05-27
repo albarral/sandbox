@@ -24,6 +24,10 @@ private:
 public:
     VirtualEnvironment();
     void build6RoomTest();
+    void build7RoomTest();
+    void build8RoomTest();
+    void init(int ID);
+    void create();
     void storeInMemo();
     void loadFromMemo();
     std::vector<Connection>& getPresentConnections();
