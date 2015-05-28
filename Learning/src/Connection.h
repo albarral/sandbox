@@ -35,30 +35,30 @@ public:
     // sets 6 members at a time (type is a ConnectionType predefined type)
     void set(int placeID, int nextPlace, int type);
 
-    int getID() const;
-    void setID(int);
+    int getID() {return ID;};
+    void setID(int id) {ID = id;};
     
-    std::string getDesc() const;
-    void setDesc(std::string);
+    std::string getDesc() {return desc;};
+    void setDesc(std::string de) {desc = de;};
     
-    int getEnvironmentID() const;
-    void setEnvironmentID(int);
+    int getEnvironmentID() {return environmentID;};
+    void setEnvironmentID(int eID) {environmentID = eID;};
     
-    int getPlaceID() const;
-    void setPlaceID(int);
+    int getPlaceID() {return placeID;};
+    void setPlaceID(int pID) {placeID = pID;};
     
-    int getNextPlace() const;
-    void setNextPlace(int);
+    int getNextPlace() {return nextPlace;};
+    void setNextPlace(int nxPlc) {nextPlace = nxPlc;};
     
-    int getLength() const;
-    void setLength(int);
+    int getLength() {return length;};
+    void setLength(int leng) {length = leng;};
     
-    int getSlope() const;
-    void setSlope(int);
+    int getSlope() {return slope;};
+    void setSlope(int slp) {slope = slp;};
     
-    int getAbruptness() const;
-    void setAbruptness(int);
-   
+    int getAbruptness() {return abruptness;};
+    void setAbruptness(int abtns) {abruptness = abtns;}; 
+
     float computeCost();
     
     void showData();    

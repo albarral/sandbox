@@ -13,7 +13,7 @@ namespace sam
 Place::Place() 
 {
     ID = 0;
-    desc = "default";
+    desc = "";
     environmentID = 0;
 }
 
@@ -105,41 +105,6 @@ void Place::storeConnections(Database* pDatabase, sql::Connection *con)
         it_connetion->storeInMemo(pDatabase, con);
         it_connetion++;	
     }
-}
-
-int Place::getID() const
-{ 
-    return ID; 
-}
-
-void Place::setID(int id)
-{
-    ID = id;
-}    
-
-std::string Place::getDesc() const
-{ 
-    return desc; 
-}
-
-void Place::setDesc(std::string de)
-{
-    desc = de;
-}
-
-int Place::getEnvironmentID() const
-{ 
-    return environmentID; 
-}
-
-void Place::setEnvironmentID(int eID)
-{
-    environmentID = eID;
-}   
-
-std::vector<Connection>& Place::getListConnections()
-{
-    return listConnections;
 }
 
 void Place::showData()

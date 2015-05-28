@@ -72,17 +72,7 @@ void VirtualEnvironment::crossConnection(int connectionID)
     Place& mPlaceNow = oEnvironment.getListPlaces().at(placeNow);
     Connection& mConnection = mPlaceNow.getListConnections().at(connectionID);
     setPlaceNow(mConnection.getNextPlace());
-}
-
-int VirtualEnvironment::getPlaceNow() const
-{ 
-    return placeNow; 
-}
-
-void VirtualEnvironment::setPlaceNow(int pNow)
-{
-    placeNow = pNow;
-}    
+}  
 
 void VirtualEnvironment::build6RoomTest()
 {

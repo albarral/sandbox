@@ -11,8 +11,7 @@ namespace sam
 {
 Task::Task() 
 {
-    ID = 0;
-    type= 0;
+    reset();
 }
 
 void Task::addState(State& oState)
@@ -21,41 +20,98 @@ void Task::addState(State& oState)
 }
 
 void Task::loadFromMemo()
-{}
-
-int Task::getID() const
-{ 
-    return ID; 
+{
+    sql::Connection *con = pDatabase->getConnectionDB();
+    std::string sel = "SELECT * FROM TAB_TASKS WHERE taskID = " + std::to_string(ID);
+    sql::ResultSet *res = pDatabase->select(sel, con);
+       
+    while (res -> next())
+    {
+        ID = res -> getInt("taskID");
+        desc = res -> getString("description");
+        type = res -> getInt("type");
+    }
+    
+    statesFromMemo(con);
+    loadStates(con);
+    
+    pDatabase->closeConnectionDB();
 }
 
-void Task::setID(int id)
-{
-    ID = id;
-}    
-
-std::string Task::getDesc() const
-{ 
-    return desc; 
+void Task::storeInMemo()
+{   
+    sql::Connection *con = pDatabase->getConnectionDB(); 
+    std::string insert = "INSERT INTO TAB_TASKS (taskID, description, type) VALUES "
+        "(" + std::to_string(ID) + ", ' " + desc + " ', " + std::to_string(type) + ")";    
+    pDatabase->update(insert, con);
+        
+    storeStates(con);
+    con->commit();
+    pDatabase->closeConnectionDB();
 }
 
-void Task::setDesc(std::string de)
+void Task::upDateInMemo()
 {
-    desc = de;
+    sql::Connection *con = pDatabase->getConnectionDB();
+    std::string update = "UPDATE TAB_TASKA SET description = ' " + desc + " ', type = " 
+            + std::to_string(type) + " WHERE taskID= " + std::to_string(ID);
+    pDatabase->update(update, con);
+    con->commit();
+    pDatabase->closeConnectionDB();
 }
 
-int Task::getType() const
-{ 
-    return type; 
+void Task::deleteFromMemo()
+{
+    sql::Connection *con = pDatabase->getConnectionDB();
+    std::string deleteDB = "DELETE FROM TAB_TASK WHERE taskID= " + std::to_string(ID);
+    pDatabase->update(deleteDB, con);  
+    con->commit();
+    pDatabase->closeConnectionDB();
 }
 
-void Task::setType(int ty)
+void Task::statesFromMemo(sql::Connection *con)
 {
-    type = ty;
-}   
+    std::string sel = "SELECT stateID FROM TAB_STATES WHERE taskID = " + std::to_string(ID);
+    sql::ResultSet *res = pDatabase->select(sel, con);
+    
+    while (res -> next())
+    {
+        State oState;
+        oState.setTaskID(ID);
+        int id = res -> getInt("stateID");
+        oState.setID(id);
+        addState(oState);
+    }    
+}
 
-std::vector<State> Task::getListStates() const
+void Task::loadStates(sql::Connection *con)
 {
-    return listStates;
+    std::vector<State>::iterator it_state = listStates.begin();
+    std::vector<State>::iterator it_end = listStates.end();
+    while (it_state != it_end)
+    {
+        it_state->loadFromMemo(pDatabase, con);
+        it_state++;
+    }
+}
+
+void Task::storeStates(sql::Connection *con)
+{
+    std::vector<State>::iterator it_state = listStates.begin();
+    std::vector<State>::iterator it_end = listStates.end();
+    while (it_state != it_end)
+    {
+        it_state->storeInMemo(pDatabase, con);
+        it_state++;	
+    }
+}
+
+void Task::reset()
+{
+    ID = 0;
+    desc = "";
+    type = 0;
+    listStates.clear();    
 }
 
 }

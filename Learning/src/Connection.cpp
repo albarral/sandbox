@@ -83,86 +83,6 @@ void Connection::deleteFromMemo(Database* pDatabase)
     pDatabase->closeConnectionDB();
 }
 
-int Connection::getID() const
-{ 
-    return ID; 
-}
-
-void Connection::setID(int id)
-{
-    ID = id;
-}    
-
-std::string Connection::getDesc() const
-{ 
-    return desc; 
-}
-
-void Connection::setDesc(std::string de)
-{
-    desc = de;
-}
-
-int Connection::getEnvironmentID() const
-{ 
-    return environmentID; 
-}
-
-void Connection::setEnvironmentID(int eID)
-{
-    environmentID = eID;
-}
-
-int Connection::getPlaceID() const
-{ 
-    return placeID; 
-}
-
-void Connection::setPlaceID(int pID)
-{
-    placeID = pID;
-}   
-
-int Connection::getNextPlace() const
-{ 
-    return nextPlace; 
-}
-
-void Connection::setNextPlace(int nxPlc)
-{
-    nextPlace = nxPlc;
-} 
-
-int Connection::getLength() const
-{ 
-    return length; 
-}
-
-void Connection::setLength(int leng)
-{
-    length = leng;
-} 
-
-int Connection::getSlope() const
-{ 
-    return slope; 
-}
-
-void Connection::setSlope(int slp)
-{
-    slope = slp;
-} 
-
-int Connection::getAbruptness() const
-{ 
-    return abruptness; 
-}
-
-void Connection::setAbruptness(int abtns)
-{
-    abruptness = abtns;
-} 
-
 // computes the cost of traversing the connection
 float Connection::computeCost()
 {
@@ -172,7 +92,6 @@ float Connection::computeCost()
 void Connection::showData()
 {
     std::cout << "connection " << ID << ": " << placeID << " -> " << nextPlace << std::endl;
-
 }
 
 }

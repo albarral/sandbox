@@ -10,6 +10,7 @@
 #include <vector>
 
 #include "Transition.h"
+#include "sam/utils/Database.h"
 
 namespace sam 
 {
@@ -25,22 +26,31 @@ private:
 public:
     State();
     void addTransition(Transition& oTransition);
-    void loadFromMemo();
+    void loadFromMemo(Database* pDatabase, sql::Connection *con);
+    void storeInMemo(Database* pDatabase, sql::Connection *con);
+    void upDateInMemo(Database* pDatabase);
+    void deleteFromMemo(Database* pDatabase);
     
-    int getID() const;
-    void setID(int);
+    int getID() {return ID;};
+    void setID(int id) {ID = id;};
     
-    std::string getDesc() const;
-    void setDesc(std::string);
+    std::string getDesc() {return desc;};
+    void setDesc(std::string de) {desc = de;};
     
-    int getTaskID() const;
-    void setTaskID(int);
+    int getTaskID() {return taskID;};
+    void setTaskID(int tID) {taskID = tID;};
     
-    float getReward() const;
-    void setReward(float);
-    
-    std::vector<Transition> getListTransitions() const;
+    float getReward() {return reward;};
+    void setReward(float rwrd) {reward = rwrd;};
+  
+    std::vector<Transition> getListTransitions() {return listTransitions;};
 
+    void showData();
+   
+private:
+    void transitionsFromMemo(Database* pDatabase, sql::Connection *con);
+    void loadTransitions(Database* pDatabase, sql::Connection *con);
+    void storeTransitions(Database* pDatabase, sql::Connection *con);
 };
 }
 

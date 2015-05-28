@@ -26,16 +26,16 @@ private:
 public:
     Environment();
     
-    int getID();
-    void setID(int);
+    int getID() {return ID;};
+    void setID(int id) {ID = id;};
     
-    std::string getDesc();
-    void setDesc(std::string);
+    std::string getDesc() {return desc;};
+    void setDesc(std::string de) {desc = de;};
     
-    int getType();
-    void setType(int);
+    int getType() {return type;};
+    void setType(int ty) {type = ty;};
     
-    std::vector<Place>& getListPlaces();
+    std::vector<Place>& getListPlaces() {return listPlaces;};
     void addPlace(Place& oPlace);
 
     void setDatabase(Database& oDatabase) {pDatabase = &oDatabase;}

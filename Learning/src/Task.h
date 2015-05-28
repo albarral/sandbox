@@ -10,6 +10,7 @@
 #include <vector>
 
 #include "State.h"
+#include "sam/utils/Database.h"
 
 namespace sam 
 {
@@ -20,22 +21,37 @@ private:
     std::string desc;
     int type;
     std::vector<State> listStates;
+    Database* pDatabase;
     
 public:
     Task();
+    
+    int getID() {return ID;};
+    void setID(int id) {ID = id;};
+    
+    std::string getDesc() {return desc;};
+    void setDesc(std::string de) {desc = de;};
+    
+    int getType() {return type;};
+    void setType(int ty) {type = ty;};
+    
+    std::vector<State> getListStates() {return listStates;}; 
     void addState(State& oState);
+    
+    void setDatabase(Database& oDatabase) {pDatabase = &oDatabase;}
+    
     void loadFromMemo();
-    
-    int getID() const;
-    void setID(int);
-    
-    std::string getDesc() const;
-    void setDesc(std::string);
-    
-    int getType() const;
-    void setType(int);
-    
-    std::vector<State> getListStates() const;
+    void storeInMemo();
+    void upDateInMemo();
+    void deleteFromMemo();
+    void reset();
+
+private:
+    void statesFromMemo(sql::Connection *con);
+    void loadStates(sql::Connection *con);
+    void storeStates(sql::Connection *con);
+
+
 };
 }
 

@@ -30,16 +30,16 @@ public:
     void upDateInMemo(Database* pDatabase);
     void deleteFromMemo(Database* pDatabase);
     
-    int getID() const; 
-    void setID(int);
+    int getID() {return ID;}; 
+    void setID(int id) {ID = id;};
     
-    std::string getDesc() const;
-    void setDesc(std::string);
+    std::string getDesc() {return desc;};
+    void setDesc(std::string de) {desc = de;};
     
-    int getEnvironmentID() const;
-    void setEnvironmentID(int);
+    int getEnvironmentID() {return environmentID;};
+    void setEnvironmentID(int eID) {environmentID = eID;};
     
-    std::vector<Connection>& getListConnections();
+    std::vector<Connection>& getListConnections() {return listConnections;};
 
     void showData();
    

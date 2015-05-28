@@ -114,39 +114,4 @@ void Environment::reset()
     listPlaces.clear();    
 }
 
-int Environment::getID()
-{ 
-    return ID; 
-}
-
-void Environment::setID(int id)
-{
-    ID = id;
-}    
-
-std::string Environment::getDesc()
-{ 
-    return desc; 
-}
-
-void Environment::setDesc(std::string de)
-{
-    desc = de;
-}
-
-int Environment::getType()
-{ 
-    return type; 
-}
-
-void Environment::setType(int ty)
-{
-    type = ty;
-}   
-
-std::vector<Place>& Environment::getListPlaces()
-{
-    return listPlaces;
-}
-
 }

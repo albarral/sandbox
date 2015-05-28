@@ -7,7 +7,7 @@
  ***************************************************************************/
 
 #include <string>
-
+#include "sam/utils/Database.h"
 
 namespace sam 
 {
@@ -24,29 +24,39 @@ private:
   
 public:
     Transition();
-    void loadFromMemo();
     
-    int getID() const;
-    void setID(int);
+    void loadFromMemo(Database* pDatabase, sql::Connection *con);
+    void storeInMemo(Database* pDatabase, sql::Connection *con);
+    void upDateInMemo(Database* pDatabase);
+    void deleteFromMemo(Database* pDatabase);
     
-    std::string getDesc() const;
-    void setDesc(std::string);
+    // sets 6 members at a time (type is a TransitionType predefined type)
+    void set(int stateID, int nextState, int type);
     
-    int getTaskID() const;
-    void setTaskID(int);
+    int getID() {return ID;};
+    void setID(int id) {ID = id;};
     
-    int getStateID() const;
-    void setStateID(int);
+    std::string getDesc() {return desc;};
+    void setDesc(std::string de) {desc = de;};
     
-    int getNextState() const;
-    void setNextState(int);
+    int getTaskID() {return taskID;};
+    void setTaskID(int tID) {taskID = tID;};
     
-    float getCost() const;
-    void setCost(float);
+    int getStateID() {return stateID;};
+    void setStateID(int sID) {stateID = sID;};
     
-    float getQ() const;
-    void setQ(float);
-
+    int getNextState() {return nextState;};
+    void setNextState(int nStt) {nextState = nStt;};
+    
+    float getCost() {return cost;};
+    void setCost(float cst) {cost = cst;};
+    
+    float getQ() {return Q;};
+    void setQ(float q) {Q = q;};
+    
+    float computeCost();
+    
+    void showData();
 };
 }
 

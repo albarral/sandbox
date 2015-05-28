@@ -6,12 +6,14 @@
 #include <iostream>
 
 #include "State.h"
+#include "Task.h"
 
 namespace sam 
 {
 State::State() 
 {
     ID = 0;
+    desc = "";
     taskID = 0;
     reward = 0; // 0.0 or 0f
 }
@@ -23,52 +25,94 @@ void State::addTransition(Transition& oTransition)
     listTransitions.push_back(oTransition);
 }
 
-void State::loadFromMemo()
-{}
-
-int State::getID() const
-{ 
-    return ID; 
+void State::loadFromMemo(Database* pDatabase, sql::Connection *con)
+{
+    std::string sel = "SELECT * FROM TAB_STATES WHERE taskID = " + std::to_string(taskID)
+            + " AND stateID = " + std::to_string(ID);
+    sql::ResultSet *res = pDatabase->select(sel, con);
+      
+    while (res -> next())
+    {
+        desc = res -> getString("description");
+        reward = res -> getFloat("reward"); //mirar float si se pueden poner
+    }
+    
+    transitionsFromMemo(pDatabase, con);
+    loadTransitions(pDatabase, con);
 }
 
-void State::setID(int id)
+void State::storeInMemo(Database* pDatabase, sql::Connection *con)
 {
-    ID = id;
-}    
-
-std::string State::getDesc() const
-{ 
-    return desc; 
+    std::string insertDB = "INSERT INTO TAB_STATES (stateID, description, taskID) VALUES ("
+            + std::to_string(ID) + ", ' " + desc + " ', " + std::to_string(taskID) + ")";    
+    pDatabase->update(insertDB, con);
+    
+    storeTransitions(pDatabase, con);
 }
 
-void State::setDesc(std::string de)
+void State::upDateInMemo(Database* pDatabase)
 {
-    desc = de;
+    sql::Connection *con = pDatabase->getConnectionDB();
+    std::string update = "UPDATE TAB_STATES SET description = ' " + desc + " ' WHERE stateID = " + std::to_string(ID)
+            + " AND taskID= " + std::to_string(taskID);
+    pDatabase->update(update, con);
+    con->commit();
+    pDatabase->closeConnectionDB();
 }
 
-int State::getTaskID() const
-{ 
-    return taskID; 
+void State::deleteFromMemo(Database* pDatabase)
+{
+    sql::Connection *con = pDatabase->getConnectionDB();
+    std::string deleteDB = "DELETE FROM TAB_STATES WHERE stateID= "+ std::to_string(ID);
+            + " AND taskID= " + std::to_string(taskID);
+    pDatabase->update(deleteDB, con);    
+    con->commit();
+    pDatabase->closeConnectionDB();
 }
 
-void State::setTaskID(int tID)
+void State::transitionsFromMemo(Database* pDatabase, sql::Connection *con)
 {
-    taskID = tID;
-}   
-
-float State::getReward() const
-{ 
-    return taskID; 
+    std::string sel = "SELECT transID FROM TAB_TRANSITIONS WHERE taskID = " + std::to_string(taskID)
+            + " AND stateID = " + std::to_string(ID);
+    sql::ResultSet *res = pDatabase->select(sel, con);
+    
+    while (res -> next())
+    {
+        Transition oTransition;
+        oTransition.setTaskID(taskID);
+        oTransition.setStateID(ID);
+        int id = res -> getInt("transID");
+        oTransition.setID(id);
+        addTransition(oTransition);
+    }
 }
 
-void State::setReward(float rwrd)
+void State::loadTransitions(Database* pDatabase, sql::Connection *con)
 {
-    reward = rwrd;
-} 
+    std::vector<Transition>::iterator it_transition = listTransitions.begin();
+    std::vector<Transition>::iterator it_end = listTransitions.end();
+    while (it_transition != it_end)
+    {
+        it_transition->loadFromMemo(pDatabase, con);
+        it_transition++;	
+    }
+}
 
-std::vector<Transition> State::getListTransitions() const
+void State::storeTransitions(Database* pDatabase, sql::Connection *con)
 {
-    return listTransitions;
+    std::vector<Transition>::iterator it_transition = listTransitions.begin();
+    std::vector<Transition>::iterator it_end = listTransitions.end();
+    while (it_transition != it_end)
+    {
+        it_transition->storeInMemo(pDatabase, con);
+        it_transition++;	
+    }
+}
+
+void State::showData()
+{
+    std::cout << "state " << ID << std::endl;
+    std::cout << "- transitions = " << listTransitions.size() << std::endl;    
 }
 
 }

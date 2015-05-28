@@ -35,6 +35,9 @@ private:
     void create();
     void storeInMemo();
     void loadFromMemo();
+    
+    int getPlaceNow() const {return placeNow;};
+    void setPlaceNow(int pNow) {placeNow = pNow;};
 
     void build6RoomTest();
     void build7RoomTest();

@@ -20,11 +20,6 @@ int selectConnection(std::vector<sam::Connection>& listConnections);
 int main(int argc, char** argv) 
 {
     sam::VirtualEnvironment oVirtualEnvironment;
-  
-    // note: this must be done only the first time!
-    //createEnvironment(oVirtualEnvironment);
-    // note: this must be done next times!
-    //loadEnvironment(oVirtualEnvironment);   
     
     oVirtualEnvironment.init(1);
        
