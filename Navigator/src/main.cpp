@@ -35,9 +35,13 @@ void testNavigation()
     sam::Navigation oNavigation;
     int targetPlace;
 
+
+    LOG4CXX_INFO(logger, "***** INIT environment");    
     // init environment
     oVirtualEnvironment.init(sam::VirtualEnvironment::eENV_6ROOM);
     oVirtualEnvironment.setPlaceNow(0);
+
+    LOG4CXX_INFO(logger, "***** INIT navigation");    
     // start navigation module
     oNavigation.init(oVirtualEnvironment);
     oNavigation.setFrequency(1.0);    
@@ -60,6 +64,6 @@ void testNavigation()
 
     LOG4CXX_INFO(logger, "End of test");    
   
-     return ;
+    return ;
         
 }

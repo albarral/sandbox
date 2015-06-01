@@ -46,6 +46,8 @@ public:
     void deleteFromMemo();
     void reset();
 
+    std::string showData();
+
 private:
     void placesFromMemo(sql::Connection *con);
     void loadPlaces(sql::Connection *con);

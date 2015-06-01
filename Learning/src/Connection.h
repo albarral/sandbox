@@ -61,7 +61,7 @@ public:
    
     float computeCost();
     
-    void showData();    
+    std::string showData();    
 };
 }
 

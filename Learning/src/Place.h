@@ -41,7 +41,7 @@ public:
     
     std::vector<Connection>& getListConnections();
 
-    void showData();
+    std::string showData();
    
 private:
     void connectionsFromMemo(Database* pDatabase, sql::Connection *con);

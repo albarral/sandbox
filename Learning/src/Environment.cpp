@@ -3,8 +3,6 @@
  *   ainoa@migtron.com   *
  ***************************************************************************/
 
-#include <iostream>
-
 #include "Environment.h"
 
 namespace sam 
@@ -147,6 +145,12 @@ void Environment::setType(int ty)
 std::vector<Place>& Environment::getListPlaces()
 {
     return listPlaces;
+}
+
+std::string Environment::showData()
+{
+    std::string data = "environment " + std::to_string(ID) + ": " + desc;    
+    return data;
 }
 
 }

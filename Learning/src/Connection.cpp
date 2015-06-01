@@ -3,8 +3,6 @@
  *   ainoa@migtron.com   *
  ***************************************************************************/
 
-#include <iostream>
-
 #include "Connection.h"
 #include "Place.h"
 #include "types/ConnectionType.h"
@@ -169,10 +167,11 @@ float Connection::computeCost()
     return (length * (1 + ((float)slope/30)) * (1 + ((float)abruptness/10)) );
 }
 
-void Connection::showData()
+std::string Connection::showData()
 {
-    std::cout << "connection " << ID << ": " << placeID << " -> " << nextPlace << std::endl;
-
+    std::string data = ">> connection " + std::to_string(ID) + ": " + std::to_string(placeID) + "->" + std::to_string(nextPlace) + ", " + desc;
+    return data;
 }
+
 
 }

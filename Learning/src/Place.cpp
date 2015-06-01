@@ -3,8 +3,6 @@
  *   ainoa@migtron.com   *
  ***************************************************************************/
 
-#include <iostream>
-
 #include "Place.h"
 #include "Environment.h"
 
@@ -142,10 +140,9 @@ std::vector<Connection>& Place::getListConnections()
     return listConnections;
 }
 
-void Place::showData()
+std::string Place::showData()
 {
-    std::cout << "place " << ID << std::endl;
-    std::cout << "- connections = " << listConnections.size() << std::endl;    
+    std::string data = "> place " + std::to_string(ID) + ": " + desc;    
+    return data;
 }
-
 }

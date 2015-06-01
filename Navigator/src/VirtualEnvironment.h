@@ -48,6 +48,11 @@ private:
     void storeInMemo();
     void loadFromMemo();
 
+    // shows brief description of given environment
+    void describeEnvironment(Environment* pEnvironment);
+    // shows brief description of given place
+    void describePlace(Place* pPlace);
+    
     void build6RoomTest();
     void build7RoomTest();
     void build8RoomTest();

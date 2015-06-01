@@ -33,6 +33,8 @@ void VirtualEnvironment::init(int ID)
     {
         create();
     }      
+    
+    describeEnvironment(&oEnvironment);    
 }
 
 void VirtualEnvironment::create()
@@ -66,7 +68,8 @@ void VirtualEnvironment::storeInMemo()
 
 void VirtualEnvironment::loadFromMemo()
 {    
-    oEnvironment.loadFromMemo();
+    LOG4CXX_INFO(logger, "Loading environment from DB ...");    
+    oEnvironment.loadFromMemo();        
 }
 
 std::vector<Connection>& VirtualEnvironment::getPresentConnections()
@@ -92,6 +95,37 @@ void VirtualEnvironment::setPlaceNow(int pNow)
 {
     placeNow = pNow;
 }    
+
+void VirtualEnvironment::describeEnvironment(Environment* pEnvironment)
+{       
+    // describe the enviroment
+    LOG4CXX_INFO(logger, pEnvironment->showData());
+    
+    // describe its places
+    std::vector<Place>::iterator it_place = pEnvironment->getListPlaces().begin();
+    std::vector<Place>::iterator it_end = pEnvironment->getListPlaces().end();
+    while (it_place != it_end)
+    {
+        describePlace(&(*it_place));
+        it_place++;
+    }    
+}
+
+void VirtualEnvironment::describePlace(Place* pPlace)
+{       
+    // describe the place
+    LOG4CXX_INFO(logger, pPlace->showData());
+
+    // describe its connections
+    std::vector<Connection>::iterator it_conn = pPlace->getListConnections().begin();
+    std::vector<Connection>::iterator it_end = pPlace->getListConnections().end();
+    while (it_conn != it_end)
+    {
+        LOG4CXX_INFO(logger, it_conn->showData());
+        it_conn++;
+    }    
+}
+
 
 void VirtualEnvironment::build6RoomTest()
 {
@@ -166,13 +200,13 @@ void VirtualEnvironment::build6RoomTest()
     oConnection.set(5, 4, ConnectionType::eTYPE_SUBIDA_CORTA);
     oPlace5.addConnection(oConnection);
     
-    oPlace0.showData();
-    oPlace1.showData();
-    oPlace2.showData();
-    oPlace3.showData();
-    oPlace4.showData();
-    oPlace5.showData();
-    
+    LOG4CXX_INFO(logger, oPlace0.showData());
+    LOG4CXX_INFO(logger, oPlace1.showData());
+    LOG4CXX_INFO(logger, oPlace2.showData());
+    LOG4CXX_INFO(logger, oPlace3.showData());
+    LOG4CXX_INFO(logger, oPlace4.showData());
+    LOG4CXX_INFO(logger, oPlace5.showData());
+
     oEnvironment.addPlace(oPlace0);
     oEnvironment.addPlace(oPlace1);
     oEnvironment.addPlace(oPlace2);
@@ -267,13 +301,13 @@ void VirtualEnvironment::build7RoomTest()
     oConnection.set(6, 5, ConnectionType::eTYPE_PLANO_CORTO);
     oPlace6.addConnection(oConnection);
     
-    oPlace0.showData();
-    oPlace1.showData();
-    oPlace2.showData();
-    oPlace3.showData();
-    oPlace4.showData();
-    oPlace5.showData();
-    oPlace6.showData();
+    LOG4CXX_INFO(logger, oPlace0.showData());
+    LOG4CXX_INFO(logger, oPlace1.showData());
+    LOG4CXX_INFO(logger, oPlace2.showData());
+    LOG4CXX_INFO(logger, oPlace3.showData());
+    LOG4CXX_INFO(logger, oPlace4.showData());
+    LOG4CXX_INFO(logger, oPlace5.showData());
+    LOG4CXX_INFO(logger, oPlace6.showData());
     
     oEnvironment.addPlace(oPlace0);
     oEnvironment.addPlace(oPlace1);
@@ -379,14 +413,14 @@ void VirtualEnvironment::build8RoomTest()
     oConnection.set(7, 6, ConnectionType::eTYPE_PLANO_CORTO);
     oPlace7.addConnection(oConnection);
     
-    oPlace0.showData();
-    oPlace1.showData();
-    oPlace2.showData();
-    oPlace3.showData();
-    oPlace4.showData();
-    oPlace5.showData();
-    oPlace6.showData();
-    oPlace7.showData();
+    LOG4CXX_INFO(logger, oPlace0.showData());
+    LOG4CXX_INFO(logger, oPlace1.showData());
+    LOG4CXX_INFO(logger, oPlace2.showData());
+    LOG4CXX_INFO(logger, oPlace3.showData());
+    LOG4CXX_INFO(logger, oPlace4.showData());
+    LOG4CXX_INFO(logger, oPlace5.showData());
+    LOG4CXX_INFO(logger, oPlace6.showData());
+    LOG4CXX_INFO(logger, oPlace7.showData());
     
     oEnvironment.addPlace(oPlace0);
     oEnvironment.addPlace(oPlace1);
