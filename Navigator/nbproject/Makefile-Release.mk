@@ -37,7 +37,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/src/VirtualEnvironment.o \
 	${OBJECTDIR}/src/VirtualTask.o \
-	${OBJECTDIR}/src/main.o
+	${OBJECTDIR}/src/main.o \
+	${OBJECTDIR}/src/modules/Navigation.o \
+	${OBJECTDIR}/src/utils/module2.o
 
 
 # C Compiler Flags
@@ -78,6 +80,16 @@ ${OBJECTDIR}/src/main.o: src/main.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
+
+${OBJECTDIR}/src/modules/Navigation.o: src/modules/Navigation.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/Navigation.o src/modules/Navigation.cpp
+
+${OBJECTDIR}/src/utils/module2.o: src/utils/module2.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/utils
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utils/module2.o src/utils/module2.cpp
 
 # Subprojects
 .build-subprojects:

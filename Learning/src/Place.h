@@ -1,5 +1,5 @@
-#ifndef __PLACE_H
-#define __PLACE_H
+#ifndef __SAM_PLACE_H
+#define __SAM_PLACE_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *

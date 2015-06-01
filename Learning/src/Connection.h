@@ -1,5 +1,5 @@
-#ifndef __CONNECTION_H
-#define __CONNECTION_H
+#ifndef __SAM_CONNECTION_H
+#define __SAM_CONNECTION_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *

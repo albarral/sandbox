@@ -1,5 +1,5 @@
-#ifndef __ENVIRONMENT_H
-#define __ENVIRONMENT_H
+#ifndef __SAM_ENVIRONMENT_H
+#define __SAM_ENVIRONMENT_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
