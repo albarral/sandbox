@@ -43,7 +43,7 @@ public:
     float getReward() {return reward;};
     void setReward(float rwrd) {reward = rwrd;};
   
-    std::vector<Transition> getListTransitions() {return listTransitions;};
+    std::vector<Transition>& getListTransitions() {return listTransitions;};
 
     void showData();
    

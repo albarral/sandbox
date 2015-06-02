@@ -35,7 +35,7 @@ public:
     int getType() {return type;};
     void setType(int ty) {type = ty;};
     
-    std::vector<State> getListStates() {return listStates;}; 
+    std::vector<State>& getListStates() {return listStates;}; 
     void addState(State& oState);
     
     void setDatabase(Database& oDatabase) {pDatabase = &oDatabase;}

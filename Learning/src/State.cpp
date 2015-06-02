@@ -34,7 +34,7 @@ void State::loadFromMemo(Database* pDatabase, sql::Connection *con)
     while (res -> next())
     {
         desc = res -> getString("description");
-        reward = res -> getFloat("reward"); //mirar float si se pueden poner
+        reward = res -> getDouble("reward");  //El getFloat da problemas
     }
     
     transitionsFromMemo(pDatabase, con);

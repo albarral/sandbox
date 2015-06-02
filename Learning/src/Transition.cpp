@@ -7,7 +7,7 @@
 
 #include "Transition.h"
 #include "State.h"
-#include "types/ConnectionType.h" //TransitionType??
+#include "types/TransitionType.h"
 
 namespace sam 
 {
@@ -22,17 +22,15 @@ Transition::Transition()
     Q = 0; // 0.0 or 0f
 }
 
-void Transition::set(int placeID, int nextPlace, int type)
+void Transition::set(int stateID, int nextState, int type)
 {    
-//    this->placeID = placeID;
-//    this->nextPlace = nextPlace;
-//          
-//    ConnectionType oType;
-//    oType.set(type);
-//    this->desc = oType.getDesc();    
-//    this->length = oType.getLength();
-//    this->slope = oType.getSlope();
-//    this->abruptness = oType.getAbruptness();
+    this->stateID = stateID;
+    this->nextState = nextState;
+          
+    TransitionType oType;
+    oType.set(type);
+    this->desc = oType.getDesc();    
+    this->cost = oType.getCost();
 }
 
 void Transition::loadFromMemo(Database* pDatabase, sql::Connection *con)
@@ -45,8 +43,8 @@ void Transition::loadFromMemo(Database* pDatabase, sql::Connection *con)
     {
         desc = res -> getString("description");
         nextState = res -> getInt("nextState");
-        cost = res -> getInt("cost"); //CON FLOAT!
-        Q = res -> getInt("q"); //CON FLOAT!
+        cost = res -> getDouble("cost"); //El getFloat da problemas
+        Q = res -> getDouble("q"); //El getFloat da problemas
     }
 }
 

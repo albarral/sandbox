@@ -26,8 +26,9 @@ public:
 
     void init(int ID);
 
-    int getPlaceNow() const;
-    void setPlaceNow(int);  
+    int getPlaceNow() {return placeNow;};
+    void setPlaceNow(int pNow) {placeNow = pNow;};
+    
     std::vector<Connection>& getPresentConnections();    
     void crossConnection(int connectionID);
     
@@ -35,9 +36,6 @@ private:
     void create();
     void storeInMemo();
     void loadFromMemo();
-    
-    int getPlaceNow() const {return placeNow;};
-    void setPlaceNow(int pNow) {placeNow = pNow;};
 
     void build6RoomTest();
     void build7RoomTest();
