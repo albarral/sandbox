@@ -1,5 +1,5 @@
-#ifndef __CONNECTION_H
-#define __CONNECTION_H
+#ifndef __SAM_CONNECTION_H
+#define __SAM_CONNECTION_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
@@ -23,6 +23,7 @@ private:
     int length;
     int slope;
     int abruptness;
+    float Q; //TEMPORAL!!!!  (Will go only in Transition)
     
 public:
     Connection();
@@ -58,10 +59,13 @@ public:
     
     int getAbruptness() {return abruptness;};
     void setAbruptness(int abtns) {abruptness = abtns;}; 
+    
+    float getQ() {return Q;};
+    void setQ(float q) {Q = q;};
 
     float computeCost();
     
-    void showData();    
+    std::string showData();    
 };
 }
 

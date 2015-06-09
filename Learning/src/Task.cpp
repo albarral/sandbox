@@ -3,8 +3,6 @@
  *   ainoa@migtron.com   *
  ***************************************************************************/
 
-#include <iostream>
-
 #include "Task.h"
 
 namespace sam 
@@ -112,6 +110,12 @@ void Task::reset()
     desc = "";
     type = 0;
     listStates.clear();    
+}
+
+std::string Task::showData()
+{
+    std::string data = "task " + std::to_string(ID) + ": " + desc;    
+    return data;
 }
 
 }

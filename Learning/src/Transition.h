@@ -1,5 +1,5 @@
-#ifndef __TRANSITION_H
-#define __TRANSITION_H
+#ifndef __SAM_TRANSITION_H
+#define __SAM_TRANSITION_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
@@ -7,6 +7,7 @@
  ***************************************************************************/
 
 #include <string>
+
 #include "sam/utils/Database.h"
 
 namespace sam 
@@ -56,7 +57,7 @@ public:
     
     float computeCost();
     
-    void showData();
+    std::string showData();
 };
 }
 

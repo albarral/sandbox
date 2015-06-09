@@ -3,8 +3,6 @@
  *   ainoa@migtron.com   *
  ***************************************************************************/
 
-#include <iostream>
-
 #include "Place.h"
 #include "Environment.h"
 
@@ -15,6 +13,7 @@ Place::Place()
     ID = 0;
     desc = "";
     environmentID = 0;
+    reward = 0;
 }
 
 void Place::addConnection(Connection& oConnection)
@@ -33,6 +32,7 @@ void Place::loadFromMemo(Database* pDatabase, sql::Connection *con)
     while (res -> next())
     {
         desc = res -> getString("description");
+        reward = res -> getDouble("reward");
     }
     
     connectionsFromMemo(pDatabase, con);
@@ -41,8 +41,9 @@ void Place::loadFromMemo(Database* pDatabase, sql::Connection *con)
 
 void Place::storeInMemo(Database* pDatabase, sql::Connection *con)
 {
-    std::string insertDB = "INSERT INTO TAB_PLACES (placeID, description, envID) VALUES ("
-            + std::to_string(ID) + ", ' " + desc + " ', " + std::to_string(environmentID) + ")";    
+    std::string insertDB = "INSERT INTO TAB_PLACES (placeID, description, envID, reward) VALUES ("
+            + std::to_string(ID) + ", ' " + desc + " ', " + std::to_string(environmentID)
+            + ", " + std::to_string(reward) +")";    
     pDatabase->update(insertDB, con);
     
     storeConnections(pDatabase, con);
@@ -51,8 +52,8 @@ void Place::storeInMemo(Database* pDatabase, sql::Connection *con)
 void Place::upDateInMemo(Database* pDatabase)
 {
     sql::Connection *con = pDatabase->getConnectionDB();
-    std::string update = "UPDATE TAB_PLACES SET description = ' " + desc + " ' WHERE placeID = " + std::to_string(ID)
-            + " AND envID= " + std::to_string(environmentID);
+    std::string update = "UPDATE TAB_PLACES SET description = ' " + desc + " ' ,reward = " + std::to_string(reward) 
+    + " WHERE placeID = " + std::to_string(ID) + " AND envID= " + std::to_string(environmentID);
     pDatabase->update(update, con);
     con->commit();
     pDatabase->closeConnectionDB();
@@ -107,10 +108,10 @@ void Place::storeConnections(Database* pDatabase, sql::Connection *con)
     }
 }
 
-void Place::showData()
+std::string Place::showData()
 {
-    std::cout << "place " << ID << std::endl;
-    std::cout << "- connections = " << listConnections.size() << std::endl;    
+    std::string data = "> place " + std::to_string(ID) + ": " + desc;    
+    return data;
 }
 
 }

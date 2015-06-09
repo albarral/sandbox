@@ -1,5 +1,5 @@
-#ifndef __STATE_H
-#define __STATE_H
+#ifndef __SAM_STATE_H
+#define __SAM_STATE_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
@@ -45,7 +45,7 @@ public:
   
     std::vector<Transition>& getListTransitions() {return listTransitions;};
 
-    void showData();
+    std::string showData();
    
 private:
     void transitionsFromMemo(Database* pDatabase, sql::Connection *con);

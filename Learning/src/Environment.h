@@ -1,5 +1,5 @@
-#ifndef __ENVIRONMENT_H
-#define __ENVIRONMENT_H
+#ifndef __SAM_ENVIRONMENT_H
+#define __SAM_ENVIRONMENT_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
@@ -45,6 +45,8 @@ public:
     void upDateInMemo();
     void deleteFromMemo();
     void reset();
+
+    std::string showData();
 
 private:
     void placesFromMemo(sql::Connection *con);

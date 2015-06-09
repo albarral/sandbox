@@ -23,6 +23,8 @@
         <itemPath>src/Connection.h</itemPath>
         <itemPath>src/Environment.cpp</itemPath>
         <itemPath>src/Environment.h</itemPath>
+        <itemPath>src/Learn.cpp</itemPath>
+        <itemPath>src/Learn.h</itemPath>
         <itemPath>src/Place.cpp</itemPath>
         <itemPath>src/Place.h</itemPath>
         <itemPath>src/State.cpp</itemPath>
@@ -90,6 +92,10 @@
       </item>
       <item path="src/Environment.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Learn.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Learn.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Place.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Place.h" ex="false" tool="3" flavor2="0">
@@ -142,6 +148,10 @@
       <item path="src/Environment.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Environment.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Learn.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Learn.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Place.cpp" ex="false" tool="1" flavor2="0">
       </item>

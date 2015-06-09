@@ -3,10 +3,9 @@
  *   ainoa@migtron.com   *
  ***************************************************************************/
 
-#include <iostream>
-
 #include "Transition.h"
 #include "State.h"
+#include "Connection.h"
 #include "types/TransitionType.h"
 
 namespace sam 
@@ -82,12 +81,19 @@ void Transition::deleteFromMemo(Database* pDatabase)
 // computes the cost of traversing the connection
 float Transition::computeCost()
 {
+    if (cost == 0)
+    {
+        Connection oConnection;
+        cost = oConnection.computeCost();
+    }
+    
     return cost;
 }
 
-void Transition::showData()
+std::string Transition::showData()
 {
-    std::cout << "transition " << ID << ": " << stateID << " -> " << nextState << std::endl;
+    std::string data = ">> transition " + std::to_string(ID) + ": " + std::to_string(stateID) + "->" + std::to_string(nextState) + ", " + desc;
+    return data;
 }
 
 }

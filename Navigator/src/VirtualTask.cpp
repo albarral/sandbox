@@ -8,8 +8,12 @@
 #include "VirtualTask.h"
 #include "types/TransitionType.h"
 
+using namespace log4cxx;
+
 namespace sam 
 {
+LoggerPtr VirtualTask::logger(Logger::getLogger("sam.navigation"));
+    
 VirtualTask::VirtualTask() 
 {
     oDatabase.init("tcp://127.0.0.1:3306", "sam", "sam", "samMemo");
@@ -27,24 +31,30 @@ void VirtualTask::init(int ID)
     if(oTask.getListStates().size() == 0)
     {
         create();
-    }      
+    } 
+    
+    describeTask(&oTask);
 }
 
 void VirtualTask::create()
 {
     switch (oTask.getID())
     {
-        case 1:
+        case eENV_6ROOM:
             build6RoomTest();
             break;
 
-        case 2:
+        case eENV_7ROOM:
             build7RoomTest();
             break;
 
-        case 3:
+        case eENV_8ROOM:
             build8RoomTest();
-            break;            
+            break;   
+            
+        default:
+            // invalid value
+            return;
     }
         
     storeInMemo();
@@ -56,7 +66,8 @@ void VirtualTask::storeInMemo()
 }
 
 void VirtualTask::loadFromMemo()
-{    
+{   
+    LOG4CXX_INFO(logger, "Loading task from DB ..."); 
     oTask.loadFromMemo();
 }
 
@@ -74,27 +85,60 @@ void VirtualTask::crossTransition(int transitionID)
     setStateNow(mTransition.getNextState());
 }
 
+void VirtualTask::describeTask(Task* pTask)
+{
+    // describe the task
+    LOG4CXX_INFO(logger, pTask->showData());
+    
+    // describe its states
+    std::vector<State>::iterator it_state = pTask->getListStates().begin();
+    std::vector<State>::iterator it_end = pTask->getListStates().end();
+    while (it_state != it_end)
+    {
+        describeState(&(*it_state));
+        it_state++;
+    } 
+}
+
+void VirtualTask::describeState(State* pState)
+{
+    // describe the state
+    LOG4CXX_INFO(logger, pState->showData());
+
+    // describe its connections
+    std::vector<Transition>::iterator it_trans = pState->getListTransitions().begin();
+    std::vector<Transition>::iterator it_end = pState->getListTransitions().end();
+    while (it_trans != it_end)
+    {
+        LOG4CXX_INFO(logger, it_trans->showData());
+        it_trans++;
+    }
+}
+
 void VirtualTask::build6RoomTest()
 {
     State oState0, oState1, oState2, oState3, oState4, oState5;
     Transition oTransition;
-    oTask.setID(1);
+    int taskID = oTask.getID();
     
+    LOG4CXX_INFO(logger, "Building 6 room environment ... taskID=" << taskID);  
+    
+    oTask.setDesc("6 room");
     oState0.setID(0); 
-    oState0.setTaskID(1);
+    oState0.setTaskID(taskID);
     oState1.setID(1); 
-    oState1.setTaskID(1);
+    oState1.setTaskID(taskID);
     oState2.setID(2);
-    oState2.setTaskID(1);
+    oState2.setTaskID(taskID);
     oState3.setID(3);    
-    oState3.setTaskID(1);
+    oState3.setTaskID(taskID);
     oState4.setID(4);    
-    oState4.setTaskID(1);
+    oState4.setTaskID(taskID);
     oState5.setID(5);
-    oState5.setTaskID(1);
+    oState5.setTaskID(taskID);
    
     // default connection properties for an office environment
-    oTransition.setTaskID(1);
+    oTransition.setTaskID(taskID);
     
     // 0 -> 4
     oTransition.set(0, 4, TransitionType::eTYPE_PLANO_CORTO);
@@ -144,12 +188,12 @@ void VirtualTask::build6RoomTest()
     oTransition.set(5, 4, TransitionType::eTYPE_SUBIDA_CORTA);
     oState5.addTransition(oTransition);
     
-    oState0.showData();
-    oState1.showData();
-    oState2.showData();
-    oState3.showData();
-    oState4.showData();
-    oState5.showData();
+    LOG4CXX_INFO(logger, oState0.showData());
+    LOG4CXX_INFO(logger, oState1.showData());
+    LOG4CXX_INFO(logger, oState2.showData());
+    LOG4CXX_INFO(logger, oState3.showData());
+    LOG4CXX_INFO(logger, oState4.showData());
+    LOG4CXX_INFO(logger, oState5.showData());
     
     oTask.addState(oState0);
     oTask.addState(oState1);
@@ -158,32 +202,35 @@ void VirtualTask::build6RoomTest()
     oTask.addState(oState4);
     oTask.addState(oState5);  
     
-    std::cout << "environment built" << std::endl << std::endl; 
+    LOG4CXX_INFO(logger, "task built");  
 }
 
 void VirtualTask::build7RoomTest()
 {
     State oState0, oState1, oState2, oState3, oState4, oState5, oState6;
     Transition oTransition;
-    oTask.setID(2);
+    int taskID = oTask.getID();
     
+    LOG4CXX_INFO(logger, "Building 7 room environment ... taskID=" << taskID);  
+    
+    oTask.setDesc("7 room");   
     oState0.setID(0); 
-    oState0.setTaskID(2);
+    oState0.setTaskID(taskID);
     oState1.setID(1); 
-    oState1.setTaskID(2);
+    oState1.setTaskID(taskID);
     oState2.setID(2);
-    oState2.setTaskID(2);
+    oState2.setTaskID(taskID);
     oState3.setID(3);    
-    oState3.setTaskID(2);
+    oState3.setTaskID(taskID);
     oState4.setID(4);    
-    oState4.setTaskID(2);
+    oState4.setTaskID(taskID);
     oState5.setID(5);
-    oState5.setTaskID(2);
+    oState5.setTaskID(taskID);
     oState6.setID(6);
-    oState6.setTaskID(2);
+    oState6.setTaskID(taskID);
    
     // default connection properties for an office environment
-    oTransition.setTaskID(2);
+    oTransition.setTaskID(taskID);
     
     // 0 -> 4
     oTransition.set(0, 4, TransitionType::eTYPE_PLANO_CORTO);
@@ -241,13 +288,13 @@ void VirtualTask::build7RoomTest()
     oTransition.set(6, 5, TransitionType::eTYPE_SUBIDA_CORTA);
     oState5.addTransition(oTransition);
     
-    oState0.showData();
-    oState1.showData();
-    oState2.showData();
-    oState3.showData();
-    oState4.showData();
-    oState5.showData();
-    oState6.showData();
+    LOG4CXX_INFO(logger, oState0.showData());
+    LOG4CXX_INFO(logger, oState1.showData());
+    LOG4CXX_INFO(logger, oState2.showData());
+    LOG4CXX_INFO(logger, oState3.showData());
+    LOG4CXX_INFO(logger, oState4.showData());
+    LOG4CXX_INFO(logger, oState5.showData());
+    LOG4CXX_INFO(logger, oState6.showData());
     
     oTask.addState(oState0);
     oTask.addState(oState1);
@@ -257,34 +304,37 @@ void VirtualTask::build7RoomTest()
     oTask.addState(oState5);
     oTask.addState(oState6);  
     
-    std::cout << "environment built" << std::endl << std::endl; 
+    LOG4CXX_INFO(logger, "task built"); 
 }
 
 void VirtualTask::build8RoomTest()
 {
     State oState0, oState1, oState2, oState3, oState4, oState5, oState6, oState7;
     Transition oTransition;
-    oTask.setID(3);
+    int taskID = oTask.getID();
     
+    LOG4CXX_INFO(logger, "Building 8 room environment ... taskID=" << taskID);  
+    
+    oTask.setDesc("8 room");    
     oState0.setID(0); 
-    oState0.setTaskID(3);
+    oState0.setTaskID(taskID);
     oState1.setID(1); 
-    oState1.setTaskID(3);
+    oState1.setTaskID(taskID);
     oState2.setID(2);
-    oState2.setTaskID(3);
+    oState2.setTaskID(taskID);
     oState3.setID(3);    
-    oState3.setTaskID(3);
+    oState3.setTaskID(taskID);
     oState4.setID(4);    
-    oState4.setTaskID(3);
+    oState4.setTaskID(taskID);
     oState5.setID(5);
-    oState5.setTaskID(3);
+    oState5.setTaskID(taskID);
     oState6.setID(6);
-    oState6.setTaskID(3);
+    oState6.setTaskID(taskID);
     oState7.setID(7);
-    oState7.setTaskID(3);
+    oState7.setTaskID(taskID);
    
     // default connection properties for an office environment
-    oTransition.setTaskID(3);
+    oTransition.setTaskID(taskID);
     
     // 0 -> 4
     oTransition.set(0, 4, TransitionType::eTYPE_PLANO_CORTO);
@@ -350,14 +400,14 @@ void VirtualTask::build8RoomTest()
     oTransition.set(7, 6, TransitionType::eTYPE_SUBIDA_CORTA);
     oState5.addTransition(oTransition);
     
-    oState0.showData();
-    oState1.showData();
-    oState2.showData();
-    oState3.showData();
-    oState4.showData();
-    oState5.showData();
-    oState6.showData();
-    oState7.showData();
+    LOG4CXX_INFO(logger, oState0.showData());
+    LOG4CXX_INFO(logger, oState1.showData());
+    LOG4CXX_INFO(logger, oState2.showData());
+    LOG4CXX_INFO(logger, oState3.showData());
+    LOG4CXX_INFO(logger, oState4.showData());
+    LOG4CXX_INFO(logger, oState5.showData());
+    LOG4CXX_INFO(logger, oState6.showData());
+    LOG4CXX_INFO(logger, oState7.showData());
     
     oTask.addState(oState0);
     oTask.addState(oState1);
@@ -368,7 +418,7 @@ void VirtualTask::build8RoomTest()
     oTask.addState(oState6); 
     oTask.addState(oState7); 
     
-    std::cout << "environment built" << std::endl << std::endl; 
+    LOG4CXX_INFO(logger, "task built"); 
 }
 
 }

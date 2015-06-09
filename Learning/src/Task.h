@@ -1,5 +1,5 @@
-#ifndef __TASK_H
-#define __TASK_H
+#ifndef __SAM_TASK_H
+#define __SAM_TASK_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
@@ -45,6 +45,8 @@ public:
     void upDateInMemo();
     void deleteFromMemo();
     void reset();
+    
+    std::string showData();
 
 private:
     void statesFromMemo(sql::Connection *con);

@@ -8,8 +8,12 @@
 #include "VirtualEnvironment.h"
 #include "types/ConnectionType.h"
 
+using namespace log4cxx;
+
 namespace sam 
 {
+LoggerPtr VirtualEnvironment::logger(Logger::getLogger("sam.navigation"));
+
 VirtualEnvironment::VirtualEnvironment() 
 {
     oDatabase.init("tcp://127.0.0.1:3306", "sam", "sam", "samMemo");
@@ -24,27 +28,34 @@ void VirtualEnvironment::init(int ID)
     
     loadFromMemo();
     
+    // if not in DB, create it
     if(oEnvironment.getListPlaces().size() == 0)
     {
         create();
     }      
+    
+    describeEnvironment(&oEnvironment);    
 }
 
 void VirtualEnvironment::create()
 {
     switch (oEnvironment.getID())
     {
-        case 1:
+        case eENV_6ROOM:
             build6RoomTest();
             break;
 
-        case 2:
+        case eENV_7ROOM:
             build7RoomTest();
             break;
 
-        case 3:
+        case eENV_8ROOM:
             build8RoomTest();
-            break;            
+            break;     
+            
+        default:
+            // invalid value
+            return;
     }
         
     storeInMemo();
@@ -57,7 +68,8 @@ void VirtualEnvironment::storeInMemo()
 
 void VirtualEnvironment::loadFromMemo()
 {    
-    oEnvironment.loadFromMemo();
+    LOG4CXX_INFO(logger, "Loading environment from DB ...");    
+    oEnvironment.loadFromMemo();        
 }
 
 std::vector<Connection>& VirtualEnvironment::getPresentConnections()
@@ -74,29 +86,67 @@ void VirtualEnvironment::crossConnection(int connectionID)
     setPlaceNow(mConnection.getNextPlace());
 }  
 
+void VirtualEnvironment::describeEnvironment(Environment* pEnvironment)
+{       
+    // describe the enviroment
+    LOG4CXX_INFO(logger, pEnvironment->showData());
+    
+    // describe its places
+    std::vector<Place>::iterator it_place = pEnvironment->getListPlaces().begin();
+    std::vector<Place>::iterator it_end = pEnvironment->getListPlaces().end();
+    while (it_place != it_end)
+    {
+        describePlace(&(*it_place));
+        it_place++;
+    }    
+}
+
+void VirtualEnvironment::describePlace(Place* pPlace)
+{       
+    // describe the place
+    LOG4CXX_INFO(logger, pPlace->showData());
+
+    // describe its connections
+    std::vector<Connection>::iterator it_conn = pPlace->getListConnections().begin();
+    std::vector<Connection>::iterator it_end = pPlace->getListConnections().end();
+    while (it_conn != it_end)
+    {
+        LOG4CXX_INFO(logger, it_conn->showData());
+        it_conn++;
+    }    
+}
+
+
 void VirtualEnvironment::build6RoomTest()
 {
     Place oPlace0, oPlace1, oPlace2, oPlace3, oPlace4, oPlace5;
     Connection oConnection;
-    oEnvironment.setID(1);
+    int envID = oEnvironment.getID();
     
-    std::cout << "6 room environment" <<std::endl;
+    LOG4CXX_INFO(logger, "Building 6 room environment ... envID=" << envID);    
 
+    oEnvironment.setDesc("6 room");
     oPlace0.setID(0);  
-    oPlace0.setEnvironmentID(1);
+    oPlace0.setEnvironmentID(envID);
+    oPlace0.setReward(0.0);
     oPlace1.setID(1);   
-    oPlace1.setEnvironmentID(1);
+    oPlace1.setEnvironmentID(envID);
+    oPlace1.setReward(80.0);
     oPlace2.setID(2);
-    oPlace2.setEnvironmentID(1);
+    oPlace2.setEnvironmentID(envID);
+    oPlace2.setReward(0);
     oPlace3.setID(3);    
-    oPlace3.setEnvironmentID(1);
+    oPlace3.setEnvironmentID(envID);
+    oPlace3.setReward(60);
     oPlace4.setID(4);    
-    oPlace4.setEnvironmentID(1);
+    oPlace4.setEnvironmentID(envID);
+    oPlace4.setReward(80);
     oPlace5.setID(5);
-    oPlace5.setEnvironmentID(1);
+    oPlace5.setEnvironmentID(envID);
+    oPlace5.setReward(100);
    
     // default connection properties for an office environment
-    oConnection.setEnvironmentID(1);
+    oConnection.setEnvironmentID(envID);
     
     // 0 -> 4
     oConnection.set(0, 4, ConnectionType::eTYPE_PLANO_CORTO);
@@ -146,49 +196,50 @@ void VirtualEnvironment::build6RoomTest()
     oConnection.set(5, 4, ConnectionType::eTYPE_SUBIDA_CORTA);
     oPlace5.addConnection(oConnection);
     
-    oPlace0.showData();
-    oPlace1.showData();
-    oPlace2.showData();
-    oPlace3.showData();
-    oPlace4.showData();
-    oPlace5.showData();
-    
+    LOG4CXX_INFO(logger, oPlace0.showData());
+    LOG4CXX_INFO(logger, oPlace1.showData());
+    LOG4CXX_INFO(logger, oPlace2.showData());
+    LOG4CXX_INFO(logger, oPlace3.showData());
+    LOG4CXX_INFO(logger, oPlace4.showData());
+    LOG4CXX_INFO(logger, oPlace5.showData());
+
     oEnvironment.addPlace(oPlace0);
     oEnvironment.addPlace(oPlace1);
     oEnvironment.addPlace(oPlace2);
     oEnvironment.addPlace(oPlace3);
     oEnvironment.addPlace(oPlace4);
     oEnvironment.addPlace(oPlace5);
-    
-    std::cout << "environment built" << std::endl << std::endl;       
+
+    LOG4CXX_INFO(logger, "environment built");       
 }
 
 void VirtualEnvironment::build7RoomTest()
 {
     Place oPlace0, oPlace1, oPlace2, oPlace3, oPlace4, oPlace5, oPlace6;
     Connection oConnection;
-    oEnvironment.setID(2);
-    
-    std::cout << "7 room environment" <<std::endl;
+    int envID = oEnvironment.getID();
 
+    LOG4CXX_INFO(logger, "Building 7 room environment ... envID=" << envID);    
+
+    oEnvironment.setDesc("7 room");
     oPlace0.setID(0);  
-    oPlace0.setEnvironmentID(2);
+    oPlace0.setEnvironmentID(envID);
     oPlace1.setID(1);   
-    oPlace1.setEnvironmentID(2);
+    oPlace1.setEnvironmentID(envID);
     oPlace2.setID(2);
-    oPlace2.setEnvironmentID(2);
+    oPlace2.setEnvironmentID(envID);
     oPlace3.setID(3);    
-    oPlace3.setEnvironmentID(2);
+    oPlace3.setEnvironmentID(envID);
     oPlace4.setID(4);    
-    oPlace4.setEnvironmentID(2);
+    oPlace4.setEnvironmentID(envID);
     oPlace5.setID(5);
-    oPlace5.setEnvironmentID(2);
+    oPlace5.setEnvironmentID(envID);
     oPlace6.setID(6);
-    oPlace6.setEnvironmentID(2);
+    oPlace6.setEnvironmentID(envID);
     
    
     // default connection properties for an office environment
-    oConnection.setEnvironmentID(2);
+    oConnection.setEnvironmentID(envID);
     
     // 0 -> 4
     oConnection.set(0, 4, ConnectionType::eTYPE_PLANO_CORTO);
@@ -246,13 +297,13 @@ void VirtualEnvironment::build7RoomTest()
     oConnection.set(6, 5, ConnectionType::eTYPE_PLANO_CORTO);
     oPlace6.addConnection(oConnection);
     
-    oPlace0.showData();
-    oPlace1.showData();
-    oPlace2.showData();
-    oPlace3.showData();
-    oPlace4.showData();
-    oPlace5.showData();
-    oPlace6.showData();
+    LOG4CXX_INFO(logger, oPlace0.showData());
+    LOG4CXX_INFO(logger, oPlace1.showData());
+    LOG4CXX_INFO(logger, oPlace2.showData());
+    LOG4CXX_INFO(logger, oPlace3.showData());
+    LOG4CXX_INFO(logger, oPlace4.showData());
+    LOG4CXX_INFO(logger, oPlace5.showData());
+    LOG4CXX_INFO(logger, oPlace6.showData());
     
     oEnvironment.addPlace(oPlace0);
     oEnvironment.addPlace(oPlace1);
@@ -262,36 +313,37 @@ void VirtualEnvironment::build7RoomTest()
     oEnvironment.addPlace(oPlace5);
     oEnvironment.addPlace(oPlace6);
   
-    std::cout << "environment built" << std::endl << std::endl;       
+    LOG4CXX_INFO(logger, "environment built");       
 }
 
 void VirtualEnvironment::build8RoomTest()
 {
     Place oPlace0, oPlace1, oPlace2, oPlace3, oPlace4, oPlace5, oPlace6, oPlace7;
     Connection oConnection;
-    oEnvironment.setID(3);
-    
-    std::cout << "8 room environment" <<std::endl;
+    int envID = oEnvironment.getID();
 
+    LOG4CXX_INFO(logger, "Building 8 room environment ... envID=" << envID);    
+
+    oEnvironment.setDesc("8 room");
     oPlace0.setID(0);  
-    oPlace0.setEnvironmentID(3);
+    oPlace0.setEnvironmentID(envID);
     oPlace1.setID(1);   
-    oPlace1.setEnvironmentID(3);
+    oPlace1.setEnvironmentID(envID);
     oPlace2.setID(2);
-    oPlace2.setEnvironmentID(3);
+    oPlace2.setEnvironmentID(envID);
     oPlace3.setID(3);    
-    oPlace3.setEnvironmentID(3);
+    oPlace3.setEnvironmentID(envID);
     oPlace4.setID(4);    
-    oPlace4.setEnvironmentID(3);
+    oPlace4.setEnvironmentID(envID);
     oPlace5.setID(5);
-    oPlace5.setEnvironmentID(3);
+    oPlace5.setEnvironmentID(envID);
     oPlace6.setID(6);
-    oPlace6.setEnvironmentID(3);
+    oPlace6.setEnvironmentID(envID);
     oPlace7.setID(7);
-    oPlace7.setEnvironmentID(3);
+    oPlace7.setEnvironmentID(envID);
    
     // default connection properties for an office environment
-    oConnection.setEnvironmentID(3);
+    oConnection.setEnvironmentID(envID);
     
     // 0 -> 4
     oConnection.set(0, 4, ConnectionType::eTYPE_PLANO_CORTO);
@@ -357,14 +409,14 @@ void VirtualEnvironment::build8RoomTest()
     oConnection.set(7, 6, ConnectionType::eTYPE_PLANO_CORTO);
     oPlace7.addConnection(oConnection);
     
-    oPlace0.showData();
-    oPlace1.showData();
-    oPlace2.showData();
-    oPlace3.showData();
-    oPlace4.showData();
-    oPlace5.showData();
-    oPlace6.showData();
-    oPlace7.showData();
+    LOG4CXX_INFO(logger, oPlace0.showData());
+    LOG4CXX_INFO(logger, oPlace1.showData());
+    LOG4CXX_INFO(logger, oPlace2.showData());
+    LOG4CXX_INFO(logger, oPlace3.showData());
+    LOG4CXX_INFO(logger, oPlace4.showData());
+    LOG4CXX_INFO(logger, oPlace5.showData());
+    LOG4CXX_INFO(logger, oPlace6.showData());
+    LOG4CXX_INFO(logger, oPlace7.showData());
     
     oEnvironment.addPlace(oPlace0);
     oEnvironment.addPlace(oPlace1);
@@ -375,7 +427,7 @@ void VirtualEnvironment::build8RoomTest()
     oEnvironment.addPlace(oPlace6);
     oEnvironment.addPlace(oPlace7);
   
-    std::cout << "environment built" << std::endl << std::endl;       
+    LOG4CXX_INFO(logger, "environment built");       
 }
 
 }

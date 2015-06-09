@@ -37,6 +37,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/src/Connection.o \
 	${OBJECTDIR}/src/Environment.o \
+	${OBJECTDIR}/src/Learn.o \
 	${OBJECTDIR}/src/Place.o \
 	${OBJECTDIR}/src/State.o \
 	${OBJECTDIR}/src/Task.o \
@@ -80,6 +81,11 @@ ${OBJECTDIR}/src/Environment.o: src/Environment.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Environment.o src/Environment.cpp
+
+${OBJECTDIR}/src/Learn.o: src/Learn.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Learn.o src/Learn.cpp
 
 ${OBJECTDIR}/src/Place.o: src/Place.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src

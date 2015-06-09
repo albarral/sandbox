@@ -1,5 +1,5 @@
-#ifndef __PLACE_H
-#define __PLACE_H
+#ifndef __SAM_PLACE_H
+#define __SAM_PLACE_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
@@ -21,6 +21,7 @@ private:
     std::string desc;
     int environmentID;
     std::vector<Connection> listConnections;
+    float reward; //TEMPORAL!!!! (Will go only in State)
     
 public:
     Place();
@@ -40,8 +41,11 @@ public:
     void setEnvironmentID(int eID) {environmentID = eID;};
     
     std::vector<Connection>& getListConnections() {return listConnections;};
+    
+    float getReward() {return reward;};
+    void setReward(float rwrd) {reward = rwrd;};
 
-    void showData();
+    std::string showData();
    
 private:
     void connectionsFromMemo(Database* pDatabase, sql::Connection *con);

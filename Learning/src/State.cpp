@@ -3,8 +3,6 @@
  *   ainoa@migtron.com   *
  ***************************************************************************/
 
-#include <iostream>
-
 #include "State.h"
 #include "Task.h"
 
@@ -43,8 +41,8 @@ void State::loadFromMemo(Database* pDatabase, sql::Connection *con)
 
 void State::storeInMemo(Database* pDatabase, sql::Connection *con)
 {
-    std::string insertDB = "INSERT INTO TAB_STATES (stateID, description, taskID) VALUES ("
-            + std::to_string(ID) + ", ' " + desc + " ', " + std::to_string(taskID) + ")";    
+    std::string insertDB = "INSERT INTO TAB_STATES (stateID, description, taskID, reward) VALUES ("
+            + std::to_string(ID) + ", ' " + desc + " ', " + std::to_string(taskID) + ", " + std::to_string(reward) + ")";    
     pDatabase->update(insertDB, con);
     
     storeTransitions(pDatabase, con);
@@ -53,8 +51,8 @@ void State::storeInMemo(Database* pDatabase, sql::Connection *con)
 void State::upDateInMemo(Database* pDatabase)
 {
     sql::Connection *con = pDatabase->getConnectionDB();
-    std::string update = "UPDATE TAB_STATES SET description = ' " + desc + " ' WHERE stateID = " + std::to_string(ID)
-            + " AND taskID= " + std::to_string(taskID);
+    std::string update = "UPDATE TAB_STATES SET description = ' " + desc + " ' ,reward = " + std::to_string(reward) 
+    + " WHERE stateID = " + std::to_string(ID) + " AND taskID= " + std::to_string(taskID);
     pDatabase->update(update, con);
     con->commit();
     pDatabase->closeConnectionDB();
@@ -109,10 +107,10 @@ void State::storeTransitions(Database* pDatabase, sql::Connection *con)
     }
 }
 
-void State::showData()
+std::string State::showData()
 {
-    std::cout << "state " << ID << std::endl;
-    std::cout << "- transitions = " << listTransitions.size() << std::endl;    
+    std::string data = "> state " + std::to_string(ID) + ": " + desc;    
+    return data;
 }
 
 }

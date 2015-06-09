@@ -3,8 +3,6 @@
  *   ainoa@migtron.com   *
  ***************************************************************************/
 
-#include <iostream>
-
 #include "Environment.h"
 
 namespace sam 
@@ -112,6 +110,12 @@ void Environment::reset()
     desc = "";
     type = 0;
     listPlaces.clear();    
+}
+
+std::string Environment::showData()
+{
+    std::string data = "environment " + std::to_string(ID) + ": " + desc;    
+    return data;
 }
 
 }
