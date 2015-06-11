@@ -5,7 +5,6 @@
 
 #include "Learn.h"
 #include "Transition.h"
-#include "Environment.h"
 
 namespace sam
 {
@@ -14,7 +13,7 @@ Learn::Learn()
     gamma = 0;   
 }
 
-float Learn::maxQvalue(Place oPlace) //(place, listPlaces)
+float Learn::maxQvalue(Place oPlace)
 {
     float maxQ = 0.0;
     float q;
@@ -36,16 +35,11 @@ float Learn::maxQvalue(Place oPlace) //(place, listPlaces)
 }
 
 
-float Learn::computeQ(Connection oConn)
+float Learn::computeQ(Connection oConn, Place oPlace)
 {
-    Environment oEnv;
-    Place oPlace;
     gamma = 0.8;
-    int nxtPlc;
     float rwrd, QNextState, Q;
      
-    nxtPlc = oConn.getNextPlace();
-    oPlace = oEnv.getListPlaces().at(nxtPlc);
     rwrd = oPlace.getReward();    
     QNextState = maxQvalue(oPlace);
     
@@ -53,7 +47,6 @@ float Learn::computeQ(Connection oConn)
     oConn.setQ(Q);
     
     return Q;
-
 }
 
 }

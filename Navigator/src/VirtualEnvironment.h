@@ -41,7 +41,8 @@ public:
     int getPlaceNow() {return placeNow;};
     void setPlaceNow(int pNow) {placeNow = pNow;};
     
-    std::vector<Connection>& getPresentConnections();    
+    std::vector<Connection>& getPresentConnections();  
+    std::vector<Place>& getPresentPlaces();
     void crossConnection(int connectionID);
     
 private:

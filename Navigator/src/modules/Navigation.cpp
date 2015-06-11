@@ -127,27 +127,22 @@ Connection* Navigation::getRandomConnection(std::vector<sam::Connection>& listCo
 {
     sam::Connection* winner = 0;
     
-    int randNumConn;
-    bool valid = false;
+    int randNumConn, size;
     
-    do
-    {        
-        randNumConn = rand() % 8;
-        
-        std::vector<sam::Connection>::iterator it_connection = listConnections.begin();
-        std::vector<sam::Connection>::iterator it_end = listConnections.end();
-        while (it_connection != it_end)
+    size = listConnections.size();
+    randNumConn = rand() % size;
+    
+    std::vector<sam::Connection>::iterator it_connection = listConnections.begin();
+    std::vector<sam::Connection>::iterator it_end = listConnections.end();
+    while (it_connection != it_end)
+    {
+        LOG4CXX_INFO(logger, "connects to " << it_connection->getNextPlace() << " - "  << it_connection->getDesc());
+        if(randNumConn == it_connection->getID())
         {
-            if(randNumConn == it_connection->getID())
-            {
-                valid = true;
-            }
+            winner = &(*it_connection);
         }
-    }while(valid == false);
-
-    LOG4CXX_WARN(logger, "Navigation::getRandomConnection()");
-    winner = &listConnections.at(randNumConn);
-    
+        it_connection ++;
+    }   
     return winner;    
 }
 
@@ -182,21 +177,22 @@ Connection* Navigation::getSmartestConnection(std::vector<sam::Connection>& list
 {
     // checks all connections in the given list and gets the one with highest confidence (a combination of Q and cost)
     sam::Connection* winner = 0;
-    float maxConfidence = 0.0;
-    float Q;
+    float maxConfidence = 0.0, Q;
+    int nxtPlc;
     Learn oLearn;
-    
-    Q = 0.0;  // temporal until real Learning used
+    Place oPlace;
 
+    std::vector<sam::Place> listPlaces = pVirtualEnvironment->getPresentPlaces();
 
     std::vector<sam::Connection>::iterator it_connection = listConnections.begin();
     std::vector<sam::Connection>::iterator it_end = listConnections.end();
     while (it_connection != it_end)
     {
-        Q = oLearn.computeQ(*it_connection);
-         
-        //To modify
-        LOG4CXX_INFO(logger, "connects to " << it_connection->getNextPlace() << " - "  << it_connection->getDesc());
+        nxtPlc = it_connection -> getNextPlace();
+        oPlace = listPlaces.at(nxtPlc);
+        Q = oLearn.computeQ(*it_connection, oPlace);
+
+        LOG4CXX_INFO(logger, "connects to " << it_connection->getNextPlace() << " - "  << it_connection->getDesc() << ", Q = " << Q);
         
         if (Q > maxConfidence)
         {

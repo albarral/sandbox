@@ -26,7 +26,7 @@ public:
     float getGamma() {return gamma;};
     void setGamma(float Gamma) {gamma = Gamma;};
 
-    float computeQ(Connection oConn);
+    float computeQ(Connection oConn, Place oPlace);
     float maxQvalue(Place oPlace);
 };
 

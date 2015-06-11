@@ -78,6 +78,10 @@ std::vector<Connection>& VirtualEnvironment::getPresentConnections()
     return mPlaceNow.getListConnections();
 }
 
+std::vector<Place>& VirtualEnvironment::getPresentPlaces()
+{
+    return oEnvironment.getListPlaces();
+}
 
 void VirtualEnvironment::crossConnection(int connectionID)
 {
