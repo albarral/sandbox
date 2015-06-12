@@ -7,7 +7,7 @@
 #include "Transition.h"
 
 namespace sam
-{
+{   
 Learn::Learn()
 {
     gamma = 0;   
@@ -30,6 +30,7 @@ float Learn::maxQvalue(Place oPlace)
             maxQ = q;
             
         }
+        it_connection ++;
     }
     return maxQ;
 }
