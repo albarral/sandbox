@@ -29,10 +29,10 @@ void Place::loadFromMemo(Database* pDatabase, sql::Connection *con)
             + " AND placeID = " + std::to_string(ID);
     sql::ResultSet *res = pDatabase->select(sel, con);
       
-    while (res -> next())
+    while (res->next())
     {
-        desc = res -> getString("description");
-        reward = res -> getDouble("reward");
+        desc = res->getString("description");
+        reward = res->getDouble("reward");
     }
     
     connectionsFromMemo(pDatabase, con);
@@ -75,12 +75,12 @@ void Place::connectionsFromMemo(Database* pDatabase, sql::Connection *con)
             + " AND placeID = " + std::to_string(ID);
     sql::ResultSet *res = pDatabase->select(sel, con);
     
-    while (res -> next())
+    while (res->next())
     {
         Connection oConnection;
         oConnection.setEnvironmentID(environmentID);
         oConnection.setPlaceID(ID);
-        int id = res -> getInt("connID");
+        int id = res->getInt("connID");
         oConnection.setID(id);
         addConnection(oConnection);
     }

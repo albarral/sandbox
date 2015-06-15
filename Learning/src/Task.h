@@ -27,13 +27,13 @@ public:
     Task();
     
     int getID() {return ID;};
-    void setID(int id) {ID = id;};
+    void setID(int value) {ID = value;};
     
     std::string getDesc() {return desc;};
-    void setDesc(std::string de) {desc = de;};
+    void setDesc(std::string value) {desc = value;};
     
     int getType() {return type;};
-    void setType(int ty) {type = ty;};
+    void setType(int value) {type = value;};
     
     std::vector<State>& getListStates() {return listStates;}; 
     void addState(State& oState);

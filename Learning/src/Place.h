@@ -32,18 +32,18 @@ public:
     void deleteFromMemo(Database* pDatabase);
     
     int getID() {return ID;}; 
-    void setID(int id) {ID = id;};
+    void setID(int value) {ID = value;};
     
     std::string getDesc() {return desc;};
-    void setDesc(std::string de) {desc = de;};
+    void setDesc(std::string value) {desc = value;};
     
     int getEnvironmentID() {return environmentID;};
-    void setEnvironmentID(int eID) {environmentID = eID;};
+    void setEnvironmentID(int value) {environmentID = value;};
     
     std::vector<Connection>& getListConnections() {return listConnections;};
     
     float getReward() {return reward;};
-    void setReward(float rwrd) {reward = rwrd;};
+    void setReward(float value) {reward = value;};
 
     std::string showData();
    

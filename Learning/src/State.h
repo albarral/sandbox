@@ -32,16 +32,16 @@ public:
     void deleteFromMemo(Database* pDatabase);
     
     int getID() {return ID;};
-    void setID(int id) {ID = id;};
+    void setID(int value) {ID = value;};
     
     std::string getDesc() {return desc;};
-    void setDesc(std::string de) {desc = de;};
+    void setDesc(std::string value) {desc = value;};
     
     int getTaskID() {return taskID;};
-    void setTaskID(int tID) {taskID = tID;};
+    void setTaskID(int value) {taskID = value;};
     
     float getReward() {return reward;};
-    void setReward(float rwrd) {reward = rwrd;};
+    void setReward(float value) {reward = value;};
   
     std::vector<Transition>& getListTransitions() {return listTransitions;};
 

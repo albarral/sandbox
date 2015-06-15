@@ -39,7 +39,7 @@ public:
     void init(int ID);
 
     int getPlaceNow() {return placeNow;};
-    void setPlaceNow(int pNow) {placeNow = pNow;};
+    void setPlaceNow(int value) {placeNow = value;};
     
     std::vector<Connection>& getPresentConnections();  
     std::vector<Place>& getPresentPlaces();

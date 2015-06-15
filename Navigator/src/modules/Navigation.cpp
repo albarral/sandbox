@@ -25,6 +25,7 @@ void Navigation::init(VirtualEnvironment& oVirtualEnvironment)
 {
     pVirtualEnvironment = &oVirtualEnvironment;
     benabled = true;
+    oLearn.setGamma(0.8);
 
     LOG4CXX_INFO(logger, "Navigation module initialized");      
 };
@@ -151,7 +152,7 @@ Connection* Navigation::getBestConnection(std::vector<sam::Connection>& listConn
 {
     // checks all connections in the given list and gets the one with highest confidence (a combination of Q and cost)
     sam::Connection* winner = 0;
-    float maxConfidence = 0.0;
+    float maxConfidence = -1.0;
     float confidence, cost;
 
     std::vector<sam::Connection>::iterator it_connection = listConnections.begin();
@@ -177,20 +178,19 @@ Connection* Navigation::getSmartestConnection(std::vector<sam::Connection>& list
 {
     // checks all connections in the given list and gets the one with highest confidence (a combination of Q and cost)
     sam::Connection* winner = 0;
-    float maxConfidence = 0.0, Q;
-    int nxtPlc;
-    Learn oLearn;
-    Place oPlace;
+    float maxConfidence = -1.0, Q;
+    int nextPlace;
 
-    std::vector<sam::Place> listPlaces = pVirtualEnvironment->getPresentPlaces();
+    std::vector<sam::Place>& listPlaces = pVirtualEnvironment->getPresentPlaces();
 
     std::vector<sam::Connection>::iterator it_connection = listConnections.begin();
     std::vector<sam::Connection>::iterator it_end = listConnections.end();
     while (it_connection != it_end)
     {
-        nxtPlc = it_connection -> getNextPlace();
-        oPlace = listPlaces.at(nxtPlc);
-        Q = oLearn.computeQ(*it_connection, oPlace);
+        nextPlace = it_connection->getNextPlace();
+        Place &oPlace = listPlaces.at(nextPlace);
+        Connection* pConnection2 = &(*it_connection);
+        Q = oLearn.computeQ(pConnection2, oPlace);
 
         LOG4CXX_INFO(logger, "connects to " << it_connection->getNextPlace() << " - "  << it_connection->getDesc() << ", Q = " << Q);
         

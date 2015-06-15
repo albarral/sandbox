@@ -41,13 +41,13 @@ void Connection::loadFromMemo(Database* pDatabase, sql::Connection *con)
             + " AND placeID = " + std::to_string(placeID) + " AND connID = " + std::to_string(ID);
     sql::ResultSet *res = pDatabase->select(sel, con);
     
-    while (res -> next())
+    while (res->next())
     {
-        desc = res -> getString("description");
-        nextPlace = res -> getInt("nextPlace");
-        length = res -> getInt("length");
-        slope = res -> getInt("slope");
-        abruptness = res -> getInt("abruptness");   
+        desc = res->getString("description");
+        nextPlace = res->getInt("nextPlace");
+        length = res->getInt("length");
+        slope = res->getInt("slope");
+        abruptness = res->getInt("abruptness");   
     }
 }
 

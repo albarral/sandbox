@@ -38,12 +38,12 @@ void Transition::loadFromMemo(Database* pDatabase, sql::Connection *con)
             + " AND stateID = " + std::to_string(stateID) + " AND transID = " + std::to_string(ID);
     sql::ResultSet *res = pDatabase->select(sel, con);
     
-    while (res -> next())
+    while (res->next())
     {
-        desc = res -> getString("description");
-        nextState = res -> getInt("nextState");
-        cost = res -> getDouble("cost"); //El getFloat da problemas
-        Q = res -> getDouble("q"); //El getFloat da problemas
+        desc = res->getString("description");
+        nextState = res->getInt("nextState");
+        cost = res->getDouble("cost"); //El getFloat da problemas
+        Q = res->getDouble("q"); //El getFloat da problemas
     }
 }
 

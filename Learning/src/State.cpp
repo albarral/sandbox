@@ -29,10 +29,10 @@ void State::loadFromMemo(Database* pDatabase, sql::Connection *con)
             + " AND stateID = " + std::to_string(ID);
     sql::ResultSet *res = pDatabase->select(sel, con);
       
-    while (res -> next())
+    while (res->next())
     {
-        desc = res -> getString("description");
-        reward = res -> getDouble("reward");  //El getFloat da problemas
+        desc = res->getString("description");
+        reward = res->getDouble("reward");  //El getFloat da problemas
     }
     
     transitionsFromMemo(pDatabase, con);
@@ -74,12 +74,12 @@ void State::transitionsFromMemo(Database* pDatabase, sql::Connection *con)
             + " AND stateID = " + std::to_string(ID);
     sql::ResultSet *res = pDatabase->select(sel, con);
     
-    while (res -> next())
+    while (res->next())
     {
         Transition oTransition;
         oTransition.setTaskID(taskID);
         oTransition.setStateID(ID);
-        int id = res -> getInt("transID");
+        int id = res->getInt("transID");
         oTransition.setID(id);
         addTransition(oTransition);
     }

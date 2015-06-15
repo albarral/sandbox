@@ -40,7 +40,7 @@ public:
     void init(int ID);
 
     int getStateNow() {return stateNow;};
-    void setStateNow(int sNow) {stateNow = sNow;}; 
+    void setStateNow(int value) {stateNow = value;}; 
     
     std::vector<Transition>& getPresentTransitions();    
     void crossTransition(int transitionID);

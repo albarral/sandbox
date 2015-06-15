@@ -24,9 +24,9 @@ void Database::init(std::string url, std::string user, std::string password, std
 sql::Connection* Database::getConnectionDB()
 {
     driver = get_driver_instance();
-    con = driver -> connect(url, user, password); 
+    con = driver->connect(url, user, password); 
     /* turn off the autocommit */
-    con -> setAutoCommit(0);
+    con->setAutoCommit(0);
     
     return con;
 }
@@ -34,14 +34,14 @@ sql::Connection* Database::getConnectionDB()
 void Database::closeConnectionDB()
 {
 //    delete res; 
-    con -> close();
+    con->close();
     delete con;
 }
 
 void Database::update(std::string insert, sql::Connection *con)
 { 
     con->setSchema(database);    
-    prep_stmt = con -> prepareStatement (insert);    
+    prep_stmt = con->prepareStatement (insert);    
     prep_stmt->execute();  
     delete prep_stmt;
 }
@@ -49,7 +49,7 @@ void Database::update(std::string insert, sql::Connection *con)
 sql::ResultSet* Database::select(std::string sel, sql::Connection *con)
 {  
     con->setSchema(database);   
-    stmt = con -> createStatement();   
+    stmt = con->createStatement();   
     res = stmt->executeQuery(sel);   
     delete stmt;
 

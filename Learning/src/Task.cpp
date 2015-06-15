@@ -23,11 +23,11 @@ void Task::loadFromMemo()
     std::string sel = "SELECT * FROM TAB_TASKS WHERE taskID = " + std::to_string(ID);
     sql::ResultSet *res = pDatabase->select(sel, con);
        
-    while (res -> next())
+    while (res->next())
     {
-        ID = res -> getInt("taskID");
-        desc = res -> getString("description");
-        type = res -> getInt("type");
+        ID = res->getInt("taskID");
+        desc = res->getString("description");
+        type = res->getInt("type");
     }
     
     statesFromMemo(con);
@@ -72,11 +72,11 @@ void Task::statesFromMemo(sql::Connection *con)
     std::string sel = "SELECT stateID FROM TAB_STATES WHERE taskID = " + std::to_string(ID);
     sql::ResultSet *res = pDatabase->select(sel, con);
     
-    while (res -> next())
+    while (res->next())
     {
         State oState;
         oState.setTaskID(ID);
-        int id = res -> getInt("stateID");
+        int id = res->getInt("stateID");
         oState.setID(id);
         addState(oState);
     }    

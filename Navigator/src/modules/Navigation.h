@@ -12,6 +12,7 @@
 #include "utils/module2.h"
 #include "VirtualEnvironment.h"
 #include "Connection.h" // learning module
+#include "Learn.h"
 
 namespace sam 
 {
@@ -49,6 +50,7 @@ private:
     int targetPlace;   // navigation target 
     int numSteps;    // steps performed in the last navigation task
     VirtualEnvironment* pVirtualEnvironment;    // to be replaced by VirtualTask in the future
+    Learn oLearn;
 
 public:
     Navigation();

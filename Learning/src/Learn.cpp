@@ -13,41 +13,40 @@ Learn::Learn()
     gamma = 0;   
 }
 
-float Learn::maxQvalue(Place oPlace)
+// Q(state, action) = Reward(state, action) + gamma * max [Q(next state, all actions)]
+float Learn::computeQ(Connection* pConnection, Place& oPlace)
+{
+    float reward, QNextState, Q;
+     
+    reward = oPlace.getReward();    
+    QNextState = maxQvalue(oPlace);
+    
+    Q = reward + gamma * QNextState;
+    pConnection->setQ(Q);
+    
+    return Q;
+}
+
+float Learn::maxQvalue(Place& oPlace)
 {
     float maxQ = 0.0;
-    float q;
-    std::vector<sam::Connection> listConn = oPlace.getListConnections();
+    float Q;
+    std::vector<sam::Connection>& listConnection = oPlace.getListConnections();
     
-    std::vector<sam::Connection>::iterator it_connection = listConn.begin();
-    std::vector<sam::Connection>::iterator it_end = listConn.end();
+    std::vector<sam::Connection>::iterator it_connection = listConnection.begin();
+    std::vector<sam::Connection>::iterator it_end = listConnection.end();
     while (it_connection != it_end)
     {
-        q = it_connection -> getQ();
+        Q = it_connection->getQ();
         
-        if (q > maxQ)
+        if (Q > maxQ)
         {
-            maxQ = q;
+            maxQ = Q;
             
         }
         it_connection ++;
     }
     return maxQ;
-}
-
-
-float Learn::computeQ(Connection oConn, Place oPlace)
-{
-    gamma = 0.8;
-    float rwrd, QNextState, Q;
-     
-    rwrd = oPlace.getReward();    
-    QNextState = maxQvalue(oPlace);
-    
-    Q = rwrd + gamma * QNextState;
-    oConn.setQ(Q);
-    
-    return Q;
 }
 
 }

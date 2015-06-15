@@ -27,13 +27,13 @@ public:
     Environment();
     
     int getID() {return ID;};
-    void setID(int id) {ID = id;};
+    void setID(int value) {ID = value;};
     
     std::string getDesc() {return desc;};
-    void setDesc(std::string de) {desc = de;};
+    void setDesc(std::string value) {desc = value;};
     
     int getType() {return type;};
-    void setType(int ty) {type = ty;};
+    void setType(int value) {type = value;};
     
     std::vector<Place>& getListPlaces() {return listPlaces;};
     void addPlace(Place& oPlace);

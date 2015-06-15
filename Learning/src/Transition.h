@@ -35,25 +35,25 @@ public:
     void set(int stateID, int nextState, int type);
     
     int getID() {return ID;};
-    void setID(int id) {ID = id;};
+    void setID(int value) {ID = value;};
     
     std::string getDesc() {return desc;};
-    void setDesc(std::string de) {desc = de;};
+    void setDesc(std::string value) {desc = value;};
     
     int getTaskID() {return taskID;};
-    void setTaskID(int tID) {taskID = tID;};
+    void setTaskID(int value) {taskID = value;};
     
     int getStateID() {return stateID;};
-    void setStateID(int sID) {stateID = sID;};
+    void setStateID(int value) {stateID = value;};
     
     int getNextState() {return nextState;};
-    void setNextState(int nStt) {nextState = nStt;};
+    void setNextState(int value) {nextState = value;};
     
     float getCost() {return cost;};
-    void setCost(float cst) {cost = cst;};
+    void setCost(float value) {cost = value;};
     
     float getQ() {return Q;};
-    void setQ(float q) {Q = q;};
+    void setQ(float value) {Q = value;};
     
     float computeCost();
     

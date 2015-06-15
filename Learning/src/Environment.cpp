@@ -23,11 +23,11 @@ void Environment::loadFromMemo()
     std::string sel = "SELECT * FROM TAB_ENVIRONMENTS WHERE envID = " + std::to_string(ID);
     sql::ResultSet *res = pDatabase->select(sel, con);
        
-    while (res -> next())
+    while (res->next())
     {
-        ID = res -> getInt("envID");
-        desc = res -> getString("description");
-        type = res -> getInt("type");
+        ID = res->getInt("envID");
+        desc = res->getString("description");
+        type = res->getInt("type");
     }
     
     placesFromMemo(con);
@@ -72,11 +72,11 @@ void Environment::placesFromMemo(sql::Connection *con)
     std::string sel = "SELECT placeID FROM TAB_PLACES WHERE envID = " + std::to_string(ID);
     sql::ResultSet *res = pDatabase->select(sel, con);
     
-    while (res -> next())
+    while (res->next())
     {
         Place oPlace;
         oPlace.setEnvironmentID(ID);
-        int id = res -> getInt("placeID");
+        int id = res->getInt("placeID");
         oPlace.setID(id);
         addPlace(oPlace);
     }    

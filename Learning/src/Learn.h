@@ -11,8 +11,6 @@
 #include "Connection.h"
 #include "Place.h"
 
-#include "sam/utils/Database.h"
-
 namespace sam
 {
 class Learn
@@ -24,10 +22,13 @@ public:
     Learn();
     
     float getGamma() {return gamma;};
-    void setGamma(float Gamma) {gamma = Gamma;};
+    void setGamma(float value) {gamma = value;};
 
-    float computeQ(Connection oConn, Place oPlace);
-    float maxQvalue(Place oPlace);
+    // Compute the Q value from a state with one connection
+    float computeQ(Connection* pConnection, Place& oPlace);
+   
+private:    
+    float maxQvalue(Place& oPlace);
 };
 
 }
