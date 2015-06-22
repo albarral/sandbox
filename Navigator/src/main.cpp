@@ -50,7 +50,7 @@ void testNavigation()
     // command task
     sleep (1);    
     targetPlace = 7;
-    oNavigation.newTask(targetPlace, sam::Navigation::eSTRAT_SMART);
+    oNavigation.newTask(targetPlace, sam::Navigation::eSTRAT_SMART, false);
         
     // wait until target reached or num steps > 20
     while ((oNavigation.getState() != sam::Navigation::eSTATE_REACHED) && (oNavigation.getNumSteps()<10))            
@@ -64,7 +64,7 @@ void testNavigation()
 
     LOG4CXX_INFO(logger, "End of test");    
     
-    if (oNavigation.getStrategyName() == "smart")
+    if (oNavigation.getStrategy() == sam::Navigation::eSTRAT_SMART)
     {
         oNavigation.storeLearned();
     }

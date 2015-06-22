@@ -66,16 +66,17 @@ void Navigation::loop()
     
 }
 
-void Navigation::newTask(int targetPlace, int strategy)
+void Navigation::newTask(int targetPlace, int strategy, bool bexploration)
 {
-    // sets new target & strategy, and sets the next state to GO
+    // sets new target, strategy and exploration mode
     this->targetPlace = targetPlace;
-    
+    this->bexploration = bexploration;    
     if (strategy < eSTRAT_UNKNOWN)   
         this->strategy = strategy;
     else
         this->strategy = eSTRAT_RANDOM;
     
+    // forces the next state to be GO
     numSteps = 0;
     setNextState(eSTATE_GO);
 

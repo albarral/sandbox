@@ -48,7 +48,7 @@ private:
     bool benabled;
     // logic
     int strategy;       // used navigation strategy
-    bool bexploration;  // indicates exploration mode (follow random connections, not best ones)
+    bool bexploration;  // exploration mode (when active it will select random connections, instead of the best ones)
     int targetPlace;   // navigation target 
     int numSteps;    // steps performed in the last navigation task
     VirtualEnvironment* pVirtualEnvironment;    // to be replaced by VirtualTask in the future
@@ -62,14 +62,15 @@ public:
     void init (VirtualEnvironment& oVirtualEnvironment);       
     bool isEnabled() {return benabled;};
 
-    // starts a new navigation task towards the specifed target using the specified strategy (eStrategy)
-    void newTask(int targetPlace, int strategy);       
+    // starts a new navigation task towards the specified target using the specified strategy (eStrategy)
+    // also sets the exploration mode 
+    void newTask(int targetPlace, int strategy, bool bexploration);       
     // returns the present place where the agent is located
     int getLocation();
     // gets the number of steps performed
     int getNumSteps() {return numSteps;}
-    // returns the name of the strategy
-    std::string getStrategyName();
+    // gets strategy code
+    int getStrategy() {return strategy;};
 
     // stores learned Qs for environment connections
     void storeLearned();
@@ -92,6 +93,8 @@ private:
     
     // shows the present state name
     void showState();    
+    // returns the name of the strategy
+    std::string getStrategyName();
     
 };
 }
