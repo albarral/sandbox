@@ -30,11 +30,6 @@ void Navigation::init(VirtualEnvironment& oVirtualEnvironment)
     LOG4CXX_INFO(logger, "Navigation module initialized");      
 };
 
-void Navigation::storeLearned()
-{
-    pVirtualEnvironment->storeLearned();
-}
-
 void Navigation::first()
 {    
     setState(eSTATE_STOP);
@@ -70,7 +65,6 @@ void Navigation::loop()
     }   // end switch    
     
 }
-
 
 void Navigation::newTask(int targetPlace, int strategy)
 {
@@ -267,6 +261,11 @@ std::string Navigation::getStrategyName()
             strategyName = "none";            
     }    
     return strategyName;
+}
+
+void Navigation::storeLearned()
+{
+    pVirtualEnvironment->storeLearned();
 }
 
 }

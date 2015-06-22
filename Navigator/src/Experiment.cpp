@@ -11,9 +11,15 @@ Experiment::Experiment()
 {
     firstPlace = 0;
     targetPlace = 0;
-    modo = 0;
-    steps = 0;
+    maxSteps = 0;
+    bexploration = false;
 }
 
-
+void Experiment::setParams(int firstPlace, int targetPlace, int maxSteps, bool bexploration)
+{
+    this->firstPlace = firstPlace;
+    this->targetPlace = targetPlace;
+    this->maxSteps = maxSteps;
+    this->bexploration = bexploration;    
+}
 }

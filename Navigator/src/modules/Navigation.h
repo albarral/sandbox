@@ -48,6 +48,7 @@ private:
     bool benabled;
     // logic
     int strategy;       // used navigation strategy
+    bool bexploration;  // indicates exploration mode (follow random connections, not best ones)
     int targetPlace;   // navigation target 
     int numSteps;    // steps performed in the last navigation task
     VirtualEnvironment* pVirtualEnvironment;    // to be replaced by VirtualTask in the future
@@ -60,7 +61,6 @@ public:
     // initializes the module 
     void init (VirtualEnvironment& oVirtualEnvironment);       
     bool isEnabled() {return benabled;};
-    void storeLearned();
 
     // starts a new navigation task towards the specifed target using the specified strategy (eStrategy)
     void newTask(int targetPlace, int strategy);       
@@ -70,6 +70,9 @@ public:
     int getNumSteps() {return numSteps;}
     // returns the name of the strategy
     std::string getStrategyName();
+
+    // stores learned Qs for environment connections
+    void storeLearned();
 
 private:
     // first actions when the thread begins 
