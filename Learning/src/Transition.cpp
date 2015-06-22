@@ -32,11 +32,11 @@ void Transition::set(int stateID, int nextState, int type)
     this->cost = oType.getCost();
 }
 
-void Transition::loadFromMemo(Database* pDatabase, sql::Connection *con)
+void Transition::loadFromMemo(Database* pDatabase, sql::Connection* con)
 {
     std::string sel = "SELECT * FROM TAB_TRANSITIONS WHERE taskID = " + std::to_string(taskID)
             + " AND stateID = " + std::to_string(stateID) + " AND transID = " + std::to_string(ID);
-    sql::ResultSet *res = pDatabase->select(sel, con);
+    sql::ResultSet* res = pDatabase->select(sel, con);
     
     while (res->next())
     {
@@ -47,7 +47,7 @@ void Transition::loadFromMemo(Database* pDatabase, sql::Connection *con)
     }
 }
 
-void Transition::storeInMemo(Database* pDatabase, sql::Connection *con)
+void Transition::storeInMemo(Database* pDatabase, sql::Connection* con)
 {
     std::string insert = "INSERT INTO TAB_TRANSITIONS (transID, description, taskID, stateID, nextState, cost, q) "
             "VALUES (" + std::to_string(ID) + ", ' " + desc + " ', " + std::to_string(taskID) 
@@ -58,7 +58,7 @@ void Transition::storeInMemo(Database* pDatabase, sql::Connection *con)
 
 void Transition::upDateInMemo(Database* pDatabase)
 {
-    sql::Connection *con = pDatabase->getConnectionDB();
+    sql::Connection* con = pDatabase->getConnectionDB();
     std::string update = "UPDATE TAB_TRANSITIONS SET description= ' " + desc +
             " ' nextState = " + std::to_string(nextState) + ", cost = " + std::to_string(cost) + ", q = " + 
             std::to_string(Q) + " WHERE transID = " + std::to_string(ID)
@@ -70,7 +70,7 @@ void Transition::upDateInMemo(Database* pDatabase)
 
 void Transition::deleteFromMemo(Database* pDatabase)
 {
-    sql::Connection *con = pDatabase->getConnectionDB();
+    sql::Connection* con = pDatabase->getConnectionDB();
     std::string deleteDB = "DELETE FROM TAB_TRANSITIONS WHERE transID= " + std::to_string(ID);
             + " AND taskID= " + std::to_string(taskID) + " AND stateID= " + std::to_string(stateID);
     pDatabase->update(deleteDB, con);   

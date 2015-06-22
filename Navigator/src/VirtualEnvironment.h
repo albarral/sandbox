@@ -37,6 +37,7 @@ public:
     VirtualEnvironment();
 
     void init(int ID);
+    void storeLearned();
 
     int getPlaceNow() {return placeNow;};
     void setPlaceNow(int value) {placeNow = value;};

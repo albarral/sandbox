@@ -21,6 +21,8 @@
           <itemPath>src/utils/module2.cpp</itemPath>
           <itemPath>src/utils/module2.h</itemPath>
         </logicalFolder>
+        <itemPath>src/Experiment.cpp</itemPath>
+        <itemPath>src/Experiment.h</itemPath>
         <itemPath>src/VirtualEnvironment.cpp</itemPath>
         <itemPath>src/VirtualEnvironment.h</itemPath>
         <itemPath>src/VirtualTask.cpp</itemPath>
@@ -92,6 +94,10 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="src/Experiment.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Experiment.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/VirtualEnvironment.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/VirtualEnvironment.h" ex="false" tool="3" flavor2="0">
@@ -131,6 +137,10 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="src/Experiment.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Experiment.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/VirtualEnvironment.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/VirtualEnvironment.h" ex="false" tool="3" flavor2="0">

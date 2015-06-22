@@ -23,11 +23,11 @@ void State::addTransition(Transition& oTransition)
     listTransitions.push_back(oTransition);
 }
 
-void State::loadFromMemo(Database* pDatabase, sql::Connection *con)
+void State::loadFromMemo(Database* pDatabase, sql::Connection* con)
 {
     std::string sel = "SELECT * FROM TAB_STATES WHERE taskID = " + std::to_string(taskID)
             + " AND stateID = " + std::to_string(ID);
-    sql::ResultSet *res = pDatabase->select(sel, con);
+    sql::ResultSet* res = pDatabase->select(sel, con);
       
     while (res->next())
     {
@@ -39,7 +39,7 @@ void State::loadFromMemo(Database* pDatabase, sql::Connection *con)
     loadTransitions(pDatabase, con);
 }
 
-void State::storeInMemo(Database* pDatabase, sql::Connection *con)
+void State::storeInMemo(Database* pDatabase, sql::Connection* con)
 {
     std::string insertDB = "INSERT INTO TAB_STATES (stateID, description, taskID, reward) VALUES ("
             + std::to_string(ID) + ", ' " + desc + " ', " + std::to_string(taskID) + ", " + std::to_string(reward) + ")";    
@@ -50,7 +50,7 @@ void State::storeInMemo(Database* pDatabase, sql::Connection *con)
 
 void State::upDateInMemo(Database* pDatabase)
 {
-    sql::Connection *con = pDatabase->getConnectionDB();
+    sql::Connection* con = pDatabase->getConnectionDB();
     std::string update = "UPDATE TAB_STATES SET description = ' " + desc + " ' ,reward = " + std::to_string(reward) 
     + " WHERE stateID = " + std::to_string(ID) + " AND taskID= " + std::to_string(taskID);
     pDatabase->update(update, con);
@@ -60,7 +60,7 @@ void State::upDateInMemo(Database* pDatabase)
 
 void State::deleteFromMemo(Database* pDatabase)
 {
-    sql::Connection *con = pDatabase->getConnectionDB();
+    sql::Connection* con = pDatabase->getConnectionDB();
     std::string deleteDB = "DELETE FROM TAB_STATES WHERE stateID= "+ std::to_string(ID);
             + " AND taskID= " + std::to_string(taskID);
     pDatabase->update(deleteDB, con);    
@@ -68,11 +68,11 @@ void State::deleteFromMemo(Database* pDatabase)
     pDatabase->closeConnectionDB();
 }
 
-void State::transitionsFromMemo(Database* pDatabase, sql::Connection *con)
+void State::transitionsFromMemo(Database* pDatabase, sql::Connection* con)
 {
     std::string sel = "SELECT transID FROM TAB_TRANSITIONS WHERE taskID = " + std::to_string(taskID)
             + " AND stateID = " + std::to_string(ID);
-    sql::ResultSet *res = pDatabase->select(sel, con);
+    sql::ResultSet* res = pDatabase->select(sel, con);
     
     while (res->next())
     {
@@ -85,7 +85,7 @@ void State::transitionsFromMemo(Database* pDatabase, sql::Connection *con)
     }
 }
 
-void State::loadTransitions(Database* pDatabase, sql::Connection *con)
+void State::loadTransitions(Database* pDatabase, sql::Connection* con)
 {
     std::vector<Transition>::iterator it_transition = listTransitions.begin();
     std::vector<Transition>::iterator it_end = listTransitions.end();
@@ -96,7 +96,7 @@ void State::loadTransitions(Database* pDatabase, sql::Connection *con)
     }
 }
 
-void State::storeTransitions(Database* pDatabase, sql::Connection *con)
+void State::storeTransitions(Database* pDatabase, sql::Connection* con)
 {
     std::vector<Transition>::iterator it_transition = listTransitions.begin();
     std::vector<Transition>::iterator it_end = listTransitions.end();

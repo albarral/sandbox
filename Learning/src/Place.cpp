@@ -23,11 +23,11 @@ void Place::addConnection(Connection& oConnection)
     listConnections.push_back(oConnection);
 }
 
-void Place::loadFromMemo(Database* pDatabase, sql::Connection *con)
+void Place::loadFromMemo(Database* pDatabase, sql::Connection* con)
 {
     std::string sel = "SELECT * FROM TAB_PLACES WHERE envID = " + std::to_string(environmentID)
             + " AND placeID = " + std::to_string(ID);
-    sql::ResultSet *res = pDatabase->select(sel, con);
+    sql::ResultSet* res = pDatabase->select(sel, con);
       
     while (res->next())
     {
@@ -39,7 +39,7 @@ void Place::loadFromMemo(Database* pDatabase, sql::Connection *con)
     loadConnections(pDatabase, con);
 }
 
-void Place::storeInMemo(Database* pDatabase, sql::Connection *con)
+void Place::storeInMemo(Database* pDatabase, sql::Connection* con)
 {
     std::string insertDB = "INSERT INTO TAB_PLACES (placeID, description, envID, reward) VALUES ("
             + std::to_string(ID) + ", ' " + desc + " ', " + std::to_string(environmentID)
@@ -51,7 +51,7 @@ void Place::storeInMemo(Database* pDatabase, sql::Connection *con)
 
 void Place::upDateInMemo(Database* pDatabase)
 {
-    sql::Connection *con = pDatabase->getConnectionDB();
+    sql::Connection* con = pDatabase->getConnectionDB();
     std::string update = "UPDATE TAB_PLACES SET description = ' " + desc + " ' ,reward = " + std::to_string(reward) 
     + " WHERE placeID = " + std::to_string(ID) + " AND envID= " + std::to_string(environmentID);
     pDatabase->update(update, con);
@@ -61,7 +61,7 @@ void Place::upDateInMemo(Database* pDatabase)
 
 void Place::deleteFromMemo(Database* pDatabase)
 {
-    sql::Connection *con = pDatabase->getConnectionDB();
+    sql::Connection* con = pDatabase->getConnectionDB();
     std::string deleteDB = "DELETE FROM TAB_PLACES WHERE placeID= "+ std::to_string(ID);
             + " AND envID= " + std::to_string(environmentID);
     pDatabase->update(deleteDB, con);    
@@ -69,11 +69,22 @@ void Place::deleteFromMemo(Database* pDatabase)
     pDatabase->closeConnectionDB();
 }
 
-void Place::connectionsFromMemo(Database* pDatabase, sql::Connection *con)
+void Place::storeQ(Database* pDatabase, sql::Connection* con)
+{
+    std::vector<Connection>::iterator it_connetion = listConnections.begin();
+    std::vector<Connection>::iterator it_end = listConnections.end();
+    while (it_connetion != it_end)
+    {
+        it_connetion->storeQ(pDatabase, con);
+        it_connetion++;	
+    }
+}
+
+void Place::connectionsFromMemo(Database* pDatabase, sql::Connection* con)
 {
     std::string sel = "SELECT connID FROM TAB_CONNECTIONS WHERE envID = " + std::to_string(environmentID)
             + " AND placeID = " + std::to_string(ID);
-    sql::ResultSet *res = pDatabase->select(sel, con);
+    sql::ResultSet* res = pDatabase->select(sel, con);
     
     while (res->next())
     {
@@ -86,7 +97,7 @@ void Place::connectionsFromMemo(Database* pDatabase, sql::Connection *con)
     }
 }
 
-void Place::loadConnections(Database* pDatabase, sql::Connection *con)
+void Place::loadConnections(Database* pDatabase, sql::Connection* con)
 {
     std::vector<Connection>::iterator it_connetion = listConnections.begin();
     std::vector<Connection>::iterator it_end = listConnections.end();
@@ -97,7 +108,7 @@ void Place::loadConnections(Database* pDatabase, sql::Connection *con)
     }
 }
 
-void Place::storeConnections(Database* pDatabase, sql::Connection *con)
+void Place::storeConnections(Database* pDatabase, sql::Connection* con)
 {
     std::vector<Connection>::iterator it_connetion = listConnections.begin();
     std::vector<Connection>::iterator it_end = listConnections.end();

@@ -13,6 +13,7 @@
 #include "VirtualEnvironment.h"
 #include "Connection.h" // learning module
 #include "Learn.h"
+#include "Experiment.h"
 
 namespace sam 
 {
@@ -59,6 +60,7 @@ public:
     // initializes the module 
     void init (VirtualEnvironment& oVirtualEnvironment);       
     bool isEnabled() {return benabled;};
+    void storeLearned();
 
     // starts a new navigation task towards the specifed target using the specified strategy (eStrategy)
     void newTask(int targetPlace, int strategy);       
@@ -66,6 +68,8 @@ public:
     int getLocation();
     // gets the number of steps performed
     int getNumSteps() {return numSteps;}
+    // returns the name of the strategy
+    std::string getStrategyName();
 
 private:
     // first actions when the thread begins 
@@ -85,8 +89,7 @@ private:
     
     // shows the present state name
     void showState();    
-    // returns the name of the strategy
-    std::string getStrategyName();
+    
 };
 }
 #endif

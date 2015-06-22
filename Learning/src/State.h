@@ -26,8 +26,8 @@ private:
 public:
     State();
     void addTransition(Transition& oTransition);
-    void loadFromMemo(Database* pDatabase, sql::Connection *con);
-    void storeInMemo(Database* pDatabase, sql::Connection *con);
+    void loadFromMemo(Database* pDatabase, sql::Connection* con);
+    void storeInMemo(Database* pDatabase, sql::Connection* con);
     void upDateInMemo(Database* pDatabase);
     void deleteFromMemo(Database* pDatabase);
     
@@ -48,9 +48,9 @@ public:
     std::string showData();
    
 private:
-    void transitionsFromMemo(Database* pDatabase, sql::Connection *con);
-    void loadTransitions(Database* pDatabase, sql::Connection *con);
-    void storeTransitions(Database* pDatabase, sql::Connection *con);
+    void transitionsFromMemo(Database* pDatabase, sql::Connection* con);
+    void loadTransitions(Database* pDatabase, sql::Connection* con);
+    void storeTransitions(Database* pDatabase, sql::Connection* con);
 };
 }
 

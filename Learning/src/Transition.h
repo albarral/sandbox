@@ -26,8 +26,8 @@ private:
 public:
     Transition();
     
-    void loadFromMemo(Database* pDatabase, sql::Connection *con);
-    void storeInMemo(Database* pDatabase, sql::Connection *con);
+    void loadFromMemo(Database* pDatabase, sql::Connection* con);
+    void storeInMemo(Database* pDatabase, sql::Connection* con);
     void upDateInMemo(Database* pDatabase);
     void deleteFromMemo(Database* pDatabase);
     

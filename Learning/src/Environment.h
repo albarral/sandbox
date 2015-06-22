@@ -44,14 +44,15 @@ public:
     void storeInMemo();
     void upDateInMemo();
     void deleteFromMemo();
+    void storeQ();
     void reset();
 
     std::string showData();
 
 private:
-    void placesFromMemo(sql::Connection *con);
-    void loadPlaces(sql::Connection *con);
-    void storePlaces(sql::Connection *con);
+    void placesFromMemo(sql::Connection* con);
+    void loadPlaces(sql::Connection* con);
+    void storePlaces(sql::Connection* con);
     
 };
 }

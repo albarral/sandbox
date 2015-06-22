@@ -33,12 +33,11 @@ sql::Connection* Database::getConnectionDB()
 
 void Database::closeConnectionDB()
 {
-//    delete res; 
     con->close();
     delete con;
 }
 
-void Database::update(std::string insert, sql::Connection *con)
+void Database::update(std::string insert, sql::Connection* con)
 { 
     con->setSchema(database);    
     prep_stmt = con->prepareStatement (insert);    
@@ -46,7 +45,7 @@ void Database::update(std::string insert, sql::Connection *con)
     delete prep_stmt;
 }
 
-sql::ResultSet* Database::select(std::string sel, sql::Connection *con)
+sql::ResultSet* Database::select(std::string sel, sql::Connection* con)
 {  
     con->setSchema(database);   
     stmt = con->createStatement();   

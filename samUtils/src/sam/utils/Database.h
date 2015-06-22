@@ -28,11 +28,11 @@ private:
     std::string user;
     std::string password;
     std::string database;
-    sql::Driver *driver;
-    sql::Connection *con;
-    sql::Statement *stmt;
-    sql::ResultSet *res;
-    sql::PreparedStatement *prep_stmt;
+    sql::Driver* driver;
+    sql::Connection* con;
+    sql::Statement* stmt;
+    sql::ResultSet* res;
+    sql::PreparedStatement* prep_stmt;
         
 public:
     Database();
@@ -46,8 +46,8 @@ public:
     
     sql::Connection* getConnectionDB();
     void closeConnectionDB();
-    void update(std::string, sql::Connection *con);
-    sql::ResultSet* select(std::string, sql::Connection *con);
+    void update(std::string, sql::Connection* con);
+    sql::ResultSet* select(std::string, sql::Connection* con);
     
 };
 }

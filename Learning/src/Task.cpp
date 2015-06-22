@@ -19,9 +19,9 @@ void Task::addState(State& oState)
 
 void Task::loadFromMemo()
 {
-    sql::Connection *con = pDatabase->getConnectionDB();
+    sql::Connection* con = pDatabase->getConnectionDB();
     std::string sel = "SELECT * FROM TAB_TASKS WHERE taskID = " + std::to_string(ID);
-    sql::ResultSet *res = pDatabase->select(sel, con);
+    sql::ResultSet* res = pDatabase->select(sel, con);
        
     while (res->next())
     {
@@ -38,7 +38,7 @@ void Task::loadFromMemo()
 
 void Task::storeInMemo()
 {   
-    sql::Connection *con = pDatabase->getConnectionDB(); 
+    sql::Connection* con = pDatabase->getConnectionDB(); 
     std::string insert = "INSERT INTO TAB_TASKS (taskID, description, type) VALUES "
         "(" + std::to_string(ID) + ", ' " + desc + " ', " + std::to_string(type) + ")";    
     pDatabase->update(insert, con);
@@ -50,7 +50,7 @@ void Task::storeInMemo()
 
 void Task::upDateInMemo()
 {
-    sql::Connection *con = pDatabase->getConnectionDB();
+    sql::Connection* con = pDatabase->getConnectionDB();
     std::string update = "UPDATE TAB_TASKA SET description = ' " + desc + " ', type = " 
             + std::to_string(type) + " WHERE taskID= " + std::to_string(ID);
     pDatabase->update(update, con);
@@ -60,17 +60,17 @@ void Task::upDateInMemo()
 
 void Task::deleteFromMemo()
 {
-    sql::Connection *con = pDatabase->getConnectionDB();
+    sql::Connection* con = pDatabase->getConnectionDB();
     std::string deleteDB = "DELETE FROM TAB_TASK WHERE taskID= " + std::to_string(ID);
     pDatabase->update(deleteDB, con);  
     con->commit();
     pDatabase->closeConnectionDB();
 }
 
-void Task::statesFromMemo(sql::Connection *con)
+void Task::statesFromMemo(sql::Connection* con)
 {
     std::string sel = "SELECT stateID FROM TAB_STATES WHERE taskID = " + std::to_string(ID);
-    sql::ResultSet *res = pDatabase->select(sel, con);
+    sql::ResultSet* res = pDatabase->select(sel, con);
     
     while (res->next())
     {
@@ -82,7 +82,7 @@ void Task::statesFromMemo(sql::Connection *con)
     }    
 }
 
-void Task::loadStates(sql::Connection *con)
+void Task::loadStates(sql::Connection* con)
 {
     std::vector<State>::iterator it_state = listStates.begin();
     std::vector<State>::iterator it_end = listStates.end();
@@ -93,7 +93,7 @@ void Task::loadStates(sql::Connection *con)
     }
 }
 
-void Task::storeStates(sql::Connection *con)
+void Task::storeStates(sql::Connection* con)
 {
     std::vector<State>::iterator it_state = listStates.begin();
     std::vector<State>::iterator it_end = listStates.end();

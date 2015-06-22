@@ -38,8 +38,8 @@ void testNavigation()
 
     LOG4CXX_INFO(logger, "***** INIT environment");    
     // init environment
-    oVirtualEnvironment.init(sam::VirtualEnvironment::eENV_6ROOM);
-    oVirtualEnvironment.setPlaceNow(0);
+    oVirtualEnvironment.init(sam::VirtualEnvironment::eENV_7ROOM);
+    oVirtualEnvironment.setPlaceNow(2);
 
     LOG4CXX_INFO(logger, "***** INIT navigation");    
     // start navigation module
@@ -49,21 +49,26 @@ void testNavigation()
 
     // command task
     sleep (1);    
-    targetPlace = 5;
-    oNavigation.newTask(targetPlace, sam::Navigation::eSTRAT_LOWER_COST);
+    targetPlace = 7;
+    oNavigation.newTask(targetPlace, sam::Navigation::eSTRAT_SMART);
         
     // wait until target reached or num steps > 20
     while ((oNavigation.getState() != sam::Navigation::eSTATE_REACHED) && (oNavigation.getNumSteps()<10))            
         sleep (1);
 
     if ((oNavigation.getState() != sam::Navigation::eSTATE_REACHED))
-        LOG4CXX_INFO(logger, "Too many steps without reaching the target !!!! " << oNavigation.getNumSteps());    
-
+        LOG4CXX_INFO(logger, "Too many steps without reaching the target !!!! " << oNavigation.getNumSteps());  
+    
     oNavigation.off();
     oNavigation.wait();
 
     LOG4CXX_INFO(logger, "End of test");    
+    
+    if (oNavigation.getStrategyName() == "smart")
+    {
+        oNavigation.storeLearned();
+    }
   
-    return ;
+    return;
         
 }

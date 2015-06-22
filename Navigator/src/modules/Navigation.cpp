@@ -30,6 +30,11 @@ void Navigation::init(VirtualEnvironment& oVirtualEnvironment)
     LOG4CXX_INFO(logger, "Navigation module initialized");      
 };
 
+void Navigation::storeLearned()
+{
+    pVirtualEnvironment->storeLearned();
+}
+
 void Navigation::first()
 {    
     setState(eSTATE_STOP);
@@ -152,7 +157,7 @@ Connection* Navigation::getBestConnection(std::vector<sam::Connection>& listConn
 {
     // checks all connections in the given list and gets the one with highest confidence (a combination of Q and cost)
     sam::Connection* winner = 0;
-    float maxConfidence = -1.0;
+    float maxConfidence = 0;
     float confidence, cost;
 
     std::vector<sam::Connection>::iterator it_connection = listConnections.begin();
@@ -178,7 +183,7 @@ Connection* Navigation::getSmartestConnection(std::vector<sam::Connection>& list
 {
     // checks all connections in the given list and gets the one with highest confidence (a combination of Q and cost)
     sam::Connection* winner = 0;
-    float maxConfidence = -1.0, Q;
+    float maxConfidence = 0, Q;
     int nextPlace;
 
     std::vector<sam::Place>& listPlaces = pVirtualEnvironment->getPresentPlaces();
@@ -188,7 +193,7 @@ Connection* Navigation::getSmartestConnection(std::vector<sam::Connection>& list
     while (it_connection != it_end)
     {
         nextPlace = it_connection->getNextPlace();
-        Place &oPlace = listPlaces.at(nextPlace);
+        Place& oPlace = listPlaces.at(nextPlace);
         Connection* pConnection2 = &(*it_connection);
         Q = oLearn.computeQ(pConnection2, oPlace);
 
@@ -199,8 +204,16 @@ Connection* Navigation::getSmartestConnection(std::vector<sam::Connection>& list
             maxConfidence = Q;
             winner = &(*it_connection);
         }        
-        it_connection++;	
+        it_connection++;
     }    
+    if(maxConfidence == 0)
+    {
+        int randNumConn, size;
+    
+        size = listConnections.size();
+        randNumConn = rand() % size;
+        winner = &listConnections.at(randNumConn);
+    }
     return winner;
 }
 
@@ -248,7 +261,7 @@ std::string Navigation::getStrategyName()
             strategyName = "lower cost";
             break;            
         case eSTRAT_SMART:                        
-            strategyName = "smart";                
+            strategyName = "smart";   
             break;                        
         default:        
             strategyName = "none";            

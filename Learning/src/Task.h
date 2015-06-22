@@ -49,9 +49,9 @@ public:
     std::string showData();
 
 private:
-    void statesFromMemo(sql::Connection *con);
-    void loadStates(sql::Connection *con);
-    void storeStates(sql::Connection *con);
+    void statesFromMemo(sql::Connection* con);
+    void loadStates(sql::Connection* con);
+    void storeStates(sql::Connection* con);
 
 
 };

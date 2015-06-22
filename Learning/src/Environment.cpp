@@ -19,9 +19,9 @@ void Environment::addPlace(Place& oPlace)
 
 void Environment::loadFromMemo()
 {
-    sql::Connection *con = pDatabase->getConnectionDB();
+    sql::Connection* con = pDatabase->getConnectionDB();
     std::string sel = "SELECT * FROM TAB_ENVIRONMENTS WHERE envID = " + std::to_string(ID);
-    sql::ResultSet *res = pDatabase->select(sel, con);
+    sql::ResultSet* res = pDatabase->select(sel, con);
        
     while (res->next())
     {
@@ -38,7 +38,7 @@ void Environment::loadFromMemo()
 
 void Environment::storeInMemo()
 {   
-    sql::Connection *con = pDatabase->getConnectionDB(); 
+    sql::Connection* con = pDatabase->getConnectionDB(); 
     std::string insert = "INSERT INTO TAB_ENVIRONMENTS (envID, description, type) VALUES "
         "(" + std::to_string(ID) + ", ' " + desc + " ', " + std::to_string(type) + ")";    
     pDatabase->update(insert, con);
@@ -50,7 +50,7 @@ void Environment::storeInMemo()
 
 void Environment::upDateInMemo()
 {
-    sql::Connection *con = pDatabase->getConnectionDB();
+    sql::Connection* con = pDatabase->getConnectionDB();
     std::string update = "UPDATE TAB_ENVIRONMENTS SET description = ' " + desc + " ', type = " 
             + std::to_string(type) + " WHERE envID= " + std::to_string(ID);
     pDatabase->update(update, con);
@@ -60,17 +60,31 @@ void Environment::upDateInMemo()
 
 void Environment::deleteFromMemo()
 {
-    sql::Connection *con = pDatabase->getConnectionDB();
+    sql::Connection* con = pDatabase->getConnectionDB();
     std::string deleteDB = "DELETE FROM TAB_ENVIRONMENTS WHERE envID= " + std::to_string(ID);
     pDatabase->update(deleteDB, con);  
     con->commit();
     pDatabase->closeConnectionDB();
 }
 
-void Environment::placesFromMemo(sql::Connection *con)
+void Environment::storeQ()
+{
+    sql::Connection* con = pDatabase->getConnectionDB();
+    std::vector<Place>::iterator it_place = listPlaces.begin();
+    std::vector<Place>::iterator it_end = listPlaces.end();
+    while (it_place != it_end)
+    {
+        it_place->storeQ(pDatabase, con);
+        it_place++;
+    }
+    con->commit();
+    pDatabase->closeConnectionDB();
+}
+
+void Environment::placesFromMemo(sql::Connection* con)
 {
     std::string sel = "SELECT placeID FROM TAB_PLACES WHERE envID = " + std::to_string(ID);
-    sql::ResultSet *res = pDatabase->select(sel, con);
+    sql::ResultSet* res = pDatabase->select(sel, con);
     
     while (res->next())
     {
@@ -82,7 +96,7 @@ void Environment::placesFromMemo(sql::Connection *con)
     }    
 }
 
-void Environment::loadPlaces(sql::Connection *con)
+void Environment::loadPlaces(sql::Connection* con)
 {
     std::vector<Place>::iterator it_place = listPlaces.begin();
     std::vector<Place>::iterator it_end = listPlaces.end();
@@ -93,7 +107,7 @@ void Environment::loadPlaces(sql::Connection *con)
     }
 }
 
-void Environment::storePlaces(sql::Connection *con)
+void Environment::storePlaces(sql::Connection* con)
 {
     std::vector<Place>::iterator it_place = listPlaces.begin();
     std::vector<Place>::iterator it_end = listPlaces.end();
