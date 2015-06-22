@@ -35,9 +35,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/Experiment.o \
 	${OBJECTDIR}/src/VirtualEnvironment.o \
 	${OBJECTDIR}/src/VirtualTask.o \
+	${OBJECTDIR}/src/data/Experiment.o \
 	${OBJECTDIR}/src/main.o \
 	${OBJECTDIR}/src/modules/Navigation.o \
 	${OBJECTDIR}/src/utils/module2.o
@@ -71,11 +71,6 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/navigator: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/navigator ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/src/Experiment.o: src/Experiment.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../Learning/src -I../samUtils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Experiment.o src/Experiment.cpp
-
 ${OBJECTDIR}/src/VirtualEnvironment.o: src/VirtualEnvironment.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
@@ -85,6 +80,11 @@ ${OBJECTDIR}/src/VirtualTask.o: src/VirtualTask.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../Learning/src -I../samUtils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/VirtualTask.o src/VirtualTask.cpp
+
+${OBJECTDIR}/src/data/Experiment.o: src/data/Experiment.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/data
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../Learning/src -I../samUtils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/data/Experiment.o src/data/Experiment.cpp
 
 ${OBJECTDIR}/src/main.o: src/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src

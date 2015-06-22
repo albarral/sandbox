@@ -13,7 +13,6 @@
 #include "VirtualEnvironment.h"
 #include "Connection.h" // learning module
 #include "Learn.h"
-#include "Experiment.h"
 
 namespace sam 
 {
@@ -74,6 +73,7 @@ public:
 
     // stores learned Qs for environment connections
     void storeLearned();
+    
 
 private:
     // first actions when the thread begins 
