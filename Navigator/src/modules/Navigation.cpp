@@ -5,12 +5,14 @@
 
 #include <string>
 #include <cstdlib>  //for the random values
+#include <cv.h>  //for matrix Q
 #include "log4cxx/ndc.h"
 
 #include "Navigation.h"
 #include "Learn.h"
 
 using namespace log4cxx;
+using namespace cv;
 
 namespace sam 
 {
@@ -37,9 +39,8 @@ void Navigation::first()
 
     log4cxx::NDC::push("nav");   	
     log4cxx::NDC::push("stop");   	
-    LOG4CXX_INFO(logger, "first place " << getLocation());  
 }
-                    
+
 void Navigation::loop()
 {
     if (updateState())
@@ -81,6 +82,11 @@ void Navigation::newTask(int targetPlace, int strategy, bool bexploration)
     setNextState(eSTATE_GO);
 
     LOG4CXX_INFO(logger, "new navigation task: target=" << this->targetPlace << ", strategy=" << getStrategyName());      
+}
+
+void Navigation::stopTask()
+{
+    setNextState(eSTATE_STOP);
 }
 
 int Navigation::getLocation()
@@ -267,6 +273,34 @@ std::string Navigation::getStrategyName()
 void Navigation::storeLearned()
 {
     pVirtualEnvironment->storeLearned();
+}
+
+void Navigation::showLearned()
+{    
+    std::vector<sam::Place>& listPlaces = pVirtualEnvironment->getPresentPlaces();
+    std::vector<sam::Place>::iterator it_places = listPlaces.begin();
+    std::vector<sam::Place>::iterator it_endP = listPlaces.end();
+    
+    int i = listPlaces.size();
+    Mat Q = Mat_<int>(Mat::zeros(i,i, CV_8U));
+    
+    while (it_places != it_endP)
+    {
+        std::vector<sam::Connection>& listConnections = listPlaces.at(it_places->getID()).getListConnections();
+        std::vector<sam::Connection>::iterator it_connection = listConnections.begin();
+        std::vector<sam::Connection>::iterator it_endC = listConnections.end();
+        while (it_connection != it_endC)
+        {
+            int j = it_places->getID();
+            int z = it_connection->getNextPlace();
+            
+            Q.at<int>(j,z) = it_connection->getQ();
+            it_connection++;
+        }
+        it_places++;
+    }
+    
+    LOG4CXX_INFO(logger, " Matrix Q: " << Q);
 }
 
 }

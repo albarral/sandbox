@@ -57,7 +57,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../Learning/dist/Debug/GNU-Linux-x86 -L../Learning/dist/Debug/GNU-Linux-x86 -lsam_learning -Wl,-rpath,../samUtils/dist/Debug/GNU-Linux-x86 -L../samUtils/dist/Debug/GNU-Linux-x86 -lsam_utils -llog4cxx
+LDLIBSOPTIONS=-Wl,-rpath,../Learning/dist/Debug/GNU-Linux-x86 -L../Learning/dist/Debug/GNU-Linux-x86 -lsam_learning -Wl,-rpath,../samUtils/dist/Debug/GNU-Linux-x86 -L../samUtils/dist/Debug/GNU-Linux-x86 -lsam_utils -llog4cxx -lopencv_core `pkg-config --libs opencv`  
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -74,32 +74,32 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/navigator: ${OBJECTFILES}
 ${OBJECTDIR}/src/VirtualEnvironment.o: src/VirtualEnvironment.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../Learning/src -I../samUtils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/VirtualEnvironment.o src/VirtualEnvironment.cpp
+	$(COMPILE.cc) -g -Isrc -I../Learning/src -I../samUtils/src `pkg-config --cflags opencv` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/VirtualEnvironment.o src/VirtualEnvironment.cpp
 
 ${OBJECTDIR}/src/VirtualTask.o: src/VirtualTask.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../Learning/src -I../samUtils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/VirtualTask.o src/VirtualTask.cpp
+	$(COMPILE.cc) -g -Isrc -I../Learning/src -I../samUtils/src `pkg-config --cflags opencv` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/VirtualTask.o src/VirtualTask.cpp
 
 ${OBJECTDIR}/src/data/Experiment.o: src/data/Experiment.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/data
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../Learning/src -I../samUtils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/data/Experiment.o src/data/Experiment.cpp
+	$(COMPILE.cc) -g -Isrc -I../Learning/src -I../samUtils/src `pkg-config --cflags opencv` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/data/Experiment.o src/data/Experiment.cpp
 
 ${OBJECTDIR}/src/main.o: src/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../Learning/src -I../samUtils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
+	$(COMPILE.cc) -g -Isrc -I../Learning/src -I../samUtils/src `pkg-config --cflags opencv` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
 
 ${OBJECTDIR}/src/modules/Navigation.o: src/modules/Navigation.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../Learning/src -I../samUtils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/Navigation.o src/modules/Navigation.cpp
+	$(COMPILE.cc) -g -Isrc -I../Learning/src -I../samUtils/src `pkg-config --cflags opencv` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/Navigation.o src/modules/Navigation.cpp
 
 ${OBJECTDIR}/src/utils/module2.o: src/utils/module2.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../Learning/src -I../samUtils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utils/module2.o src/utils/module2.cpp
+	$(COMPILE.cc) -g -Isrc -I../Learning/src -I../samUtils/src `pkg-config --cflags opencv` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utils/module2.o src/utils/module2.cpp
 
 # Subprojects
 .build-subprojects:

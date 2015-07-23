@@ -18,7 +18,7 @@ VirtualEnvironment::VirtualEnvironment()
 {
     oDatabase.init("tcp://127.0.0.1:3306", "sam", "sam", "samMemo");
     oEnvironment.setDatabase(oDatabase);
-    placeNow = 0;        
+    placeNow = 0;   
 }
 
 void VirtualEnvironment::init(int ID)
@@ -152,7 +152,7 @@ void VirtualEnvironment::build6RoomTest()
     oPlace4.setReward(0);
     oPlace5.setID(5);
     oPlace5.setEnvironmentID(envID);
-    oPlace5.setReward(100);
+    oPlace5.setReward(0);
    
     // default connection properties for an office environment
     oConnection.setEnvironmentID(envID);
@@ -251,7 +251,7 @@ void VirtualEnvironment::build7RoomTest()
     oPlace5.setReward(0);
     oPlace6.setID(6);
     oPlace6.setEnvironmentID(envID);
-    oPlace6.setReward(100);
+    oPlace6.setReward(0);
     
    
     // default connection properties for an office environment
@@ -341,22 +341,30 @@ void VirtualEnvironment::build8RoomTest()
     LOG4CXX_INFO(logger, "Building 8 room environment ... envID=" << envID);    
 
     oEnvironment.setDesc("8 room");
-    oPlace0.setID(0);  
+    oPlace0.setID(0); 
     oPlace0.setEnvironmentID(envID);
+    oPlace0.setReward(0);
     oPlace1.setID(1);   
     oPlace1.setEnvironmentID(envID);
+    oPlace1.setReward(0);
     oPlace2.setID(2);
     oPlace2.setEnvironmentID(envID);
+    oPlace2.setReward(0);
     oPlace3.setID(3);    
     oPlace3.setEnvironmentID(envID);
+    oPlace3.setReward(0);
     oPlace4.setID(4);    
     oPlace4.setEnvironmentID(envID);
+    oPlace4.setReward(0);
     oPlace5.setID(5);
     oPlace5.setEnvironmentID(envID);
+    oPlace5.setReward(0);
     oPlace6.setID(6);
     oPlace6.setEnvironmentID(envID);
+    oPlace6.setReward(0);
     oPlace7.setID(7);
     oPlace7.setEnvironmentID(envID);
+    oPlace7.setReward(0);
    
     // default connection properties for an office environment
     oConnection.setEnvironmentID(envID);

@@ -33,7 +33,7 @@ public:
     void upDateInMemo(Database* pDatabase);
     void deleteFromMemo(Database* pDatabase);
     void storeQ(Database* pDatabase, sql::Connection* con);
-
+    
     // sets 6 members at a time (type is a ConnectionType predefined type)
     void set(int placeID, int nextPlace, int type);
 

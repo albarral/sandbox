@@ -81,6 +81,7 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibLibItem>mysqlcppconn</linkerLibLibItem>
+            <linkerLibLibItem>`pkg-config --libs opencv`</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>

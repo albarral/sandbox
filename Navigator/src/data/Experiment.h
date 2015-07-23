@@ -30,7 +30,7 @@ public:
     int getTargetPlace() {return targetPlace;};
     int getMaxSteps() {return maxSteps;};
     bool getExplorationMode() {return bexploration;};
-    
+       
 };
 
 }
