@@ -81,6 +81,7 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibLibItem>mysqlcppconn</linkerLibLibItem>
+            <linkerLibLibItem>opencv_core</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>

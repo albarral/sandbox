@@ -60,7 +60,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../samUtils/dist/Debug/GNU-Linux-x86 -L../samUtils/dist/Debug/GNU-Linux-x86 -lsam_utils -lmysqlcppconn
+LDLIBSOPTIONS=-Wl,-rpath,../samUtils/dist/Debug/GNU-Linux-x86 -L../samUtils/dist/Debug/GNU-Linux-x86 -lsam_utils -lmysqlcppconn -lopencv_core
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
