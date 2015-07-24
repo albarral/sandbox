@@ -5,11 +5,11 @@
 
 #include <string>
 #include <cstdlib>  //for the random values
-#include <cv.h>  //for matrix Q
 #include "log4cxx/ndc.h"
 
 #include "Navigation.h"
 #include "Learn.h"
+#include "opencv2/core/core.hpp" //for the matrix
 
 using namespace log4cxx;
 using namespace cv;
@@ -197,6 +197,7 @@ Connection* Navigation::getSmartestConnection(std::vector<sam::Connection>& list
         Place& oPlace = listPlaces.at(nextPlace);
         Connection* pConnection2 = &(*it_connection);
         Q = oLearn.computeQ(pConnection2, oPlace);
+        
 
         LOG4CXX_INFO(logger, "connects to " << it_connection->getNextPlace() << " - "  << it_connection->getDesc() << ", Q = " << Q);
         

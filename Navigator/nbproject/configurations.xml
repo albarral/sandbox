@@ -94,7 +94,6 @@
             </linkerLibProjectItem>
             <linkerLibLibItem>log4cxx</linkerLibLibItem>
             <linkerLibLibItem>opencv_core</linkerLibLibItem>
-            <linkerOptionItem>`pkg-config --libs opencv`</linkerOptionItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
