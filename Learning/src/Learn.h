@@ -25,7 +25,7 @@ public:
     void setGamma(float value) {gamma = value;};
 
     // Compute the Q value from a state with one connection
-    float computeQ(Connection* pConnection, Place& oPlace);
+    float computeQ(Place& oPlace);
    
 private:    
     float maxQvalue(Place& oPlace);

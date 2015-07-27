@@ -63,7 +63,7 @@ public:
 
     // starts a new navigation task towards the specified target using the specified strategy (eStrategy)
     // also sets the exploration mode 
-    void newTask(int targetPlace, int strategy, bool bexploration);
+    void newTask(int targetPlace, int strategy);
     //stop the navigation task
     void stopTask();
     // returns the present place where the agent is located
@@ -72,7 +72,8 @@ public:
     int getNumSteps() {return numSteps;}
     // gets strategy code
     int getStrategy() {return strategy;};
-
+    
+    float calculateQvalue(Connection* pConnection);
     // stores learned Qs for environment connections
     void storeLearned();
     // show a matrix with the values of Qs

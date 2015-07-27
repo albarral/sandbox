@@ -6,10 +6,10 @@
 #include <string>
 #include <cstdlib>  //for the random values
 #include "log4cxx/ndc.h"
+#include "opencv2/core/core.hpp" //for the matrix
 
 #include "Navigation.h"
 #include "Learn.h"
-#include "opencv2/core/core.hpp" //for the matrix
 
 using namespace log4cxx;
 using namespace cv;
@@ -67,11 +67,10 @@ void Navigation::loop()
     
 }
 
-void Navigation::newTask(int targetPlace, int strategy, bool bexploration)
+void Navigation::newTask(int targetPlace, int strategy)
 {
     // sets new target, strategy and exploration mode
-    this->targetPlace = targetPlace;
-    this->bexploration = bexploration;    
+    this->targetPlace = targetPlace;   
     if (strategy < eSTRAT_UNKNOWN)   
         this->strategy = strategy;
     else
@@ -135,15 +134,19 @@ Connection* Navigation::getRandomConnection(std::vector<sam::Connection>& listCo
     sam::Connection* winner = 0;
     
     int randNumConn, size;
-    
+    float Q;
+   
     size = listConnections.size();
     randNumConn = rand() % size;
-    
+        
     std::vector<sam::Connection>::iterator it_connection = listConnections.begin();
     std::vector<sam::Connection>::iterator it_end = listConnections.end();
     while (it_connection != it_end)
     {
-        LOG4CXX_INFO(logger, "connects to " << it_connection->getNextPlace() << " - "  << it_connection->getDesc());
+        Connection* pConnection = &(*it_connection);
+        Q = calculateQvalue(pConnection);
+        
+        LOG4CXX_INFO(logger, "connects to " <<  it_connection->getNextPlace() << " - "  << it_connection->getDesc() << ", Q = " << Q);
         if(randNumConn == it_connection->getID())
         {
             winner = &(*it_connection);
@@ -159,15 +162,18 @@ Connection* Navigation::getBestConnection(std::vector<sam::Connection>& listConn
     // checks all connections in the given list and gets the one with highest confidence (a combination of Q and cost)
     sam::Connection* winner = 0;
     float maxConfidence = 0;
-    float confidence, cost;
+    float confidence, cost, Q;
 
     std::vector<sam::Connection>::iterator it_connection = listConnections.begin();
     std::vector<sam::Connection>::iterator it_end = listConnections.end();
     while (it_connection != it_end)
     {
+        Connection* pConnection = &(*it_connection);
+        Q = calculateQvalue(pConnection);
+        
         cost = it_connection->computeCost();
         confidence = computeConfidence(cost);                
-        LOG4CXX_INFO(logger, "connects to " << it_connection->getNextPlace() << " - "  << it_connection->getDesc() << ", cost=" << cost <<  ", conf=" << confidence);
+        LOG4CXX_INFO(logger, "connects to " <<  it_connection->getNextPlace() << " - "  << it_connection->getDesc() << ", cost=" << cost <<  ", conf=" << confidence << ", Q = " << Q);  
         
         if (confidence > maxConfidence)
         {
@@ -185,19 +191,13 @@ Connection* Navigation::getSmartestConnection(std::vector<sam::Connection>& list
     // checks all connections in the given list and gets the one with highest confidence (a combination of Q and cost)
     sam::Connection* winner = 0;
     float maxConfidence = 0, Q;
-    int nextPlace;
-
-    std::vector<sam::Place>& listPlaces = pVirtualEnvironment->getPresentPlaces();
 
     std::vector<sam::Connection>::iterator it_connection = listConnections.begin();
     std::vector<sam::Connection>::iterator it_end = listConnections.end();
     while (it_connection != it_end)
-    {
-        nextPlace = it_connection->getNextPlace();
-        Place& oPlace = listPlaces.at(nextPlace);
-        Connection* pConnection2 = &(*it_connection);
-        Q = oLearn.computeQ(pConnection2, oPlace);
-        
+    {        
+        Connection* pConnection = &(*it_connection);
+        Q = calculateQvalue(pConnection);
 
         LOG4CXX_INFO(logger, "connects to " << it_connection->getNextPlace() << " - "  << it_connection->getDesc() << ", Q = " << Q);
         
@@ -217,6 +217,18 @@ Connection* Navigation::getSmartestConnection(std::vector<sam::Connection>& list
         winner = &listConnections.at(randNumConn);
     }
     return winner;
+}
+
+float Navigation::calculateQvalue(Connection* pConnection)
+{
+    std::vector<sam::Place>& listPlaces = pVirtualEnvironment->getPresentPlaces();
+    
+    int nextPlace = pConnection->getNextPlace();
+    Place& oPlace = listPlaces.at(nextPlace);
+    float Q = oLearn.computeQ(oPlace);
+    pConnection->setQ(Q);
+    
+    return Q;
 }
 
 // IMPORTANT: this method will be moved to the Learning project in the future
@@ -301,7 +313,7 @@ void Navigation::showLearned()
         it_places++;
     }
     
-    LOG4CXX_INFO(logger, " Matrix Q: " << Q);
+    LOG4CXX_INFO(logger, " Matrix Q:\n " << Q);
 }
 
 }

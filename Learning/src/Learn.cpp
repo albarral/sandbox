@@ -14,7 +14,7 @@ Learn::Learn()
 }
 
 // Q(state, action) = Reward(state, action) + gamma * max [Q(next state, all actions)]
-float Learn::computeQ(Connection* pConnection, Place& oPlace)
+float Learn::computeQ(Place& oPlace)
 {
     float reward, QNextState, Q;
      
@@ -22,8 +22,7 @@ float Learn::computeQ(Connection* pConnection, Place& oPlace)
     QNextState = maxQvalue(oPlace);
     
     Q = reward + gamma * QNextState;
-    pConnection->setQ(Q);
-    
+       
     return Q;
 }
 
@@ -41,8 +40,7 @@ float Learn::maxQvalue(Place& oPlace)
         
         if (Q > maxQ)
         {
-            maxQ = Q;
-            
+            maxQ = Q;            
         }
         it_connection ++;
     }

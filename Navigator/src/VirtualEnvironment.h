@@ -24,6 +24,7 @@ public:
          eENV_6ROOM, 
          eENV_7ROOM, 
          eENV_8ROOM, 
+         eENV_9ROOM,
          eENV_UNKNOWN, 
     };
     
@@ -59,6 +60,7 @@ private:
     void build6RoomTest();
     void build7RoomTest();
     void build8RoomTest();
+    void build9RoomTest();
 
 };
 }

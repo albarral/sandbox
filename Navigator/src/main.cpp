@@ -45,7 +45,7 @@ void testNavigation()
 
     LOG4CXX_INFO(logger, "*** INIT environment");    
     // init environment
-    oVirtualEnvironment.init(sam::VirtualEnvironment::eENV_7ROOM);
+    oVirtualEnvironment.init(sam::VirtualEnvironment::eENV_9ROOM);
 
     LOG4CXX_INFO(logger, "*** INIT navigation");
     // start navigation module
@@ -79,16 +79,21 @@ void testNavigation()
 
 void doNavigationTask(sam::Navigation& oNavigation, sam::VirtualEnvironment& oVirtualEnvironment, sam::Experiment& oExperiment)
 {   
+    int strategy;
     LOG4CXX_INFO(logger, ">>>>>> New navigation task:");    
     LOG4CXX_INFO(logger, "From " << oExperiment.getFirstPlace() << " to " << oExperiment.getTargetPlace());
     LOG4CXX_INFO(logger, "Max steps = " << oExperiment.getMaxSteps());
     if (oExperiment.getExplorationMode())
+    {    
         LOG4CXX_INFO(logger, "Exploration mode");
-     
+        strategy = sam::Navigation::eSTRAT_RANDOM;
+    } 
+    else strategy = sam::Navigation::eSTRAT_SMART;
+    
     // set first place
     oVirtualEnvironment.setPlaceNow(oExperiment.getFirstPlace());
     // launch new navigation task
-    oNavigation.newTask(oExperiment.getTargetPlace(), sam::Navigation::eSTRAT_SMART, oExperiment.getExplorationMode());
+    oNavigation.newTask(oExperiment.getTargetPlace(), strategy);
         
     // wait until target reached or max steps reached
     while ((oNavigation.getState() != sam::Navigation::eSTATE_REACHED) && (oNavigation.getNumSteps() < oExperiment.getMaxSteps()))            
@@ -100,12 +105,8 @@ void doNavigationTask(sam::Navigation& oNavigation, sam::VirtualEnvironment& oVi
         oNavigation.stopTask();
     }
        
-    // note: by now this check is not necessary, all tasks are SMART
-    if (oNavigation.getStrategy() == sam::Navigation::eSTRAT_SMART)
-    {
-        oNavigation.storeLearned();
-        oNavigation.showLearned();
-    }
+    oNavigation.storeLearned();
+    oNavigation.showLearned();
 
     LOG4CXX_INFO(logger, "End of task");
     oNavigation.stopTask();
