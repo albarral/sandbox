@@ -97,6 +97,7 @@ void Navigation::nextStep()
 {
     // selects a path departing from the present place & traverses it to reach a new place    
     int nextConnection = selectConnection();
+    previousPlace = pVirtualEnvironment->getPlaceNow();
     pVirtualEnvironment->crossConnection(nextConnection);        
     numSteps++;
     
@@ -131,28 +132,27 @@ int Navigation::selectConnection()
 // IMPORTANT: this method will be moved to the Learning project in the future
 Connection* Navigation::getRandomConnection(std::vector<sam::Connection>& listConnections)
 {
-    sam::Connection* winner = 0;
-    
+    sam::Connection* winner = 0;   
     int randNumConn, size;
-    float Q;
    
     size = listConnections.size();
     randNumConn = rand() % size;
-        
-    std::vector<sam::Connection>::iterator it_connection = listConnections.begin();
-    std::vector<sam::Connection>::iterator it_end = listConnections.end();
-    while (it_connection != it_end)
+    
+    if(size == 1)
     {
-        Connection* pConnection = &(*it_connection);
-        Q = calculateQvalue(pConnection);
-        
-        LOG4CXX_INFO(logger, "connects to " <<  it_connection->getNextPlace() << " - "  << it_connection->getDesc() << ", Q = " << Q);
-        if(randNumConn == it_connection->getID())
+        winner = &(listConnections.at(randNumConn));
+    }
+    
+    else 
+    {
+        while(listConnections.at(randNumConn).getNextPlace() == previousPlace)
         {
-            winner = &(*it_connection);
-        }
-        it_connection ++;
-    }   
+            randNumConn = rand() % size;
+        }        
+        winner = &(listConnections.at(randNumConn));
+    }
+    showConnections(listConnections);
+
     return winner;    
 }
 
@@ -217,6 +217,21 @@ Connection* Navigation::getSmartestConnection(std::vector<sam::Connection>& list
         winner = &listConnections.at(randNumConn);
     }
     return winner;
+}
+
+void Navigation::showConnections(std::vector<sam::Connection>& listConnections)
+{
+    float Q;
+    int size = listConnections.size();
+    std::vector<sam::Connection>::iterator it_connection = listConnections.begin();
+    std::vector<sam::Connection>::iterator it_end = listConnections.end();
+    while (it_connection != it_end)
+    {
+        Connection* pConnection = &(*it_connection);
+        Q = calculateQvalue(pConnection);
+        LOG4CXX_INFO(logger, "connects to " <<  it_connection->getNextPlace() << " - "  << it_connection->getDesc() << ", Q = " << Q);
+        it_connection++;
+    }
 }
 
 float Navigation::calculateQvalue(Connection* pConnection)
