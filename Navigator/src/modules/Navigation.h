@@ -50,7 +50,7 @@ private:
     bool bexploration;  // exploration mode (when active it will select random connections, instead of the best ones)
     int targetPlace;   // navigation target 
     int numSteps;    // steps performed in the last navigation task
-    int previousPlace;
+    int previousPlace; // save the state where it is before doing the next step
     VirtualEnvironment* pVirtualEnvironment;    // to be replaced by VirtualTask in the future
     Learn oLearn;
 
@@ -74,7 +74,9 @@ public:
     // gets strategy code
     int getStrategy() {return strategy;};
     
+    // show the connections in the random case with the values of Q
     void showConnections(std::vector<Connection>& listConnections);
+    // method to do the call to learn to calculate the value of Q
     float calculateQvalue(Connection* pConnection);
     // stores learned Qs for environment connections
     void storeLearned();

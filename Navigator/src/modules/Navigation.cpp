@@ -134,20 +134,22 @@ Connection* Navigation::getRandomConnection(std::vector<sam::Connection>& listCo
 {
     sam::Connection* winner = 0;   
     int randNumConn, size;
+    bool bNewPlaceFound = false;
    
     size = listConnections.size();
     randNumConn = rand() % size;
     
+    // To not let the program turn to the previous state
     if(size == 1)
     {
-        winner = &(listConnections.at(randNumConn));
-    }
-    
+        winner = &(listConnections.at(0));
+    }    
     else 
     {
-        while(listConnections.at(randNumConn).getNextPlace() == previousPlace)
+        while(!bNewPlaceFound)
         {
             randNumConn = rand() % size;
+            bNewPlaceFound = listConnections.at(randNumConn).getNextPlace() != previousPlace;
         }        
         winner = &(listConnections.at(randNumConn));
     }
@@ -222,7 +224,6 @@ Connection* Navigation::getSmartestConnection(std::vector<sam::Connection>& list
 void Navigation::showConnections(std::vector<sam::Connection>& listConnections)
 {
     float Q;
-    int size = listConnections.size();
     std::vector<sam::Connection>::iterator it_connection = listConnections.begin();
     std::vector<sam::Connection>::iterator it_end = listConnections.end();
     while (it_connection != it_end)
