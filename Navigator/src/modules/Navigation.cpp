@@ -132,14 +132,14 @@ int Navigation::selectConnection()
 // IMPORTANT: this method will be moved to the Learning project in the future
 Connection* Navigation::getRandomConnection(std::vector<sam::Connection>& listConnections)
 {
+    // selects a random connection from the given list, avoiding going back to the previous place
     sam::Connection* winner = 0;   
     int randNumConn, size;
     bool bNewPlaceFound = false;
    
     size = listConnections.size();
     randNumConn = rand() % size;
-    
-    // To not let the program turn to the previous state
+
     if(size == 1)
     {
         winner = &(listConnections.at(0));
@@ -192,32 +192,40 @@ Connection* Navigation::getSmartestConnection(std::vector<sam::Connection>& list
 {
     // checks all connections in the given list and gets the one with highest confidence (a combination of Q and cost)
     sam::Connection* winner = 0;
+    sam::Connection* winnerTemporal = 0;
+    std::vector<sam::Connection> listWinners;
     float maxConfidence = 0, Q;
+    int randNumConn, size, temporal;
 
     std::vector<sam::Connection>::iterator it_connection = listConnections.begin();
     std::vector<sam::Connection>::iterator it_end = listConnections.end();
     while (it_connection != it_end)
-    {        
+    {   
+        Connection& oConnection = *it_connection;
         Connection* pConnection = &(*it_connection);
         Q = calculateQvalue(pConnection);
 
-        LOG4CXX_INFO(logger, "connects to " << it_connection->getNextPlace() << " - "  << it_connection->getDesc() << ", Q = " << Q);
-        
-        if (Q > maxConfidence)
+        LOG4CXX_INFO(logger, "connects to " << it_connection->getNextPlace() << " - "  << it_connection->getDesc() << ", Q = " << Q);      
+           
+        if(Q == maxConfidence)
+        {
+            listWinners.push_back(oConnection);
+            
+            size = listWinners.size();
+            randNumConn = rand() % size;
+            winnerTemporal = &listWinners.at(randNumConn);
+            temporal = winnerTemporal->getID();
+            winner = &listConnections.at(temporal);
+        }
+        else if(Q > maxConfidence)
         {
             maxConfidence = Q;
+            listWinners.erase(listWinners.begin(),listWinners.end());
+            listWinners.push_back(oConnection);
             winner = &(*it_connection);
-        }        
+        }      
         it_connection++;
-    }    
-    if(maxConfidence == 0)
-    {
-        int randNumConn, size;
-    
-        size = listConnections.size();
-        randNumConn = rand() % size;
-        winner = &listConnections.at(randNumConn);
-    }
+    }   
     return winner;
 }
 
