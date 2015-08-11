@@ -11,8 +11,8 @@
 
 #include "utils/module2.h"
 #include "VirtualEnvironment.h"
-#include "Connection.h" // learning module
-#include "Learn.h"
+#include "Connection.h" 
+#include "Learn.h"  // learning module
 
 namespace sam 
 {
