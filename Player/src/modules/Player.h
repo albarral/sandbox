@@ -18,16 +18,18 @@ class Player : public Module2
 {
 public:
     // states of Player module
-    enum eType
+    enum eState
     {
-         eSTATE_WAIT, 
-         eSTATE_PLAY, 
-         eSTATE_WINNER
+        ePLAYER_OFF,			// initial state before game starts
+	ePLAYER_WAIT,			// waiting for my turn
+	ePLAYER_PLAY,			// it's my turn, do my move
+	ePLAYER_FINISHED		// game is finished
     };
 
 private:
     static log4cxx::LoggerPtr logger;
-    int type;       // used navigation strategy
+    int state;       // used navigation strategy
+    std::string ID;
 
 public:
     Player();
@@ -35,8 +37,10 @@ public:
     // initializes the module 
     void init ();
     // gets type code
-    int getType() {return type;};
+    int getState() {return state;};
     
+    std::string getID() {return ID;};
+    void setID(std::string value) {ID = value;};
     
 private:
     // first actions when the thread begins 
@@ -44,8 +48,10 @@ private:
     // loop inside the module thread 
     virtual void loop();             
     
+    //Put in the matrix the cell selected by the player
     void chooseCell();
-    void isWinner(cv::Mat matrix);
+    //check if there is a winner or the game is finished
+    bool checkBoard(cv::Mat matrix);
     
     // shows the present state name
     void showState();    

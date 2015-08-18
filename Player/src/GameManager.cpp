@@ -7,7 +7,6 @@
 
 #include "GameManager.h"
 
-
 using namespace log4cxx;
 
 namespace sam 
@@ -18,7 +17,13 @@ GameManager::GameManager()
 {}
 
 void GameManager::startModules()
-{
+{   
+    int assignTurn = rand() % 2; //value 0 or 1
+    if(assignTurn == 0)
+        oBoard.setStatus(1);
+    else oBoard.setStatus(2);
+    oBoard.showStates();
+    
     oSam.init();
     oSam.setFrequency(2.0);
     oSam.on();
@@ -38,7 +43,7 @@ void GameManager::stopModules()
 }
 
 bool GameManager::isGameOver()
-{
+{   
     if(oBoard.getStatus() == 0 || oBoard.getStatus() == 1 || oBoard.getStatus() == 2)
     {
         return false;

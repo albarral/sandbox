@@ -40,7 +40,10 @@ public:
     GameBoard();
     
     int getStatus() {return status;};
+    void setStatus(int value) {status = value;};
+    
     cv::Mat getMatrix() {return matrix;};
+    void setMatrix(cv::Mat value) {matrix = value;};
     
     // show a matrix with the values of the cells
     void ShowMatrix();

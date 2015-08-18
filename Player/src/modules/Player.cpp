@@ -19,17 +19,28 @@ namespace sam
 {
 LoggerPtr Player::logger(Logger::getLogger("sam.player"));
 
-Player::Player(){}
+Player::Player()
+{
+    GameBoard oBoard;
+    setState(ePLAYER_OFF);
+    LOG4CXX_INFO(logger, getState());
+    showState();
+    
+    if(oBoard.getStatus() == 1)
+        ID = "SAM";
+    else if(oBoard.getStatus() == 2)
+        ID = "TAM";
+}
 
 void Player::init()
-{
-    LOG4CXX_INFO(logger, "Player module initialized");      
+{     
+    LOG4CXX_INFO(logger, "Player module initialized");
 };
 
 void Player::first()
 {    
-    setState(eSTATE_WAIT);
-    setNextState(eSTATE_WAIT);    
+    setState(ePLAYER_WAIT);
+    setNextState(ePLAYER_WAIT);    
 
     log4cxx::NDC::push("player");   	
     log4cxx::NDC::push("wait");   	
@@ -37,28 +48,49 @@ void Player::first()
 
 void Player::loop()
 {
-    GameManager oGameManager;
-    GameManager oBoard;
+    GameBoard oBoard;
     
     if (updateState())
+    {
+        LOG4CXX_INFO(logger, oBoard.getStatus());
+        oBoard.showStates();
         showState();
+    }    
           
     switch (getState())
     {
-        case eSTATE_WAIT:   
-            
-            // while(oBoard.getStatus != tuTurno)
-                sleep(1);
-            setNextState(eSTATE_PLAY);
+        case ePLAYER_OFF:            
+            // nothing done
             break;
             
-        case eSTATE_PLAY:        
+        case ePLAYER_WAIT:   
             
-            if (oGameManager.isGameOver() == false)
-                chooseCell();               
+            if(ID == "SAM")
+            {
+                while(oBoard.getStatus() != 1)
+                    sleep(1);
+                
+                setNextState(ePLAYER_PLAY);
+            }
+            else if(ID == "TAM")
+            {
+                while(oBoard.getStatus() != 2)
+                    sleep(1);
+                
+                setNextState(ePLAYER_PLAY);
+            }           
+            break;
+            
+        case ePLAYER_PLAY:        
+            
+            if(checkBoard(oBoard.getMatrix()) == false)
+            {
+                oBoard.showStates();
+                chooseCell();
+            }
             break;
                     
-        case eSTATE_WINNER:            
+        case ePLAYER_FINISHED:            
             // nothing done
             break;
     }   // end switch    
@@ -84,53 +116,90 @@ void Player::chooseCell()
     }
     
     int size = listEmptyCells.size();
+    int randNum = rand() % size;
+    std::pair<int, int> selectedCell = listEmptyCells.at(randNum);
+    x = selectedCell.first;
+    z = selectedCell.second;
     
-    if(size == 0)
-        oBoard.eSTAT_FINISHED_DRAW;  //No se si se puede asignar así
-    else
-    {
-        int randNum = rand() % size;
-        std::pair<int, int> selectedCell = listEmptyCells.at(randNum);
-        x = selectedCell.first;
-        z = selectedCell.second;
-    }
-    
-    if(sam::GameBoard::eSTAT_TURN_SAM)
+    if(oBoard.getStatus() == 1)
     {
         matrix.at<int>(x,z) = sam::GameBoard::eCELL_SAM;
+        oBoard.setMatrix(matrix);
     }
-    else if(sam::GameBoard::eSTAT_TURN_TAM)
+    else if(oBoard.getStatus() == 2)
     {
         matrix.at<int>(x,z) = sam::GameBoard::eCELL_TAM;
+        oBoard.setMatrix(matrix);
     }
     
     oBoard.ShowMatrix();
-    isWinner(matrix);
+    if(checkBoard(matrix) == false)
+        setNextState(ePLAYER_WAIT);
+    
+    //change turn
+    if(oBoard.getStatus() == 1)
+        oBoard.setStatus(2);
+    else if(oBoard.getStatus() == 2)
+        oBoard.setStatus(1);
 }
 
-void Player::isWinner(cv::Mat matrix)
+bool Player::checkBoard(cv::Mat matrix)
 {
-    bool winner = false;
-    for(int i = 0; i<3; i++)
-    {        
-        if(//Check rows        
-        (matrix.at<int>(i,0) == matrix.at<int>(i,1) && matrix.at<int>(i,0) == matrix.at<int>(i,2) && matrix.at<int>(i,0) != 0)
-        //Check columns
-        || (matrix.at<int>(0,i) == matrix.at<int>(1,i) && matrix.at<int>(0,i) == matrix.at<int>(2,i) && matrix.at<int>(0,i) != 0)
-        //Check diagonals      
-        || (matrix.at<int>(0,0) == matrix.at<int>(1,1) && matrix.at<int>(0,0) == matrix.at<int>(2,2) && matrix.at<int>(0,0) != 0)     
-        || (matrix.at<int>(2,0) == matrix.at<int>(1,1) && matrix.at<int>(2,0) == matrix.at<int>(0,2) && matrix.at<int>(2,0) != 0))
+    GameBoard oBoard;
+    bool finished = false, winner = false;   
+    std::vector<std::pair<int, int>> listEmptyCells;
+    
+    for(int i = 0; i < matrix.rows; i++)
+    {
+        for(int j = 0; j < matrix.cols; j++)
         {
-            winner = true;
+            if(matrix.at<int>(i,j) == 0)
+            {
+                listEmptyCells.push_back(std::make_pair(i,j));
+            }
+        }
+    }    
+    int size = listEmptyCells.size();
+    
+    // If there are no empty cells the GameBoard status goes to "finished in draw"
+    if(size == 0)
+    {
+        oBoard.setStatus(3);
+        finished = true;
+    }
+    else
+    {   
+        for(int i = 0; i<3; i++)
+        {        
+            if(//Check rows        
+            (matrix.at<int>(i,0) == matrix.at<int>(i,1) && matrix.at<int>(i,0) == matrix.at<int>(i,2) && matrix.at<int>(i,0) != 0)
+            //Check columns
+            || (matrix.at<int>(0,i) == matrix.at<int>(1,i) && matrix.at<int>(0,i) == matrix.at<int>(2,i) && matrix.at<int>(0,i) != 0)
+            //Check diagonals      
+            || (matrix.at<int>(0,0) == matrix.at<int>(1,1) && matrix.at<int>(0,0) == matrix.at<int>(2,2) && matrix.at<int>(0,0) != 0)     
+            || (matrix.at<int>(2,0) == matrix.at<int>(1,1) && matrix.at<int>(2,0) == matrix.at<int>(0,2) && matrix.at<int>(2,0) != 0))
+            {
+                finished = true;
+                winner = true;
+            }
         }
     }
             
-    if(winner == true)
+    if(finished)
     {
-        setNextState(eSTATE_WINNER);        
-    }  
-    else setNextState(eSTATE_WAIT);
-           
+        setNextState(ePLAYER_FINISHED);  
+        
+        if(winner)
+        {
+            // Put sam as a winner
+            if(oBoard.getStatus() == 1)
+                oBoard.setStatus(4);
+            // Put tam as a winner
+            else if(oBoard.getStatus() == 2)
+                oBoard.setStatus(5);
+        }
+    }     
+    return finished;       
 }
 
 void Player::showState()
@@ -138,16 +207,19 @@ void Player::showState()
     std::string stateName;
     switch (getState())
     {
-        case eSTATE_WAIT:
+        case ePLAYER_OFF:            
+            stateName = "off";
+            break;
+        case ePLAYER_WAIT:
             stateName = "wait";
             break;
             
-        case eSTATE_PLAY:
+        case ePLAYER_PLAY:
             stateName = "play";
             break;
             
-        case eSTATE_WINNER:
-            stateName = "winner";
+        case ePLAYER_FINISHED:
+            stateName = "finished";
             break;
     }   // end switch    
 
