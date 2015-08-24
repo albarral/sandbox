@@ -16,7 +16,6 @@ GameBoard::GameBoard()
 {
     matrix = cv::Mat_<int>(cv::Mat::zeros(3,3, CV_8U));   
     status = eSTAT_READY;
-    showStates();
 }
 
 void GameBoard::ShowMatrix()

@@ -10,6 +10,7 @@
 #include "opencv2/core/core.hpp" //for the matrix
 
 #include "utils/module2.h"
+#include "data/GameBoard.h"
 
 namespace sam 
 {
@@ -28,16 +29,14 @@ public:
 
 private:
     static log4cxx::LoggerPtr logger;
-    int state;       // used navigation strategy
     std::string ID;
+    GameBoard* pBoard;
 
 public:
     Player();
     
     // initializes the module 
-    void init ();
-    // gets type code
-    int getState() {return state;};
+    void init (GameBoard& oBoard, std::string name);
     
     std::string getID() {return ID;};
     void setID(std::string value) {ID = value;};

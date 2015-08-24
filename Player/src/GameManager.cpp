@@ -17,18 +17,23 @@ GameManager::GameManager()
 {}
 
 void GameManager::startModules()
-{   
+{ 
+    GameBoard& refBoard = oBoard;
+    std::string name;
+    
     int assignTurn = rand() % 2; //value 0 or 1
     if(assignTurn == 0)
-        oBoard.setStatus(1);
-    else oBoard.setStatus(2);
+        oBoard.setStatus(sam::GameBoard::eSTAT_TURN_SAM);
+    else oBoard.setStatus(sam::GameBoard::eSTAT_TURN_TAM);
     oBoard.showStates();
     
-    oSam.init();
+    name = "SAM";
+    oSam.init(refBoard, name);
     oSam.setFrequency(2.0);
     oSam.on();
     
-    oTam.init();
+    name = "TAM";
+    oTam.init(refBoard, name);
     oTam.setFrequency(2.0);
     oTam.on();
 }
@@ -44,7 +49,8 @@ void GameManager::stopModules()
 
 bool GameManager::isGameOver()
 {   
-    if(oBoard.getStatus() == 0 || oBoard.getStatus() == 1 || oBoard.getStatus() == 2)
+    if(oBoard.getStatus() == sam::GameBoard::eSTAT_READY || oBoard.getStatus() == sam::GameBoard::eSTAT_TURN_SAM 
+            || oBoard.getStatus() == sam::GameBoard::eSTAT_TURN_TAM)
     {
         return false;
     }

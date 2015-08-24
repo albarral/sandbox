@@ -38,8 +38,6 @@ void testPlayer()
         sleep(1);
     }
     
-    oBoard.showStates();
-    
     oGameManager.stopModules();
     sleep(2);
     
