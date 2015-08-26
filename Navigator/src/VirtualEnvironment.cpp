@@ -8,11 +8,9 @@
 #include "VirtualEnvironment.h"
 #include "types/ConnectionType.h"
 
-using namespace log4cxx;
-
 namespace sam 
 {
-LoggerPtr VirtualEnvironment::logger(Logger::getLogger("sam.navigation"));
+log4cxx::LoggerPtr VirtualEnvironment::logger(log4cxx::Logger::getLogger("sam.navigation"));
 
 VirtualEnvironment::VirtualEnvironment() 
 {

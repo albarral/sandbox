@@ -6,11 +6,9 @@
 #include "log4cxx/ndc.h"
 #include "GameBoard.h"
 
-using namespace log4cxx;
-
 namespace sam
 {   
-LoggerPtr GameBoard::logger(Logger::getLogger("sam.gameBoard"));
+log4cxx::LoggerPtr GameBoard::logger(log4cxx::Logger::getLogger("sam.player"));
 
 GameBoard::GameBoard()
 {

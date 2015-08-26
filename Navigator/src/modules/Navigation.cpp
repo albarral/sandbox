@@ -11,12 +11,9 @@
 #include "Navigation.h"
 #include "Learn.h"
 
-using namespace log4cxx;
-using namespace cv;
-
 namespace sam 
 {
-LoggerPtr Navigation::logger(Logger::getLogger("sam.navigation"));
+log4cxx::LoggerPtr Navigation::logger(log4cxx::Logger::getLogger("sam.navigation"));
 
 Navigation::Navigation()
 {
@@ -319,7 +316,7 @@ void Navigation::showLearned()
     std::vector<sam::Place>::iterator it_endP = listPlaces.end();
     
     int i = listPlaces.size();
-    Mat Q = Mat_<int>(Mat::zeros(i,i, CV_8U));
+    cv::Mat Q = cv::Mat_<int>(cv::Mat::zeros(i,i, CV_8U));
     
     while (it_places != it_endP)
     {

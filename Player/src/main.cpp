@@ -27,7 +27,6 @@ void testPlayer()
 {
     LOG4CXX_INFO(logger, "<<<<<<<<<<<<<<<< TEST PLAYER >>>>>>>>>>>>>>");
     
-    sam::GameBoard oBoard;
     sam::GameManager oGameManager; 
     oGameManager.startModules();
     

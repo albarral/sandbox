@@ -3,37 +3,36 @@
  *   ainoa@migtron.com   *
  ***************************************************************************/
 
-#include <iostream>
+#include <string>
+#include <cstdlib>  //for the random values
 
 #include "GameManager.h"
 
-using namespace log4cxx;
-
 namespace sam 
 {
-LoggerPtr GameManager::logger(Logger::getLogger("sam.game"));
+log4cxx::LoggerPtr GameManager::logger(log4cxx::Logger::getLogger("sam.player"));
 
-GameManager::GameManager() 
-{}
+GameManager::GameManager() {}
 
 void GameManager::startModules()
 { 
-    GameBoard& refBoard = oBoard;
     std::string name;
     
     int assignTurn = rand() % 2; //value 0 or 1
     if(assignTurn == 0)
         oBoard.setStatus(sam::GameBoard::eSTAT_TURN_SAM);
-    else oBoard.setStatus(sam::GameBoard::eSTAT_TURN_TAM);
+    else 
+        oBoard.setStatus(sam::GameBoard::eSTAT_TURN_TAM);
+    
     oBoard.showStates();
     
     name = "SAM";
-    oSam.init(refBoard, name);
+    oSam.init(oBoard, name);
     oSam.setFrequency(2.0);
     oSam.on();
     
     name = "TAM";
-    oTam.init(refBoard, name);
+    oTam.init(oBoard, name);
     oTam.setFrequency(2.0);
     oTam.on();
 }
@@ -41,20 +40,17 @@ void GameManager::startModules()
 void GameManager::stopModules()
 {
     oSam.off();
-    oSam.wait();
-    
     oTam.off();
+    
+    oSam.wait();
     oTam.wait();
 }
 
 bool GameManager::isGameOver()
 {   
-    if(oBoard.getStatus() == sam::GameBoard::eSTAT_READY || oBoard.getStatus() == sam::GameBoard::eSTAT_TURN_SAM 
-            || oBoard.getStatus() == sam::GameBoard::eSTAT_TURN_TAM)
-    {
-        return false;
-    }
-    else return true;
+    int status = oBoard.getStatus();
+    return (status == sam::GameBoard::eSTAT_FINISHED_DRAW || status == sam::GameBoard::eSTAT_FINISHED_SAM_WINS 
+            || status == sam::GameBoard::eSTAT_FINISHED_TAM_WINS);
 }
 
 }

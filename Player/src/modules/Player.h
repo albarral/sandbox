@@ -30,6 +30,7 @@ public:
 private:
     static log4cxx::LoggerPtr logger;
     std::string ID;
+    bool bsmart;
     GameBoard* pBoard;
 
 public:

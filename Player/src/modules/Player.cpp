@@ -11,20 +11,24 @@
 #include "log4cxx/ndc.h"
 #include "Player.h"
 #include "GameManager.h"
-#include "data/GameBoard.h"
-
-using namespace log4cxx;
+#include "Strategy.h"
 
 namespace sam 
 {
-LoggerPtr Player::logger(Logger::getLogger("sam.player"));
+log4cxx::LoggerPtr Player::logger(log4cxx::Logger::getLogger("sam.player"));
 
-Player::Player() {}
+Player::Player() 
+{
+    bsmart = false;
+}
 
 void Player::init(GameBoard& oBoard, std::string name)
 {  
     pBoard = &oBoard;    
     ID = name;
+    
+    if(ID == "TAM")
+        bsmart = true;
 };
 
 void Player::first()
@@ -79,37 +83,21 @@ void Player::loop()
 
 void Player::chooseCell()
 {
+    sam::Strategy oStrategy;
     cv::Mat matrix = pBoard->getMatrix();
-    std::vector<std::pair<int, int>> listEmptyCells;
-    int i, j, x, z;
     
-    for(i = 0; i < matrix.rows; i++)
+    if(bsmart)
     {
-        for(j = 0; j < matrix.cols; j++)
+        if(oStrategy.attack2(matrix, pBoard) == false)
         {
-            if(matrix.at<int>(i,j) == 0)
+            if(oStrategy.attack1(matrix, pBoard) == false)
             {
-                listEmptyCells.push_back(std::make_pair(i,j));
+                oStrategy.attackRandom(matrix, pBoard);
             }
-        }
+        }       
     }
-    
-    int size = listEmptyCells.size();
-    int randNum = rand() % size;
-    std::pair<int, int> selectedCell = listEmptyCells.at(randNum);
-    x = selectedCell.first;
-    z = selectedCell.second;
-    
-    if(pBoard->getStatus() == sam::GameBoard::eSTAT_TURN_SAM)
-    {
-        matrix.at<int>(x,z) = sam::GameBoard::eCELL_SAM;
-        pBoard->setMatrix(matrix);
-    }
-    else if(pBoard->getStatus() == sam::GameBoard::eSTAT_TURN_TAM)
-    {
-        matrix.at<int>(x,z) = sam::GameBoard::eCELL_TAM;
-        pBoard->setMatrix(matrix);
-    }
+    else
+        oStrategy.attackRandom(matrix, pBoard);
     
     pBoard->ShowMatrix();
     if(checkBoard(matrix) == false)
@@ -171,7 +159,8 @@ bool Player::checkBoard(cv::Mat matrix)
             else if(pBoard->getStatus() == sam::GameBoard::eSTAT_TURN_TAM)
                 pBoard->setStatus(sam::GameBoard::eSTAT_FINISHED_TAM_WINS);
         }
-        else pBoard->setStatus(sam::GameBoard::eSTAT_FINISHED_DRAW);
+        else 
+            pBoard->setStatus(sam::GameBoard::eSTAT_FINISHED_DRAW);
         
         pBoard->showStates();
     }    
