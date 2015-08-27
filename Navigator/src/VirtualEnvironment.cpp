@@ -27,7 +27,7 @@ void VirtualEnvironment::init(int ID)
     loadFromMemo();
     
     // if not in DB, create it
-    if(oEnvironment.getListPlaces().size() == 0)
+    if (oEnvironment.getListPlaces().size() == 0)
     {
         create();
     }      

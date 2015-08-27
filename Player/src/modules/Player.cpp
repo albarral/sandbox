@@ -27,7 +27,7 @@ void Player::init(GameBoard& oBoard, std::string name)
     pBoard = &oBoard;    
     ID = name;
     
-    if(ID == "TAM")
+    if (ID == "TAM")
         bsmart = true;
 };
 
@@ -53,21 +53,21 @@ void Player::loop()
             
         case ePLAYER_WAIT:   
             
-            if(ID == "SAM")
+            if (ID == "SAM")
             {
-                if(pBoard->getStatus() == sam::GameBoard::eSTAT_TURN_SAM)               
+                if (pBoard->getStatus() == sam::GameBoard::eSTAT_TURN_SAM)               
                     setNextState(ePLAYER_PLAY);
             }
-            else if(ID == "TAM")
+            else if (ID == "TAM")
             {
-                if(pBoard->getStatus() == sam::GameBoard::eSTAT_TURN_TAM)
+                if (pBoard->getStatus() == sam::GameBoard::eSTAT_TURN_TAM)
                     setNextState(ePLAYER_PLAY);
             }           
             break;
             
         case ePLAYER_PLAY:        
             
-            if(checkBoard(pBoard->getMatrix()) == false)
+            if (checkBoard(pBoard->getMatrix()) == false)
             {
                 pBoard->showStates();
                 chooseCell();
@@ -83,30 +83,34 @@ void Player::loop()
 
 void Player::chooseCell()
 {
-    sam::Strategy oStrategy;
     cv::Mat matrix = pBoard->getMatrix();
+    int turn;
+    if (pBoard->getStatus() == sam::GameBoard::eSTAT_TURN_SAM)
+        turn = sam::GameBoard::eCELL_SAM;
+    else if (pBoard->getStatus() == sam::GameBoard::eSTAT_TURN_TAM)
+        turn = sam::GameBoard::eCELL_TAM;
     
-    if(bsmart)
+    if (bsmart)
     {
-        if(oStrategy.attack2(matrix, pBoard) == false)
+        if (sam::Strategy::attack2(matrix, turn) == false)
         {
-            if(oStrategy.attack1(matrix, pBoard) == false)
+            if (sam::Strategy::attack1(matrix, turn) == false)
             {
-                oStrategy.attackRandom(matrix, pBoard);
+                sam::Strategy::attackRandom(matrix, turn);
             }
         }       
     }
     else
-        oStrategy.attackRandom(matrix, pBoard);
+        sam::Strategy::attackRandom(matrix, turn);
     
     pBoard->ShowMatrix();
-    if(checkBoard(matrix) == false)
+    if (checkBoard(matrix) == false)
         setNextState(ePLAYER_WAIT);
     
     //change turn
-    if(pBoard->getStatus() == sam::GameBoard::eSTAT_TURN_SAM)
+    if (pBoard->getStatus() == sam::GameBoard::eSTAT_TURN_SAM)
         pBoard->setStatus(sam::GameBoard::eSTAT_TURN_TAM);
-    else if(pBoard->getStatus() == sam::GameBoard::eSTAT_TURN_TAM)
+    else if (pBoard->getStatus() == sam::GameBoard::eSTAT_TURN_TAM)
         pBoard->setStatus(sam::GameBoard::eSTAT_TURN_SAM);
 }
 
@@ -115,11 +119,11 @@ bool Player::checkBoard(cv::Mat matrix)
     bool finished = false, winner = false;   
     std::vector<std::pair<int, int>> listEmptyCells;
     
-    for(int i = 0; i < matrix.rows; i++)
+    for (int i = 0; i < matrix.rows; i++)
     {
-        for(int j = 0; j < matrix.cols; j++)
+        for (int j = 0; j < matrix.cols; j++)
         {
-            if(matrix.at<int>(i,j) == 0)
+            if (matrix.at<int>(i,j) == 0)
             {
                 listEmptyCells.push_back(std::make_pair(i,j));
             }
@@ -128,12 +132,12 @@ bool Player::checkBoard(cv::Mat matrix)
     int size = listEmptyCells.size();
     
     // If there are no empty cells and no winner the GameBoard status goes to "finished in draw"
-    if(size == 0)        
+    if (size == 0)        
         finished = true;
 
-    for(int i = 0; i<3; i++)
+    for (int i = 0; i<3; i++)
     {        
-        if(//Check rows        
+        if (//Check rows        
         (matrix.at<int>(i,0) == matrix.at<int>(i,1) && matrix.at<int>(i,0) == matrix.at<int>(i,2) && matrix.at<int>(i,0) != 0)
         //Check columns
         || (matrix.at<int>(0,i) == matrix.at<int>(1,i) && matrix.at<int>(0,i) == matrix.at<int>(2,i) && matrix.at<int>(0,i) != 0)
@@ -146,17 +150,17 @@ bool Player::checkBoard(cv::Mat matrix)
         }
     }
             
-    if(finished)
+    if (finished)
     {
         setNextState(ePLAYER_FINISHED);  
         
-        if(winner)
+        if (winner)
         {
             // Put sam as a winner
-            if(pBoard->getStatus() == sam::GameBoard::eSTAT_TURN_SAM)
+            if (pBoard->getStatus() == sam::GameBoard::eSTAT_TURN_SAM)
                 pBoard->setStatus(sam::GameBoard::eSTAT_FINISHED_SAM_WINS);
             // Put tam as a winner
-            else if(pBoard->getStatus() == sam::GameBoard::eSTAT_TURN_TAM)
+            else if (pBoard->getStatus() == sam::GameBoard::eSTAT_TURN_TAM)
                 pBoard->setStatus(sam::GameBoard::eSTAT_FINISHED_TAM_WINS);
         }
         else 

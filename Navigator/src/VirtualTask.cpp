@@ -28,7 +28,7 @@ void VirtualTask::init(int ID)
     
     loadFromMemo();
     
-    if(oTask.getListStates().size() == 0)
+    if (oTask.getListStates().size() == 0)
     {
         create();
     } 

@@ -126,7 +126,7 @@ void setNavigationExperiments(std::vector<sam::Experiment>& listExperiments, sam
     std::vector<sam::Place>::iterator it_endP = listPlaces.end();
     while (it_places != it_endP)
     {
-        if(it_places->getID() == to)
+        if (it_places->getID() == to)
         {
             it_places->setReward(100);
         }

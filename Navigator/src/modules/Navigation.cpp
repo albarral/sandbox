@@ -137,13 +137,13 @@ Connection* Navigation::getRandomConnection(std::vector<sam::Connection>& listCo
     size = listConnections.size();
     randNumConn = rand() % size;
 
-    if(size == 1)
+    if (size == 1)
     {
         winner = &(listConnections.at(0));
     }    
     else 
     {
-        while(!bNewPlaceFound)
+        while (!bNewPlaceFound)
         {
             randNumConn = rand() % size;
             bNewPlaceFound = listConnections.at(randNumConn).getNextPlace() != previousPlace;
@@ -204,7 +204,7 @@ Connection* Navigation::getSmartestConnection(std::vector<sam::Connection>& list
 
         LOG4CXX_INFO(logger, "connects to " << it_connection->getNextPlace() << " - "  << it_connection->getDesc() << ", Q = " << Q);      
            
-        if(Q == maxConfidence)
+        if (Q == maxConfidence)
         {
             listWinners.push_back(oConnection);
             
@@ -214,7 +214,7 @@ Connection* Navigation::getSmartestConnection(std::vector<sam::Connection>& list
             temporal = winnerTemporal->getID();
             winner = &listConnections.at(temporal);
         }
-        else if(Q > maxConfidence)
+        else if (Q > maxConfidence)
         {
             maxConfidence = Q;
             listWinners.erase(listWinners.begin(),listWinners.end());

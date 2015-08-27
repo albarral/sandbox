@@ -19,7 +19,7 @@ void GameManager::startModules()
     std::string name;
     
     int assignTurn = rand() % 2; //value 0 or 1
-    if(assignTurn == 0)
+    if (assignTurn == 0)
         oBoard.setStatus(sam::GameBoard::eSTAT_TURN_SAM);
     else 
         oBoard.setStatus(sam::GameBoard::eSTAT_TURN_TAM);

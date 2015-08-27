@@ -32,7 +32,7 @@ void testPlayer()
     
     LOG4CXX_INFO(logger, ">>>>>> New game:"); 
     
-    while(oGameManager.isGameOver() == false)
+    while (oGameManager.isGameOver() == false)
     {
         sleep(1);
     }
