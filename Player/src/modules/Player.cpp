@@ -55,12 +55,12 @@ void Player::loop()
             
             if (ID == "SAM")
             {
-                if (pBoard->getStatus() == sam::GameBoard::eSTAT_TURN_SAM)               
+                if (pBoard->getStatus() == GameBoard::eSTAT_TURN_SAM)               
                     setNextState(ePLAYER_PLAY);
             }
             else if (ID == "TAM")
             {
-                if (pBoard->getStatus() == sam::GameBoard::eSTAT_TURN_TAM)
+                if (pBoard->getStatus() == GameBoard::eSTAT_TURN_TAM)
                     setNextState(ePLAYER_PLAY);
             }           
             break;
@@ -85,33 +85,33 @@ void Player::chooseCell()
 {
     cv::Mat matrix = pBoard->getMatrix();
     int turn;
-    if (pBoard->getStatus() == sam::GameBoard::eSTAT_TURN_SAM)
-        turn = sam::GameBoard::eCELL_SAM;
-    else if (pBoard->getStatus() == sam::GameBoard::eSTAT_TURN_TAM)
-        turn = sam::GameBoard::eCELL_TAM;
+    if (pBoard->getStatus() == GameBoard::eSTAT_TURN_SAM)
+        turn = GameBoard::eCELL_SAM;
+    else if (pBoard->getStatus() == GameBoard::eSTAT_TURN_TAM)
+        turn = GameBoard::eCELL_TAM;
     
     if (bsmart)
     {
-        if (sam::Strategy::attack2(matrix, turn) == false)
+        if (Strategy::attack2(matrix, turn) == false)
         {
-            if (sam::Strategy::attack1(matrix, turn) == false)
+            if (Strategy::attack1(matrix, turn) == false)
             {
-                sam::Strategy::attackRandom(matrix, turn);
+                Strategy::attackRandom(matrix, turn);
             }
         }       
     }
     else
-        sam::Strategy::attackRandom(matrix, turn);
+        Strategy::attackRandom(matrix, turn);
     
     pBoard->ShowMatrix();
     if (checkBoard(matrix) == false)
         setNextState(ePLAYER_WAIT);
     
     //change turn
-    if (pBoard->getStatus() == sam::GameBoard::eSTAT_TURN_SAM)
-        pBoard->setStatus(sam::GameBoard::eSTAT_TURN_TAM);
-    else if (pBoard->getStatus() == sam::GameBoard::eSTAT_TURN_TAM)
-        pBoard->setStatus(sam::GameBoard::eSTAT_TURN_SAM);
+    if (pBoard->getStatus() == GameBoard::eSTAT_TURN_SAM)
+        pBoard->setStatus(GameBoard::eSTAT_TURN_TAM);
+    else if (pBoard->getStatus() == GameBoard::eSTAT_TURN_TAM)
+        pBoard->setStatus(GameBoard::eSTAT_TURN_SAM);
 }
 
 bool Player::checkBoard(cv::Mat matrix)
@@ -157,14 +157,14 @@ bool Player::checkBoard(cv::Mat matrix)
         if (winner)
         {
             // Put sam as a winner
-            if (pBoard->getStatus() == sam::GameBoard::eSTAT_TURN_SAM)
-                pBoard->setStatus(sam::GameBoard::eSTAT_FINISHED_SAM_WINS);
+            if (pBoard->getStatus() == GameBoard::eSTAT_TURN_SAM)
+                pBoard->setStatus(GameBoard::eSTAT_FINISHED_SAM_WINS);
             // Put tam as a winner
-            else if (pBoard->getStatus() == sam::GameBoard::eSTAT_TURN_TAM)
-                pBoard->setStatus(sam::GameBoard::eSTAT_FINISHED_TAM_WINS);
+            else if (pBoard->getStatus() == GameBoard::eSTAT_TURN_TAM)
+                pBoard->setStatus(GameBoard::eSTAT_FINISHED_TAM_WINS);
         }
         else 
-            pBoard->setStatus(sam::GameBoard::eSTAT_FINISHED_DRAW);
+            pBoard->setStatus(GameBoard::eSTAT_FINISHED_DRAW);
         
         pBoard->showStates();
     }    

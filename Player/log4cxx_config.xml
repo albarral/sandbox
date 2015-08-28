@@ -10,7 +10,7 @@
 
    <appender name="dailyAppender" class="org.apache.log4j.rolling.RollingFileAppender">
         <rollingPolicy class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
-            <param name="FileNamePattern" value="${HOME}/TESTS/NAVIG/trc_%d{yyyyMMdd}.log"/>
+            <param name="FileNamePattern" value="${HOME}/TESTS/PLAYER/trc_%d{yyyyMMdd}.log"/>
         </rollingPolicy>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d{HH:mm:ss,SSS} %5p %15x: %m%n"/>
