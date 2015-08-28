@@ -12,8 +12,15 @@ log4cxx::LoggerPtr GameBoard::logger(log4cxx::Logger::getLogger("sam.player"));
 
 GameBoard::GameBoard()
 {
-    matrix = cv::Mat_<int>(cv::Mat::zeros(3,3, CV_8U));   
-    status = eSTAT_READY;
+    reset();
+}
+
+void GameBoard::reset()
+{
+    // reset gameboard by emptying cells & setting status to ready
+    matrix = cv::Mat_<int>(3,3);   
+    matrix = cv::Scalar(eCELL_EMPTY);
+    status = eSTAT_READY;    
 }
 
 void GameBoard::ShowMatrix()

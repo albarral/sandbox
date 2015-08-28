@@ -39,6 +39,9 @@ private:
 public:
     GameBoard();
     
+    // reset gameboard by emptying cells & setting status to ready
+    void reset();
+    
     int getStatus() {return status;};
     void setStatus(int value) {status = value;};
     

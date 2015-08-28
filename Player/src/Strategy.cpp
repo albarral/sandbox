@@ -241,7 +241,7 @@ void Strategy::attackRandom(cv::Mat& matrix, int myMark)
     {
         for (j = 0; j < matrix.cols; j++)
         {
-            if (matrix.at<int>(i,j) == 0)
+            if (matrix.at<int>(i,j) == GameBoard::eCELL_EMPTY)
             {
                 listEmptyCells.push_back(std::make_pair(i,j));
             }

@@ -141,7 +141,7 @@ bool Player::checkBoard(cv::Mat matrix)
     {
         for (int j = 0; j < matrix.cols; j++)
         {
-            if (matrix.at<int>(i,j) == 0)
+            if (matrix.at<int>(i,j) == GameBoard::eCELL_EMPTY)
             {
                 listEmptyCells.push_back(std::make_pair(i,j));
             }
@@ -156,12 +156,12 @@ bool Player::checkBoard(cv::Mat matrix)
     for (int i = 0; i<3; i++)
     {        
         if (//Check rows        
-        (matrix.at<int>(i,0) == matrix.at<int>(i,1) && matrix.at<int>(i,0) == matrix.at<int>(i,2) && matrix.at<int>(i,0) != 0)
+        (matrix.at<int>(i,0) == matrix.at<int>(i,1) && matrix.at<int>(i,0) == matrix.at<int>(i,2) && matrix.at<int>(i,0) != GameBoard::eCELL_EMPTY)
         //Check columns
-        || (matrix.at<int>(0,i) == matrix.at<int>(1,i) && matrix.at<int>(0,i) == matrix.at<int>(2,i) && matrix.at<int>(0,i) != 0)
+        || (matrix.at<int>(0,i) == matrix.at<int>(1,i) && matrix.at<int>(0,i) == matrix.at<int>(2,i) && matrix.at<int>(0,i) != GameBoard::eCELL_EMPTY)
         //Check diagonals      
-        || (matrix.at<int>(0,0) == matrix.at<int>(1,1) && matrix.at<int>(0,0) == matrix.at<int>(2,2) && matrix.at<int>(0,0) != 0)     
-        || (matrix.at<int>(2,0) == matrix.at<int>(1,1) && matrix.at<int>(2,0) == matrix.at<int>(0,2) && matrix.at<int>(2,0) != 0))
+        || (matrix.at<int>(0,0) == matrix.at<int>(1,1) && matrix.at<int>(0,0) == matrix.at<int>(2,2) && matrix.at<int>(0,0) != GameBoard::eCELL_EMPTY)     
+        || (matrix.at<int>(2,0) == matrix.at<int>(1,1) && matrix.at<int>(2,0) == matrix.at<int>(0,2) && matrix.at<int>(2,0) != GameBoard::eCELL_EMPTY))
         {
             finished = true;
             winner = true;
