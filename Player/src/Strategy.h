@@ -17,9 +17,9 @@ class Strategy
 public:
     Strategy();
     
-    static bool attack1(cv::Mat& matrix, int turn);
-    static bool attack2(cv::Mat& matrix, int turn);
-    static void attackRandom(cv::Mat& matrix, int turn);
+    static bool attack1(cv::Mat& matrix, int myMark);
+    static bool attack2(cv::Mat& matrix, int myMark);
+    static void attackRandom(cv::Mat& matrix, int myMark);
 
 };
 }

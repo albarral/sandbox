@@ -24,15 +24,28 @@ Player::Player()
 
 void Player::init(GameBoard& oBoard, std::string name)
 {  
+    // the agent's is given an identity, which will determine its turn and how its cells are marked
+    LOG4CXX_INFO(logger, "Player initialized with ID " << name);     
+        
     pBoard = &oBoard;    
     ID = name;
     
-    if (ID == "TAM")
+    if (ID == "SAM")
+    {
+        myMark = GameBoard::eCELL_SAM;
+    }
+    else if (ID == "TAM")
+    {
         bsmart = true;
+        myMark = GameBoard::eCELL_TAM;
+    }
+    else         
+        LOG4CXX_ERROR(logger, "ID not accepted. Please set a different ID for this player!");             
 };
 
 void Player::first()
 {    
+    // agent starts waiting for its turn
     setState(ePLAYER_WAIT);
     setNextState(ePLAYER_WAIT);    
 
@@ -53,6 +66,8 @@ void Player::loop()
             
         case ePLAYER_WAIT:   
             
+            // check if agent's turn has arrived 
+            // if so, go to PLAY state 
             if (ID == "SAM")
             {
                 if (pBoard->getStatus() == GameBoard::eSTAT_TURN_SAM)               
@@ -67,6 +82,9 @@ void Player::loop()
             
         case ePLAYER_PLAY:        
             
+            // check if game still open
+            // If so, select cell & go back to WAIT state
+            // Otherwise, go to FINISHED state 
             if (checkBoard(pBoard->getMatrix()) == false)
             {
                 pBoard->showStates();
@@ -83,25 +101,23 @@ void Player::loop()
 
 void Player::chooseCell()
 {
+    // Chooses an empty cell from the board, marking it with the agent's mark
+    // If bsmart flag is active the cell selection is done using smart strategies 
+    // Otherwise, random selection is made among available cells..
     cv::Mat matrix = pBoard->getMatrix();
-    int turn;
-    if (pBoard->getStatus() == GameBoard::eSTAT_TURN_SAM)
-        turn = GameBoard::eCELL_SAM;
-    else if (pBoard->getStatus() == GameBoard::eSTAT_TURN_TAM)
-        turn = GameBoard::eCELL_TAM;
     
     if (bsmart)
     {
-        if (Strategy::attack2(matrix, turn) == false)
+        if (Strategy::attack2(matrix, myMark) == false)
         {
-            if (Strategy::attack1(matrix, turn) == false)
+            if (Strategy::attack1(matrix, myMark) == false)
             {
-                Strategy::attackRandom(matrix, turn);
+                Strategy::attackRandom(matrix, myMark);
             }
         }       
     }
     else
-        Strategy::attackRandom(matrix, turn);
+        Strategy::attackRandom(matrix, myMark);
     
     pBoard->ShowMatrix();
     if (checkBoard(matrix) == false)
@@ -116,9 +132,11 @@ void Player::chooseCell()
 
 bool Player::checkBoard(cv::Mat matrix)
 {
+    // Checks the cells of the board to see if the the game has finished, whether with a winner or in draw 
     bool finished = false, winner = false;   
     std::vector<std::pair<int, int>> listEmptyCells;
     
+    // a list of empty cells is obtained
     for (int i = 0; i < matrix.rows; i++)
     {
         for (int j = 0; j < matrix.cols; j++)

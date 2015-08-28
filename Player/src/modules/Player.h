@@ -22,16 +22,17 @@ public:
     enum eState
     {
         ePLAYER_OFF,			// initial state before game starts
-	ePLAYER_WAIT,			// waiting for my turn
-	ePLAYER_PLAY,			// it's my turn, do my move
+	ePLAYER_WAIT,		// waiting for my turn
+	ePLAYER_PLAY,		// it's my turn, do my move
 	ePLAYER_FINISHED		// game is finished
     };
 
 private:
     static log4cxx::LoggerPtr logger;
-    std::string ID;
-    bool bsmart;
-    GameBoard* pBoard;
+    std::string ID;     // ID of the player (used to determine turns & marks)
+    bool bsmart;       // flag indicating the player can use smart strategies (methods defined in Strategy class)
+    int myMark;         // mark used by the player to select cells (one of eCell values defined in GameBoard class)
+    GameBoard* pBoard;      // pointer to the game's board
 
 public:
     Player();
