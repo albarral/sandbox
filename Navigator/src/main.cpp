@@ -67,7 +67,7 @@ void testNavigation()
         doNavigationTask(oNavigation, oVirtualEnvironment, oExperiment);  
         sleep(1);
     }
-    
+
     oNavigation.off();
     oNavigation.wait();
 

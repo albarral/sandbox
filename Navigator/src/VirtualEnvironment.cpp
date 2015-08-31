@@ -284,7 +284,7 @@ void VirtualEnvironment::build7RoomTest()
     oPlace1.addConnection(oConnection);
     
     // 2 -> 3
-    oConnection.set(2, 3, ConnectionType::eTYPE_PLANO_CORTO);
+    oConnection.set(2, 3, ConnectionType::eTYPE_BAJADA_LARGA);
     oPlace2.addConnection(oConnection);
     
     // 3 -> 1
@@ -292,7 +292,7 @@ void VirtualEnvironment::build7RoomTest()
     oPlace3.addConnection(oConnection);    
 
     // 3 -> 2
-    oConnection.set(3, 2, ConnectionType::eTYPE_PLANO_CORTO);
+    oConnection.set(3, 2, ConnectionType::eTYPE_SUBIDA_LARGA);
     oPlace3.addConnection(oConnection);
     
     // 3 -> 4

@@ -160,13 +160,17 @@ Connection* Navigation::getBestConnection(std::vector<sam::Connection>& listConn
 {
     // checks all connections in the given list and gets the one with highest confidence (a combination of Q and cost)
     sam::Connection* winner = 0;
+    sam::Connection* winnerTemporal = 0;
+    std::vector<sam::Connection> listWinners;
     float maxConfidence = 0;
     float confidence, cost, Q;
+    int randNumConn, size, temporal;
 
     std::vector<sam::Connection>::iterator it_connection = listConnections.begin();
     std::vector<sam::Connection>::iterator it_end = listConnections.end();
     while (it_connection != it_end)
     {
+        Connection& oConnection = *it_connection;
         Connection* pConnection = &(*it_connection);
         Q = calculateQvalue(pConnection);
         
@@ -174,9 +178,21 @@ Connection* Navigation::getBestConnection(std::vector<sam::Connection>& listConn
         confidence = computeConfidence(cost);                
         LOG4CXX_INFO(logger, "connects to " <<  it_connection->getNextPlace() << " - "  << it_connection->getDesc() << ", cost=" << cost <<  ", conf=" << confidence << ", Q = " << Q);  
         
-        if (confidence > maxConfidence)
+        if (confidence == maxConfidence)
+        {
+            listWinners.push_back(oConnection);
+            
+            size = listWinners.size();
+            randNumConn = rand() % size;
+            winnerTemporal = &listWinners.at(randNumConn);
+            temporal = winnerTemporal->getID();
+            winner = &listConnections.at(temporal);
+        }
+        else if (confidence > maxConfidence)
         {
             maxConfidence = confidence;
+            listWinners.erase(listWinners.begin(),listWinners.end());
+            listWinners.push_back(oConnection);
             winner = &(*it_connection);
         }        
         it_connection++;	
