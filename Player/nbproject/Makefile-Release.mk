@@ -36,10 +36,10 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/GameManager.o \
-	${OBJECTDIR}/src/Strategy.o \
 	${OBJECTDIR}/src/data/GameBoard.o \
 	${OBJECTDIR}/src/main.o \
 	${OBJECTDIR}/src/modules/Player.o \
+	${OBJECTDIR}/src/modules/Strategy.o \
 	${OBJECTDIR}/src/utils/module2.o
 
 
@@ -72,11 +72,6 @@ ${OBJECTDIR}/src/GameManager.o: src/GameManager.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GameManager.o src/GameManager.cpp
 
-${OBJECTDIR}/src/Strategy.o: src/Strategy.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Strategy.o src/Strategy.cpp
-
 ${OBJECTDIR}/src/data/GameBoard.o: src/data/GameBoard.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/data
 	${RM} "$@.d"
@@ -91,6 +86,11 @@ ${OBJECTDIR}/src/modules/Player.o: src/modules/Player.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/modules
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/Player.o src/modules/Player.cpp
+
+${OBJECTDIR}/src/modules/Strategy.o: src/modules/Strategy.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/Strategy.o src/modules/Strategy.cpp
 
 ${OBJECTDIR}/src/utils/module2.o: src/utils/module2.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/utils

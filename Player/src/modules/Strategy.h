@@ -1,5 +1,5 @@
-#ifndef STRATEGY_H
-#define	STRATEGY_H
+#ifndef  __SAM_STRATEGY_H
+#define __SAM_STRATEGY_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
