@@ -178,7 +178,16 @@ Connection* Navigation::getBestConnection(std::vector<sam::Connection>& listConn
         confidence = computeConfidence(cost);                
         LOG4CXX_INFO(logger, "connects to " <<  it_connection->getNextPlace() << " - "  << it_connection->getDesc() << ", cost=" << cost <<  ", conf=" << confidence << ", Q = " << Q);  
         
-        if (confidence == maxConfidence)
+        // the connection with highest confidence is the winner
+        if (confidence > maxConfidence)
+        {
+            maxConfidence = confidence;
+            listWinners.erase(listWinners.begin(),listWinners.end());
+            listWinners.push_back(oConnection);
+            winner = &(*it_connection);
+        }        
+        // if various connections share the maximum confidence, take winner randomly among them
+        else if (confidence == maxConfidence)
         {
             listWinners.push_back(oConnection);
             
@@ -188,13 +197,6 @@ Connection* Navigation::getBestConnection(std::vector<sam::Connection>& listConn
             temporal = winnerTemporal->getID();
             winner = &listConnections.at(temporal);
         }
-        else if (confidence > maxConfidence)
-        {
-            maxConfidence = confidence;
-            listWinners.erase(listWinners.begin(),listWinners.end());
-            listWinners.push_back(oConnection);
-            winner = &(*it_connection);
-        }        
         it_connection++;	
     }    
     return winner;
@@ -220,7 +222,16 @@ Connection* Navigation::getSmartestConnection(std::vector<sam::Connection>& list
 
         LOG4CXX_INFO(logger, "connects to " << it_connection->getNextPlace() << " - "  << it_connection->getDesc() << ", Q = " << Q);      
            
-        if (Q == maxConfidence)
+        // the connection with highest confidence is the winner
+        if (Q > maxConfidence)
+        {
+            maxConfidence = Q;
+            listWinners.erase(listWinners.begin(),listWinners.end());
+            listWinners.push_back(oConnection);
+            winner = &(*it_connection);
+        }      
+        // if various connections share the maximum confidence, take winner randomly among them
+        else if (Q == maxConfidence)
         {
             listWinners.push_back(oConnection);
             
@@ -230,13 +241,6 @@ Connection* Navigation::getSmartestConnection(std::vector<sam::Connection>& list
             temporal = winnerTemporal->getID();
             winner = &listConnections.at(temporal);
         }
-        else if (Q > maxConfidence)
-        {
-            maxConfidence = Q;
-            listWinners.erase(listWinners.begin(),listWinners.end());
-            listWinners.push_back(oConnection);
-            winner = &(*it_connection);
-        }      
         it_connection++;
     }   
     return winner;
