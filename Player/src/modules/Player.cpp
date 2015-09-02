@@ -106,18 +106,17 @@ void Player::chooseCell()
     // Otherwise, random selection is made among available cells..
     cv::Mat matrix = pBoard->getMatrix();
     
+    Strategy oStrategy;
+    
     if (bsmart)
     {
-        if (Strategy::attack2(matrix, myMark) == false)
+        if (oStrategy.attack(matrix, myMark) == false)
         {
-            if (Strategy::attack1(matrix, myMark) == false)
-            {
-                Strategy::attackRandom(matrix, myMark);
-            }
+            oStrategy.attackRandom(matrix, myMark);
         }       
     }
     else
-        Strategy::attackRandom(matrix, myMark);
+        oStrategy.attackRandom(matrix, myMark);
     
     pBoard->ShowMatrix();
     if (checkBoard(matrix) == false)

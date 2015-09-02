@@ -12,7 +12,9 @@ namespace sam
 log4cxx::LoggerPtr Strategy::logger(log4cxx::Logger::getLogger("sam.player"));
 
 Strategy::Strategy() 
-{}
+{
+    bestChance = eCHANCES_ZERO;     
+}
 
 bool Strategy::attack1(cv::Mat& matrix, int myMark)
 {
