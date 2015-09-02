@@ -18,6 +18,8 @@
           <itemPath>src/data/GameBoard.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f2" displayName="modules" projectFiles="true">
+          <itemPath>src/modules/Line.cpp</itemPath>
+          <itemPath>src/modules/Line.h</itemPath>
           <itemPath>src/modules/Player.cpp</itemPath>
           <itemPath>src/modules/Player.h</itemPath>
           <itemPath>src/modules/Strategy.cpp</itemPath>
@@ -83,6 +85,10 @@
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/modules/Line.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/modules/Line.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/modules/Player.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/modules/Player.h" ex="false" tool="3" flavor2="0">
@@ -125,6 +131,10 @@
       <item path="src/data/GameBoard.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/modules/Line.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/modules/Line.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/modules/Player.cpp" ex="false" tool="1" flavor2="0">
       </item>
