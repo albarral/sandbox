@@ -10,6 +10,7 @@
 
 #include "data/GameBoard.h"
 #include "modules/Player.h"
+#include "modules/Informer.h"
 
 namespace sam 
 {
@@ -20,6 +21,7 @@ private:
     GameBoard oBoard;
     Player oSam;
     Player oTam;
+    Informer oInfo;
     
 public:
     GameManager();

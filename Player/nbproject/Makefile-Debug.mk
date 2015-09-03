@@ -38,6 +38,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/GameManager.o \
 	${OBJECTDIR}/src/data/GameBoard.o \
 	${OBJECTDIR}/src/main.o \
+	${OBJECTDIR}/src/modules/Informer.o \
 	${OBJECTDIR}/src/modules/Line.o \
 	${OBJECTDIR}/src/modules/Player.o \
 	${OBJECTDIR}/src/modules/Strategy.o \
@@ -58,11 +59,13 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-llog4cxx -lopencv_core
+LDLIBSOPTIONS=-llog4cxx -lopencv_core -Wl,-rpath,../samUtils/dist/Debug/GNU-Linux-x86 -L../samUtils/dist/Debug/GNU-Linux-x86 -lsam_utils
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/player
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/player: ../samUtils/dist/Debug/GNU-Linux-x86/libsam_utils.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/player: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
@@ -71,40 +74,46 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/player: ${OBJECTFILES}
 ${OBJECTDIR}/src/GameManager.o: src/GameManager.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GameManager.o src/GameManager.cpp
+	$(COMPILE.cc) -g -Isrc -I../samUtils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GameManager.o src/GameManager.cpp
 
 ${OBJECTDIR}/src/data/GameBoard.o: src/data/GameBoard.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/data
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/data/GameBoard.o src/data/GameBoard.cpp
+	$(COMPILE.cc) -g -Isrc -I../samUtils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/data/GameBoard.o src/data/GameBoard.cpp
 
 ${OBJECTDIR}/src/main.o: src/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
+	$(COMPILE.cc) -g -Isrc -I../samUtils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
+
+${OBJECTDIR}/src/modules/Informer.o: src/modules/Informer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../samUtils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/Informer.o src/modules/Informer.cpp
 
 ${OBJECTDIR}/src/modules/Line.o: src/modules/Line.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/Line.o src/modules/Line.cpp
+	$(COMPILE.cc) -g -Isrc -I../samUtils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/Line.o src/modules/Line.cpp
 
 ${OBJECTDIR}/src/modules/Player.o: src/modules/Player.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/Player.o src/modules/Player.cpp
+	$(COMPILE.cc) -g -Isrc -I../samUtils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/Player.o src/modules/Player.cpp
 
 ${OBJECTDIR}/src/modules/Strategy.o: src/modules/Strategy.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/Strategy.o src/modules/Strategy.cpp
+	$(COMPILE.cc) -g -Isrc -I../samUtils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/Strategy.o src/modules/Strategy.cpp
 
 ${OBJECTDIR}/src/utils/module2.o: src/utils/module2.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utils/module2.o src/utils/module2.cpp
+	$(COMPILE.cc) -g -Isrc -I../samUtils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utils/module2.o src/utils/module2.cpp
 
 # Subprojects
 .build-subprojects:
+	cd ../samUtils && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -113,6 +122,7 @@ ${OBJECTDIR}/src/utils/module2.o: src/utils/module2.cpp
 
 # Subprojects
 .clean-subprojects:
+	cd ../samUtils && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

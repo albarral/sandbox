@@ -38,6 +38,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/GameManager.o \
 	${OBJECTDIR}/src/data/GameBoard.o \
 	${OBJECTDIR}/src/main.o \
+	${OBJECTDIR}/src/modules/Informer.o \
 	${OBJECTDIR}/src/modules/Line.o \
 	${OBJECTDIR}/src/modules/Player.o \
 	${OBJECTDIR}/src/modules/Strategy.o \
@@ -82,6 +83,11 @@ ${OBJECTDIR}/src/main.o: src/main.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
+
+${OBJECTDIR}/src/modules/Informer.o: src/modules/Informer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/Informer.o src/modules/Informer.cpp
 
 ${OBJECTDIR}/src/modules/Line.o: src/modules/Line.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/modules

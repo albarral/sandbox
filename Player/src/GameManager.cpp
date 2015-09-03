@@ -27,6 +27,10 @@ void GameManager::startModules()
     
     oBoard.showStates();
     
+    oInfo.init(oBoard);
+    oInfo.setFrequency(1.25);
+    oInfo.on();
+    
     oSam.init(oBoard, "SAM");
     oSam.setFrequency(2.0);
     oSam.on();
@@ -43,9 +47,11 @@ void GameManager::stopModules()
 
     oSam.off();
     oTam.off();
+    oInfo.off();
     
     oSam.wait();
     oTam.wait();
+    oInfo.wait();
 }
 
 bool GameManager::isGameOver()
