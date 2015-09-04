@@ -28,7 +28,6 @@ void GameManager::startModules()
 
     // init game assigning first turn
     oBoard.initTurn();
-    oBoard.showStates();
     
     // Informer module added (stores game progress in DB for external monitoring)
     oInformer.init(oBoard);
@@ -50,13 +49,10 @@ void GameManager::stopModules()
     oInformer.wait();
 }
 
+// checks board status to see if game has finished
 bool GameManager::isGameOver()
 {
-    // checks board status to see if game has finished
-    int status = oBoard.getStatus();
-    return (status == GameBoard::eSTAT_FINISHED_DRAW || 
-            status == GameBoard::eSTAT_FINISHED_SAM_WINS || 
-            status == GameBoard::eSTAT_FINISHED_TAM_WINS);
+    return oBoard.isGameOver();
 }
 
 }

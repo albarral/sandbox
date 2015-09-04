@@ -16,34 +16,7 @@ Strategy::Strategy()
     bestChance = eCHANCES_ZERO;     
 }
 
-void Strategy::attackRandom(cv::Mat& matrix, int myMark)
-{
-    // Search for the empty cells and choose one of them randomly
-    std::vector<std::pair<int, int>> listEmptyCells;
-    int i, j, x, z;
-    
-    for (i = 0; i < matrix.rows; i++)
-    {
-        for (j = 0; j < matrix.cols; j++)
-        {
-            if (matrix.at<int>(i,j) == GameBoard::eCELL_EMPTY)
-            {
-                listEmptyCells.push_back(std::make_pair(i,j));
-            }
-        }
-    }
-    
-    int size = listEmptyCells.size();
-    int randNum = rand() % size;
-    std::pair<int, int> selectedCell = listEmptyCells.at(randNum);
-    x = selectedCell.first;
-    z = selectedCell.second;
-
-    matrix.at<int>(x,z) = myMark;
-
-}
-
-void Strategy::attackRandom2(cv::Mat& matrix, int myMark)
+bool Strategy::attackRandom(cv::Mat& matrix, int myMark)
 {
     // Search for the empty cells and choose one of them randomly
     std::vector<std::pair<int, int>> listEmptyCells;
@@ -60,10 +33,18 @@ void Strategy::attackRandom2(cv::Mat& matrix, int myMark)
         }
     }
 
-    // move to a randomly selected empty cell
-    int randNum = rand() % listEmptyCells.size();
-    std::pair<int, int> selectedCell = listEmptyCells.at(randNum);
-    matrix.at<int>(selectedCell.first, selectedCell.second) = myMark;
+    if (listEmptyCells.size() > 0)
+    {
+        // randomly select an empty cell
+        int randNum = rand() % listEmptyCells.size();
+        std::pair<int, int> selectedCell = listEmptyCells.at(randNum);
+        // and set it as best move
+        bestMove[0] = selectedCell.first;   
+        bestMove[1] = selectedCell.second; 
+        return true;
+    }
+    else
+        return false;
 }
 
 
@@ -122,15 +103,12 @@ bool Strategy::attack(cv::Mat& matrix, int myMark)
         }
     }    
     
-    // if found a move with chances to win, do it
+    // if found a move with chances to win return true
     if (bestChance > eCHANCES_ZERO)
-    {
-        matrix.at<int>(bestMove[0], bestMove[1]) = myMark;
         return true;
-    }
+    // otherwise return false
     else
-        return false;
-    
+        return false;    
 }
 
 
@@ -144,14 +122,14 @@ bool Strategy::attack(cv::Mat& matrix, int myMark)
 int Strategy::analyseLine(Line& oLine)
 {
     // we start with 0 chances (as if line was full)
-    int lineCheck = eCHANCES_ZERO;
+    int lineChances = eCHANCES_ZERO;
     
     // some empty, let's see ...
     if (oLine.getNumEmpties() > 0)
     {
         // some other's -> low chances
         if (oLine.getNumOthers() > 0)            
-            lineCheck = eCHANCES_LOW;
+            lineChances = eCHANCES_LOW;
         // 0 other's, let's check mines ...
         else
         {            
@@ -159,21 +137,21 @@ int Strategy::analyseLine(Line& oLine)
             {               
                 // 0 mine (3 empty) -> medium chances (first move)
                 case 0:
-                    lineCheck = eCHANCES_MEDIUM;
+                    lineChances = eCHANCES_MEDIUM;
                     break;
                 // 1 mine -> good chances
                 case 1:
-                    lineCheck = eCHANCES_HIGH;
+                    lineChances = eCHANCES_HIGH;
                     break;
                 // 2 mine -> winner move
                 case 2:
-                    lineCheck = eCHANCES_WINNER;
+                    lineChances = eCHANCES_WINNER;
                     break;                    
             }            
         }
     }
     
-    return lineCheck;
+    return lineChances;
 }
 
 

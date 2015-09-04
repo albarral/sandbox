@@ -6,13 +6,15 @@
  *   ainoa@migtron.com   *
  ***************************************************************************/
 
+#include <mutex>
 #include <vector>
 
-#include <log4cxx/logger.h>
 #include "opencv2/core/core.hpp" //for the matrix
 
 namespace sam
 {
+// This class represents 3x3 the game board.
+// It may be accessed & modified by various agents simultaneously, so most of its methods are mutex protected.
 class GameBoard
 {
 public:
@@ -22,8 +24,7 @@ public:
         eSTAT_TURN_SAM,                 // SAM's turn
         eSTAT_TURN_TAM,                 // TAM's turn
         eSTAT_FINISHED_DRAW,          // game over with no winner	
-        eSTAT_FINISHED_SAM_WINS,   // SAM won the game
-        eSTAT_FINISHED_TAM_WINS    // TAM won the game
+        eSTAT_FINISHED_WINNER
     };
     
     enum eCell  //cell state
@@ -34,35 +35,46 @@ public:
     };
         
 private:   
-    static log4cxx::LoggerPtr logger;
-    int status;                                     // board status (one of eStatus values)
+    std::mutex mutex;
     cv::Mat matrix;                              // matrix of board cells (each with one of eCell values)              
+    int status;                                     // board status (one of eStatus values)
     int numPlayers;
+    std::string winner;
     std::vector<int> listTurns;             // list of turns
     std::vector<int>::iterator it_turn;    // present turn     
     
 public:
     GameBoard();
     
-    // reset gameboard by emptying cells & setting status to ready
+    // reset gameboard by emptying cells & setting status to ready (mutex protected)    
     void reset();
-    
-    int getStatus() {return status;};
-    void setStatus(int value) {status = value;};
+
+    //(mutex protected)    
+    int getStatus();
+    //(mutex protected)    
+    void setStatus(int value);
     
     cv::Mat getMatrix() {return matrix;};
     int getNumPlayers() {return numPlayers;}
         
-    int getPresentTurn() {return *it_turn;};
-    // set turn randomly
+    void setWinner(std::string name) {winner = name;};
+    std::string getWinner() {return winner;}
+    
+    // return present turn (mutex protected)
+    int getPresentTurn(); 
+    // sets turn randomly (mutex protected)
     void initTurn();
-    // change turn to next player
+    // changes turn to next player (mutex protected)
     void changeTurn();
     
-    // show a matrix with the values of the cells
-    void ShowMatrix();
-    // show the states
-    void showStates();
+    // puts a player's mark in the specified cell (mutex protected)
+    void markCell(int mark, int row, int col);
+    
+    // checks if game is over (mutex protected)
+    bool isGameOver();
+        
+    // gets board's status name
+    std::string getStatusName();
 };
 
 }

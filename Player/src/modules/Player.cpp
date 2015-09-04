@@ -4,13 +4,11 @@
  ***************************************************************************/
 
 #include <cstdlib>  //for random values
-#include <vector>
 #include <unistd.h> // for sleep()
 
 
 #include "log4cxx/ndc.h"
 #include "Player.h"
-#include "GameManager.h"
 #include "Strategy.h"
 
 namespace sam 
@@ -24,8 +22,8 @@ Player::Player()
 
 void Player::init(GameBoard& oBoard, std::string name)
 {  
-    // the agent's is given an identity, which will determine its turn and how its cells are marked
-    LOG4CXX_INFO(logger, "Player initialized with ID " << name);     
+    // the agent is given an identity, which will determine its turn and how its cells are marked
+    LOG4CXX_INFO(logger, "Player " << name << " initialized");     
         
     pBoard = &oBoard;    
     ID = name;
@@ -49,14 +47,13 @@ void Player::first()
     setState(ePLAYER_WAIT);
     setNextState(ePLAYER_WAIT);    
 
-    log4cxx::NDC::push("player");   	
+    log4cxx::NDC::push(ID);   	
     log4cxx::NDC::push("wait");    
 }
 
 void Player::loop()
 {   
-    if (updateState())
-        showState();
+    updateState();
           
     switch (getState())
     {
@@ -83,20 +80,30 @@ void Player::loop()
         case ePLAYER_PLAY:        
             
             // check if game still open
-            // If so, select cell & go back to WAIT state
-            // Otherwise, go to FINISHED state 
-            if (checkBoard(pBoard->getMatrix()) == false)
+            // If so, make move
+            // check again & go back to WAIT state or to FINISHED depending on the result
+            if (checkBoardOpen())
             {
-                pBoard->showStates();
-                chooseCell();
+                chooseCell();          
+                
+                if (checkBoardOpen())
+                    setNextState(ePLAYER_WAIT);    
+                else
+                    setNextState(ePLAYER_FINISHED);                    
             }
+            // Otherwise, go to FINISHED state 
+            else 
+                setNextState(ePLAYER_FINISHED);
+                
             break;
                     
-        case ePLAYER_FINISHED:            
+        case ePLAYER_FINISHED:             
             // nothing done
             break;
     }   // end switch    
-    
+
+    if (isStateChanged())
+        showStateChange();    
 }
 
 void Player::chooseCell()
@@ -107,6 +114,7 @@ void Player::chooseCell()
     cv::Mat matrix = pBoard->getMatrix();    
     Strategy oStrategy;
     
+    // select move
     if (bsmart)
     {
         if (oStrategy.attack(matrix, myMark) == false)
@@ -117,97 +125,125 @@ void Player::chooseCell()
     else
         oStrategy.attackRandom(matrix, myMark);
     
-    pBoard->ShowMatrix();
-    if (checkBoard(matrix) == false)
-        setNextState(ePLAYER_WAIT);
-    
-    //change turn
+    // perform move & change turn
+    int* pBestMove = oStrategy.getBestMove();
+    pBoard->markCell(myMark, pBestMove[0], pBestMove[1]);
     pBoard->changeTurn();
+
+    LOG4CXX_INFO(logger, "\n " << pBoard->getMatrix());
 }
 
-bool Player::checkBoard(cv::Mat matrix)
+bool Player::checkBoardOpen()
 {
     // Checks the cells of the board to see if the the game has finished, whether with a winner or in draw 
-    bool finished = false, winner = false;   
-    std::vector<std::pair<int, int>> listEmptyCells;
-    
-    // a list of empty cells is obtained
-    for (int i = 0; i < matrix.rows; i++)
+    cv::Mat matrix = pBoard->getMatrix();
+    Line oLine;
+    oLine.setMatrix(matrix);        
+    // reset board analysis
+    bwinner = false;
+    nameWinner = "";
+    bemptyCells = false;
+        
+    // check rows
+    for (int i=0; i<matrix.rows; i++)
     {
-        for (int j = 0; j < matrix.cols; j++)
+        // check cells in row
+        oLine.checkRow(i, myMark, GameBoard::eCELL_EMPTY); 
+        analyseLine(oLine);
+    }
+
+    // if no winner, check columns
+    if (!bwinner)
+    {
+        for (int j=0; j<matrix.cols; j++)
         {
-            if (matrix.at<int>(i,j) == GameBoard::eCELL_EMPTY)
-            {
-                listEmptyCells.push_back(std::make_pair(i,j));
-            }
+            // check cells in column
+            oLine.checkColumn(j, myMark, GameBoard::eCELL_EMPTY);        
+            analyseLine(oLine);
         }
     }    
-    int size = listEmptyCells.size();
     
-    // If there are no empty cells and no winner the GameBoard status goes to "finished in draw"
-    if (size == 0)        
-        finished = true;
-
-    for (int i = 0; i<3; i++)
-    {        
-        if (//Check rows        
-        (matrix.at<int>(i,0) == matrix.at<int>(i,1) && matrix.at<int>(i,0) == matrix.at<int>(i,2) && matrix.at<int>(i,0) != GameBoard::eCELL_EMPTY)
-        //Check columns
-        || (matrix.at<int>(0,i) == matrix.at<int>(1,i) && matrix.at<int>(0,i) == matrix.at<int>(2,i) && matrix.at<int>(0,i) != GameBoard::eCELL_EMPTY)
-        //Check diagonals      
-        || (matrix.at<int>(0,0) == matrix.at<int>(1,1) && matrix.at<int>(0,0) == matrix.at<int>(2,2) && matrix.at<int>(0,0) != GameBoard::eCELL_EMPTY)     
-        || (matrix.at<int>(2,0) == matrix.at<int>(1,1) && matrix.at<int>(2,0) == matrix.at<int>(0,2) && matrix.at<int>(2,0) != GameBoard::eCELL_EMPTY))
-        {
-            finished = true;
-            winner = true;
-        }
-    }
-            
-    if (finished)
+    // if still no winner, check diagonals
+    if (!bwinner)
     {
-        setNextState(ePLAYER_FINISHED);  
-        
-        if (winner)
+        for (int k=1; k<=2; k++)
         {
-            // Put sam as a winner
-            if (pBoard->getStatus() == GameBoard::eSTAT_TURN_SAM)
-                pBoard->setStatus(GameBoard::eSTAT_FINISHED_SAM_WINS);
-            // Put tam as a winner
-            else if (pBoard->getStatus() == GameBoard::eSTAT_TURN_TAM)
-                pBoard->setStatus(GameBoard::eSTAT_FINISHED_TAM_WINS);
+            // check cells in diagonal
+            oLine.checkDiagonal(k, myMark, GameBoard::eCELL_EMPTY);        
+            analyseLine(oLine);
+        }    
+    }
+    
+    // game is still open if there's no winner & there are empty cells
+    bool bgameOpen = (!bwinner && bemptyCells);
+    
+    // if game finished update board status
+    if (!bgameOpen)
+    {
+        // finished with a WINNER (and set winner's name if it's me)
+        if (bwinner)
+        {
+            pBoard->setStatus(GameBoard::eSTAT_FINISHED_WINNER);
+            if (!nameWinner.empty())
+                pBoard->setWinner(nameWinner);
         }
+        //finished with DRAW
         else 
             pBoard->setStatus(GameBoard::eSTAT_FINISHED_DRAW);
-        
-        pBoard->showStates();
-    }    
-    return finished;       
+    }
+    
+    return bgameOpen;
 }
 
-void Player::showState()
+
+// checks the observed line to see if there's a winner
+void Player::analyseLine(Line& oLine)
 {
-    std::string stateName;
-    switch (getState())
+    // first check if there are empty cells (the usual case)
+    if (oLine.getNumEmpties() > 0)
+    {
+        bemptyCells = true;
+    }
+    // if whole row is mine, I'm the winner!
+    else if (oLine.getNumMines() == 3)
+    {
+        bwinner = true;
+        nameWinner = ID;
+    }
+    // if whole row is for other player, there's another winner!
+    else if (oLine.getNumOthers() == 3)
+    {
+        bwinner = true;
+    }
+}
+
+
+// Shows the next state name
+void Player::showStateChange()
+{
+    std::string nextStateName;
+    switch (getNextState())
     {
         case ePLAYER_OFF:            
-            stateName = "off";
+            nextStateName = "off";
             break;
+            
         case ePLAYER_WAIT:
-            stateName = "wait";
+            nextStateName = "wait";
             break;
             
         case ePLAYER_PLAY:
-            stateName = "play";
+            nextStateName = "play";
             break;
             
         case ePLAYER_FINISHED:
-            stateName = "finished";
+            nextStateName = "finished";
             break;
     }   // end switch    
 
-    LOG4CXX_INFO(logger, ">> " << stateName);
+    LOG4CXX_INFO(logger, ">> " << nextStateName);
     log4cxx::NDC::pop();
-    log4cxx::NDC::push(stateName);   	
+    log4cxx::NDC::push(nextStateName);   	
 }
 
 }

@@ -6,19 +6,16 @@
 #include <cstdlib>  //for the random values
 #include <iterator>     // std::advance
 
-#include "log4cxx/ndc.h"
-
 #include "GameBoard.h"
 
 namespace sam
 {   
-log4cxx::LoggerPtr GameBoard::logger(log4cxx::Logger::getLogger("sam.player"));
-
 GameBoard::GameBoard()
 {
     // 3x3 board
     matrix = cv::Mat_<int>(3,3);   
     numPlayers = 2;
+    winner = "";
     listTurns.push_back(eSTAT_TURN_SAM);
     listTurns.push_back(eSTAT_TURN_TAM);
     // set first turn by default
@@ -29,14 +26,35 @@ GameBoard::GameBoard()
 // reset gameboard
 void GameBoard::reset()
 {
+    std::lock_guard<std::mutex> locker(mutex);
     // empty all cells & set status to ready
     matrix = cv::Scalar(eCELL_EMPTY);
     status = eSTAT_READY;    
 }
 
+int GameBoard::getStatus() 
+{
+    std::lock_guard<std::mutex> locker(mutex);
+    return status;
+};
+
+void GameBoard::setStatus(int value) 
+{
+    std::lock_guard<std::mutex> locker(mutex);
+    status = value;
+};
+
+int GameBoard::getPresentTurn() 
+{
+    std::lock_guard<std::mutex> locker(mutex);    
+    return *it_turn;
+};
+
 // set turn randomly
 void GameBoard::initTurn()
 {
+    std::lock_guard<std::mutex> locker(mutex);
+
     // select random player and assign turn to him
     int randomPlayer = rand() % numPlayers;         
     it_turn = listTurns.begin();
@@ -48,8 +66,9 @@ void GameBoard::initTurn()
 
 void GameBoard::changeTurn()
 {
-    it_turn++;
-    
+    std::lock_guard<std::mutex> locker(mutex);
+
+    it_turn++;    
     if (it_turn == listTurns.end())        
         it_turn = listTurns.begin();
     
@@ -57,43 +76,47 @@ void GameBoard::changeTurn()
     status = *it_turn;
 }
 
-void GameBoard::ShowMatrix()
+// puts a player's mark in the specified cell
+void GameBoard::markCell(int mark, int row, int col)
 {
-    LOG4CXX_INFO(logger, "\n " << matrix);
+    std::lock_guard<std::mutex> locker(mutex);    
+    matrix.at<int>(row, col) = mark;
+}
+  
+// checks if game is over (mutex protected)
+bool GameBoard::isGameOver()
+{
+    std::lock_guard<std::mutex> locker(mutex);    
+    return (status == GameBoard::eSTAT_FINISHED_DRAW || status == GameBoard::eSTAT_FINISHED_WINNER);
 }
 
-void GameBoard::showStates()
+std::string GameBoard::getStatusName()
 {
-    std::string state;
+    std::string name;
     switch (getStatus())
     {
         case eSTAT_READY:
-            state = "Ready to start";
+            name = "Ready to start";
             break;
             
         case eSTAT_TURN_SAM:
-            state = "Sam's turn";
+            name = "Sam's turn";
             break;
             
         case eSTAT_TURN_TAM:
-            state = "Tam's turn";
+            name = "Tam's turn";
             break;
+            
         case eSTAT_FINISHED_DRAW:
-            state = "The game ended in a draw";
+            name = "finished draw";
             break;
             
-        case eSTAT_FINISHED_SAM_WINS:
-            state = "Sam wins";
-            break;
-            
-        case eSTAT_FINISHED_TAM_WINS:
-            state = "Tam wins";
+        case eSTAT_FINISHED_WINNER:
+            name = "finished winner";
             break;
     }   // end switch    
 
-    LOG4CXX_INFO(logger, ">> " << state);
-    log4cxx::NDC::pop();
-    log4cxx::NDC::push(state);   
+    return name;
 }
 
 }

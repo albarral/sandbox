@@ -102,18 +102,17 @@ void Module2::forceNextState(int state)
     this->nextState = state;    
 }
 
-bool Module2::updateState()
+void Module2::updateState()
 {
     std::lock_guard<std::mutex> locker(mutex);
-    if (state != nextState)
-    {
-        state = nextState;    
-        return true;
-    }
-    else
-        return false;
+    state = nextState;    
 }
 
+bool Module2::isStateChanged()
+{
+    std::lock_guard<std::mutex> locker(mutex);
+    return (state != nextState);
+}
 
 }
 

@@ -11,9 +11,11 @@
 
 #include "utils/module2.h"
 #include "data/GameBoard.h"
+#include "Line.h"
 
 namespace sam 
 {
+// Module that performs an agent that plays the tic-tac-toe game
 // It derives from base class Module2
 class Player : public Module2
 {
@@ -22,9 +24,9 @@ public:
     enum eState
     {
         ePLAYER_OFF,			// initial state before game starts
-	ePLAYER_WAIT,		// waiting for my turn
-	ePLAYER_PLAY,		// it's my turn, do my move
-	ePLAYER_FINISHED		// game is finished
+        ePLAYER_WAIT,		// waiting for my turn
+        ePLAYER_PLAY,		// it's my turn, do my move
+        ePLAYER_FINISHED		// game is finished
     };
 
 private:
@@ -33,6 +35,9 @@ private:
     bool bsmart;       // flag indicating the player can use smart strategies (methods defined in Strategy class)
     int myMark;         // mark used by the player to select cells (one of eCell values defined in GameBoard class)
     GameBoard* pBoard;      // pointer to the game's board
+    bool bwinner;
+    std::string nameWinner;
+    bool bemptyCells;
 
 public:
     Player();
@@ -52,11 +57,12 @@ private:
     //Put in the matrix the cell selected by the player
     void chooseCell();
     //check if there is a winner or the game is finished
-    bool checkBoard(cv::Mat matrix);
-    
-    // shows the present state name
-    void showState();    
-
+    bool checkBoardOpen();
+    // checks the observed line to see if there's a winner
+    void analyseLine (Line& oLine);    
+ 
+    // shows the next state name
+    void showStateChange();    
 };
 }
 #endif

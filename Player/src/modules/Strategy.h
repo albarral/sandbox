@@ -36,13 +36,13 @@ private:
 public:
     Strategy();
 
-    // Checks the board and randomly select one of its empty cells
-    static void attackRandom(cv::Mat& matrix, int myMark);
-    static void attackRandom2(cv::Mat& matrix, int myMark);
+    // Checks the board and randomly select one of its empty cells. Storing it as best move.
+    bool attackRandom(cv::Mat& matrix, int myMark);
         
-    // Checks all lines in the board (rows, columns & diagonals) in search of the next best move
-    // Returns true if a cell was selected, false otherwise
+    // Checks all lines in the board (rows, columns & diagonals) in search of the next best move.
+    // Returns true if a move was found with chances to win, or false otherwise
     bool attack(cv::Mat& matrix, int myMark);
+    
     int getBestChance() {return bestChance;}
     int* getBestMove() {return bestMove;}
 

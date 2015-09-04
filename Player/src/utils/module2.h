@@ -64,8 +64,10 @@ protected:
         void setState(int state);
         // sets the next state (unless OFF is already set)
         void setNextState(int state);
-        // converts state into next_state
-        virtual bool updateState();
+        // state gets the next_state value
+        void updateState();
+        // checks if next state differs from state
+        bool isStateChanged();
         
 private:
         // sets the next state (ignoring the OFF limitation) 

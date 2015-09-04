@@ -6,7 +6,6 @@
 #include <vector>
 #include "opencv2/core/core.hpp" //for the matrix
 
-#include "log4cxx/ndc.h"
 #include "Informer.h"
 #include "GameManager.h"
 #include "Strategy.h"
@@ -20,64 +19,64 @@ Informer::Informer()
     oDatabase.init("tcp://127.0.0.1:3306", "sam", "sam", "samMemo");
 }
 
+Informer::~Informer()
+{
+    oDatabase.closeConnectionDB();        
+}
+
 void Informer::init(GameBoard& oBoard)
 {  
+    LOG4CXX_INFO(logger, "Informer initialized");     
     pBoard = &oBoard;
-    numberTry = 0;
 };
 
 void Informer::first()
 {
+    // we first connect to DB & clear the last game history
     con = oDatabase.getConnectionDB(); 
-    loadFromMemo();
-    if(numberTry > 0)
-        numberTry = numberTry +1;
+    clearGameHistory();
 }
 
 void Informer::loop()
 {
     // Look which state have GameBoard and save it on database
-    storeInMemo();
-    
-    int status = pBoard->getStatus();
-    if (status == GameBoard::eSTAT_FINISHED_DRAW || status == GameBoard::eSTAT_FINISHED_SAM_WINS || 
-            status == GameBoard::eSTAT_FINISHED_TAM_WINS)
-    {
-        con->commit();
-        oDatabase.closeConnectionDB();
-    }
+    storeGameState();
 }
 
-void Informer::storeInMemo()
+// stores in DB the present state of the game board (TAB_BOARD)
+void Informer::storeGameState()
 {
     cv::Mat matrix = pBoard->getMatrix();
     
-    std::string insert = "INSERT INTO TAB_BOARD (IDtry, StatusBoard) VALUES (" + std::to_string(numberTry) 
+    moveID++;
+    
+    // insert new move (without cells info)
+    std::string insert = "INSERT INTO TAB_BOARD (tryID, boardStatus) VALUES (" + std::to_string(moveID) 
             + ", " + std::to_string(pBoard->getStatus()) + ")";
     oDatabase.update(insert, con);
 
+    // update cells info
     for (int i = 0; i < matrix.rows; i++)
     {
         for (int j = 0; j < matrix.cols; j++)
         {
             std::string update = "UPDATE TAB_BOARD SET Cell" + std::to_string(i) + std::to_string(j) + " = " 
-                    + std::to_string(matrix.at<int>(i,j)) + " WHERE IDtry = " + std::to_string(numberTry);
+                    + std::to_string(matrix.at<int>(i,j)) + " WHERE tryID = " + std::to_string(moveID);
             oDatabase.update(update, con);
         }
-    }        
-    numberTry ++;
+    }  
+    con->commit();
 }
 
-void Informer::loadFromMemo()
+
+// clears from DB the stored info of last game (TAB_BOARD)
+void Informer::clearGameHistory()
 {
-    std::string sel = "SELECT * FROM TAB_BOARD ";
-    sql::ResultSet* res = oDatabase.select(sel, con);
-       
-    while (res->next())
-    {
-        numberTry = res->getInt("IDtry");
-    }
-    
+    std::string del = "delete from TAB_BOARD where tryID >= 0";
+    oDatabase.update(del, con);
+    con->commit();
+    moveID = 0;
 }
+
 
 }
