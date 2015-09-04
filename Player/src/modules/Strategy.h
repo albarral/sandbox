@@ -35,10 +35,10 @@ private:
     
 public:
     Strategy();
-    
-    static bool attack1(cv::Mat& matrix, int myMark);
-    static bool attack2(cv::Mat& matrix, int myMark);
+
+    // Checks the board and randomly select one of its empty cells
     static void attackRandom(cv::Mat& matrix, int myMark);
+    static void attackRandom2(cv::Mat& matrix, int myMark);
         
     // Checks all lines in the board (rows, columns & diagonals) in search of the next best move
     // Returns true if a cell was selected, false otherwise

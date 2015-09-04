@@ -104,8 +104,7 @@ void Player::chooseCell()
     // Chooses an empty cell from the board, marking it with the agent's mark
     // If bsmart flag is active the cell selection is done using smart strategies 
     // Otherwise, random selection is made among available cells..
-    cv::Mat matrix = pBoard->getMatrix();
-    
+    cv::Mat matrix = pBoard->getMatrix();    
     Strategy oStrategy;
     
     if (bsmart)
@@ -123,10 +122,7 @@ void Player::chooseCell()
         setNextState(ePLAYER_WAIT);
     
     //change turn
-    if (pBoard->getStatus() == GameBoard::eSTAT_TURN_SAM)
-        pBoard->setStatus(GameBoard::eSTAT_TURN_TAM);
-    else if (pBoard->getStatus() == GameBoard::eSTAT_TURN_TAM)
-        pBoard->setStatus(GameBoard::eSTAT_TURN_SAM);
+    pBoard->changeTurn();
 }
 
 bool Player::checkBoard(cv::Mat matrix)

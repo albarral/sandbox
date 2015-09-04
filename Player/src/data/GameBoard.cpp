@@ -3,7 +3,11 @@
  *   ainoa@migtron.com   *
  ***************************************************************************/
 
+#include <cstdlib>  //for the random values
+#include <iterator>     // std::advance
+
 #include "log4cxx/ndc.h"
+
 #include "GameBoard.h"
 
 namespace sam
@@ -12,15 +16,45 @@ log4cxx::LoggerPtr GameBoard::logger(log4cxx::Logger::getLogger("sam.player"));
 
 GameBoard::GameBoard()
 {
+    // 3x3 board
+    matrix = cv::Mat_<int>(3,3);   
+    numPlayers = 2;
+    listTurns.push_back(eSTAT_TURN_SAM);
+    listTurns.push_back(eSTAT_TURN_TAM);
+    // set first turn by default
+    it_turn = listTurns.begin();
     reset();
 }
 
+// reset gameboard
 void GameBoard::reset()
 {
-    // reset gameboard by emptying cells & setting status to ready
-    matrix = cv::Mat_<int>(3,3);   
+    // empty all cells & set status to ready
     matrix = cv::Scalar(eCELL_EMPTY);
     status = eSTAT_READY;    
+}
+
+// set turn randomly
+void GameBoard::initTurn()
+{
+    // select random player and assign turn to him
+    int randomPlayer = rand() % numPlayers;         
+    it_turn = listTurns.begin();
+    std::advance(it_turn, randomPlayer);
+
+    // set board status to present turn
+    status = *it_turn;
+}
+
+void GameBoard::changeTurn()
+{
+    it_turn++;
+    
+    if (it_turn == listTurns.end())        
+        it_turn = listTurns.begin();
+    
+    // set board status to present turn
+    status = *it_turn;
 }
 
 void GameBoard::ShowMatrix()

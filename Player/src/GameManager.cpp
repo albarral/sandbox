@@ -4,7 +4,6 @@
  ***************************************************************************/
 
 #include <string>
-#include <cstdlib>  //for the random values
 
 #include "GameManager.h"
 
@@ -16,16 +15,8 @@ GameManager::GameManager() {}
 
 void GameManager::startModules()
 { 
-    // game is started with 2 player agents (SAM & TAM) with first turn assigned randomly
+    // game is started with 2 player agents (SAM & TAM) & first turn assigned randomly
     LOG4CXX_INFO(logger, "GameManager: starting modules ..."); 
-    
-    int assignTurn = rand() % 2; //value 0 or 1
-    if (assignTurn == 0)
-        oBoard.setStatus(GameBoard::eSTAT_TURN_SAM);
-    else 
-        oBoard.setStatus(GameBoard::eSTAT_TURN_TAM);
-    
-    oBoard.showStates();
     
     oSam.init(oBoard, "SAM");
     oSam.setFrequency(2.0);
@@ -34,6 +25,10 @@ void GameManager::startModules()
     oTam.init(oBoard, "TAM");
     oTam.setFrequency(2.0);
     oTam.on();
+
+    // init game assigning first turn
+    oBoard.initTurn();
+    oBoard.showStates();
 }
 
 void GameManager::stopModules()
