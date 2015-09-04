@@ -33,9 +33,7 @@ void testPlayer()
     LOG4CXX_INFO(logger, ">>>>>> New game:"); 
     
     while (oGameManager.isGameOver() == false)
-    {
         sleep(1);
-    }
     
     oGameManager.stopModules();
     sleep(2);

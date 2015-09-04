@@ -29,6 +29,11 @@ void GameManager::startModules()
     // init game assigning first turn
     oBoard.initTurn();
     oBoard.showStates();
+    
+    // Informer module added (stores game progress in DB for external monitoring)
+    oInformer.init(oBoard);
+    oInformer.setFrequency(1.25);
+    oInformer.on();
 }
 
 void GameManager::stopModules()
@@ -38,9 +43,11 @@ void GameManager::stopModules()
 
     oSam.off();
     oTam.off();
+    oInformer.off();
     
     oSam.wait();
     oTam.wait();
+    oInformer.wait();
 }
 
 bool GameManager::isGameOver()
