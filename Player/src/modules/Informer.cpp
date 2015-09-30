@@ -40,7 +40,7 @@ void Informer::first()
 void Informer::loop()
 {
     // Look which state have GameBoard and save it on database
-    storeGameState();
+    storeGameState(); 
 }
 
 // stores in DB the present state of the game board (TAB_BOARD)

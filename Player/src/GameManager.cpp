@@ -31,7 +31,7 @@ void GameManager::startModules()
     
     // Informer module added (stores game progress in DB for external monitoring)
     oInformer.init(oBoard);
-    oInformer.setFrequency(1.25);
+    oInformer.setFrequency(3);
     oInformer.on();
 }
 
