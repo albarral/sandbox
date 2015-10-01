@@ -5,9 +5,8 @@
 
 #include <cstdlib>  //for random values
 #include <unistd.h> // for sleep()
-
-
 #include "log4cxx/ndc.h"
+
 #include "Player.h"
 #include "Strategy.h"
 
@@ -217,6 +216,10 @@ void Player::analyseLine(Line& oLine)
     }
 }
 
+bool Player::isPlayerFinished()
+{
+    return (getState() == ePLAYER_FINISHED);
+}
 
 // Shows the next state name
 void Player::showStateChange()

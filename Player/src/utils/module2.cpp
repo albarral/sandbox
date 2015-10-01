@@ -114,6 +114,11 @@ bool Module2::isStateChanged()
     return (state != nextState);
 }
 
+bool Module2::isOff()
+{
+    std::lock_guard<std::mutex> locker(mutex);
+    return (state == Module2::state_OFF);
+}
 }
 
 

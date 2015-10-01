@@ -48,6 +48,9 @@ public:
     std::string getID() {return ID;};
     void setID(std::string value) {ID = value;};
     
+    // asks the player if game is finished for him
+    bool isPlayerFinished();
+    
 private:
     // first actions when the thread begins 
     virtual void first();

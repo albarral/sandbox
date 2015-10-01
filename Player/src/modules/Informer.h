@@ -25,6 +25,7 @@ private:
     Database oDatabase;
     sql::Connection* con;
     int moveID;     // ID of each register
+    int lastGameStatus;
 
 public:
     Informer();

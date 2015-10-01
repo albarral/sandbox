@@ -49,6 +49,9 @@ public:
         // gets the next state
         int getNextState();
         
+        // checks if module is OFF
+        bool isOff();
+        
 protected:
         // method running inside the thread 
         void run();

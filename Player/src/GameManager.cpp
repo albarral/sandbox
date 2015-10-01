@@ -31,7 +31,7 @@ void GameManager::startModules()
     
     // Informer module added (stores game progress in DB for external monitoring)
     oInformer.init(oBoard);
-    oInformer.setFrequency(3);
+    oInformer.setFrequency(2.0);
     oInformer.on();
 }
 
@@ -47,12 +47,17 @@ void GameManager::stopModules()
     oSam.wait();
     oTam.wait();
     oInformer.wait();
+    
+    LOG4CXX_INFO(logger, "GameManager: SAM off ? " << oSam.isOff()); 
+    LOG4CXX_INFO(logger, "GameManager: TAM off ? " << oTam.isOff()); 
+    LOG4CXX_INFO(logger, "GameManager: Informer off ? " << oInformer.isOff()); 
 }
 
 // checks board status to see if game has finished
 bool GameManager::isGameOver()
 {
     return oBoard.isGameOver();
+    //return (oSam.isPlayerFinished() && oTam.isPlayerFinished());
 }
 
 }

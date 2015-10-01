@@ -5,6 +5,7 @@
 
 #include <vector>
 #include "opencv2/core/core.hpp" //for the matrix
+#include "log4cxx/ndc.h"
 
 #include "Informer.h"
 #include "GameManager.h"
@@ -32,24 +33,33 @@ void Informer::init(GameBoard& oBoard)
 
 void Informer::first()
 {
+    log4cxx::NDC::push("Informer");   	
     // we first connect to DB & clear the last game history
     con = oDatabase.getConnectionDB(); 
     clearGameHistory();
+    lastGameStatus = GameBoard::eSTAT_READY;
+    moveID = -1;
 }
 
 void Informer::loop()
 {
-    // Look which state have GameBoard and save it on database
-    storeGameState(); 
+    // If game status has changed store new values of board cells in database
+    if (pBoard->getStatus() != lastGameStatus)
+    {                
+        lastGameStatus = pBoard->getStatus();
+
+        moveID++;            
+        storeGameState();         
+    }    
 }
 
 // stores in DB the present state of the game board (TAB_BOARD)
 void Informer::storeGameState()
 {
+    LOG4CXX_INFO(logger, "Store game state - move " << moveID);     
+
     cv::Mat matrix = pBoard->getMatrix();
-    
-    moveID++;
-    
+        
     // insert new move (without cells info)
     std::string insert = "INSERT INTO TAB_BOARD (tryID, boardStatus) VALUES (" + std::to_string(moveID) 
             + ", " + std::to_string(pBoard->getStatus()) + ")";
@@ -72,6 +82,8 @@ void Informer::storeGameState()
 // clears from DB the stored info of last game (TAB_BOARD)
 void Informer::clearGameHistory()
 {
+    LOG4CXX_INFO(logger, "Clear game history");     
+
     std::string del = "delete from TAB_BOARD where tryID >= 0";
     oDatabase.update(del, con);
     con->commit();
