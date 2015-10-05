@@ -37,8 +37,11 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/src/Connection.o \
 	${OBJECTDIR}/src/Environment.o \
+	${OBJECTDIR}/src/GameState.o \
+	${OBJECTDIR}/src/GameTransition.o \
 	${OBJECTDIR}/src/Learn.o \
 	${OBJECTDIR}/src/Place.o \
+	${OBJECTDIR}/src/RewardCalculator.o \
 	${OBJECTDIR}/src/State.o \
 	${OBJECTDIR}/src/Task.o \
 	${OBJECTDIR}/src/Transition.o \
@@ -80,6 +83,16 @@ ${OBJECTDIR}/src/Environment.o: src/Environment.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Environment.o src/Environment.cpp
 
+${OBJECTDIR}/src/GameState.o: src/GameState.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GameState.o src/GameState.cpp
+
+${OBJECTDIR}/src/GameTransition.o: src/GameTransition.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GameTransition.o src/GameTransition.cpp
+
 ${OBJECTDIR}/src/Learn.o: src/Learn.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
@@ -89,6 +102,11 @@ ${OBJECTDIR}/src/Place.o: src/Place.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Place.o src/Place.cpp
+
+${OBJECTDIR}/src/RewardCalculator.o: src/RewardCalculator.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/RewardCalculator.o src/RewardCalculator.cpp
 
 ${OBJECTDIR}/src/State.o: src/State.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src

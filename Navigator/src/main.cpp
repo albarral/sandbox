@@ -52,20 +52,42 @@ void testNavigation()
     oNavigation.init(oVirtualEnvironment);
     oNavigation.setFrequency(1.0);    
     oNavigation.on();
+    
+    //chose the strategy that wants to be done
+    int strategy = sam::Navigation::eSTRAT_SMART;
 
     sleep (1);    
 
-    // prepare experiments
-    std::vector<sam::Experiment> listExperiments;
-    setNavigationExperiments(listExperiments, oVirtualEnvironment);
-    
-    // perform experiments
-    for (int i=0; i<listExperiments.size(); i++)
+    if (strategy == sam::Navigation::eSTRAT_SMART)
     {
-        sam::Experiment& oExperiment = listExperiments.at(i);
+        // prepare experiments
+        std::vector<sam::Experiment> listExperiments;
+        setNavigationExperiments(listExperiments, oVirtualEnvironment);
+    
+        // perform experiments
+        for (int i=0; i<listExperiments.size(); i++)
+        {
+            sam::Experiment& oExperiment = listExperiments.at(i);
         
-        doNavigationTask(oNavigation, oVirtualEnvironment, oExperiment);  
-        sleep(1);
+            doNavigationTask(oNavigation, oVirtualEnvironment, oExperiment);  
+            sleep(1);
+        }
+    }
+    
+    else
+    {
+        int targetPlace = 6;
+        oNavigation.newTask(targetPlace, strategy);
+        
+        // wait until target reached or num steps > 20
+        while ((oNavigation.getState() != sam::Navigation::eSTATE_REACHED) && (oNavigation.getNumSteps()<10))            
+            sleep (1);
+ 
+        if ((oNavigation.getState() != sam::Navigation::eSTATE_REACHED))
+        {
+            LOG4CXX_INFO(logger, "Too many steps without reaching the target !!!! " << oNavigation.getNumSteps());
+            oNavigation.stopTask();
+        }
     }
 
     oNavigation.off();

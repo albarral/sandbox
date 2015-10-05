@@ -23,10 +23,16 @@
         <itemPath>src/Connection.h</itemPath>
         <itemPath>src/Environment.cpp</itemPath>
         <itemPath>src/Environment.h</itemPath>
+        <itemPath>src/GameState.cpp</itemPath>
+        <itemPath>src/GameState.h</itemPath>
+        <itemPath>src/GameTransition.cpp</itemPath>
+        <itemPath>src/GameTransition.h</itemPath>
         <itemPath>src/Learn.cpp</itemPath>
         <itemPath>src/Learn.h</itemPath>
         <itemPath>src/Place.cpp</itemPath>
         <itemPath>src/Place.h</itemPath>
+        <itemPath>src/RewardCalculator.cpp</itemPath>
+        <itemPath>src/RewardCalculator.h</itemPath>
         <itemPath>src/State.cpp</itemPath>
         <itemPath>src/State.h</itemPath>
         <itemPath>src/Task.cpp</itemPath>
@@ -93,6 +99,14 @@
       </item>
       <item path="src/Environment.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/GameState.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GameState.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GameTransition.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GameTransition.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Learn.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Learn.h" ex="false" tool="3" flavor2="0">
@@ -100,6 +114,10 @@
       <item path="src/Place.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Place.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/RewardCalculator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/RewardCalculator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/State.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -150,6 +168,14 @@
       </item>
       <item path="src/Environment.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/GameState.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GameState.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GameTransition.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GameTransition.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Learn.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Learn.h" ex="false" tool="3" flavor2="0">
@@ -157,6 +183,10 @@
       <item path="src/Place.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Place.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/RewardCalculator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/RewardCalculator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/State.cpp" ex="false" tool="1" flavor2="0">
       </item>

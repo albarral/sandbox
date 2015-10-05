@@ -114,7 +114,7 @@ int Navigation::selectConnection()
             break;
 
         case eSTRAT_LOWER_COST:
-            winner = getBestConnection(pVirtualEnvironment->getPresentConnections());
+            winner = getLowerCostConnection(pVirtualEnvironment->getPresentConnections());
             break; 
             
         case eSTRAT_SMART:
@@ -156,7 +156,7 @@ Connection* Navigation::getRandomConnection(std::vector<sam::Connection>& listCo
 }
 
 // IMPORTANT: this method will be moved to the Learning project in the future
-Connection* Navigation::getBestConnection(std::vector<sam::Connection>& listConnections)
+Connection* Navigation::getLowerCostConnection(std::vector<sam::Connection>& listConnections)
 {
     // checks all connections in the given list and gets the one with highest confidence (a combination of Q and cost)
     sam::Connection* winner = 0;

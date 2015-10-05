@@ -1,4 +1,4 @@
-#ifndef  __SAM_STRATEGY_H
+#ifndef __SAM_STRATEGY_H
 #define __SAM_STRATEGY_H
 
 /***************************************************************************
