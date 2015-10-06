@@ -14,6 +14,7 @@ State::State()
     desc = "";
     taskID = 0;
     reward = 0; // 0.0 or 0f
+    rewardDefense = 0; // 0.0 or 0f
 }
 
 void State::addTransition(Transition& oTransition)

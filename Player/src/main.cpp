@@ -30,10 +30,11 @@ int main(int argc, char** argv)
 void initialize()
 {
     sam::RewardCalculator oRewardCalculator;
+    sam::GameDistance oGameDistance;
     oRewardCalculator.setKAttack(100);
-    oRewardCalculator.setKDefend(100);
-//    oRewardCalculator.setDMaxVictory(sam::GameDistance.computeDistance2Victory(0,3));
-//    oRewardCalculator.setDMaxDefeat(sam::GameDistance.computeDistance2Defeat(3,0));
+    oRewardCalculator.setKDefend(100);  
+    oRewardCalculator.setDMaxVictory(oGameDistance.computeDistance2Victory(0,3));
+    oRewardCalculator.setDMaxDefeat(oGameDistance.computeDistance2Defeat(3,0));
 }
 
 void testPlayer()

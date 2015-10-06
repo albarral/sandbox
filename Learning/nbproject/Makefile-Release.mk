@@ -38,15 +38,13 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/Connection.o \
 	${OBJECTDIR}/src/Environment.o \
 	${OBJECTDIR}/src/GameState.o \
-	${OBJECTDIR}/src/GameTransition.o \
 	${OBJECTDIR}/src/Learn.o \
 	${OBJECTDIR}/src/Place.o \
 	${OBJECTDIR}/src/RewardCalculator.o \
 	${OBJECTDIR}/src/State.o \
 	${OBJECTDIR}/src/Task.o \
 	${OBJECTDIR}/src/Transition.o \
-	${OBJECTDIR}/src/types/ConnectionType.o \
-	${OBJECTDIR}/src/types/TransitionType.o
+	${OBJECTDIR}/src/types/ConnectionType.o
 
 
 # C Compiler Flags
@@ -88,11 +86,6 @@ ${OBJECTDIR}/src/GameState.o: src/GameState.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GameState.o src/GameState.cpp
 
-${OBJECTDIR}/src/GameTransition.o: src/GameTransition.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GameTransition.o src/GameTransition.cpp
-
 ${OBJECTDIR}/src/Learn.o: src/Learn.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
@@ -127,11 +120,6 @@ ${OBJECTDIR}/src/types/ConnectionType.o: src/types/ConnectionType.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/types
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/types/ConnectionType.o src/types/ConnectionType.cpp
-
-${OBJECTDIR}/src/types/TransitionType.o: src/types/TransitionType.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/types
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/types/TransitionType.o src/types/TransitionType.cpp
 
 # Subprojects
 .build-subprojects:

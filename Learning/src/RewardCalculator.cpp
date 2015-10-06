@@ -4,6 +4,7 @@
  ***************************************************************************/
 
 #include "RewardCalculator.h"
+#include "GameState.h"
 
 namespace sam
 {   
@@ -15,14 +16,14 @@ RewardCalculator::RewardCalculator()
     dMaxDefeat = 0;
 }
 
-float RewardCalculator::computeAttackReward()
+float RewardCalculator::computeAttackReward(int kAttack, int dVictory, int dMaxVictory)
 {
-    
+    return (kAttack * (1 + (dVictory/dMaxVictory)));
 }
 
-float RewardCalculator::computeDefendReward()
+float RewardCalculator::computeDefendReward(int kDefend, int dDefeat, int dMaxDefeat)
 {
-    
+    return (kDefend * (1 + (dDefeat/dMaxDefeat)));
 }
 
 }

@@ -7,10 +7,7 @@
 
 namespace sam
 {    
-UpdateRewards::UpdateRewards() 
-{
-    
-}
+UpdateRewards::UpdateRewards() {}
 
 int UpdateRewards::computeDistances()
 {

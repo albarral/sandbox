@@ -6,7 +6,6 @@
 #include "Transition.h"
 #include "State.h"
 #include "Connection.h"
-#include "types/TransitionType.h"
 
 namespace sam 
 {
@@ -19,17 +18,13 @@ Transition::Transition()
     nextState = 0;
     cost = 0; // 0.0 or 0f
     Q = 0; // 0.0 or 0f
+    QDefend = 0; // 0.0 or 0f
 }
 
-void Transition::set(int stateID, int nextState, int type)
+void Transition::set(int stateID, int nextState)
 {    
     this->stateID = stateID;
     this->nextState = nextState;
-          
-    TransitionType oType;
-    oType.set(type);
-    this->desc = oType.getDesc();    
-    this->cost = oType.getCost();
 }
 
 void Transition::loadFromMemo(Database* pDatabase, sql::Connection* con)

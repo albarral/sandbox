@@ -21,6 +21,7 @@ private:
     std::string desc;
     int taskID;
     float reward;
+    float rewardDefense;
     std::vector<Transition> listTransitions;
     
 public:
@@ -42,6 +43,9 @@ public:
     
     float getReward() {return reward;};
     void setReward(float value) {reward = value;};
+    
+    float getRewardDefense() {return rewardDefense;};
+    void setRewardDefense(float value)  {rewardDefense = value;};
   
     std::vector<Transition>& getListTransitions() {return listTransitions;};
 

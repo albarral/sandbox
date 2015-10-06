@@ -36,6 +36,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/GameManager.o \
+	${OBJECTDIR}/src/GameTask.o \
 	${OBJECTDIR}/src/data/GameBoard.o \
 	${OBJECTDIR}/src/main.o \
 	${OBJECTDIR}/src/modules/GameDistance.o \
@@ -75,6 +76,11 @@ ${OBJECTDIR}/src/GameManager.o: src/GameManager.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GameManager.o src/GameManager.cpp
+
+${OBJECTDIR}/src/GameTask.o: src/GameTask.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GameTask.o src/GameTask.cpp
 
 ${OBJECTDIR}/src/data/GameBoard.o: src/data/GameBoard.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/data
