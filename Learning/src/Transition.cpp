@@ -37,17 +37,18 @@ void Transition::loadFromMemo(Database* pDatabase, sql::Connection* con)
     {
         desc = res->getString("description");
         nextState = res->getInt("nextState");
-        cost = res->getDouble("cost"); //El getFloat da problemas
-        Q = res->getDouble("q"); //El getFloat da problemas
+        cost = res->getDouble("cost");
+        Q = res->getDouble("Q");
+        QDefend = res->getDouble("QDefend");
     }
 }
 
 void Transition::storeInMemo(Database* pDatabase, sql::Connection* con)
 {
-    std::string insert = "INSERT INTO TAB_TRANSITIONS (transID, description, taskID, stateID, nextState, cost, q) "
-            "VALUES (" + std::to_string(ID) + ", ' " + desc + " ', " + std::to_string(taskID) 
+    std::string insert = "INSERT INTO TAB_TRANSITIONS (transID, description, taskID, stateID, nextState, cost,"
+            " Q, QDefend) VALUES (" + std::to_string(ID) + ", ' " + desc + " ', " + std::to_string(taskID) 
             + ", " + std::to_string(stateID) + ", " + std::to_string(nextState) + ", " + std::to_string(cost)
-            + ", " + std::to_string(Q) + ")";   
+            + ", " + std::to_string(Q) + ", " + std::to_string(QDefend) + ")";   
     pDatabase->update(insert, con);
 }
 
@@ -55,8 +56,8 @@ void Transition::upDateInMemo(Database* pDatabase)
 {
     sql::Connection* con = pDatabase->getConnectionDB();
     std::string update = "UPDATE TAB_TRANSITIONS SET description= ' " + desc +
-            " ' nextState = " + std::to_string(nextState) + ", cost = " + std::to_string(cost) + ", q = " + 
-            std::to_string(Q) + " WHERE transID = " + std::to_string(ID)
+            " ' nextState = " + std::to_string(nextState) + ", cost = " + std::to_string(cost) + ", Q = " + 
+            std::to_string(Q)  + ", QDefend= " + std::to_string(QDefend) + " WHERE transID = " + std::to_string(ID)
             + " AND taskID= " + std::to_string(taskID) + " AND stateID= " + std::to_string(stateID);
     pDatabase->update(update, con);
     con->commit();
@@ -71,6 +72,13 @@ void Transition::deleteFromMemo(Database* pDatabase)
     pDatabase->update(deleteDB, con);   
     con->commit();
     pDatabase->closeConnectionDB();
+}
+
+void Transition::storeQ(Database* pDatabase, sql::Connection* con)
+{
+    std::string storeQ = "UPDATE TAB_TRANSITIONS SET Q= " + std::to_string(Q) + " WHERE transID= " + std::to_string(ID)
+            + " AND taskID= " + std::to_string(taskID) + " AND stateID= " + std::to_string(stateID);   
+    pDatabase->update(storeQ, con);
 }
 
 // computes the cost of traversing the connection

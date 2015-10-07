@@ -44,6 +44,7 @@ public:
     void storeInMemo();
     void upDateInMemo();
     void deleteFromMemo();
+    void storeQ();
     void reset();
     
     std::string showData();

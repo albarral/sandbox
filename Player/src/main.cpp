@@ -8,6 +8,7 @@
 #include <log4cxx/logger.h>
 #include <log4cxx/xml/domconfigurator.h>
 
+#include "GameTask.h"
 #include "GameManager.h"
 #include "RewardCalculator.h"
 #include "modules/GameDistance.h"
@@ -29,8 +30,14 @@ int main(int argc, char** argv)
 
 void initialize()
 {
+    sam::GameTask oGameTask; 
     sam::RewardCalculator oRewardCalculator;
     sam::GameDistance oGameDistance;
+    
+    LOG4CXX_INFO(logger, "*** INIT task"); 
+    //Init Task
+    oGameTask.init(sam::GameTask::eTASK_TICTACTOE);
+    
     oRewardCalculator.setKAttack(100);
     oRewardCalculator.setKDefend(100);  
     oRewardCalculator.setDMaxVictory(oGameDistance.computeDistance2Victory(0,3));

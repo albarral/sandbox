@@ -33,7 +33,8 @@ void State::loadFromMemo(Database* pDatabase, sql::Connection* con)
     while (res->next())
     {
         desc = res->getString("description");
-        reward = res->getDouble("reward");  //El getFloat da problemas
+        reward = res->getDouble("reward");
+        rewardDefense = res->getDouble("rewardDefense");
     }
     
     transitionsFromMemo(pDatabase, con);
@@ -42,18 +43,20 @@ void State::loadFromMemo(Database* pDatabase, sql::Connection* con)
 
 void State::storeInMemo(Database* pDatabase, sql::Connection* con)
 {
-    std::string insertDB = "INSERT INTO TAB_STATES (stateID, description, taskID, reward) VALUES ("
-            + std::to_string(ID) + ", ' " + desc + " ', " + std::to_string(taskID) + ", " + std::to_string(reward) + ")";    
+    std::string insertDB = "INSERT INTO TAB_STATES (stateID, description, taskID, reward, rewardDefense) "
+            "VALUES (" + std::to_string(ID) + ", ' " + desc + " ', " + std::to_string(taskID) + ", " 
+            + std::to_string(reward) + ", " + std::to_string(rewardDefense) + ")";    
     pDatabase->update(insertDB, con);
-    
+
     storeTransitions(pDatabase, con);
 }
 
 void State::upDateInMemo(Database* pDatabase)
 {
     sql::Connection* con = pDatabase->getConnectionDB();
-    std::string update = "UPDATE TAB_STATES SET description = ' " + desc + " ' ,reward = " + std::to_string(reward) 
-    + " WHERE stateID = " + std::to_string(ID) + " AND taskID= " + std::to_string(taskID);
+    std::string update = "UPDATE TAB_STATES SET description = ' " + desc + " ' ,reward = " + std::to_string(reward)
+    + " ,rewardDefense = " + std::to_string(rewardDefense) + " WHERE stateID = " + std::to_string(ID) 
+    + " AND taskID= " + std::to_string(taskID);
     pDatabase->update(update, con);
     con->commit();
     pDatabase->closeConnectionDB();
@@ -67,6 +70,17 @@ void State::deleteFromMemo(Database* pDatabase)
     pDatabase->update(deleteDB, con);    
     con->commit();
     pDatabase->closeConnectionDB();
+}
+
+void State::storeQ(Database* pDatabase, sql::Connection* con)
+{
+    std::vector<Transition>::iterator it_transition = listTransitions.begin();
+    std::vector<Transition>::iterator it_end = listTransitions.end();
+    while (it_transition != it_end)
+    {
+        it_transition->storeQ(pDatabase, con);
+        it_transition++;	
+    }
 }
 
 void State::transitionsFromMemo(Database* pDatabase, sql::Connection* con)

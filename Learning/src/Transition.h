@@ -31,6 +31,7 @@ public:
     void storeInMemo(Database* pDatabase, sql::Connection* con);
     void upDateInMemo(Database* pDatabase);
     void deleteFromMemo(Database* pDatabase);
+    void storeQ(Database* pDatabase, sql::Connection* con);
     
     void set(int stateID, int nextState);
     

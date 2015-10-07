@@ -11,6 +11,7 @@
 #include <log4cxx/logger.h>
 
 #include "Task.h"
+#include "GameState.h"
 #include "sam/utils/Database.h"
 
 namespace sam 
@@ -26,17 +27,22 @@ public:
 private:
     static log4cxx::LoggerPtr logger;
     Database oDatabase;
+    std::vector<GameState> listGameStates;
     
 public:
     GameTask();
     
     void init(int ID);
     
+    std::vector<GameState>& getListGameStates() {return listGameStates;}; 
+    void addGameState(GameState& oGameState);
+    
 private:
     void create();
-    void storeInMemo();
-    void loadFromMemo();
     
+    void describeTask();
+    void describeState(GameState* pGameState);
+      
     void buildTicTacToe();
 };
 }

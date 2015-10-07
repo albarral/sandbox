@@ -4,6 +4,7 @@
  ***************************************************************************/
 
 #include "Task.h"
+#include "GameState.h"
 
 namespace sam 
 {
@@ -51,7 +52,7 @@ void Task::storeInMemo()
 void Task::upDateInMemo()
 {
     sql::Connection* con = pDatabase->getConnectionDB();
-    std::string update = "UPDATE TAB_TASKA SET description = ' " + desc + " ', type = " 
+    std::string update = "UPDATE TAB_TASKS SET description = ' " + desc + " ', type = " 
             + std::to_string(type) + " WHERE taskID= " + std::to_string(ID);
     pDatabase->update(update, con);
     con->commit();
@@ -61,8 +62,22 @@ void Task::upDateInMemo()
 void Task::deleteFromMemo()
 {
     sql::Connection* con = pDatabase->getConnectionDB();
-    std::string deleteDB = "DELETE FROM TAB_TASK WHERE taskID= " + std::to_string(ID);
+    std::string deleteDB = "DELETE FROM TAB_TASKS WHERE taskID= " + std::to_string(ID);
     pDatabase->update(deleteDB, con);  
+    con->commit();
+    pDatabase->closeConnectionDB();
+}
+
+void Task::storeQ()
+{
+    sql::Connection* con = pDatabase->getConnectionDB();
+    std::vector<State>::iterator it_state = listStates.begin();
+    std::vector<State>::iterator it_end = listStates.end();
+    while (it_state != it_end)
+    {
+        it_state->storeQ(pDatabase, con);
+        it_state++;
+    }
     con->commit();
     pDatabase->closeConnectionDB();
 }
@@ -102,6 +117,14 @@ void Task::storeStates(sql::Connection* con)
         it_state->storeInMemo(pDatabase, con);
         it_state++;	
     }
+
+//    std::vector<GameState>::iterator it_state = listGameStates.begin();
+//    std::vector<GameState>::iterator it_end = getListGameStates().end();
+//    while (it_state != it_end)
+//    {
+//        it_state->storeInMemo(pDatabase, con);
+//        it_state++;
+//    } 
 }
 
 void Task::reset()

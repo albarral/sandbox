@@ -4,7 +4,6 @@
  ***************************************************************************/
 
 #include "GameTask.h"
-#include "GameState.h"
 
 namespace sam 
 {
@@ -12,6 +11,7 @@ log4cxx::LoggerPtr GameTask::logger(log4cxx::Logger::getLogger("sam.player"));
 GameTask::GameTask() 
 {
     oDatabase.init("tcp://127.0.0.1:3306", "sam", "sam", "samMemo");
+    setDatabase(oDatabase);
 }
 
 void GameTask::init(int ID)
@@ -19,9 +19,19 @@ void GameTask::init(int ID)
     reset();
     setID(ID);
 
-    create();
+    //loadFromMemo();
+    
+    //if (getListStates().size() == 0) // || getListGameStates().size == 0)
+    //{
+        create();
+    //} 
 
-    //describeEnvironment(&oEnvironment);   
+    describeTask();   
+}
+
+void GameTask::addGameState(GameState& oGameState)
+{
+    listGameStates.push_back(oGameState);
 }
 
 void GameTask::create()
@@ -35,6 +45,37 @@ void GameTask::create()
         default:
             // invalid value
             return;
+    }
+    storeInMemo();
+}
+
+void GameTask::describeTask()
+{
+    // describe the task
+    LOG4CXX_INFO(logger, showData());
+    
+    // describe its states
+    std::vector<GameState>::iterator it_state = getListGameStates().begin();
+    std::vector<GameState>::iterator it_end = getListGameStates().end();
+    while (it_state != it_end)
+    {
+        describeState(&(*it_state));
+        it_state++;
+    } 
+}
+
+void GameTask::describeState(GameState* pGameState)
+{
+    // describe the state
+    LOG4CXX_INFO(logger, pGameState->showData());
+
+    // describe its connections
+    std::vector<Transition>::iterator it_trans = pGameState->getListTransitions().begin();
+    std::vector<Transition>::iterator it_end = pGameState->getListTransitions().end();
+    while (it_trans != it_end)
+    {
+        LOG4CXX_INFO(logger, it_trans->showData());
+        it_trans++;
     }
 }
     
@@ -244,6 +285,64 @@ void GameTask::buildTicTacToe()
     // (2, 2, 0) to (2, 2, 1)   ->  24 to 25
     oTransition.set(24, 25);
     oGameState24.addTransition(oTransition);
+    
+    LOG4CXX_INFO(logger, oGameState0.showData());
+    LOG4CXX_INFO(logger, oGameState1.showData());
+    LOG4CXX_INFO(logger, oGameState2.showData());
+    LOG4CXX_INFO(logger, oGameState3.showData());
+    LOG4CXX_INFO(logger, oGameState4.showData());
+    LOG4CXX_INFO(logger, oGameState5.showData());
+    LOG4CXX_INFO(logger, oGameState6.showData());
+    LOG4CXX_INFO(logger, oGameState7.showData());
+    LOG4CXX_INFO(logger, oGameState8.showData());
+    LOG4CXX_INFO(logger, oGameState9.showData());
+    LOG4CXX_INFO(logger, oGameState10.showData());
+    LOG4CXX_INFO(logger, oGameState11.showData());
+    LOG4CXX_INFO(logger, oGameState12.showData());
+    LOG4CXX_INFO(logger, oGameState13.showData());
+    LOG4CXX_INFO(logger, oGameState14.showData());
+    LOG4CXX_INFO(logger, oGameState15.showData());
+    LOG4CXX_INFO(logger, oGameState16.showData());
+    LOG4CXX_INFO(logger, oGameState17.showData());
+    LOG4CXX_INFO(logger, oGameState18.showData());
+    LOG4CXX_INFO(logger, oGameState19.showData());
+    LOG4CXX_INFO(logger, oGameState20.showData());
+    LOG4CXX_INFO(logger, oGameState21.showData());
+    LOG4CXX_INFO(logger, oGameState22.showData());
+    LOG4CXX_INFO(logger, oGameState23.showData());
+    LOG4CXX_INFO(logger, oGameState24.showData());
+    LOG4CXX_INFO(logger, oGameState25.showData());
+    LOG4CXX_INFO(logger, oGameState26.showData());
+    
+    addGameState(oGameState0);
+    addGameState(oGameState1);
+    addGameState(oGameState2);
+    addGameState(oGameState3);
+    addGameState(oGameState4);
+    addGameState(oGameState5);  
+    addGameState(oGameState6);
+    addGameState(oGameState7);
+    addGameState(oGameState8);
+    addGameState(oGameState9);
+    addGameState(oGameState10);
+    addGameState(oGameState11);  
+    addGameState(oGameState12);
+    addGameState(oGameState13);
+    addGameState(oGameState14);
+    addGameState(oGameState15);
+    addGameState(oGameState16);
+    addGameState(oGameState17);  
+    addGameState(oGameState18);
+    addGameState(oGameState19);
+    addGameState(oGameState20);
+    addGameState(oGameState21);
+    addGameState(oGameState22);
+    addGameState(oGameState23);  
+    addGameState(oGameState24);
+    addGameState(oGameState25);
+    addGameState(oGameState26);
+    
+    LOG4CXX_INFO(logger, "tic tac toe built");
     
 }
 
