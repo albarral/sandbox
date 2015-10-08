@@ -46,7 +46,7 @@ void GameTask::create()
             // invalid value
             return;
     }
-    storeInMemo();
+    storeInMemo(); // (listGameStates)
 }
 
 void GameTask::describeTask()
@@ -69,7 +69,7 @@ void GameTask::describeState(GameState* pGameState)
     // describe the state
     LOG4CXX_INFO(logger, pGameState->showData());
 
-    // describe its connections
+    // describe its transitions
     std::vector<Transition>::iterator it_trans = pGameState->getListTransitions().begin();
     std::vector<Transition>::iterator it_end = pGameState->getListTransitions().end();
     while (it_trans != it_end)

@@ -108,6 +108,7 @@ void Task::loadStates(sql::Connection* con)
     }
 }
 
+// Se tendra que hacer la iteración de los dos, o con GameState se puede guardar todo lo de State??
 void Task::storeStates(sql::Connection* con)
 {
     std::vector<State>::iterator it_state = listStates.begin();

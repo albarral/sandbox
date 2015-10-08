@@ -41,6 +41,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/main.o \
 	${OBJECTDIR}/src/modules/GameDistance.o \
 	${OBJECTDIR}/src/modules/Informer.o \
+	${OBJECTDIR}/src/modules/LearnStrategy.o \
 	${OBJECTDIR}/src/modules/Line.o \
 	${OBJECTDIR}/src/modules/Player.o \
 	${OBJECTDIR}/src/modules/Strategy.o \
@@ -105,6 +106,11 @@ ${OBJECTDIR}/src/modules/Informer.o: src/modules/Informer.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/modules
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/Informer.o src/modules/Informer.cpp
+
+${OBJECTDIR}/src/modules/LearnStrategy.o: src/modules/LearnStrategy.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/LearnStrategy.o src/modules/LearnStrategy.cpp
 
 ${OBJECTDIR}/src/modules/Line.o: src/modules/Line.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/modules

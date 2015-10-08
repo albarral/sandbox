@@ -33,7 +33,7 @@ public:
     int getDMaxDefeat() {return dMaxDefeat;};
     void setDMaxDefeat(int value) {dMaxDefeat = value;};
 
-    //return the value of each reward with value between 0 and 1
+    //return the value of each reward
     float static computeAttackReward(int kAttack, int dVictory, int dMaxVictory);
     float static computeDefendReward(int kDefend, int dDefeat, int dMaxDefeat);
 };

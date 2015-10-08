@@ -9,6 +9,9 @@
 
 #include "Player.h"
 #include "Strategy.h"
+#include "GameState.h"
+#include "GameTask.h"
+#include "LearnStrategy.h"
 
 namespace sam 
 {
@@ -17,6 +20,7 @@ log4cxx::LoggerPtr Player::logger(log4cxx::Logger::getLogger("sam.player"));
 Player::Player() 
 {
     bsmart = false;
+    bQlearn = false;
 }
 
 void Player::init(GameBoard& oBoard, std::string name)
@@ -29,6 +33,7 @@ void Player::init(GameBoard& oBoard, std::string name)
     
     if (ID == "SAM")
     {
+//        bQlearn = true;
         myMark = GameBoard::eCELL_SAM;
     }
     else if (ID == "TAM")
@@ -108,13 +113,18 @@ void Player::loop()
 void Player::chooseCell()
 {
     // Chooses an empty cell from the board, marking it with the agent's mark
+    //If bQlearn flag is active the cell selection is done using QLearning
     // If bsmart flag is active the cell selection is done using smart strategies 
     // Otherwise, random selection is made among available cells..
     cv::Mat matrix = pBoard->getMatrix();    
     Strategy oStrategy;
+    LearnStrategy oLearnStrategy;
     
     // select move
-    if (bsmart)
+    if (bQlearn)
+        oLearnStrategy.bestMovement(matrix);
+    
+    else if (bsmart)
     {
         if (oStrategy.attack(matrix, myMark) == false)
         {
@@ -124,6 +134,7 @@ void Player::chooseCell()
     else
         oStrategy.attackRandom(matrix, myMark);
     
+    //EL MOVE SE TENDRA QUE PONER CADA UNO EN SU IF PARA PODER HACER EL DE BQLEARN O SE ASIGNA EL BESTMOVE EN BQLEARN ?
     // perform move & change turn
     int* pBestMove = oStrategy.getBestMove();
     pBoard->markCell(myMark, pBestMove[0], pBestMove[1]);
@@ -134,7 +145,7 @@ void Player::chooseCell()
 
 bool Player::checkBoardOpen()
 {
-    // Checks the cells of the board to see if the the game has finished, whether with a winner or in draw 
+    // Checks the cells of the board to see if the game has finished, whether with a winner or in draw 
     cv::Mat matrix = pBoard->getMatrix();
     Line oLine;
     oLine.setMatrix(matrix);        

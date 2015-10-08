@@ -40,7 +40,9 @@ public:
 private:
     void create();
     
+    // shows brief description of given task
     void describeTask();
+    // shows brief description of given state
     void describeState(GameState* pGameState);
       
     void buildTicTacToe();

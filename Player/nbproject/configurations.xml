@@ -22,6 +22,8 @@
           <itemPath>src/modules/GameDistance.h</itemPath>
           <itemPath>src/modules/Informer.cpp</itemPath>
           <itemPath>src/modules/Informer.h</itemPath>
+          <itemPath>src/modules/LearnStrategy.cpp</itemPath>
+          <itemPath>src/modules/LearnStrategy.h</itemPath>
           <itemPath>src/modules/Line.cpp</itemPath>
           <itemPath>src/modules/Line.h</itemPath>
           <itemPath>src/modules/Player.cpp</itemPath>
@@ -131,6 +133,10 @@
       </item>
       <item path="src/modules/Informer.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/modules/LearnStrategy.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/modules/LearnStrategy.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/modules/Line.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/modules/Line.h" ex="false" tool="3" flavor2="0">
@@ -193,6 +199,10 @@
       <item path="src/modules/Informer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/modules/Informer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/modules/LearnStrategy.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/modules/LearnStrategy.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/modules/Line.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -7,7 +7,8 @@
  ***************************************************************************/
 
 #include <vector>
-#include "opencv2/core/core.hpp" // for the cv matrix
+
+#include "GameState.h"
 
 namespace sam
 {  
@@ -16,7 +17,8 @@ class UpdateRewards
 public:
     UpdateRewards();
     
-    int computeDistances();
+    void computeDistances(GameState& oGameState);
+    void computeRewards(GameState& oGameState);
 };
 }
 

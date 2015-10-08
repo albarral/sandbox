@@ -38,6 +38,7 @@ private:
     bool bwinner;
     std::string nameWinner;
     bool bemptyCells;
+    bool bQlearn;
 
 public:
     Player();
@@ -57,6 +58,7 @@ private:
     // loop inside the module thread 
     virtual void loop();             
     
+    void bestMovement(cv::Mat matrix);
     //Put in the matrix the cell selected by the player
     void chooseCell();
     //check if there is a winner or the game is finished

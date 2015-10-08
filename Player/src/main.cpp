@@ -35,13 +35,15 @@ void initialize()
     sam::GameDistance oGameDistance;
     
     LOG4CXX_INFO(logger, "*** INIT task"); 
-    //Init Task
-    oGameTask.init(sam::GameTask::eTASK_TICTACTOE);
-    
+    //Init some variables
     oRewardCalculator.setKAttack(100);
     oRewardCalculator.setKDefend(100);  
     oRewardCalculator.setDMaxVictory(oGameDistance.computeDistance2Victory(0,3));
     oRewardCalculator.setDMaxDefeat(oGameDistance.computeDistance2Defeat(3,0));
+    
+    //Init task
+    oGameTask.init(sam::GameTask::eTASK_TICTACTOE);
+    
 }
 
 void testPlayer()
@@ -58,6 +60,8 @@ void testPlayer()
     
     oGameManager.stopModules();
     sleep(2);
+    
+    //store Q y update State y Transition
     
     LOG4CXX_INFO(logger, "End of test"); 
 }

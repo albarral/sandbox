@@ -39,6 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/Environment.o \
 	${OBJECTDIR}/src/GameState.o \
 	${OBJECTDIR}/src/Learn.o \
+	${OBJECTDIR}/src/LearnPlayer.o \
 	${OBJECTDIR}/src/Place.o \
 	${OBJECTDIR}/src/RewardCalculator.o \
 	${OBJECTDIR}/src/State.o \
@@ -92,6 +93,11 @@ ${OBJECTDIR}/src/Learn.o: src/Learn.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Learn.o src/Learn.cpp
+
+${OBJECTDIR}/src/LearnPlayer.o: src/LearnPlayer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/LearnPlayer.o src/LearnPlayer.cpp
 
 ${OBJECTDIR}/src/Place.o: src/Place.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
