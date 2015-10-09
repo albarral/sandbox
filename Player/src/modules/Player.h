@@ -12,6 +12,7 @@
 #include "utils/module2.h"
 #include "data/GameBoard.h"
 #include "Line.h"
+#include "RewardCalculator.h"
 
 namespace sam 
 {
@@ -39,6 +40,7 @@ private:
     std::string nameWinner;
     bool bemptyCells;
     bool bQlearn;
+    RewardCalculator oRewardCalculator;
 
 public:
     Player();
@@ -58,7 +60,7 @@ private:
     // loop inside the module thread 
     virtual void loop();             
     
-    void bestMovement(cv::Mat matrix);
+    void bestMovement(cv::Mat& matrix);
     //Put in the matrix the cell selected by the player
     void chooseCell();
     //check if there is a winner or the game is finished

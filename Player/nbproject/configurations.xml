@@ -38,8 +38,6 @@
           <itemPath>src/modules/Strategy.h</itemPath>
           <itemPath>src/modules/Strategy2.cpp</itemPath>
           <itemPath>src/modules/Strategy2.h</itemPath>
-          <itemPath>src/modules/UpdateRewards.cpp</itemPath>
-          <itemPath>src/modules/UpdateRewards.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f3" displayName="utils" projectFiles="true">
           <itemPath>src/utils/module2.cpp</itemPath>
@@ -163,10 +161,6 @@
       </item>
       <item path="src/modules/Strategy2.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/modules/UpdateRewards.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/modules/UpdateRewards.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/utils/module2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/module2.h" ex="false" tool="3" flavor2="0">
@@ -237,10 +231,6 @@
       <item path="src/modules/Strategy2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/modules/Strategy2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/modules/UpdateRewards.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/modules/UpdateRewards.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/module2.cpp" ex="false" tool="1" flavor2="0">
       </item>

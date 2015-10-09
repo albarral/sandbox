@@ -10,6 +10,7 @@
 #include "opencv2/core/core.hpp" //for the matrix
 
 #include "learn/GameState.h"
+#include "RewardCalculator.h"
 
 namespace sam
 {        
@@ -22,12 +23,15 @@ public:
     LearnStrategy();
     
     //search the best movement to do on the Qlearn mode
-    void bestMovement(cv::Mat matrix);
+    void bestMovement(cv::Mat& matrix, RewardCalculator& oRewardCalculator);
     
 private:
     //Serch for each GameState, if it match with a line of the board
     //If match, save the GameState in a new vector
-    std::vector<GameState>& getBoardGameStates(cv::Mat matrix, std::vector<sam::GameState>& listGameStates);
+    std::vector<GameState>& getBoardGameStates(cv::Mat& matrix, std::vector<sam::GameState>& listGameStates, RewardCalculator& oRewardCalculator);
+    
+    void computeDistances(GameState& oGameState);
+    void computeRewards(GameState& oGameState, RewardCalculator& oRewardCalculator);
     
 };
 }
