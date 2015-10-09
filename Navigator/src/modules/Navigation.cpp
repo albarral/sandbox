@@ -164,17 +164,18 @@ Connection* Navigation::getLowerCostConnection(std::vector<sam::Connection>& lis
     std::vector<sam::Connection> listWinners;
     float maxConfidence = 0;
     float confidence, cost, Q;
-    int randNumConn, size, temporal;
+    int randNumConn;
 
     std::vector<sam::Connection>::iterator it_connection = listConnections.begin();
     std::vector<sam::Connection>::iterator it_end = listConnections.end();
     while (it_connection != it_end)
     {
         Connection& oConnection = *it_connection;
-        Connection* pConnection = &(*it_connection);
-        Q = calculateQvalue(pConnection);
+        Q = calculateQvalue(oConnection);
+        // update connection's Q
+        oConnection.setQ(Q);
         
-        cost = it_connection->computeCost();
+        cost = oConnection.computeCost();
         confidence = computeConfidence(cost);                
         LOG4CXX_INFO(logger, "connects to " <<  it_connection->getNextPlace() << " - "  << it_connection->getDesc() << ", cost=" << cost <<  ", conf=" << confidence << ", Q = " << Q);  
         
@@ -182,20 +183,18 @@ Connection* Navigation::getLowerCostConnection(std::vector<sam::Connection>& lis
         if (confidence > maxConfidence)
         {
             maxConfidence = confidence;
-            listWinners.erase(listWinners.begin(),listWinners.end());
+            listWinners.clear();
             listWinners.push_back(oConnection);
-            winner = &(*it_connection);
+            winner = &oConnection;
         }        
         // if various connections share the maximum confidence, take winner randomly among them
         else if (confidence == maxConfidence)
         {
             listWinners.push_back(oConnection);
             
-            size = listWinners.size();
-            randNumConn = rand() % size;
-            winnerTemporal = &listWinners.at(randNumConn);
-            temporal = winnerTemporal->getID();
-            winner = &listConnections.at(temporal);
+            randNumConn = rand() % listWinners.size();
+            winnerTemporal = &(listWinners.at(randNumConn));
+            winner = &(listConnections.at(winnerTemporal->getID()));
         }
         it_connection++;	
     }    
@@ -210,36 +209,35 @@ Connection* Navigation::getSmartestConnection(std::vector<sam::Connection>& list
     sam::Connection* winnerTemporal = 0;
     std::vector<sam::Connection> listWinners;
     float maxConfidence = 0, Q;
-    int randNumConn, size, temporal;
+    int randNumConn;
 
     std::vector<sam::Connection>::iterator it_connection = listConnections.begin();
     std::vector<sam::Connection>::iterator it_end = listConnections.end();
     while (it_connection != it_end)
     {   
         Connection& oConnection = *it_connection;
-        Connection* pConnection = &(*it_connection);
-        Q = calculateQvalue(pConnection);
-
+        Q = calculateQvalue(oConnection);
+        // update connection's Q
+        oConnection.setQ(Q);
+        
         LOG4CXX_INFO(logger, "connects to " << it_connection->getNextPlace() << " - "  << it_connection->getDesc() << ", Q = " << Q);      
            
         // the connection with highest confidence is the winner
         if (Q > maxConfidence)
         {
             maxConfidence = Q;
-            listWinners.erase(listWinners.begin(),listWinners.end());
+            listWinners.clear();
             listWinners.push_back(oConnection);
-            winner = &(*it_connection);
+            winner = &oConnection;
         }      
         // if various connections share the maximum confidence, take winner randomly among them
         else if (Q == maxConfidence)
         {
             listWinners.push_back(oConnection);
             
-            size = listWinners.size();
-            randNumConn = rand() % size;
-            winnerTemporal = &listWinners.at(randNumConn);
-            temporal = winnerTemporal->getID();
-            winner = &listConnections.at(temporal);
+            randNumConn = rand() % listWinners.size();
+            winnerTemporal = &(listWinners.at(randNumConn));
+            winner = &(listConnections.at(winnerTemporal->getID()));
         }
         it_connection++;
     }   
@@ -253,23 +251,19 @@ void Navigation::showConnections(std::vector<sam::Connection>& listConnections)
     std::vector<sam::Connection>::iterator it_end = listConnections.end();
     while (it_connection != it_end)
     {
-        Connection* pConnection = &(*it_connection);
-        Q = calculateQvalue(pConnection);
+        Q = calculateQvalue(*it_connection);
         LOG4CXX_INFO(logger, "connects to " <<  it_connection->getNextPlace() << " - "  << it_connection->getDesc() << ", Q = " << Q);
         it_connection++;
     }
 }
 
-float Navigation::calculateQvalue(Connection* pConnection)
+// computes the Q value of given connection (using the info from next place)
+float Navigation::calculateQvalue(Connection& oConnection)
 {
-    std::vector<sam::Place>& listPlaces = pVirtualEnvironment->getPresentPlaces();
+    std::vector<sam::Place>& listPlaces = pVirtualEnvironment->getPresentPlaces();    
+    Place& oNextPlace = listPlaces.at(oConnection.getNextPlace());    
     
-    int nextPlace = pConnection->getNextPlace();
-    Place& oPlace = listPlaces.at(nextPlace);
-    float Q = oLearn.computeQ(oPlace);
-    pConnection->setQ(Q);
-    
-    return Q;
+    return oLearn.computeQ(oNextPlace);
 }
 
 // IMPORTANT: this method will be moved to the Learning project in the future

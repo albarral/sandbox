@@ -77,7 +77,7 @@ public:
     // show the connections in the random case with the values of Q
     void showConnections(std::vector<Connection>& listConnections);
     // method to do the call to learn to calculate the value of Q
-    float calculateQvalue(Connection* pConnection);
+    float calculateQvalue(Connection& oConnection);
     // stores learned Qs for environment connections
     void storeLearned();
     // show a matrix with the values of Qs
