@@ -8,7 +8,7 @@
 
 #include <string>
 
-#include "learn/GameState.h"
+#include "State.h"
 
 namespace sam
 {
@@ -24,12 +24,12 @@ public:
     void setGamma(float value) {gamma = value;};
 
     // Compute the Q value from a state with one connection
-    float computeQAttack(GameState& oGameState);
-    float computeQDefend(GameState& oGameState);
+    float computeQAttack(State& oState);
+    float computeQDefend(State& oState);
    
 private:    
-    float maxQAttackValue(GameState& oGameState);
-    float maxQDefendValue(GameState& oGameState);
+    float maxQAttackValue(State& oState);
+    float maxQDefendValue(State& oState);
 };
 
 }

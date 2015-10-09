@@ -14,12 +14,12 @@ Learn::Learn()
 }
 
 // QAttack(state, action) = RewardAttack(state, action) + gamma * max [QAttack(next state, all actions)]
-float Learn::computeQAttack(GameState& oGameState)
+float Learn::computeQAttack(State& oState)
 {
     float rewardA, QNextState, QAttack;
      
-    rewardA = oGameState.getReward();    
-    QNextState = maxQAttackValue(oGameState);
+    rewardA = oState.getReward();    
+    QNextState = maxQAttackValue(oState);
     
     QAttack = rewardA + gamma * QNextState;
        
@@ -27,23 +27,23 @@ float Learn::computeQAttack(GameState& oGameState)
 }
 
 // QDefend(state, action) = RewardDefend(state, action) + gamma * max [QDefend(next state, all actions)]
-float Learn::computeQDefend(GameState& oGameState)
+float Learn::computeQDefend(State& oState)
 {
     float rewardD, QNextState, QDefend;
      
-    rewardD = oGameState.getRewardDefense();    
-    QNextState = maxQDefendValue(oGameState);
+    rewardD = oState.getRewardDefense();    
+    QNextState = maxQDefendValue(oState);
     
     QDefend = rewardD + gamma * QNextState;
        
     return QDefend;
 }
 
-float Learn::maxQAttackValue(GameState& oGameState)
+float Learn::maxQAttackValue(State& oState)
 {
     float maxQ = 0.0;
     float Q;
-    std::vector<sam::Transition>& listTransition = oGameState.getListTransitions();
+    std::vector<sam::Transition>& listTransition = oState.getListTransitions();
     
     std::vector<sam::Transition>::iterator it_transition = listTransition.begin();
     std::vector<sam::Transition>::iterator it_end = listTransition.end();
@@ -60,11 +60,11 @@ float Learn::maxQAttackValue(GameState& oGameState)
     return maxQ;
 }
 
-float Learn::maxQDefendValue(GameState& oGameState)
+float Learn::maxQDefendValue(State& oState)
 {
     float maxQ = 0.0;
     float Q;
-    std::vector<sam::Transition>& listTransition = oGameState.getListTransitions();
+    std::vector<sam::Transition>& listTransition = oState.getListTransitions();
     
     std::vector<sam::Transition>::iterator it_transition = listTransition.begin();
     std::vector<sam::Transition>::iterator it_end = listTransition.end();
