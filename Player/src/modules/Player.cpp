@@ -7,12 +7,13 @@
 #include <unistd.h> // for sleep()
 #include "log4cxx/ndc.h"
 
-#include "Player.h"
-#include "Strategy.h"
+#include "modules/Player.h"
+#include "modules/Strategy.h"
+#include "modules/LearnStrategy.h"
 #include "learn/GameTask.h"
 #include "learn/GameState.h"
-#include "LearnStrategy.h"
 #include "learn/GameDistance.h"
+#include "TaskFactory.h"
 
 namespace sam 
 {
@@ -48,7 +49,15 @@ void Player::init(GameBoard& oBoard, std::string name)
         myMark = GameBoard::eCELL_TAM;
     }
     else         
-        LOG4CXX_ERROR(logger, "ID not accepted. Please set a different ID for this player!");             
+        LOG4CXX_ERROR(logger, "ID not accepted. Please set a different ID for this player!");          
+    
+
+    //LOG4CXX_INFO(logger, "Player loading game task ...");     
+    LOG4CXX_INFO(logger, "Creating game task ... (AS NOT EXISTS YET IN DATABASE!!!)");     
+    // TEMPORAL: Till not read from DB the game task will be built directly here.
+    TaskFactory::buildTicTacToeTask(oGameTask);
+    Player::updateGameTaskRewards(oGameTask, oRewardCalculator);
+    oStrategy2.init(oGameTask);    
 };
 
 void Player::first()
@@ -119,30 +128,46 @@ void Player::loop()
 void Player::chooseCell()
 {
     // Chooses an empty cell from the board, marking it with the agent's mark
-    //If bQlearn flag is active the cell selection is done using QLearning
+    // If bQlearn flag is active the cell selection is done using QLearning
     // If bsmart flag is active the cell selection is done using smart strategies 
     // Otherwise, random selection is made among available cells..
     cv::Mat matrix = pBoard->getMatrix();    
     Strategy oStrategy;
-    LearnStrategy oLearnStrategy;
+    int* pBestMove;
     
-    // select move
+    // select move ...
+    
+    // SMART & LEARNING BASED
     if (bQlearn)
-        oLearnStrategy.bestMovement(matrix, oRewardCalculator);
-    
-    else if (bsmart)
     {
-        if (oStrategy.attack(matrix, myMark) == false)
-        {
-            oStrategy.attackRandom(matrix, myMark);
-        }       
+        oStrategy2.playSmart(matrix, myMark);
+        
+        // attack move
+        if (oStrategy2.getBestAttackReward() > oStrategy2.getBestDefenseReward())
+            pBestMove = oStrategy2.getBestAttackMove();
+        // defensive move
+        else
+            pBestMove = oStrategy2.getBestDefenseMove();            
     }
+    // NO LEARNING    
     else
-        oStrategy.attackRandom(matrix, myMark);
+    {
+        // SMART
+        if (bsmart)
+        {
+            if (oStrategy.attack(matrix, myMark) == false)
+            {
+                oStrategy.attackRandom(matrix, myMark);
+            }       
+        }
+        // RANDOM
+        else
+            oStrategy.attackRandom(matrix, myMark);
+        
+        pBestMove = oStrategy.getBestMove();        
+    }
     
-    //EL MOVE SE TENDRA QUE PONER CADA UNO EN SU IF PARA PODER HACER EL DE BQLEARN O SE ASIGNA EL BESTMOVE EN BQLEARN ?
     // perform move & change turn
-    int* pBestMove = oStrategy.getBestMove();
     pBoard->markCell(myMark, pBestMove[0], pBestMove[1]);
     pBoard->changeTurn();
 
@@ -265,5 +290,47 @@ void Player::showStateChange()
     log4cxx::NDC::pop();
     log4cxx::NDC::push(nextStateName);   	
 }
+
+
+ // sets the rewards of the given GameTask using the specified calculator
+void Player::updateGameTaskRewards(GameTask& oGameTask, RewardCalculator& oRewardCalculator)
+{        
+    std::vector<sam::GameState>::iterator it_gameState = oGameTask.getListGameStates().begin();
+    std::vector<sam::GameState>::iterator it_end = oGameTask.getListGameStates().end();
+    
+    while (it_gameState != it_end)
+    { 
+        GameState& oGameState = *it_gameState;
+        int* cell = it_gameState->getCells();
+        
+        computeStateDistances(oGameState);
+        updateStateRewards(oGameState, oRewardCalculator);
+    }
+}
+
+//calculate the distances and store them
+void Player::computeStateDistances(GameState& oGameState)
+{
+    GameDistance oGameDistance;
+    int mines = oGameState.getNumMines();
+    int others = oGameState.getNumOthers();
+    
+    int distanceVictory = oGameDistance.computeDistance2Victory(mines, others);
+    oGameState.setDVictory(distanceVictory);
+    
+    int distanceDefeat = oGameDistance.computeDistance2Defeat(mines, others);
+    oGameState.setDDefeat(distanceDefeat);
+}
+
+//calculate the rewards and store them
+void Player::updateStateRewards(GameState& oGameState, RewardCalculator& oRewardCalculator)
+{
+    float rewardAttack = oRewardCalculator.computeAttackReward(oRewardCalculator.getKAttack(), oGameState.getDVictory(), oRewardCalculator.getDMaxVictory());
+    oGameState.setReward(rewardAttack);
+    
+    float rewardDefend = oRewardCalculator.computeDefendReward(oRewardCalculator.getKDefend(), oGameState.getDDefeat(), oRewardCalculator.getDMaxDefeat());
+    oGameState.setRewardDefense(rewardDefend);
+}
+
 
 }

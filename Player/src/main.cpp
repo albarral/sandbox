@@ -9,33 +9,34 @@
 #include <log4cxx/xml/domconfigurator.h>
 
 #include "GameManager.h"
-#include "RewardCalculator.h"
 #include "learn/GameTask.h"
-#include "learn/GameDistance.h"
+#include "TaskFactory.h"
 
 log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("sam.player"));
 
-void initialize();
+void insertTaskInDatabase();
 void testPlayer();
 
 int main(int argc, char** argv) 
 {
     log4cxx::xml::DOMConfigurator::configure("log4cxx_config.xml");
 
-    initialize();
+    //insertTaskInDatabase();
+    
     testPlayer();
     
     return 0;
 }
 
-void initialize()
+// Creates the T3Task and inserts it in DB (to be USED just one TIME)
+void insertTaskInDatabase()
 {
     sam::GameTask oGameTask; 
     
-    LOG4CXX_INFO(logger, "*** INIT task"); 
-    //Init task
-    oGameTask.init(sam::GameTask::eTASK_TICTACTOE);
+    LOG4CXX_INFO(logger, "Creating game task ... (AND INSERTING IT FOR FIRST TIME IN DATABASE!!!)");     
+    sam::TaskFactory::buildTicTacToeTask(oGameTask);
     
+    oGameTask.storeInMemo();
 }
 
 void testPlayer()

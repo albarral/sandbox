@@ -18,12 +18,6 @@ namespace sam
 {
 class GameTask : public Task
 {
-public:
-    // Tasks
-    enum eType
-    {
-        eTASK_TICTACTOE
-    };    
 private:
     static log4cxx::LoggerPtr logger;
     Database oDatabase;
@@ -38,14 +32,10 @@ public:
     void addGameState(GameState& oGameState);
     
 private:
-    void create();
-    
     // shows brief description of given task
     void describeTask();
     // shows brief description of given state
     void describeState(GameState* pGameState);
-      
-    void buildTicTacToe();
 };
 }
 

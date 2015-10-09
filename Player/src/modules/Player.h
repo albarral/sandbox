@@ -11,8 +11,10 @@
 
 #include "utils/module2.h"
 #include "data/GameBoard.h"
+#include "learn/GameTask.h"
 #include "Line.h"
 #include "RewardCalculator.h"
+#include "Strategy2.h"
 
 namespace sam 
 {
@@ -40,7 +42,9 @@ private:
     std::string nameWinner;
     bool bemptyCells;
     bool bQlearn;
+    GameTask oGameTask;
     RewardCalculator oRewardCalculator;
+    Strategy2 oStrategy2;
 
 public:
     Player();
@@ -54,6 +58,12 @@ public:
     // asks the player if game is finished for him
     bool isPlayerFinished();
     
+    // THESE 3 METHODS SHOULD GO TO STRATEGY2 AS PUBLIC STATIC ...
+    // sets the rewards of the given GameTask using the specified calculator
+    static void updateGameTaskRewards(GameTask& oGameTask, RewardCalculator& oRewardCalculator);    
+    static void computeStateDistances(GameState& oGameState);
+    static void updateStateRewards(GameState& oGameState, RewardCalculator& oRewardCalculator);
+
 private:
     // first actions when the thread begins 
     virtual void first();
@@ -70,6 +80,7 @@ private:
  
     // shows the next state name
     void showStateChange();    
+    
 };
 }
 #endif
