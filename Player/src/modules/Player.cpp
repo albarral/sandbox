@@ -12,6 +12,7 @@
 #include "learn/GameState.h"
 #include "GameTask.h"
 #include "LearnStrategy.h"
+#include "learn/GameDistance.h"
 
 namespace sam 
 {
@@ -19,8 +20,13 @@ log4cxx::LoggerPtr Player::logger(log4cxx::Logger::getLogger("sam.player"));
 
 Player::Player() 
 {
+    sam::GameDistance oGameDistance;
     bsmart = false;
     bQlearn = false;
+    oRewardCalculator.setKAttack(100);
+    oRewardCalculator.setKDefend(100);  
+    oRewardCalculator.setDMaxVictory(oGameDistance.computeDistance2Victory(0,3));
+    oRewardCalculator.setDMaxDefeat(oGameDistance.computeDistance2Defeat(3,0));
 }
 
 void Player::init(GameBoard& oBoard, std::string name)
@@ -122,7 +128,7 @@ void Player::chooseCell()
     
     // select move
     if (bQlearn)
-        oLearnStrategy.bestMovement(matrix);
+        oLearnStrategy.bestMovement(matrix, oRewardCalculator);
     
     else if (bsmart)
     {

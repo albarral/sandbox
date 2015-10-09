@@ -46,7 +46,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/modules/Line.o \
 	${OBJECTDIR}/src/modules/Player.o \
 	${OBJECTDIR}/src/modules/Strategy.o \
-	${OBJECTDIR}/src/modules/UpdateRewards.o \
 	${OBJECTDIR}/src/utils/module2.o
 
 
@@ -128,11 +127,6 @@ ${OBJECTDIR}/src/modules/Strategy.o: src/modules/Strategy.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/modules
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/Strategy.o src/modules/Strategy.cpp
-
-${OBJECTDIR}/src/modules/UpdateRewards.o: src/modules/UpdateRewards.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/modules
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/UpdateRewards.o src/modules/UpdateRewards.cpp
 
 ${OBJECTDIR}/src/utils/module2.o: src/utils/module2.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/utils

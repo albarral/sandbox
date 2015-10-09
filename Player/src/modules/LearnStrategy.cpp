@@ -7,8 +7,8 @@
 
 #include "LearnStrategy.h"
 #include "GameTask.h"
-#include "UpdateRewards.h"
 #include "Learn.h"
+#include "learn/GameDistance.h"
 
 namespace sam
 {    
@@ -16,7 +16,7 @@ log4cxx::LoggerPtr LearnStrategy::logger(log4cxx::Logger::getLogger("sam.player"
 
 LearnStrategy::LearnStrategy() {}
 
-void LearnStrategy::bestMovement(cv::Mat matrix)
+void LearnStrategy::bestMovement(cv::Mat& matrix, RewardCalculator& oRewardCalculator)
 {   
     GameTask oGameTask;
     GameState oGameState;
@@ -29,7 +29,7 @@ void LearnStrategy::bestMovement(cv::Mat matrix)
     //List with all the existent GameStates
     std::vector<sam::GameState>& listGameStates = oGameTask.getListGameStates();
     //Return the list with the GameStates that are in the board game
-    std::vector<sam::GameState>& listBoardGameStates = getBoardGameStates(matrix, listGameStates);
+    std::vector<sam::GameState>& listBoardGameStates = getBoardGameStates(matrix, listGameStates, oRewardCalculator);
     
     std::vector<sam::GameState>::iterator it_gameState = listBoardGameStates.begin();
     std::vector<sam::GameState>::iterator it_end = listBoardGameStates.end();
@@ -79,9 +79,8 @@ void LearnStrategy::bestMovement(cv::Mat matrix)
 
 //Serch for each GameState, if it match with a line of the board
 //If match, save the GameState in a new vector
-std::vector<GameState>& LearnStrategy::getBoardGameStates(cv::Mat matrix, std::vector<sam::GameState>& listGameStates)
-{
-    UpdateRewards oUpdateRewards;   
+std::vector<GameState>& LearnStrategy::getBoardGameStates(cv::Mat& matrix, std::vector<sam::GameState>& listGameStates, RewardCalculator& oRewardCalculator)
+{  
     std::vector<sam::GameState> listStatesMatrix;
     int cont = 0;
     
@@ -92,8 +91,8 @@ std::vector<GameState>& LearnStrategy::getBoardGameStates(cv::Mat matrix, std::v
         GameState& oGameState = *it_gameState;
         int* cell = it_gameState->getCells();
         
-        oUpdateRewards.computeDistances(oGameState);
-        oUpdateRewards.computeRewards(oGameState);
+        computeDistances(oGameState);
+        computeRewards(oGameState, oRewardCalculator);
         
         //Check rows
         for (int i=0; i<matrix.rows; i++)
@@ -155,5 +154,32 @@ std::vector<GameState>& LearnStrategy::getBoardGameStates(cv::Mat matrix, std::v
     
     return listStatesMatrix;
 }
+
+//calculate the distances and store them
+void LearnStrategy::computeDistances(GameState& oGameState)
+{
+    GameDistance oGameDistance;
+    int mines = oGameState.getNumMines();
+    int others = oGameState.getNumOthers();
+    
+    int distanceVictory = oGameDistance.computeDistance2Victory(mines, others);
+    oGameState.setDVictory(distanceVictory);
+    
+    int distanceDefeat = oGameDistance.computeDistance2Defeat(mines, others);
+    oGameState.setDDefeat(distanceDefeat);
+}
+
+//calculate the rewards and store them
+void LearnStrategy::computeRewards(GameState& oGameState, RewardCalculator& oRewardCalculator)
+{
+    float rewardAttack = oRewardCalculator.computeAttackReward(oRewardCalculator.getKAttack(), 
+            oGameState.getDVictory(), oRewardCalculator.getDMaxVictory());
+    oGameState.setReward(rewardAttack);
+    
+    float rewardDefend = oRewardCalculator.computeDefendReward(oRewardCalculator.getKDefend(), 
+            oGameState.getDDefeat(), oRewardCalculator.getDMaxDefeat());
+    oGameState.setRewardDefense(rewardDefend);
+}
+
 
 }
