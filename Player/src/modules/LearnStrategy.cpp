@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "LearnStrategy.h"
-#include "GameTask.h"
+#include "learn/GameTask.h"
 #include "UpdateRewards.h"
 #include "Learn.h"
 

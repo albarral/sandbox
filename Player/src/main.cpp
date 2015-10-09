@@ -8,9 +8,9 @@
 #include <log4cxx/logger.h>
 #include <log4cxx/xml/domconfigurator.h>
 
-#include "GameTask.h"
 #include "GameManager.h"
 #include "RewardCalculator.h"
+#include "learn/GameTask.h"
 #include "learn/GameDistance.h"
 
 log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("sam.player"));

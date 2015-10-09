@@ -1,5 +1,5 @@
-#ifndef __SAM_GAMETASK_H
-#define __SAM_GAMETASK_H
+#ifndef __SAM_PLAYER_GAMETASK_H
+#define __SAM_PLAYER_GAMETASK_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *

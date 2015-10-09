@@ -9,8 +9,8 @@
 
 #include "Player.h"
 #include "Strategy.h"
+#include "learn/GameTask.h"
 #include "learn/GameState.h"
-#include "GameTask.h"
 #include "LearnStrategy.h"
 
 namespace sam 

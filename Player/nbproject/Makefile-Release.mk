@@ -36,16 +36,17 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/GameManager.o \
-	${OBJECTDIR}/src/GameTask.o \
 	${OBJECTDIR}/src/data/GameBoard.o \
 	${OBJECTDIR}/src/learn/GameDistance.o \
 	${OBJECTDIR}/src/learn/GameState.o \
+	${OBJECTDIR}/src/learn/GameTask.o \
 	${OBJECTDIR}/src/main.o \
 	${OBJECTDIR}/src/modules/Informer.o \
 	${OBJECTDIR}/src/modules/LearnStrategy.o \
 	${OBJECTDIR}/src/modules/Line.o \
 	${OBJECTDIR}/src/modules/Player.o \
 	${OBJECTDIR}/src/modules/Strategy.o \
+	${OBJECTDIR}/src/modules/Strategy2.o \
 	${OBJECTDIR}/src/modules/UpdateRewards.o \
 	${OBJECTDIR}/src/utils/module2.o
 
@@ -79,11 +80,6 @@ ${OBJECTDIR}/src/GameManager.o: src/GameManager.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GameManager.o src/GameManager.cpp
 
-${OBJECTDIR}/src/GameTask.o: src/GameTask.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GameTask.o src/GameTask.cpp
-
 ${OBJECTDIR}/src/data/GameBoard.o: src/data/GameBoard.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/data
 	${RM} "$@.d"
@@ -98,6 +94,11 @@ ${OBJECTDIR}/src/learn/GameState.o: src/learn/GameState.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/learn
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/learn/GameState.o src/learn/GameState.cpp
+
+${OBJECTDIR}/src/learn/GameTask.o: src/learn/GameTask.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/learn
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/learn/GameTask.o src/learn/GameTask.cpp
 
 ${OBJECTDIR}/src/main.o: src/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
@@ -128,6 +129,11 @@ ${OBJECTDIR}/src/modules/Strategy.o: src/modules/Strategy.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/modules
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/Strategy.o src/modules/Strategy.cpp
+
+${OBJECTDIR}/src/modules/Strategy2.o: src/modules/Strategy2.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/Strategy2.o src/modules/Strategy2.cpp
 
 ${OBJECTDIR}/src/modules/UpdateRewards.o: src/modules/UpdateRewards.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/modules
