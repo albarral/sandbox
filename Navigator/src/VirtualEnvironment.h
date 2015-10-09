@@ -9,8 +9,8 @@
 #include <vector>
 #include <log4cxx/logger.h>
 
-#include "Nav/Environment.h"
-#include "Nav/Connection.h"
+#include "nav/Environment.h"
+#include "nav/Connection.h"
 #include "sam/utils/Database.h"
 
 namespace sam 

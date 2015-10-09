@@ -5,7 +5,7 @@
 
 #include "Transition.h"
 #include "State.h"
-#include "Nav/Connection.h"
+#include "nav/Connection.h"
 
 namespace sam 
 {

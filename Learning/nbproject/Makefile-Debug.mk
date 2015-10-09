@@ -37,15 +37,15 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/src/GameState.o \
 	${OBJECTDIR}/src/LearnPlayer.o \
-	${OBJECTDIR}/src/Nav/Connection.o \
-	${OBJECTDIR}/src/Nav/ConnectionType.o \
-	${OBJECTDIR}/src/Nav/Environment.o \
-	${OBJECTDIR}/src/Nav/LearnNav.o \
-	${OBJECTDIR}/src/Nav/Place.o \
 	${OBJECTDIR}/src/RewardCalculator.o \
 	${OBJECTDIR}/src/State.o \
 	${OBJECTDIR}/src/Task.o \
-	${OBJECTDIR}/src/Transition.o
+	${OBJECTDIR}/src/Transition.o \
+	${OBJECTDIR}/src/nav/Connection.o \
+	${OBJECTDIR}/src/nav/ConnectionType.o \
+	${OBJECTDIR}/src/nav/Environment.o \
+	${OBJECTDIR}/src/nav/LearnNav.o \
+	${OBJECTDIR}/src/nav/Place.o
 
 
 # C Compiler Flags
@@ -84,31 +84,6 @@ ${OBJECTDIR}/src/LearnPlayer.o: src/LearnPlayer.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/LearnPlayer.o src/LearnPlayer.cpp
 
-${OBJECTDIR}/src/Nav/Connection.o: src/Nav/Connection.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/Nav
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Nav/Connection.o src/Nav/Connection.cpp
-
-${OBJECTDIR}/src/Nav/ConnectionType.o: src/Nav/ConnectionType.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/Nav
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Nav/ConnectionType.o src/Nav/ConnectionType.cpp
-
-${OBJECTDIR}/src/Nav/Environment.o: src/Nav/Environment.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/Nav
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Nav/Environment.o src/Nav/Environment.cpp
-
-${OBJECTDIR}/src/Nav/LearnNav.o: src/Nav/LearnNav.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/Nav
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Nav/LearnNav.o src/Nav/LearnNav.cpp
-
-${OBJECTDIR}/src/Nav/Place.o: src/Nav/Place.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/Nav
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Nav/Place.o src/Nav/Place.cpp
-
 ${OBJECTDIR}/src/RewardCalculator.o: src/RewardCalculator.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
@@ -128,6 +103,31 @@ ${OBJECTDIR}/src/Transition.o: src/Transition.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Transition.o src/Transition.cpp
+
+${OBJECTDIR}/src/nav/Connection.o: src/nav/Connection.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/nav
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/nav/Connection.o src/nav/Connection.cpp
+
+${OBJECTDIR}/src/nav/ConnectionType.o: src/nav/ConnectionType.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/nav
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/nav/ConnectionType.o src/nav/ConnectionType.cpp
+
+${OBJECTDIR}/src/nav/Environment.o: src/nav/Environment.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/nav
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/nav/Environment.o src/nav/Environment.cpp
+
+${OBJECTDIR}/src/nav/LearnNav.o: src/nav/LearnNav.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/nav
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/nav/LearnNav.o src/nav/LearnNav.cpp
+
+${OBJECTDIR}/src/nav/Place.o: src/nav/Place.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/nav
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/nav/Place.o src/nav/Place.cpp
 
 # Subprojects
 .build-subprojects:
