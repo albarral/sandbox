@@ -9,7 +9,7 @@
 #include "opencv2/core/core.hpp" //for the matrix
 
 #include "Navigation.h"
-#include "Learn.h"
+#include "Nav/LearnNav.h"
 
 namespace sam 
 {

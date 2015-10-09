@@ -36,7 +36,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/VirtualEnvironment.o \
-	${OBJECTDIR}/src/VirtualTask.o \
 	${OBJECTDIR}/src/data/Experiment.o \
 	${OBJECTDIR}/src/main.o \
 	${OBJECTDIR}/src/modules/Navigation.o \
@@ -71,11 +70,6 @@ ${OBJECTDIR}/src/VirtualEnvironment.o: src/VirtualEnvironment.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/VirtualEnvironment.o src/VirtualEnvironment.cpp
-
-${OBJECTDIR}/src/VirtualTask.o: src/VirtualTask.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/VirtualTask.o src/VirtualTask.cpp
 
 ${OBJECTDIR}/src/data/Experiment.o: src/data/Experiment.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/data

@@ -35,17 +35,17 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/Connection.o \
-	${OBJECTDIR}/src/Environment.o \
 	${OBJECTDIR}/src/GameState.o \
-	${OBJECTDIR}/src/Learn.o \
 	${OBJECTDIR}/src/LearnPlayer.o \
-	${OBJECTDIR}/src/Place.o \
+	${OBJECTDIR}/src/Nav/Connection.o \
+	${OBJECTDIR}/src/Nav/ConnectionType.o \
+	${OBJECTDIR}/src/Nav/Environment.o \
+	${OBJECTDIR}/src/Nav/LearnNav.o \
+	${OBJECTDIR}/src/Nav/Place.o \
 	${OBJECTDIR}/src/RewardCalculator.o \
 	${OBJECTDIR}/src/State.o \
 	${OBJECTDIR}/src/Task.o \
-	${OBJECTDIR}/src/Transition.o \
-	${OBJECTDIR}/src/types/ConnectionType.o
+	${OBJECTDIR}/src/Transition.o
 
 
 # C Compiler Flags
@@ -74,35 +74,40 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_learning.${CND_DLIB_EXT}: ${OB
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_learning.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
 
-${OBJECTDIR}/src/Connection.o: src/Connection.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Connection.o src/Connection.cpp
-
-${OBJECTDIR}/src/Environment.o: src/Environment.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Environment.o src/Environment.cpp
-
 ${OBJECTDIR}/src/GameState.o: src/GameState.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GameState.o src/GameState.cpp
-
-${OBJECTDIR}/src/Learn.o: src/Learn.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Learn.o src/Learn.cpp
 
 ${OBJECTDIR}/src/LearnPlayer.o: src/LearnPlayer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/LearnPlayer.o src/LearnPlayer.cpp
 
-${OBJECTDIR}/src/Place.o: src/Place.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
+${OBJECTDIR}/src/Nav/Connection.o: src/Nav/Connection.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/Nav
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Place.o src/Place.cpp
+	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Nav/Connection.o src/Nav/Connection.cpp
+
+${OBJECTDIR}/src/Nav/ConnectionType.o: src/Nav/ConnectionType.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/Nav
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Nav/ConnectionType.o src/Nav/ConnectionType.cpp
+
+${OBJECTDIR}/src/Nav/Environment.o: src/Nav/Environment.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/Nav
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Nav/Environment.o src/Nav/Environment.cpp
+
+${OBJECTDIR}/src/Nav/LearnNav.o: src/Nav/LearnNav.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/Nav
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Nav/LearnNav.o src/Nav/LearnNav.cpp
+
+${OBJECTDIR}/src/Nav/Place.o: src/Nav/Place.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/Nav
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Nav/Place.o src/Nav/Place.cpp
 
 ${OBJECTDIR}/src/RewardCalculator.o: src/RewardCalculator.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
@@ -123,11 +128,6 @@ ${OBJECTDIR}/src/Transition.o: src/Transition.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Transition.o src/Transition.cpp
-
-${OBJECTDIR}/src/types/ConnectionType.o: src/types/ConnectionType.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/types
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/types/ConnectionType.o src/types/ConnectionType.cpp
 
 # Subprojects
 .build-subprojects:

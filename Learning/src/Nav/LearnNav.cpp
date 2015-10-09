@@ -3,18 +3,17 @@
  *   ainoa@migtron.com   *
  ***************************************************************************/
 
-#include "Learn.h"
-#include "Transition.h"
+#include "LearnNav.h"
 
 namespace sam
 {   
-Learn::Learn()
+LearnNav::LearnNav()
 {
     gamma = 0;   
 }
 
 // Q(state, action) = Reward(state, action) + gamma * max [Q(next state, all actions)]
-float Learn::computeQ(Place& oPlace)
+float LearnNav::computeQ(Place& oPlace)
 {
     float reward, QNextState, Q;
      
@@ -26,7 +25,7 @@ float Learn::computeQ(Place& oPlace)
     return Q;
 }
 
-float Learn::maxQvalue(Place& oPlace)
+float LearnNav::maxQvalue(Place& oPlace)
 {
     float maxQ = 0.0;
     float Q;

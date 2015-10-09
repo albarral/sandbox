@@ -27,8 +27,6 @@
         </logicalFolder>
         <itemPath>src/VirtualEnvironment.cpp</itemPath>
         <itemPath>src/VirtualEnvironment.h</itemPath>
-        <itemPath>src/VirtualTask.cpp</itemPath>
-        <itemPath>src/VirtualTask.h</itemPath>
         <itemPath>src/main.cpp</itemPath>
       </logicalFolder>
     </logicalFolder>
@@ -101,10 +99,6 @@
       </item>
       <item path="src/VirtualEnvironment.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/VirtualTask.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/VirtualTask.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/data/Experiment.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/data/Experiment.h" ex="false" tool="3" flavor2="0">
@@ -143,10 +137,6 @@
       <item path="src/VirtualEnvironment.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/VirtualEnvironment.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/VirtualTask.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/VirtualTask.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/data/Experiment.cpp" ex="false" tool="1" flavor2="0">
       </item>

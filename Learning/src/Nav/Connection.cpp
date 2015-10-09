@@ -5,7 +5,7 @@
 
 #include "Connection.h"
 #include "Place.h"
-#include "types/ConnectionType.h"
+#include "ConnectionType.h"
 
 namespace sam
 {

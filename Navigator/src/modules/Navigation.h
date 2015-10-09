@@ -11,8 +11,8 @@
 
 #include "utils/module2.h"
 #include "VirtualEnvironment.h"
-#include "Connection.h" 
-#include "Learn.h"  // learning module
+#include "Nav/Connection.h" 
+#include "Nav/LearnNav.h"  // learning module
 
 namespace sam 
 {
@@ -52,7 +52,7 @@ private:
     int numSteps;    // steps performed in the last navigation task
     int previousPlace; // save the state where it is before doing the next step
     VirtualEnvironment* pVirtualEnvironment;    // to be replaced by VirtualTask in the future
-    Learn oLearn;
+    LearnNav oLearn;
 
 public:
     Navigation();
@@ -96,7 +96,7 @@ private:
     int selectConnection();
     Connection* getRandomConnection(std::vector<Connection>& listConnections);
     Connection* getSmartestConnection(std::vector<sam::Connection>& listConnections);
-    Connection* getBestConnection(std::vector<Connection>& listConnections);
+    Connection* getLowerCostConnection(std::vector<Connection>& listConnections);
     float computeConfidence(float cost);
     
     // shows the present state name

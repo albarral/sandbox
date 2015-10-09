@@ -6,7 +6,6 @@
 #include <iostream>
 
 #include "VirtualTask.h"
-#include "types/TransitionType.h"
 
 using namespace log4cxx;
 

@@ -6,7 +6,7 @@
 #include <iostream>
 
 #include "VirtualEnvironment.h"
-#include "types/ConnectionType.h"
+#include "Nav/ConnectionType.h"
 
 namespace sam 
 {

@@ -1,5 +1,5 @@
-#ifndef __SAM_LEARN_H
-#define __SAM_LEARN_H
+#ifndef __SAM_LEARNNAV_H
+#define __SAM_LEARNNAV_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
@@ -13,13 +13,13 @@
 
 namespace sam
 {
-class Learn
+class LearnNav
 {
 private:   
     float gamma;
     
 public:
-    Learn();
+    LearnNav();
     
     float getGamma() {return gamma;};
     void setGamma(float value) {gamma = value;};
