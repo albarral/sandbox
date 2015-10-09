@@ -25,10 +25,8 @@
           <itemPath>src/nav/Place.cpp</itemPath>
           <itemPath>src/nav/Place.h</itemPath>
         </logicalFolder>
-        <itemPath>src/GameState.cpp</itemPath>
-        <itemPath>src/GameState.h</itemPath>
-        <itemPath>src/LearnPlayer.cpp</itemPath>
-        <itemPath>src/LearnPlayer.h</itemPath>
+        <itemPath>src/Learn.cpp</itemPath>
+        <itemPath>src/Learn.h</itemPath>
         <itemPath>src/RewardCalculator.cpp</itemPath>
         <itemPath>src/RewardCalculator.h</itemPath>
         <itemPath>src/State.cpp</itemPath>
@@ -89,13 +87,9 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="src/GameState.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/Learn.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/GameState.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LearnPlayer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LearnPlayer.h" ex="false" tool="3" flavor2="0">
+      <item path="src/Learn.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/RewardCalculator.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -154,13 +148,9 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="src/GameState.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/Learn.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/GameState.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LearnPlayer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LearnPlayer.h" ex="false" tool="3" flavor2="0">
+      <item path="src/Learn.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/RewardCalculator.cpp" ex="false" tool="1" flavor2="0">
       </item>

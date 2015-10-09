@@ -8,7 +8,7 @@
 
 #include <vector>
 
-#include "GameState.h"
+#include "learn/GameState.h"
 
 namespace sam
 {  

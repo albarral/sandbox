@@ -17,9 +17,13 @@
           <itemPath>src/data/GameBoard.cpp</itemPath>
           <itemPath>src/data/GameBoard.h</itemPath>
         </logicalFolder>
+        <logicalFolder name="f4" displayName="learn" projectFiles="true">
+          <itemPath>src/learn/GameDistance.cpp</itemPath>
+          <itemPath>src/learn/GameDistance.h</itemPath>
+          <itemPath>src/learn/GameState.cpp</itemPath>
+          <itemPath>src/learn/GameState.h</itemPath>
+        </logicalFolder>
         <logicalFolder name="f2" displayName="modules" projectFiles="true">
-          <itemPath>src/modules/GameDistance.cpp</itemPath>
-          <itemPath>src/modules/GameDistance.h</itemPath>
           <itemPath>src/modules/Informer.cpp</itemPath>
           <itemPath>src/modules/Informer.h</itemPath>
           <itemPath>src/modules/LearnStrategy.cpp</itemPath>
@@ -123,11 +127,15 @@
       </item>
       <item path="src/data/GameBoard.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/learn/GameDistance.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/learn/GameDistance.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/learn/GameState.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/learn/GameState.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/modules/GameDistance.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/modules/GameDistance.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/modules/Informer.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -190,11 +198,15 @@
       </item>
       <item path="src/data/GameBoard.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/learn/GameDistance.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/learn/GameDistance.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/learn/GameState.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/learn/GameState.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/modules/GameDistance.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/modules/GameDistance.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/modules/Informer.cpp" ex="false" tool="1" flavor2="0">
       </item>

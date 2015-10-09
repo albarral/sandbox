@@ -38,8 +38,9 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/GameManager.o \
 	${OBJECTDIR}/src/GameTask.o \
 	${OBJECTDIR}/src/data/GameBoard.o \
+	${OBJECTDIR}/src/learn/GameDistance.o \
+	${OBJECTDIR}/src/learn/GameState.o \
 	${OBJECTDIR}/src/main.o \
-	${OBJECTDIR}/src/modules/GameDistance.o \
 	${OBJECTDIR}/src/modules/Informer.o \
 	${OBJECTDIR}/src/modules/LearnStrategy.o \
 	${OBJECTDIR}/src/modules/Line.o \
@@ -92,15 +93,20 @@ ${OBJECTDIR}/src/data/GameBoard.o: src/data/GameBoard.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/data/GameBoard.o src/data/GameBoard.cpp
 
+${OBJECTDIR}/src/learn/GameDistance.o: src/learn/GameDistance.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/learn
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/learn/GameDistance.o src/learn/GameDistance.cpp
+
+${OBJECTDIR}/src/learn/GameState.o: src/learn/GameState.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/learn
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/learn/GameState.o src/learn/GameState.cpp
+
 ${OBJECTDIR}/src/main.o: src/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
-
-${OBJECTDIR}/src/modules/GameDistance.o: src/modules/GameDistance.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/modules
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/GameDistance.o src/modules/GameDistance.cpp
 
 ${OBJECTDIR}/src/modules/Informer.o: src/modules/Informer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/modules

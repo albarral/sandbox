@@ -8,7 +8,7 @@
 #include "LearnStrategy.h"
 #include "GameTask.h"
 #include "UpdateRewards.h"
-#include "LearnPlayer.h"
+#include "Learn.h"
 
 namespace sam
 {    
@@ -20,7 +20,7 @@ void LearnStrategy::bestMovement(cv::Mat matrix)
 {   
     GameTask oGameTask;
     GameState oGameState;
-    LearnPlayer oLearnPlayer;
+    Learn oLearnPlayer;
     sam::Transition* winner = 0;
     sam::Transition* winnerAttack = 0;
     sam::Transition* winnerDefend = 0;

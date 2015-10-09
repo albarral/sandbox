@@ -11,7 +11,7 @@
 #include "GameTask.h"
 #include "GameManager.h"
 #include "RewardCalculator.h"
-#include "modules/GameDistance.h"
+#include "learn/GameDistance.h"
 
 log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("sam.player"));
 

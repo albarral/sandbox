@@ -9,7 +9,7 @@
 #include <log4cxx/logger.h>
 #include "opencv2/core/core.hpp" //for the matrix
 
-#include "GameState.h"
+#include "learn/GameState.h"
 
 namespace sam
 {        

@@ -9,7 +9,7 @@
 
 #include "Player.h"
 #include "Strategy.h"
-#include "GameState.h"
+#include "learn/GameState.h"
 #include "GameTask.h"
 #include "LearnStrategy.h"
 

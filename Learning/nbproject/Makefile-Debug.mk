@@ -35,8 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/GameState.o \
-	${OBJECTDIR}/src/LearnPlayer.o \
+	${OBJECTDIR}/src/Learn.o \
 	${OBJECTDIR}/src/RewardCalculator.o \
 	${OBJECTDIR}/src/State.o \
 	${OBJECTDIR}/src/Task.o \
@@ -74,15 +73,10 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_learning.${CND_DLIB_EXT}: ${OB
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_learning.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
 
-${OBJECTDIR}/src/GameState.o: src/GameState.cpp 
+${OBJECTDIR}/src/Learn.o: src/Learn.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GameState.o src/GameState.cpp
-
-${OBJECTDIR}/src/LearnPlayer.o: src/LearnPlayer.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/LearnPlayer.o src/LearnPlayer.cpp
+	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Learn.o src/Learn.cpp
 
 ${OBJECTDIR}/src/RewardCalculator.o: src/RewardCalculator.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src

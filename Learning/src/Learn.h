@@ -1,5 +1,5 @@
-#ifndef __SAM_LEARNPLAYER_H
-#define __SAM_LEARNPLAYER_H
+#ifndef __SAM_LEARN_H
+#define __SAM_LEARN_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
@@ -8,17 +8,17 @@
 
 #include <string>
 
-#include "GameState.h"
+#include "learn/GameState.h"
 
 namespace sam
 {
-class LearnPlayer
+class Learn
 {
 private:   
     float gamma;
     
 public:
-    LearnPlayer();
+    Learn();
     
     float getGamma() {return gamma;};
     void setGamma(float value) {gamma = value;};

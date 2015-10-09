@@ -4,7 +4,7 @@
  ***************************************************************************/
 
 #include "UpdateRewards.h"
-#include "GameDistance.h"
+#include "learn/GameDistance.h"
 #include "RewardCalculator.h"
 
 namespace sam

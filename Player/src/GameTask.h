@@ -11,7 +11,7 @@
 #include <log4cxx/logger.h>
 
 #include "Task.h"
-#include "GameState.h"
+#include "learn/GameState.h"
 #include "sam/utils/Database.h"
 
 namespace sam 

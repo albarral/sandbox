@@ -4,7 +4,6 @@
  ***************************************************************************/
 
 #include "RewardCalculator.h"
-#include "GameState.h"
 
 namespace sam
 {   

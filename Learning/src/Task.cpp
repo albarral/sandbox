@@ -4,7 +4,6 @@
  ***************************************************************************/
 
 #include "Task.h"
-#include "GameState.h"
 
 namespace sam 
 {
@@ -118,14 +117,6 @@ void Task::storeStates(sql::Connection* con)
         it_state->storeInMemo(pDatabase, con);
         it_state++;	
     }
-
-//    std::vector<GameState>::iterator it_state = listGameStates.begin();
-//    std::vector<GameState>::iterator it_end = getListGameStates().end();
-//    while (it_state != it_end)
-//    {
-//        it_state->storeInMemo(pDatabase, con);
-//        it_state++;
-//    } 
 }
 
 void Task::reset()

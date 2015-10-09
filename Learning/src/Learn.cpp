@@ -3,18 +3,18 @@
  *   ainoa@migtron.com   *
  ***************************************************************************/
 
-#include "LearnPlayer.h"
+#include "Learn.h"
 #include "Transition.h"
 
 namespace sam
 {   
-LearnPlayer::LearnPlayer()
+Learn::Learn()
 {
     gamma = 0.8;   
 }
 
 // QAttack(state, action) = RewardAttack(state, action) + gamma * max [QAttack(next state, all actions)]
-float LearnPlayer::computeQAttack(GameState& oGameState)
+float Learn::computeQAttack(GameState& oGameState)
 {
     float rewardA, QNextState, QAttack;
      
@@ -27,7 +27,7 @@ float LearnPlayer::computeQAttack(GameState& oGameState)
 }
 
 // QDefend(state, action) = RewardDefend(state, action) + gamma * max [QDefend(next state, all actions)]
-float LearnPlayer::computeQDefend(GameState& oGameState)
+float Learn::computeQDefend(GameState& oGameState)
 {
     float rewardD, QNextState, QDefend;
      
@@ -39,7 +39,7 @@ float LearnPlayer::computeQDefend(GameState& oGameState)
     return QDefend;
 }
 
-float LearnPlayer::maxQAttackValue(GameState& oGameState)
+float Learn::maxQAttackValue(GameState& oGameState)
 {
     float maxQ = 0.0;
     float Q;
@@ -60,7 +60,7 @@ float LearnPlayer::maxQAttackValue(GameState& oGameState)
     return maxQ;
 }
 
-float LearnPlayer::maxQDefendValue(GameState& oGameState)
+float Learn::maxQDefendValue(GameState& oGameState)
 {
     float maxQ = 0.0;
     float Q;
