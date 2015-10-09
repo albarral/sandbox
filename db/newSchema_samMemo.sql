@@ -127,6 +127,9 @@ DROP TABLE IF EXISTS `samMemo`.`TAB_STATES_PLAYER` ;
 CREATE TABLE IF NOT EXISTS `samMemo`.`TAB_STATES_PLAYER` (
   `taskID` INT NOT NULL,
   `stateID` INT NOT NULL,
+  `cell0` INT NULL,
+  `cell1` INT NULL,
+  `cell2` INT NULL,
   `numMines` INT NULL,
   `numOthers` INT NULL,
   `dVictory` INT NULL,
