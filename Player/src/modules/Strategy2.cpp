@@ -55,7 +55,7 @@ void Strategy2::playSmart(cv::Mat& matrix, int myMark)
     // check diagonals
     for (int k=1; k<=2; k++)
     {
-        // analyse column & check proper moves in it
+        // analyse diagonal & check proper moves in it
         oLine.checkDiagonal(k, myMark, GameBoard::eCELL_EMPTY);        
         checkBestMovesInLine(oLine);
     }    
@@ -83,7 +83,6 @@ void Strategy2::checkBestMovesInLine(Line& oLine)
     }    
 }
 
-
 // (CORE OF THE SMART STRATEGY)
 // Uses the learned knowledge about the task to obtain the best attack & defense rewards of available moves in this line
 void Strategy2::analyseLine(Line& oLine, float& attackReward, float& defenseReward)
@@ -91,27 +90,115 @@ void Strategy2::analyseLine(Line& oLine, float& attackReward, float& defenseRewa
     sam::Transition* bestAttackTransition = 0;
     sam::Transition* bestDefenseTransition = 0;
     GameState* pPresentGameState = 0;
-    
-    // 1. Find the game state that corresponds to the present line    
-    
+    int* lineCells = oLine.getCells();
+    // 1. Find the game state that corresponds to the present line        
     // - walk the list of GameStates (stored in pGameTask) comparing GameState.cells[] with oLine.cells[]
-    // - set pPresentGameState
-    
-    // 2. When found, get the best attack & defense transitions from this state 
-    
+    std::vector<sam::GameState>& listGameStates = pGameTask->getListGameStates();
+    std::vector<sam::GameState>::iterator it_gameState = listGameStates.begin();
+    std::vector<sam::GameState>::iterator it_end = listGameStates.end();
+    while (it_gameState != it_end)
+    {        
+        int* gameStateCells = it_gameState->getCells();
+        
+        if(gameStateCells[0] == lineCells[0] && gameStateCells[1] == lineCells[1] && gameStateCells[2] == lineCells[2])
+        {
+            pPresentGameState = &(*it_gameState);
+            break;
+        }
+        it_gameState++;
+    }    
+    // 2. When found, get the best attack & defense transitions from this state    
     // - best attack transition: the one with maximum Qattack value 
-    // (analog to Navigation::getSmartestConnection() method)
-    // bestAttackTransition = getBestAttackTransition(pPresentGameState->getListTransitions());
-    
+    bestAttackTransition = getBestAttackTransition(pPresentGameState->getListTransitions());   
     // - best defense transition: the one with maximum Qdefend value 
-    // (analog to Navigation::getSmartestConnection() method)
-    // bestDefenseTransition = getBestDefenseTransition(pPresentGameState->getListTransitions());
+    bestDefenseTransition = getBestDefenseTransition(pPresentGameState->getListTransitions());
     
     // return best reward values
     attackReward = bestAttackTransition->getQ();    
     defenseReward = bestDefenseTransition->getQDefend();
 }
 
+Transition* Strategy2::getBestAttackTransition(std::vector<sam::Transition>& listTransitions)
+{
+    sam::Transition* winnerTemporal = 0;
+    sam::Transition* winnerAttack = 0;
+    std::vector<sam::Transition> listWinners;
+    float QAttack = 0, QmaxA = 0;
+    int randNumTrans;
+    
+    std::vector<sam::Transition>::iterator it_transition = listTransitions.begin();
+    std::vector<sam::Transition>::iterator it_end = listTransitions.end();
+    while (it_transition != it_end)
+    {    
+        Transition& oTransition = *it_transition;
+        std::vector<sam::GameState>& listGameStates = pGameTask->getListGameStates();
+        GameState& oNextState = listGameStates.at(oTransition.getNextState()); 
+        
+        //Calculate the Q values and search for the one with the highest value
+        float QAttack = oLearn.computeQAttack(oNextState);
+        it_transition->setQ(QAttack);
+        
+        if(QAttack > QmaxA)
+        {
+            QmaxA = QAttack;
+            listWinners.clear();
+            listWinners.push_back(oTransition);
+            winnerAttack = &oTransition;
+        }   
+        // if various connections share the maximum confidence, take winner randomly among them
+        else if (QAttack == QmaxA)
+        {
+            listWinners.push_back(oTransition);
+            
+            randNumTrans = rand() % listWinners.size();
+            winnerTemporal = &(listWinners.at(randNumTrans));
+            winnerAttack = &(listTransitions.at(winnerTemporal->getID()));
+        }
+        it_transition++;
+    }
+    return winnerAttack;
+}
+
+Transition* Strategy2::getBestDefenseTransition(std::vector<sam::Transition>& listTransitions)
+{
+    sam::Transition* winnerTemporal = 0;
+    sam::Transition* winnerDefense = 0;
+    std::vector<sam::Transition> listWinners;
+    float QDefense = 0, QmaxD = 0;
+    int randNumTrans;
+    
+    std::vector<sam::Transition>::iterator it_transition = listTransitions.begin();
+    std::vector<sam::Transition>::iterator it_end = listTransitions.end();
+    while (it_transition != it_end)
+    {    
+        Transition& oTransition = *it_transition;
+        std::vector<sam::GameState>& listGameStates = pGameTask->getListGameStates();
+        GameState& oNextState = listGameStates.at(oTransition.getNextState()); 
+        
+        //Calculate the Q values and search for the one with the highest value
+        float QDefense = oLearn.computeQDefend(oNextState);
+        it_transition->setQDefend(QDefense);
+        
+        if(QDefense > QmaxD)
+        {
+            QmaxD = QDefense;
+            listWinners.clear();
+            listWinners.push_back(oTransition);
+            winnerDefense = &oTransition;
+        }   
+        // if various connections share the maximum confidence, take winner randomly among them
+        else if (QDefense == QmaxD)
+        {
+            listWinners.push_back(oTransition);
+            
+            randNumTrans = rand() % listWinners.size();
+            winnerTemporal = &(listWinners.at(randNumTrans));
+            winnerDefense = &(listTransitions.at(winnerTemporal->getID()));
+        }
+        it_transition++;
+    }
+    return winnerDefense;
+}
 
 // stores one of the line's available moves as best attack move (SHOULD BE DONE FROM NEXT STATE'S INFO)    
 void Strategy2::storeAttackMove(Line& oLine)

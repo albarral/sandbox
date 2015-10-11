@@ -7,7 +7,7 @@
 #include <vector>
 
 #include "TaskFactory.h"
-
+#include "modules/Line.h"
 #include "learn/GameState.h"
 
 namespace sam 
@@ -32,85 +32,85 @@ void TaskFactory::buildTicTacToeTask(GameTask& oGameTask)
     // set ( pos1, pos2, pos3, numMines, numOthers )
     oGameState0.setID(0); 
     oGameState0.setTaskID(taskID);
-    oGameState0.set(0, 0, 0, 0, 0); 
+    oGameState0.set(Line::eCELL_EMPTY, Line::eCELL_EMPTY, Line::eCELL_EMPTY, 0, 0); 
     oGameState1.setID(1); 
     oGameState1.setTaskID(taskID);
-    oGameState1.set(0, 0, 1, 1, 0);
+    oGameState1.set(Line::eCELL_EMPTY, Line::eCELL_EMPTY, Line::eCELL_MINE, 1, 0);
     oGameState2.setID(2); 
     oGameState2.setTaskID(taskID);
-    oGameState2.set(0, 0, 2, 0, 1);
+    oGameState2.set(Line::eCELL_EMPTY, Line::eCELL_EMPTY, Line::eCELL_OTHER, 0, 1);
     oGameState3.setID(3); 
     oGameState3.setTaskID(taskID);
-    oGameState3.set(0, 1, 0, 1, 0);
+    oGameState3.set(Line::eCELL_EMPTY, Line::eCELL_MINE, Line::eCELL_EMPTY, 1, 0);
     oGameState4.setID(4); 
     oGameState4.setTaskID(taskID);    
-    oGameState4.set(0, 1, 1, 2, 0);
+    oGameState4.set(Line::eCELL_EMPTY, Line::eCELL_MINE, Line::eCELL_MINE, 2, 0);
     oGameState5.setID(5); 
     oGameState5.setTaskID(taskID);
-    oGameState5.set(0, 1, 2, 1, 1);
+    oGameState5.set(Line::eCELL_EMPTY, Line::eCELL_MINE, Line::eCELL_OTHER, 1, 1);
     oGameState6.setID(6); 
     oGameState6.setTaskID(taskID);
-    oGameState6.set(0, 2, 0, 0, 1);
+    oGameState6.set(Line::eCELL_EMPTY, Line::eCELL_OTHER, Line::eCELL_EMPTY, 0, 1);
     oGameState7.setID(7); 
     oGameState7.setTaskID(taskID);
-    oGameState7.set(0, 2, 1, 1, 1);
+    oGameState7.set(Line::eCELL_EMPTY, Line::eCELL_OTHER, Line::eCELL_MINE, 1, 1);
     oGameState8.setID(8); 
     oGameState8.setTaskID(taskID);
-    oGameState8.set(0, 2, 2, 0, 2);
+    oGameState8.set(Line::eCELL_EMPTY, Line::eCELL_OTHER, Line::eCELL_OTHER, 0, 2);
     oGameState9.setID(9); 
     oGameState9.setTaskID(taskID);
-    oGameState9.set(1, 0, 0, 1, 0);
+    oGameState9.set(Line::eCELL_MINE, Line::eCELL_EMPTY, Line::eCELL_EMPTY, 1, 0);
     oGameState10.setID(10); 
     oGameState10.setTaskID(taskID);
-    oGameState10.set(1, 0, 1, 2, 0);
+    oGameState10.set(Line::eCELL_MINE, Line::eCELL_EMPTY, Line::eCELL_MINE, 2, 0);
     oGameState11.setID(11); 
     oGameState11.setTaskID(taskID);
-    oGameState11.set(1, 0, 2, 1, 1);
+    oGameState11.set(Line::eCELL_MINE, Line::eCELL_EMPTY, Line::eCELL_OTHER, 1, 1);
     oGameState12.setID(12); 
     oGameState12.setTaskID(taskID);
-    oGameState12.set(1, 1, 0, 2, 0);
+    oGameState12.set(Line::eCELL_MINE, Line::eCELL_MINE, Line::eCELL_EMPTY, 2, 0);
     oGameState13.setID(13); 
     oGameState13.setTaskID(taskID);
-    oGameState13.set(1, 1, 1, 3, 0);
+    oGameState13.set(Line::eCELL_MINE, Line::eCELL_MINE, Line::eCELL_MINE, 3, 0);
     oGameState14.setID(14); 
     oGameState14.setTaskID(taskID);
-    oGameState14.set(1, 1, 2, 2, 1);
+    oGameState14.set(Line::eCELL_MINE, Line::eCELL_MINE, Line::eCELL_OTHER, 2, 1);
     oGameState15.setID(15); 
     oGameState15.setTaskID(taskID);
-    oGameState15.set(1, 2, 0, 1, 1);
+    oGameState15.set(Line::eCELL_MINE, Line::eCELL_OTHER, Line::eCELL_EMPTY, 1, 1);
     oGameState16.setID(16); 
     oGameState16.setTaskID(taskID);    
-    oGameState16.set(1, 2, 1, 2, 1);
+    oGameState16.set(Line::eCELL_MINE, Line::eCELL_OTHER, Line::eCELL_MINE, 2, 1);
     oGameState17.setID(17); 
     oGameState17.setTaskID(taskID);
-    oGameState17.set(1, 2, 2, 1, 2);
+    oGameState17.set(Line::eCELL_MINE, Line::eCELL_OTHER, Line::eCELL_OTHER, 1, 2);
     oGameState18.setID(18); 
     oGameState18.setTaskID(taskID);
-    oGameState18.set(2, 0, 0, 0, 1);
+    oGameState18.set(Line::eCELL_OTHER, Line::eCELL_EMPTY, Line::eCELL_EMPTY, 0, 1);
     oGameState19.setID(19); 
     oGameState19.setTaskID(taskID);
-    oGameState19.set(2, 0, 1, 1, 1);
+    oGameState19.set(Line::eCELL_OTHER, Line::eCELL_EMPTY, Line::eCELL_MINE, 1, 1);
     oGameState20.setID(20); 
     oGameState20.setTaskID(taskID);
-    oGameState20.set(2, 0, 2, 0, 2);
+    oGameState20.set(Line::eCELL_OTHER, Line::eCELL_EMPTY, Line::eCELL_OTHER, 0, 2);
     oGameState21.setID(21); 
     oGameState21.setTaskID(taskID);
-    oGameState21.set(2, 1, 0, 1, 1);
+    oGameState21.set(Line::eCELL_OTHER, Line::eCELL_MINE, Line::eCELL_EMPTY, 1, 1);
     oGameState22.setID(22); 
     oGameState22.setTaskID(taskID);    
-    oGameState22.set(2, 1, 1, 2, 1);
+    oGameState22.set(Line::eCELL_OTHER, Line::eCELL_MINE, Line::eCELL_MINE, 2, 1);
     oGameState23.setID(23); 
     oGameState23.setTaskID(taskID);
-    oGameState23.set(2, 1, 2, 1, 2);
+    oGameState23.set(Line::eCELL_OTHER, Line::eCELL_MINE, Line::eCELL_OTHER, 1, 2);
     oGameState24.setID(24); 
     oGameState24.setTaskID(taskID);
-    oGameState24.set(2, 2, 0, 0, 2);
+    oGameState24.set(Line::eCELL_OTHER, Line::eCELL_OTHER, Line::eCELL_EMPTY, 0, 2);
     oGameState25.setID(25); 
     oGameState25.setTaskID(taskID);
-    oGameState25.set(2, 2, 1, 1, 2);
+    oGameState25.set(Line::eCELL_OTHER, Line::eCELL_OTHER, Line::eCELL_MINE, 1, 2);
     oGameState26.setID(26); 
     oGameState26.setTaskID(taskID);
-    oGameState26.set(2, 2, 2, 0, 3);
+    oGameState26.set(Line::eCELL_OTHER, Line::eCELL_OTHER, Line::eCELL_OTHER, 0, 3);
 
     // default connection properties for an office environment
     oTransition.setTaskID(taskID);

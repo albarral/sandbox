@@ -76,8 +76,9 @@ void Transition::deleteFromMemo(Database* pDatabase)
 
 void Transition::storeQ(Database* pDatabase, sql::Connection* con)
 {
-    std::string storeQ = "UPDATE TAB_TRANSITIONS SET Q= " + std::to_string(Q) + " WHERE transID= " + std::to_string(ID)
-            + " AND taskID= " + std::to_string(taskID) + " AND stateID= " + std::to_string(stateID);   
+    std::string storeQ = "UPDATE TAB_TRANSITIONS SET Q= " + std::to_string(Q) + ", QDefend= " 
+            + std::to_string(QDefend) + " WHERE transID= " + std::to_string(ID) + " AND taskID= " 
+            + std::to_string(taskID) + " AND stateID= " + std::to_string(stateID);   
     pDatabase->update(storeQ, con);
 }
 

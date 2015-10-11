@@ -21,7 +21,7 @@ int main(int argc, char** argv)
 {
     log4cxx::xml::DOMConfigurator::configure("log4cxx_config.xml");
 
-    //insertTaskInDatabase();
+//    insertTaskInDatabase();
     
     testPlayer();
     
@@ -37,6 +37,7 @@ void insertTaskInDatabase()
     sam::TaskFactory::buildTicTacToeTask(oGameTask);
     
     oGameTask.storeInMemo();
+    oGameTask.storeInMemo2();
 }
 
 void testPlayer()
@@ -54,7 +55,7 @@ void testPlayer()
     oGameManager.stopModules();
     sleep(2);
     
-    //store Q y update State y Transition
+    //store Qs y update GameState y State
     
     LOG4CXX_INFO(logger, "End of test"); 
 }

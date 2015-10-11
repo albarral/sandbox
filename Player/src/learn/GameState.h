@@ -37,6 +37,11 @@ public:
     void setDDefeat(int value)  {dDefeat = value;};
     
     void set(int cell1, int cell2, int cell3, int mines, int others);
+    
+    void loadFromMemo2(Database* pDatabase, sql::Connection* con);
+    void storeInMemo2(Database* pDatabase, sql::Connection* con);
+    void upDateInMemo2(Database* pDatabase);
+    void deleteFromMemo2(Database* pDatabase);
 
 };
 }

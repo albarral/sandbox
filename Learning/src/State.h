@@ -52,7 +52,7 @@ public:
 
     std::string showData();
    
-private:
+//private:
     void transitionsFromMemo(Database* pDatabase, sql::Connection* con);
     void loadTransitions(Database* pDatabase, sql::Connection* con);
     void storeTransitions(Database* pDatabase, sql::Connection* con);

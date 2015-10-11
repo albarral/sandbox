@@ -40,7 +40,7 @@ void Player::init(GameBoard& oBoard, std::string name)
     
     if (ID == "SAM")
     {
-//        bQlearn = true;
+        bQlearn = true;
         myMark = GameBoard::eCELL_SAM;
     }
     else if (ID == "TAM")
@@ -143,7 +143,7 @@ void Player::chooseCell()
         oStrategy2.playSmart(matrix, myMark);
         
         // attack move
-        if (oStrategy2.getBestAttackReward() > oStrategy2.getBestDefenseReward())
+        if (oStrategy2.getBestAttackReward() >= oStrategy2.getBestDefenseReward())
             pBestMove = oStrategy2.getBestAttackMove();
         // defensive move
         else
@@ -301,10 +301,11 @@ void Player::updateGameTaskRewards(GameTask& oGameTask, RewardCalculator& oRewar
     while (it_gameState != it_end)
     { 
         GameState& oGameState = *it_gameState;
-        int* cell = it_gameState->getCells();
+        int* cell = it_gameState->getCells(); // ESTO LO QUIERES PARA ALGO???
         
         computeStateDistances(oGameState);
         updateStateRewards(oGameState, oRewardCalculator);
+        it_gameState++;
     }
 }
 

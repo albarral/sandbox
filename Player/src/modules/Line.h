@@ -14,10 +14,19 @@ namespace sam
 // Class used to check lines in a matrix, one at a time, being rows, columns or diagonals. 
 // It obtains the number of cells in the checked line that are owned by each player. And also the list of empty positions in the line.     
 class Line 
-{   
+{  
+public:
+    enum eCell  //cell state
+    {
+        eCELL_EMPTY,        // empty cell
+        eCELL_MINE,	// cell occupied by me
+        eCELL_OTHER	// cell occupied by the other player
+    };
+    
 private:
     cv::Mat mat;        // matrix to be checked
     int myMark;         // value hold by my cells
+    int cells[3];    
     int emptyMark;    // value hold by empty cells  
     int numMines;       // number of cells marked as mine
     int numOthers;      // number of cells marked as others'
@@ -34,6 +43,7 @@ public:
     void checkColumn (int col, int myMark, int emptyMark);
     void checkDiagonal (int num, int myMark, int emptyMark);
 
+    int* getCells() {return cells;}
     int getNumMines() {return numMines;};
     int getNumOthers() {return numOthers;};
     int getNumEmpties() {return numEmpties;};

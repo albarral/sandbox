@@ -26,7 +26,10 @@ void Line::checkRow(int row, int myMark, int emptyMark)
 
     reset();
     for (int j=0; j<mat.cols; j++)
+    {
         checkCell(row, j);
+        cells[j] = mat.at<int>(row, j);
+    }
 }
 
 // checks the cells in the specified matrix column 
@@ -37,7 +40,10 @@ void Line::checkColumn(int col, int myMark, int emptyMark)
 
     reset();
     for (int i=0; i<mat.rows; i++)
+    {
         checkCell(i, col);
+        cells[i] = mat.at<int>(i, col);
+    }
 }
 
 // checks the cells in the specified matrix diagonal (1 for first diagonal, 2 for second one) 
@@ -55,19 +61,25 @@ void Line::checkDiagonal(int num, int myMark, int emptyMark)
     {
         // walk first diagonal (from NW to SE)
         for (int k=0; k<mat.rows; k++)
-            checkCell(k, k);            
+        {
+            checkCell(k, k);  
+            cells[k] = mat.at<int>(k, k);
+        }
     }
     else if (num == 2)
     {
         // walk second diagonal (from NE to SW)
         int topColumn = mat.cols - 1;
         for (int k=0; k<mat.rows; k++)
-            checkCell(k, topColumn - k);            
+        {
+            checkCell(k, topColumn - k);  
+            cells[k] = mat.at<int>(k, topColumn - k);
+        }
     }
 }
 
 // Checks if the given cell is mine, others or empty. 
-// It updates counters & the list of empty cells is it's the case
+// It updates counters & the list of empty cells if it's the case
 void Line::checkCell(int row, int col)
 {    
     int cellValue = mat.at<int>(row, col);

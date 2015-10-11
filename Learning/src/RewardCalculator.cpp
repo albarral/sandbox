@@ -17,12 +17,12 @@ RewardCalculator::RewardCalculator()
 
 float RewardCalculator::computeAttackReward(int kAttack, int dVictory, int dMaxVictory)
 {
-    return (kAttack * (1 + (dVictory/dMaxVictory)));
+    return (kAttack * (1 - (dVictory/dMaxVictory)));
 }
 
 float RewardCalculator::computeDefendReward(int kDefend, int dDefeat, int dMaxDefeat)
 {
-    return (kDefend * (1 + (dDefeat/dMaxDefeat)));
+    return (kDefend * (1 - (dDefeat/dMaxDefeat)));
 }
 
 }

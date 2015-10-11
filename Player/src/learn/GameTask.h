@@ -31,11 +31,16 @@ public:
     std::vector<GameState>& getListGameStates() {return listGameStates;}; 
     void addGameState(GameState& oGameState);
     
+    void storeInMemo2();
+    void loadFromMemo2();
+    
 private:
     // shows brief description of given task
     void describeTask();
     // shows brief description of given state
     void describeState(GameState* pGameState);
+    
+    void gameStatesFromMemo(sql::Connection* con);
 };
 }
 
