@@ -27,8 +27,7 @@ void Line::checkRow(int row, int myMark, int emptyMark)
     reset();
     for (int j=0; j<mat.cols; j++)
     {
-        checkCell(row, j);
-        cells[j] = mat.at<int>(row, j);
+        checkCell(row, j, j);
     }
 }
 
@@ -41,8 +40,7 @@ void Line::checkColumn(int col, int myMark, int emptyMark)
     reset();
     for (int i=0; i<mat.rows; i++)
     {
-        checkCell(i, col);
-        cells[i] = mat.at<int>(i, col);
+        checkCell(i, col, i);
     }
 }
 
@@ -62,8 +60,7 @@ void Line::checkDiagonal(int num, int myMark, int emptyMark)
         // walk first diagonal (from NW to SE)
         for (int k=0; k<mat.rows; k++)
         {
-            checkCell(k, k);  
-            cells[k] = mat.at<int>(k, k);
+            checkCell(k, k, k);  
         }
     }
     else if (num == 2)
@@ -72,15 +69,14 @@ void Line::checkDiagonal(int num, int myMark, int emptyMark)
         int topColumn = mat.cols - 1;
         for (int k=0; k<mat.rows; k++)
         {
-            checkCell(k, topColumn - k);  
-            cells[k] = mat.at<int>(k, topColumn - k);
+            checkCell(k, topColumn - k, k);  
         }
     }
 }
 
 // Checks if the given cell is mine, others or empty. 
 // It updates counters & the list of empty cells if it's the case
-void Line::checkCell(int row, int col)
+void Line::checkCell(int row, int col, int posLine)
 {    
     int cellValue = mat.at<int>(row, col);
 
@@ -89,12 +85,19 @@ void Line::checkCell(int row, int col)
     {
         numEmpties++;
         listEmptyCells.push_back(cv::Point(row, col));
+        cells[posLine] = eCELL_EMPTY;
     }
     // my cells
     else if (cellValue == myMark)
+    {
         numMines++;
+        cells[posLine] = eCELL_MINE;
+    }
     // others' cells
     else
-        numOthers++;            
+    {
+        numOthers++;   
+        cells[posLine] = eCELL_OTHER;
+    }
 }
 }

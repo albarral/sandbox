@@ -53,7 +53,7 @@ private:
     // reset line counters
     void reset();
     // check the cell at the given position
-    void checkCell (int row, int col);
+    void checkCell (int row, int col, int posLine);
 };
 }
 

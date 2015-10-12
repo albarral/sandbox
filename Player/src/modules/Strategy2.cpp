@@ -114,8 +114,10 @@ void Strategy2::analyseLine(Line& oLine, float& attackReward, float& defenseRewa
     bestDefenseTransition = getBestDefenseTransition(pPresentGameState->getListTransitions());
     
     // return best reward values
-    attackReward = bestAttackTransition->getQ();    
+    attackReward = bestAttackTransition->getQ(); 
+    LOG4CXX_INFO(logger, "attackQ: " << attackReward);   
     defenseReward = bestDefenseTransition->getQDefend();
+    LOG4CXX_INFO(logger, "defendQ: " << defenseReward);  
 }
 
 Transition* Strategy2::getBestAttackTransition(std::vector<sam::Transition>& listTransitions)
@@ -135,7 +137,7 @@ Transition* Strategy2::getBestAttackTransition(std::vector<sam::Transition>& lis
         GameState& oNextState = listGameStates.at(oTransition.getNextState()); 
         
         //Calculate the Q values and search for the one with the highest value
-        float QAttack = oLearn.computeQAttack(oNextState);
+        QAttack = oLearn.computeQAttack(oNextState);
         it_transition->setQ(QAttack);
         
         if(QAttack > QmaxA)
@@ -176,7 +178,7 @@ Transition* Strategy2::getBestDefenseTransition(std::vector<sam::Transition>& li
         GameState& oNextState = listGameStates.at(oTransition.getNextState()); 
         
         //Calculate the Q values and search for the one with the highest value
-        float QDefense = oLearn.computeQDefend(oNextState);
+        QDefense = oLearn.computeQDefend(oNextState);
         it_transition->setQDefend(QDefense);
         
         if(QDefense > QmaxD)
@@ -208,7 +210,7 @@ void Strategy2::storeAttackMove(Line& oLine)
     {
         cv::Point cell = oLine.getListEmptyCells().at(0);
         bestAttackMove[0] = cell.x;   // x stores the row
-        bestAttackMove[1] = cell.y;   // y stores the column
+        bestAttackMove[1] = cell.y;   // y stores the column 
     }    
 }
 
