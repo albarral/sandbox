@@ -7,6 +7,7 @@
  ***************************************************************************/
 
 #include <string>
+#include <log4cxx/logger.h>
 
 #include "State.h"
 
@@ -16,6 +17,7 @@ class Learn
 {
 private:   
     float gamma;
+    static log4cxx::LoggerPtr logger;
     
 public:
     Learn();

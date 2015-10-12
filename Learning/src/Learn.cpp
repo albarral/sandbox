@@ -7,7 +7,8 @@
 #include "Transition.h"
 
 namespace sam
-{   
+{  
+log4cxx::LoggerPtr Learn::logger(log4cxx::Logger::getLogger("sam.player"));
 Learn::Learn()
 {
     gamma = 0.8;   
@@ -57,6 +58,7 @@ float Learn::maxQAttackValue(State& oState)
         }
         it_transition ++;
     }
+    LOG4CXX_INFO(logger,"NextQmaxAttack: " << maxQ);
     return maxQ;
 }
 
@@ -78,6 +80,7 @@ float Learn::maxQDefendValue(State& oState)
         }
         it_transition ++;
     }
+    LOG4CXX_INFO(logger,"NextQmaxDefense: " << maxQ);
     return maxQ;
 }
 
