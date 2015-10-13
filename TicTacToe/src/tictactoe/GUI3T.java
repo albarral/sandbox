@@ -401,7 +401,7 @@ public class GUI3T extends javax.swing.JFrame {
             statement.executeQuery(sql);
             resultSet = statement.getResultSet();
             
-            if(resultSet != null)
+            if (resultSet != null)
             {
                 while (resultSet.next())
                 {
@@ -458,110 +458,110 @@ public class GUI3T extends javax.swing.JFrame {
             {
                 connectDB();
                 
-                while(true){
+                while (true){
                     doWork();
                     
                     //Put the values from the database into the GUI
-                    if(cell1 > 0)
+                    if (cell1 > 0)
                     {
-                        if(cell1 == 1)
+                        if (cell1 == 1)
                             jLabel3.setText("X");
-                        else if(cell1 == 2)
+                        else if (cell1 == 2)
                             jLabel3.setText("O");
                     }
                     else jLabel3.setText("");
                         
                     
-                    if(cell2 > 0)
+                    if (cell2 > 0)
                     {
-                        if(cell2 == 1)
+                        if (cell2 == 1)
                             jLabel4.setText("X");
-                        else if(cell2 == 2)
+                        else if (cell2 == 2)
                             jLabel4.setText("O");
                     }
                     else jLabel4.setText("");
                     
-                    if(cell3 > 0)
+                    if (cell3 > 0)
                     {
-                        if(cell3 == 1)
+                        if (cell3 == 1)
                             jLabel5.setText("X");
-                        else if(cell3 == 2)
+                        else if (cell3 == 2)
                             jLabel5.setText("O");
                     }
                     else jLabel5.setText("");
                     
-                    if(cell4 > 0)
+                    if (cell4 > 0)
                     {
-                        if(cell4 == 1)
+                        if (cell4 == 1)
                             jLabel6.setText("X");
-                        else if(cell4 == 2)
+                        else if (cell4 == 2)
                             jLabel6.setText("O");
                     }
                     else jLabel6.setText("");
                     
-                    if(cell5 > 0)
+                    if (cell5 > 0)
                     {
-                        if(cell5 == 1)
+                        if (cell5 == 1)
                             jLabel7.setText("X");
-                        else if(cell5 == 2)
+                        else if (cell5 == 2)
                             jLabel7.setText("O");
                     }
                     else jLabel7.setText("");
                     
-                    if(cell6 > 0)
+                    if (cell6 > 0)
                     {
-                        if(cell6 == 1)
+                        if (cell6 == 1)
                             jLabel8.setText("X");
-                        else if(cell6 == 2)
+                        else if (cell6 == 2)
                             jLabel8.setText("O");
                     }
                     else jLabel8.setText("");
                     
-                    if(cell7 > 0)
+                    if (cell7 > 0)
                     {
-                        if(cell7 == 1)
+                        if (cell7 == 1)
                             jLabel9.setText("X");
-                        else if(cell7 == 2)
+                        else if (cell7 == 2)
                             jLabel9.setText("O");
                     }
                     else jLabel9.setText("");
                     
-                    if(cell8 > 0)
+                    if (cell8 > 0)
                     {
-                        if(cell8 == 1)
+                        if (cell8 == 1)
                             jLabel10.setText("X");
-                        else if(cell8 == 2)
+                        else if (cell8 == 2)
                             jLabel10.setText("O");
                     }
                     else jLabel10.setText("");
                     
-                    if(cell9 > 0)
+                    if (cell9 > 0)
                     {
-                        if(cell9 == 1)
+                        if (cell9 == 1)
                             jLabel11.setText("X");
-                        else if(cell9 == 2)
+                        else if (cell9 == 2)
                             jLabel11.setText("O");
                     }
                     else jLabel11.setText("");
                     
-                    if(bStatus == 1)  
+                    if (bStatus == 1)  
                         jTextField1.setText("SAM");
-                    else if(bStatus == 2)
+                    else if (bStatus == 2)
                         jTextField1.setText("TAM");
                     else jTextField1.setText("");
                     
-                    if(bStatus == 3)
+                    if (bStatus == 3)
                         jTextField2.setText("TAULES");
-                    else if(bStatus == 4)
+                    else if (bStatus == 4)
                     {
-                        if(previusStatus == 1)
+                        if (previusStatus == 1)
                             jTextField2.setText("SAM");
-                        else if(previusStatus == 2)
+                        else if (previusStatus == 2)
                             jTextField2.setText("TAM");    
                     }      
                     else jTextField2.setText("");
                     
-                    if(bStatus < 3)
+                    if (bStatus < 3)
                         previusStatus = bStatus;
                     
                     Thread.sleep(500);

@@ -7,7 +7,6 @@
 
 namespace sam
 {   
-log4cxx::LoggerPtr RewardCalculator::logger(log4cxx::Logger::getLogger("sam.player"));
 RewardCalculator::RewardCalculator()
 {
     kAttack = 0;

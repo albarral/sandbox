@@ -7,14 +7,12 @@
  ***************************************************************************/
 
 #include <string>
-#include <log4cxx/logger.h>
 
 namespace sam
 {
 class RewardCalculator
 {
 private:   
-    static log4cxx::LoggerPtr logger;
     float kAttack;
     float kDefend;
     int dMaxVictory;

@@ -100,7 +100,7 @@ void Strategy2::analyseLine(Line& oLine, float& attackReward, float& defenseRewa
     {        
         int* gameStateCells = it_gameState->getCells();
         
-        if(gameStateCells[0] == lineCells[0] && gameStateCells[1] == lineCells[1] && gameStateCells[2] == lineCells[2])
+        if (gameStateCells[0] == lineCells[0] && gameStateCells[1] == lineCells[1] && gameStateCells[2] == lineCells[2])
         {
             pPresentGameState = &(*it_gameState);
             break;
@@ -113,11 +113,19 @@ void Strategy2::analyseLine(Line& oLine, float& attackReward, float& defenseRewa
     // - best defense transition: the one with maximum Qdefend value 
     bestDefenseTransition = getBestDefenseTransition(pPresentGameState->getListTransitions());
     
-    // return best reward values
-    attackReward = bestAttackTransition->getQ(); 
-    LOG4CXX_INFO(logger, "attackQ: " << attackReward);   
-    defenseReward = bestDefenseTransition->getQDefend();
-    LOG4CXX_INFO(logger, "defendQ: " << defenseReward);  
+    // return best reward values if there is any transition
+    if (pPresentGameState->getListTransitions().size() > 0)
+    {
+        attackReward = bestAttackTransition->getQ(); 
+        LOG4CXX_INFO(logger, "attackQ: " << attackReward);   
+        defenseReward = bestDefenseTransition->getQDefend();
+        LOG4CXX_INFO(logger, "defendQ: " << defenseReward);  
+    }
+    else 
+    {
+        attackReward = 0;
+        defenseReward = 0;
+    }
 }
 
 Transition* Strategy2::getBestAttackTransition(std::vector<sam::Transition>& listTransitions)
@@ -140,7 +148,7 @@ Transition* Strategy2::getBestAttackTransition(std::vector<sam::Transition>& lis
         QAttack = oLearn.computeQAttack(oNextState);
         it_transition->setQ(QAttack);
         
-        if(QAttack > QmaxA)
+        if (QAttack > QmaxA)
         {
             QmaxA = QAttack;
             listWinners.clear();
@@ -181,7 +189,7 @@ Transition* Strategy2::getBestDefenseTransition(std::vector<sam::Transition>& li
         QDefense = oLearn.computeQDefend(oNextState);
         it_transition->setQDefend(QDefense);
         
-        if(QDefense > QmaxD)
+        if (QDefense > QmaxD)
         {
             QmaxD = QDefense;
             listWinners.clear();

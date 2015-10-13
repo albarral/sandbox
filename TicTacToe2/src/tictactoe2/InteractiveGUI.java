@@ -371,12 +371,12 @@ public class InteractiveGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         int dialogButton = JOptionPane.YES_NO_OPTION;
         int answer = JOptionPane.showConfirmDialog (null, "Do you want to start?","", dialogButton);
-        if(answer == JOptionPane.YES_OPTION) 
+        if (answer == JOptionPane.YES_OPTION) 
         {
             remove(dialogButton);
             System.out.println("yes");
         }
-        else if(answer == JOptionPane.NO_OPTION) 
+        else if (answer == JOptionPane.NO_OPTION) 
         {
             remove(dialogButton);
             System.out.println("no");
@@ -390,11 +390,11 @@ public class InteractiveGUI extends javax.swing.JFrame {
         String[] buttons = { "O", "X"};
         int returnValue = JOptionPane.showOptionDialog(null, "Which piece do you want?", "",
         dialogButton2, JOptionPane.QUESTION_MESSAGE, null, buttons, buttons[1]);
-        if(returnValue == 0) // O
+        if (returnValue == 0) // O
         {
             System.out.println("0: choose O");
         }    
-        else if(returnValue == 1) // X
+        else if (returnValue == 1) // X
         {
             System.out.println("1: choose X");
         }
