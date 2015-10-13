@@ -331,6 +331,7 @@ void Player::updateStateRewards(GameState& oGameState, RewardCalculator& oReward
     
     float rewardDefend = oRewardCalculator.computeDefendReward(oRewardCalculator.getKDefend(), oGameState.getDDefeat(), oRewardCalculator.getDMaxDefeat());
     oGameState.setRewardDefense(rewardDefend);
+    LOG4CXX_INFO(logger, "GameState" << oGameState.getID() << "rA: " << rewardAttack <<" rD: " << rewardDefend);
 }
 
 
