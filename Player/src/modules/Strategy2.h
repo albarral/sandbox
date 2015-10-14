@@ -23,6 +23,8 @@ class Strategy2
 private:
     static log4cxx::LoggerPtr logger;
     bool benabled;                     // true when functionality is initialized
+    Transition* bestAttackTransition;
+    Transition* bestDefenseTransition;
     float bestAttackReward;        // best reward of all possible attack movements (in present game state)
     float bestDefenseReward;     // best reward of all possible defense movements (in present game state)
     int bestAttackMove[2];          // the cell selection (row, col) that gives the maximum attack reward
@@ -60,7 +62,11 @@ private:
     Transition* getBestDefenseTransition(std::vector<sam::Transition>& listTransitions);
     
     // analyzes the observed line to obtain the best rewards of attack & defense movements
-    void analyseLine (Line& oLine, Transition* bestAttackTransition, Transition* bestDefenseTransition);    
+    //void analyseLine (Line& oLine, Transition* bestAttackTransition, Transition* bestDefenseTransition);    
+    void analyseLine (Line& oLine);    
+    
+    std::string toStringBestAttack();
+    std::string toStringBestDefense();
 };
 }
 

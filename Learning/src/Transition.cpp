@@ -94,10 +94,10 @@ float Transition::computeCost()
     return cost;
 }
 
-std::string Transition::showData()
+std::string Transition::toString()
 {
-    std::string data = ">> transition " + std::to_string(ID) + ": " + std::to_string(stateID) + "->" + std::to_string(nextState) + ", " + desc;
-    return data;
+    return ("Transition: [ID=" + std::to_string(ID) + ", state=" + std::to_string(stateID) + ", nextState=" + std::to_string(nextState) + 
+            ", Q=" + std::to_string(Q) + ", Qdef=" + std::to_string(QDefend));
 }
 
 }

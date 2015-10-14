@@ -42,7 +42,7 @@ void insertTaskInDatabase()
 
 void testPlayer()
 {
-    LOG4CXX_INFO(logger, "<<<<<<<<<<<<<<<< TEST PLAYER >>>>>>>>>>>>>>");
+    LOG4CXX_INFO(logger, "\n<<<<<<<<<<<<<<<< TEST PLAYER >>>>>>>>>>>>>>");
       
     sam::GameManager oGameManager; 
     oGameManager.startModules();

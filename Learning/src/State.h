@@ -16,7 +16,7 @@ namespace sam
 {
 class State
 {
-private:
+protected:
     int ID;
     std::string desc;
     int taskID;

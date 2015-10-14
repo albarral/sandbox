@@ -42,7 +42,8 @@ public:
     void storeInMemo2(Database* pDatabase, sql::Connection* con);
     void upDateInMemo2(Database* pDatabase);
     void deleteFromMemo2(Database* pDatabase);
-
+    
+    std::string toString();
 };
 }
 

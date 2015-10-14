@@ -104,7 +104,7 @@ void GameTask::describeState(GameState* pGameState)
     std::vector<Transition>::iterator it_end = pGameState->getListTransitions().end();
     while (it_trans != it_end)
     {
-        LOG4CXX_INFO(logger, it_trans->showData());
+        LOG4CXX_INFO(logger, it_trans->toString());
         it_trans++;
     }
 }   

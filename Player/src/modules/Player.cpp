@@ -148,6 +148,7 @@ void Player::chooseCell()
         pBestMove = oStrategy.getBestMove();        
     }
     
+    LOG4CXX_INFO(logger, "mark cell " << pBestMove[0] << ", " << pBestMove[1]);  
     // perform move & change turn
     pGameBoard->markCell(oPlayerIdentity.getMyMark(), pBestMove[0], pBestMove[1]);
     pGameFlow->changeTurn();

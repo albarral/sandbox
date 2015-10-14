@@ -27,7 +27,7 @@ int PlayerActions::getActions4Transition(GameState& oGameState1, GameState& oGam
     // compare pairs of cells ...
     for (int i=0; i<GameBoard::LINE_SIZE; i++)
     {
-        // and select those that change
+        // a cell change means an action
         if (pcells1[i] != pcells2[i])
         {
             switch (i)
@@ -41,10 +41,9 @@ int PlayerActions::getActions4Transition(GameState& oGameState1, GameState& oGam
                 case 2: 
                     action = eSELECT_THIRD;
                     break;                    
-            }                       
-        }
-        
-        listActions.push_back(action);        
+            }
+            listActions.push_back(action);        
+        }        
     }
     
     return listActions.size();

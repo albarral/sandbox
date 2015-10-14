@@ -61,7 +61,7 @@ public:
     
     float computeCost();
     
-    std::string showData();
+    std::string toString();
 };
 }
 
