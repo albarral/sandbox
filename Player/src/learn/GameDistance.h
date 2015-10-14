@@ -10,9 +10,6 @@ namespace sam
 {      
 class GameDistance 
 {   
-private:
-    static int const gameCells = 3;
-    
 public:
     GameDistance();
     

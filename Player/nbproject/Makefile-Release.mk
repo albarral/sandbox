@@ -45,6 +45,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/modules/Informer.o \
 	${OBJECTDIR}/src/modules/Line.o \
 	${OBJECTDIR}/src/modules/Player.o \
+	${OBJECTDIR}/src/modules/PlayerActions.o \
 	${OBJECTDIR}/src/modules/Strategy.o \
 	${OBJECTDIR}/src/modules/Strategy2.o \
 	${OBJECTDIR}/src/utils/module2.o
@@ -123,6 +124,11 @@ ${OBJECTDIR}/src/modules/Player.o: src/modules/Player.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/modules
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/Player.o src/modules/Player.cpp
+
+${OBJECTDIR}/src/modules/PlayerActions.o: src/modules/PlayerActions.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/PlayerActions.o src/modules/PlayerActions.cpp
 
 ${OBJECTDIR}/src/modules/Strategy.o: src/modules/Strategy.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/modules

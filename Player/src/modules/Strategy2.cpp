@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "Strategy2.h"
+#include "PlayerActions.h"
 #include "data/GameBoard.h"
 
 namespace sam
@@ -41,7 +42,7 @@ void Strategy2::playSmart(cv::Mat& matrix, int myMark)
     {
         // analyse row & check proper moves in it
         oLine.checkRow(i, myMark, GameBoard::eCELL_EMPTY);        
-        checkBestMovesInLine(oLine);
+        checkBestMovesInRow(i, oLine);
     }    
 
     // check columns
@@ -49,7 +50,7 @@ void Strategy2::playSmart(cv::Mat& matrix, int myMark)
     {
         // analyse column & check proper moves in it
         oLine.checkColumn(j, myMark, GameBoard::eCELL_EMPTY);        
-        checkBestMovesInLine(oLine);
+        checkBestMovesInColumn(j, oLine);
     }    
     
     // check diagonals
@@ -57,42 +58,90 @@ void Strategy2::playSmart(cv::Mat& matrix, int myMark)
     {
         // analyse diagonal & check proper moves in it
         oLine.checkDiagonal(k, myMark, GameBoard::eCELL_EMPTY);        
-        checkBestMovesInLine(oLine);
+        checkBestMovesInDiagonal(k, oLine);
     }    
     
 }
 
 
 // checks if this board's line holds the best attack or defense moves at present
-void Strategy2::checkBestMovesInLine(Line& oLine)
+void Strategy2::checkBestMovesInRow(int row, Line& oLine)
 {
-    float attackReward, defenseReward;
-    analyseLine(oLine, attackReward, defenseReward);
+    float attackReward = 0.0, defenseReward = 0.0;
+    Transition* bestAttackTransition = 0;
+    Transition* bestDefenseTransition = 0;
+    PlayerActions oPlayerActions;
 
+    analyseLine(oLine, bestAttackTransition, bestDefenseTransition);
+    
     // track best attack move
-    if (attackReward > bestAttackReward)
+    if (bestAttackTransition != 0)
     {
-        bestAttackReward = attackReward;
-        storeAttackMove(oLine);
+        attackReward = bestAttackTransition->getQ();
+        LOG4CXX_INFO(logger, "attackQ: " << attackReward);   
+        if (attackReward > bestAttackReward)
+        {
+            bestAttackReward = attackReward;
+            GameState& state1 = pGameTask->getListGameStates().at(bestAttackTransition->getStateID());
+            GameState& state2 = pGameTask->getListGameStates().at(bestAttackTransition->getNextState());
+            
+            // store attack move
+            if (oPlayerActions.getActions4Transition(state1, state2) > 0)
+            {
+                int x, y;
+                oPlayerActions.applyAction2Row(row, x, y);
+                        
+                bestAttackMove[0] = y;   // y stores the row
+                bestAttackMove[1] = x;   // x stores the column
+            }
+        }
     }
+    
     // track best defense move
-    if (defenseReward > bestDefenseReward)
+    if (bestDefenseTransition != 0)
     {
-        bestDefenseReward = defenseReward;
-        storeDefenseMove(oLine);
+        defenseReward = bestDefenseTransition->getQDefend();
+        LOG4CXX_INFO(logger, "defendQ: " << defenseReward);  
+        if (defenseReward > bestDefenseReward)
+        {
+            bestDefenseReward = defenseReward;
+            GameState& state1 = pGameTask->getListGameStates().at(bestDefenseTransition->getStateID());
+            GameState& state2 = pGameTask->getListGameStates().at(bestDefenseTransition->getNextState());
+            
+            // store attack move
+            if (oPlayerActions.getActions4Transition(state1, state2) > 0)
+            {
+                int x, y;
+                oPlayerActions.applyAction2Row(row, x, y);
+                        
+                bestDefenseMove[0] = y;   // y stores the row
+                bestDefenseMove[1] = x;   // x stores the column
+            }
+        }    
     }    
 }
 
+// checks if this board's line holds the best attack or defense moves at present
+void Strategy2::checkBestMovesInColumn(int column, Line& oLine)
+{
+    // TO DO ...
+}
+
+// checks if this board's line holds the best attack or defense moves at present
+void Strategy2::checkBestMovesInDiagonal(int diag, Line& oLine)
+{
+// TO DO ...
+}
+
+
 // (CORE OF THE SMART STRATEGY)
 // Uses the learned knowledge about the task to obtain the best attack & defense rewards of available moves in this line
-void Strategy2::analyseLine(Line& oLine, float& attackReward, float& defenseReward)
+void Strategy2::analyseLine(Line& oLine, Transition* bestAttackTransition, Transition* bestDefenseTransition)
 {
-    sam::Transition* bestAttackTransition = 0;
-    sam::Transition* bestDefenseTransition = 0;
     GameState* pPresentGameState = 0;
     int* lineCells = oLine.getCells();
+    
     // 1. Find the game state that corresponds to the present line        
-    // - walk the list of GameStates (stored in pGameTask) comparing GameState.cells[] with oLine.cells[]
     std::vector<sam::GameState>& listGameStates = pGameTask->getListGameStates();
     std::vector<sam::GameState>::iterator it_gameState = listGameStates.begin();
     std::vector<sam::GameState>::iterator it_end = listGameStates.end();
@@ -107,26 +156,17 @@ void Strategy2::analyseLine(Line& oLine, float& attackReward, float& defenseRewa
         }
         it_gameState++;
     }    
-    // 2. When found, get the best attack & defense transitions from this state    
-    // - best attack transition: the one with maximum Qattack value 
-    bestAttackTransition = getBestAttackTransition(pPresentGameState->getListTransitions());   
-    // - best defense transition: the one with maximum Qdefend value 
-    bestDefenseTransition = getBestDefenseTransition(pPresentGameState->getListTransitions());
     
-    // return best reward values if there is any transition
+    // 2. When found, get the best attack & defense transitions from this state    
     if (pPresentGameState->getListTransitions().size() > 0)
     {
-        attackReward = bestAttackTransition->getQ(); 
-        LOG4CXX_INFO(logger, "attackQ: " << attackReward);   
-        defenseReward = bestDefenseTransition->getQDefend();
-        LOG4CXX_INFO(logger, "defendQ: " << defenseReward);  
-    }
-    else 
-    {
-        attackReward = 0;
-        defenseReward = 0;
-    }
+        // - best attack transition: the one with maximum Qattack value 
+        bestAttackTransition = getBestAttackTransition(pPresentGameState->getListTransitions());   
+        // - best defense transition: the one with maximum Qdefend value 
+        bestDefenseTransition = getBestDefenseTransition(pPresentGameState->getListTransitions());
+    }    
 }
+
 
 Transition* Strategy2::getBestAttackTransition(std::vector<sam::Transition>& listTransitions)
 {
@@ -210,28 +250,4 @@ Transition* Strategy2::getBestDefenseTransition(std::vector<sam::Transition>& li
     return winnerDefense;
 }
 
-// stores one of the line's available moves as best attack move (SHOULD BE DONE FROM NEXT STATE'S INFO)    
-void Strategy2::storeAttackMove(Line& oLine)
-{
-    // simply take the first option (if any)
-    if (oLine.getListEmptyCells().size() != 0)
-    {
-        cv::Point cell = oLine.getListEmptyCells().at(0);
-        bestAttackMove[0] = cell.x;   // x stores the row
-        bestAttackMove[1] = cell.y;   // y stores the column 
-    }    
-}
-
-
-// stores one of the line's available moves as best attack move (SHOULD BE DONE FROM NEXT STATE'S INFO)    
-void Strategy2::storeDefenseMove(Line& oLine)
-{
-    // simply take the first option (if any)
-    if (oLine.getListEmptyCells().size() != 0)
-    {
-        cv::Point cell = oLine.getListEmptyCells().at(0);
-        bestDefenseMove[0] = cell.x;   // x stores the row
-        bestDefenseMove[1] = cell.y;   // y stores the column
-    }    
-}
 }

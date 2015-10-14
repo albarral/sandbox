@@ -18,6 +18,8 @@ namespace sam
 class GameBoard
 {
 public:
+    static const int cells4Line = 3;     // 3 cells for each board's line, column or diagonal
+    
     enum eStatus  // game state
     {
         eSTAT_READY,                       // game not started

@@ -45,17 +45,15 @@ public:
 
 private:
     // checks if this board's line holds the best attack or defense moves at present
-    void checkBestMovesInLine(Line& oLine);
+    void checkBestMovesInRow(int row, Line& oLine);
+    void checkBestMovesInColumn(int column, Line& oLine);
+    void checkBestMovesInDiagonal(int diag, Line& oLine);
     
     Transition* getBestAttackTransition(std::vector<sam::Transition>& listTransitions);
     Transition* getBestDefenseTransition(std::vector<sam::Transition>& listTransitions);
     
     // analyzes the observed line to obtain the best rewards of attack & defense movements
-    void analyseLine (Line& oLine, float& attackReward, float& defenseReward);    
-    // stores one of the line's available moves as best attack move 
-    void storeAttackMove (Line& oLine);
-    // stores one of the line's available moves as best defense move
-    void storeDefenseMove (Line& oLine);    
+    void analyseLine (Line& oLine, Transition* bestAttackTransition, Transition* bestDefenseTransition);    
 };
 }
 
