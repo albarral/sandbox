@@ -25,7 +25,7 @@ int PlayerActions::getActions4Transition(GameState& oGameState1, GameState& oGam
     int* pcells2 = oGameState2.getCells();
     
     // compare pairs of cells ...
-    for (int i=0; i<GameBoard::cells4Line; i++)
+    for (int i=0; i<GameBoard::LINE_SIZE; i++)
     {
         // and select those that change
         if (pcells1[i] != pcells2[i])

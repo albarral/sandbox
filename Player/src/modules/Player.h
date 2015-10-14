@@ -11,10 +11,12 @@
 
 #include "utils/module2.h"
 #include "data/GameBoard.h"
+#include "data/GameFlow.h"
+#include "data/PlayerIdentity.h"
 #include "learn/GameTask.h"
-#include "Line.h"
+#include "modules/Line.h"
+#include "modules/Strategy2.h"
 #include "RewardCalculator.h"
-#include "Strategy2.h"
 
 namespace sam 
 {
@@ -34,14 +36,10 @@ public:
 
 private:
     static log4cxx::LoggerPtr logger;
-    std::string ID;     // ID of the player (used to determine turns & marks)
-    bool bsmart;       // flag indicating the player can use smart strategies (methods defined in Strategy class)
-    int myMark;         // mark used by the player to select cells (one of eCell values defined in GameBoard class)
-    GameBoard* pBoard;      // pointer to the game's board
-    bool bwinner;
-    std::string nameWinner;
+    PlayerIdentity oPlayerIdentity;    // player's identity
+    GameBoard* pGameBoard;      // pointer to the game's board
+    GameFlow* pGameFlow;  // pointer to the game's flow
     bool bemptyCells;
-    bool bQlearn;
     GameTask oGameTask;
     RewardCalculator oRewardCalculator;
     Strategy2 oStrategy2;
@@ -50,20 +48,15 @@ public:
     Player();
     
     // initializes the module 
-    void init (GameBoard& oBoard, std::string name);
+    void init (GameBoard& oGameBoard, GameFlow& oGameFlow);
     
-    std::string getID() {return ID;};
-    void setID(std::string value) {ID = value;};
+    PlayerIdentity& getPlayerIdentity() {return oPlayerIdentity;};     
+//    std::string getID() {return ID;};
+//    void setID(std::string value) {ID = value;};
     
     // asks the player if game is finished for him
     bool isPlayerFinished();
     
-    // THESE 3 METHODS SHOULD GO TO STRATEGY2 AS PUBLIC STATIC ...
-    // sets the rewards of the given GameTask using the specified calculator
-    static void updateGameTaskRewards(GameTask& oGameTask, RewardCalculator& oRewardCalculator);    
-    static void computeStateDistances(GameState& oGameState);
-    static void updateStateRewards(GameState& oGameState, RewardCalculator& oRewardCalculator);
-
 private:
     // first actions when the thread begins 
     virtual void first();

@@ -38,6 +38,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/GameManager.o \
 	${OBJECTDIR}/src/TaskFactory.o \
 	${OBJECTDIR}/src/data/GameBoard.o \
+	${OBJECTDIR}/src/data/GameFlow.o \
+	${OBJECTDIR}/src/data/PlayerIdentity.o \
 	${OBJECTDIR}/src/learn/GameDistance.o \
 	${OBJECTDIR}/src/learn/GameState.o \
 	${OBJECTDIR}/src/learn/GameTask.o \
@@ -89,6 +91,16 @@ ${OBJECTDIR}/src/data/GameBoard.o: src/data/GameBoard.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/data
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/data/GameBoard.o src/data/GameBoard.cpp
+
+${OBJECTDIR}/src/data/GameFlow.o: src/data/GameFlow.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/data
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/data/GameFlow.o src/data/GameFlow.cpp
+
+${OBJECTDIR}/src/data/PlayerIdentity.o: src/data/PlayerIdentity.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/data
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/data/PlayerIdentity.o src/data/PlayerIdentity.cpp
 
 ${OBJECTDIR}/src/learn/GameDistance.o: src/learn/GameDistance.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/learn

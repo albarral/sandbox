@@ -8,6 +8,7 @@
 #include "Strategy2.h"
 #include "PlayerActions.h"
 #include "data/GameBoard.h"
+#include "learn/GameDistance.h"
 
 namespace sam
 {    
@@ -41,7 +42,7 @@ void Strategy2::playSmart(cv::Mat& matrix, int myMark)
     for (int i=0; i<matrix.rows; i++)
     {
         // analyse row & check proper moves in it
-        oLine.checkRow(i, myMark, GameBoard::eCELL_EMPTY);        
+        oLine.checkRow(i, myMark, GameBoard::EMPTY_MARK);        
         checkBestMovesInRow(i, oLine);
     }    
 
@@ -49,7 +50,7 @@ void Strategy2::playSmart(cv::Mat& matrix, int myMark)
     for (int j=0; j<matrix.cols; j++)
     {
         // analyse column & check proper moves in it
-        oLine.checkColumn(j, myMark, GameBoard::eCELL_EMPTY);        
+        oLine.checkColumn(j, myMark, GameBoard::EMPTY_MARK);        
         checkBestMovesInColumn(j, oLine);
     }    
     
@@ -57,7 +58,7 @@ void Strategy2::playSmart(cv::Mat& matrix, int myMark)
     for (int k=1; k<=2; k++)
     {
         // analyse diagonal & check proper moves in it
-        oLine.checkDiagonal(k, myMark, GameBoard::eCELL_EMPTY);        
+        oLine.checkDiagonal(k, myMark, GameBoard::EMPTY_MARK);        
         checkBestMovesInDiagonal(k, oLine);
     }    
     
@@ -250,4 +251,45 @@ Transition* Strategy2::getBestDefenseTransition(std::vector<sam::Transition>& li
     return winnerDefense;
 }
 
+
+ // sets the rewards of the given GameTask using the specified calculator
+void Strategy2::updateGameTaskRewards(GameTask& oGameTask, RewardCalculator& oRewardCalculator)
+{        
+    std::vector<sam::GameState>::iterator it_gameState = oGameTask.getListGameStates().begin();
+    std::vector<sam::GameState>::iterator it_end = oGameTask.getListGameStates().end();
+    
+    while (it_gameState != it_end)
+    { 
+        GameState& oGameState = *it_gameState;
+        int* cell = it_gameState->getCells(); // ESTO LO QUIERES PARA ALGO???
+        
+        computeStateDistances(oGameState);
+        updateStateRewards(oGameState, oRewardCalculator);
+        it_gameState++;
+    }
+}
+
+//calculate the distances and store them
+void Strategy2::computeStateDistances(GameState& oGameState)
+{    
+    int mines = oGameState.getNumMines();
+    int others = oGameState.getNumOthers();
+    
+    int distanceVictory = GameDistance::computeDistance2Victory(mines, others);
+    oGameState.setDVictory(distanceVictory);
+    
+    int distanceDefeat = GameDistance::computeDistance2Defeat(mines, others);
+    oGameState.setDDefeat(distanceDefeat);
+}
+
+//calculate the rewards and store them
+void Strategy2::updateStateRewards(GameState& oGameState, RewardCalculator& oRewardCalculator)
+{
+    float rewardAttack = oRewardCalculator.computeAttackReward(oRewardCalculator.getKAttack(), oGameState.getDVictory(), oRewardCalculator.getDMaxVictory());
+    oGameState.setReward(rewardAttack);
+    
+    float rewardDefend = oRewardCalculator.computeDefendReward(oRewardCalculator.getKDefend(), oGameState.getDDefeat(), oRewardCalculator.getDMaxDefeat());
+    oGameState.setRewardDefense(rewardDefend);
+    LOG4CXX_INFO(logger, "GameState" << oGameState.getID() << "rA: " << rewardAttack <<" rD: " << rewardDefend);
+}
 }

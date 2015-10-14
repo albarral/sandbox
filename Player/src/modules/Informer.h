@@ -10,6 +10,7 @@
 
 #include "utils/module2.h"
 #include "data/GameBoard.h"
+#include "data/GameFlow.h"
 #include "sam/utils/Database.h"
 
 namespace sam 
@@ -21,7 +22,8 @@ class Informer : public Module2
 {
 private:
     static log4cxx::LoggerPtr logger;
-    GameBoard* pBoard;      // pointer to the game's board
+    GameBoard* pGameBoard;      // pointer to the game's board
+    GameFlow* pGameFlow;  // pointer to the game's flow   
     Database oDatabase;
     sql::Connection* con;
     int moveID;     // ID of each register
@@ -32,7 +34,7 @@ public:
     ~Informer();
     
     // initializes the module 
-    void init (GameBoard& oBoard);
+    void init (GameBoard& oGameBoard, GameFlow& oGameFlow);
     
 private:
     // first actions when the thread begins 

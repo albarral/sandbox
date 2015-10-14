@@ -9,6 +9,7 @@
 #include <log4cxx/logger.h>
 
 #include "data/GameBoard.h"
+#include "data/GameFlow.h"
 #include "modules/Player.h"
 #include "modules/Informer.h"
 
@@ -18,7 +19,8 @@ class GameManager
 {
 private:
     static log4cxx::LoggerPtr logger;
-    GameBoard oBoard;
+    GameBoard oGameBoard;
+    GameFlow oGameFlow;
     Player oSam;
     Player oTam;
     Informer oInformer;  // module used to store game progress in DB (to allow external monitoring)

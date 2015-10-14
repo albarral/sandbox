@@ -10,7 +10,9 @@
 #include "opencv2/core/core.hpp" //for the matrix
 
 #include "learn/GameTask.h"
+#include "learn/GameState.h"
 #include "Learn.h"
+#include "RewardCalculator.h"
 #include "Line.h"
 
 namespace sam
@@ -42,6 +44,11 @@ public:
     float getBestDefenseReward() {return bestDefenseReward;}
     int* getBestAttackMove() {return bestAttackMove;}
     int* getBestDefenseMove() {return bestDefenseMove;}
+
+    // sets the rewards of the given GameTask using the specified calculator
+    static void updateGameTaskRewards(GameTask& oGameTask, RewardCalculator& oRewardCalculator);    
+    static void computeStateDistances(GameState& oGameState);
+    static void updateStateRewards(GameState& oGameState, RewardCalculator& oRewardCalculator);
 
 private:
     // checks if this board's line holds the best attack or defense moves at present

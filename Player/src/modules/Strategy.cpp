@@ -28,7 +28,7 @@ bool Strategy::attackRandom(cv::Mat& matrix, int myMark)
         matRow = matrix.row(i);                
         for (int j=0; j<matRow.cols; j++)
         {
-            if (matRow.at<int>(j) == GameBoard::eCELL_EMPTY)
+            if (matRow.at<int>(j) == GameBoard::EMPTY_MARK)
                 listEmptyCells.push_back(std::make_pair(i,j));
         }
     }
@@ -62,7 +62,7 @@ bool Strategy::attack(cv::Mat& matrix, int myMark)
     for (int i=0; i<matrix.rows; i++)
     {
         // analyse row & check the chances to win if selecting one of its cells
-        oLine.checkRow(i, myMark, GameBoard::eCELL_EMPTY);        
+        oLine.checkRow(i, myMark, GameBoard::EMPTY_MARK);        
         winChance = analyseLine(oLine);
         
         // if best chance for now, select a cell as best next move
@@ -77,7 +77,7 @@ bool Strategy::attack(cv::Mat& matrix, int myMark)
     for (int j=0; j<matrix.cols; j++)
     {
         // analyse column & check the chances to win if selecting one of its cells
-        oLine.checkColumn(j, myMark, GameBoard::eCELL_EMPTY);        
+        oLine.checkColumn(j, myMark, GameBoard::EMPTY_MARK);        
         winChance = analyseLine(oLine);
         
         // if best chance for now, select a cell as best next move
@@ -92,7 +92,7 @@ bool Strategy::attack(cv::Mat& matrix, int myMark)
     for (int k=1; k<=2; k++)
     {
         // analyse column & check the chances to win if selecting one of its cells
-        oLine.checkDiagonal(k, myMark, GameBoard::eCELL_EMPTY);        
+        oLine.checkDiagonal(k, myMark, GameBoard::EMPTY_MARK);        
         winChance = analyseLine(oLine);
         
         // if best chance for now, select a cell as best next move

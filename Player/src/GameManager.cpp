@@ -6,6 +6,7 @@
 #include <string>
 
 #include "GameManager.h"
+#include "data/PlayerIdentity.h"
 
 namespace sam 
 {
@@ -18,19 +19,35 @@ void GameManager::startModules()
     // game is started with 2 player agents (SAM & TAM) & first turn assigned randomly
     LOG4CXX_INFO(logger, "GameManager: starting modules ..."); 
     
-    oSam.init(oBoard, "SAM");
+    // Define SAM's identity
+    PlayerIdentity& oSamIdentity = oSam.getPlayerIdentity();
+    oSamIdentity.setID("SAM");
+    oSamIdentity.setMyMark(1);
+    oSamIdentity.setPlayMode(PlayerIdentity::eMODE_SMART);
+
+    // Define TAM's identity
+    PlayerIdentity& oTamIdentity = oTam.getPlayerIdentity();
+    oTamIdentity.setID("TAM");
+    oTamIdentity.setMyMark(2);
+    oTamIdentity.setPlayMode(PlayerIdentity::eMODE_SIMPLE);
+
+    // init game flow & assign first turn randomly
+    oGameFlow.addPlayer(oSamIdentity);
+    oGameFlow.addPlayer(oTamIdentity);
+    oGameFlow.initTurn();
+
+    // init SAM agent
+    oSam.init(oGameBoard, oGameFlow);
     oSam.setFrequency(2.0);
     oSam.on();
-    
-    oTam.init(oBoard, "TAM");
+
+    // init TAM agent    
+    oTam.init(oGameBoard, oGameFlow);
     oTam.setFrequency(2.0);
     oTam.on();
-
-    // init game assigning first turn
-    oBoard.initTurn();
     
     // Informer module added (stores game progress in DB for external monitoring)
-    oInformer.init(oBoard);
+    oInformer.init(oGameBoard, oGameFlow);
     oInformer.setFrequency(2.0);
     oInformer.on();
 }
@@ -56,7 +73,7 @@ void GameManager::stopModules()
 // checks board status to see if game has finished
 bool GameManager::isGameOver()
 {
-    return oBoard.isGameOver();
+    return oGameFlow.isGameOver();
     //return (oSam.isPlayerFinished() && oTam.isPlayerFinished());
 }
 

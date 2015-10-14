@@ -25,10 +25,11 @@ Informer::~Informer()
     oDatabase.closeConnectionDB();        
 }
 
-void Informer::init(GameBoard& oBoard)
+void Informer::init(GameBoard& oGameBoard, GameFlow& oGameFlow)
 {  
     LOG4CXX_INFO(logger, "Informer initialized");     
-    pBoard = &oBoard;
+    pGameBoard = &oGameBoard;
+    pGameFlow = &oGameFlow;    
 };
 
 void Informer::first()
@@ -37,16 +38,16 @@ void Informer::first()
     // we first connect to DB & clear the last game history
     con = oDatabase.getConnectionDB(); 
     clearGameHistory();
-    lastGameStatus = GameBoard::eSTAT_READY;
+    lastGameStatus = GameFlow::eGAME_READY;
     moveID = -1;
 }
 
 void Informer::loop()
 {
     // If game status has changed store new values of board cells in database
-    if (pBoard->getStatus() != lastGameStatus)
+    if (pGameFlow->getStatus() != lastGameStatus)
     {                
-        lastGameStatus = pBoard->getStatus();
+        lastGameStatus = pGameFlow->getStatus();
 
         moveID++;            
         storeGameState();         
@@ -58,11 +59,11 @@ void Informer::storeGameState()
 {
     LOG4CXX_INFO(logger, "Store game state - move " << moveID);     
 
-    cv::Mat matrix = pBoard->getMatrix();
+    cv::Mat matrix = pGameBoard->getMatrix();
         
     // insert new move (without cells info)
     std::string insert = "INSERT INTO TAB_BOARD (tryID, boardStatus) VALUES (" + std::to_string(moveID) 
-            + ", " + std::to_string(pBoard->getStatus()) + ")";
+            + ", " + std::to_string(pGameFlow->getStatus()) + ")";
     oDatabase.update(insert, con);
 
     // update cells info

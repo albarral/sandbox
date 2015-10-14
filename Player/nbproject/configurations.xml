@@ -16,6 +16,10 @@
         <logicalFolder name="f1" displayName="data" projectFiles="true">
           <itemPath>src/data/GameBoard.cpp</itemPath>
           <itemPath>src/data/GameBoard.h</itemPath>
+          <itemPath>src/data/GameFlow.cpp</itemPath>
+          <itemPath>src/data/GameFlow.h</itemPath>
+          <itemPath>src/data/PlayerIdentity.cpp</itemPath>
+          <itemPath>src/data/PlayerIdentity.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f4" displayName="learn" projectFiles="true">
           <itemPath>src/learn/GameDistance.cpp</itemPath>
@@ -129,6 +133,14 @@
       </item>
       <item path="src/data/GameBoard.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/data/GameFlow.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/data/GameFlow.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/data/PlayerIdentity.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/data/PlayerIdentity.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/learn/GameDistance.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/learn/GameDistance.h" ex="false" tool="3" flavor2="0">
@@ -203,6 +215,14 @@
       <item path="src/data/GameBoard.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/data/GameBoard.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/data/GameFlow.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/data/GameFlow.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/data/PlayerIdentity.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/data/PlayerIdentity.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/learn/GameDistance.cpp" ex="false" tool="1" flavor2="0">
       </item>

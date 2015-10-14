@@ -9,7 +9,6 @@
 
 #include "modules/Player.h"
 #include "modules/Strategy.h"
-#include "modules/LearnStrategy.h"
 #include "learn/GameTask.h"
 #include "learn/GameState.h"
 #include "learn/GameDistance.h"
@@ -21,43 +20,31 @@ log4cxx::LoggerPtr Player::logger(log4cxx::Logger::getLogger("sam.player"));
 
 Player::Player() 
 {
-    sam::GameDistance oGameDistance;
-    bsmart = false;
-    bQlearn = false;
     oRewardCalculator.setKAttack(100);
     oRewardCalculator.setKDefend(100);  
-    oRewardCalculator.setDMaxVictory(oGameDistance.computeDistance2Victory(0,3));
-    oRewardCalculator.setDMaxDefeat(oGameDistance.computeDistance2Defeat(3,0));
+    oRewardCalculator.setDMaxVictory(GameDistance::computeDistance2Victory(0,3));
+    oRewardCalculator.setDMaxDefeat(GameDistance::computeDistance2Defeat(3,0));
 }
 
-void Player::init(GameBoard& oBoard, std::string name)
+void Player::init(GameBoard& oGameBoard, GameFlow& oGameFlow)
 {  
     // the agent is given an identity, which will determine its turn and how its cells are marked
-    LOG4CXX_INFO(logger, "Player " << name << " initialized");     
+    LOG4CXX_INFO(logger, "Initialize Player ...");     
+    LOG4CXX_INFO(logger, oPlayerIdentity.toString());     
         
-    pBoard = &oBoard;    
-    ID = name;
-    
-    if (ID == "SAM")
-    {
-        bQlearn = true;
-        myMark = GameBoard::eCELL_SAM;
-    }
-    else if (ID == "TAM")
-    {
-        bsmart = true;
-        myMark = GameBoard::eCELL_TAM;
-    }
-    else         
-        LOG4CXX_ERROR(logger, "ID not accepted. Please set a different ID for this player!");          
-    
+    pGameBoard = &oGameBoard;    
+    pGameFlow = &oGameFlow;    
 
-    //LOG4CXX_INFO(logger, "Player loading game task ...");     
-    LOG4CXX_INFO(logger, "Creating game task ... (AS NOT EXISTS YET IN DATABASE!!!)");     
-    // TEMPORAL: Till not read from DB the game task will be built directly here.
-    TaskFactory::buildTicTacToeTask(oGameTask);
-    Player::updateGameTaskRewards(oGameTask, oRewardCalculator);
-    oStrategy2.init(oGameTask);    
+    if (oPlayerIdentity.isSmartPlayer())
+    {
+        LOG4CXX_INFO(logger, "Smart player: load game task ... (CREATE IT HERE AS NOT EXISTS YET IN DATABASE!!!)");     
+        // TEMPORAL: Till not read from DB the game task will be built directly here.
+        TaskFactory::buildTicTacToeTask(oGameTask);
+        
+        // set rewards of task states using my attack & defense sensibilty
+        Strategy2::updateGameTaskRewards(oGameTask, oRewardCalculator);
+        oStrategy2.init(oGameTask);            
+    }
 };
 
 void Player::first()
@@ -66,7 +53,7 @@ void Player::first()
     setState(ePLAYER_WAIT);
     setNextState(ePLAYER_WAIT);    
 
-    log4cxx::NDC::push(ID);   	
+    log4cxx::NDC::push(oPlayerIdentity.getID());   	
     log4cxx::NDC::push("wait");    
 }
 
@@ -84,16 +71,10 @@ void Player::loop()
             
             // check if agent's turn has arrived 
             // if so, go to PLAY state 
-            if (ID == "SAM")
+            if (oPlayerIdentity.getID() == pGameFlow->getPlayerWithTurn()->getID())
             {
-                if (pBoard->getStatus() == GameBoard::eSTAT_TURN_SAM)               
-                    setNextState(ePLAYER_PLAY);
+                setNextState(ePLAYER_PLAY);
             }
-            else if (ID == "TAM")
-            {
-                if (pBoard->getStatus() == GameBoard::eSTAT_TURN_TAM)
-                    setNextState(ePLAYER_PLAY);
-            }           
             break;
             
         case ePLAYER_PLAY:        
@@ -131,16 +112,16 @@ void Player::chooseCell()
     // If bQlearn flag is active the cell selection is done using QLearning
     // If bsmart flag is active the cell selection is done using smart strategies 
     // Otherwise, random selection is made among available cells..
-    cv::Mat matrix = pBoard->getMatrix();    
+    cv::Mat matrix = pGameBoard->getMatrix();    
     Strategy oStrategy;
     int* pBestMove;
     
     // select move ...
     
-    // SMART & LEARNING BASED
-    if (bQlearn)
+    // SMART (LEARNING BASED)
+    if (oPlayerIdentity.isSmartPlayer())
     {
-        oStrategy2.playSmart(matrix, myMark);
+        oStrategy2.playSmart(matrix, oPlayerIdentity.getMyMark());
         
         // attack move
         if (oStrategy2.getBestAttackReward() >= oStrategy2.getBestDefenseReward())
@@ -152,92 +133,82 @@ void Player::chooseCell()
     // NO LEARNING    
     else
     {
-        // SMART
-        if (bsmart)
+        // SIMPLE (use simple Strategy rules)
+        if (oPlayerIdentity.isSimplePlayer())
         {
-            if (oStrategy.attack(matrix, myMark) == false)
+            if (oStrategy.attack(matrix, oPlayerIdentity.getMyMark()) == false)
             {
-                oStrategy.attackRandom(matrix, myMark);
+                oStrategy.attackRandom(matrix, oPlayerIdentity.getMyMark());
             }       
         }
         // RANDOM
         else
-            oStrategy.attackRandom(matrix, myMark);
+            oStrategy.attackRandom(matrix, oPlayerIdentity.getMyMark());
         
         pBestMove = oStrategy.getBestMove();        
     }
     
     // perform move & change turn
-    pBoard->markCell(myMark, pBestMove[0], pBestMove[1]);
-    pBoard->changeTurn();
+    pGameBoard->markCell(oPlayerIdentity.getMyMark(), pBestMove[0], pBestMove[1]);
+    pGameFlow->changeTurn();
 
-    LOG4CXX_INFO(logger, "\n " << pBoard->getMatrix());
+    LOG4CXX_INFO(logger, "\n " << pGameBoard->getMatrix());
 }
 
 bool Player::checkBoardOpen()
 {
     // Checks the cells of the board to see if the game has finished, whether with a winner or in draw 
-    cv::Mat matrix = pBoard->getMatrix();
+    cv::Mat matrix = pGameBoard->getMatrix();
     Line oLine;
     oLine.setMatrix(matrix);        
     // reset board analysis
-    bwinner = false;
-    nameWinner = "";
     bemptyCells = false;
         
-    // check rows
+    if (pGameFlow->isGameOver())
+        return false;
+ 
+    // if game open, check rows
     for (int i=0; i<matrix.rows; i++)
     {
         // check cells in row
-        oLine.checkRow(i, myMark, GameBoard::eCELL_EMPTY); 
+        oLine.checkRow(i, oPlayerIdentity.getMyMark(), GameBoard::EMPTY_MARK); 
         analyseLine(oLine);
     }
 
-    // if no winner, check columns
-    if (!bwinner)
+    if (pGameFlow->isGameOver())
+        return false;
+
+    // if game still open, check columns
+    for (int j=0; j<matrix.cols; j++)
     {
-        for (int j=0; j<matrix.cols; j++)
-        {
-            // check cells in column
-            oLine.checkColumn(j, myMark, GameBoard::eCELL_EMPTY);        
-            analyseLine(oLine);
-        }
+        // check cells in column
+        oLine.checkColumn(j, oPlayerIdentity.getMyMark(), GameBoard::EMPTY_MARK);        
+        analyseLine(oLine);
+    }
+    
+    if (pGameFlow->isGameOver())
+        return false;
+
+    // if game still open, check diagonals
+    for (int k=1; k<=2; k++)
+    {
+        // check cells in diagonal
+        oLine.checkDiagonal(k, oPlayerIdentity.getMyMark(), GameBoard::EMPTY_MARK);        
+        analyseLine(oLine);
     }    
+
+    if (pGameFlow->isGameOver())
+        return false;
     
-    // if still no winner, check diagonals
-    if (!bwinner)
-    {
-        for (int k=1; k<=2; k++)
-        {
-            // check cells in diagonal
-            oLine.checkDiagonal(k, myMark, GameBoard::eCELL_EMPTY);        
-            analyseLine(oLine);
-        }    
-    }
-    
-    // game is still open if there's no winner & there are empty cells
-    bool bgameOpen = (!bwinner && bemptyCells);
-    
-    // if game finished update board status
-    if (!bgameOpen)
-    {
-        // finished with a WINNER (and set winner's name if it's me)
-        if (bwinner)
-        {
-            pBoard->setStatus(GameBoard::eSTAT_FINISHED_WINNER);
-            if (!nameWinner.empty())
-                pBoard->setWinner(nameWinner);
-        }
-        //finished with DRAW
-        else 
-            pBoard->setStatus(GameBoard::eSTAT_FINISHED_DRAW);
-    }
-    
-    return bgameOpen;
+    // if game not over, but no empty cells -> game over in draw
+    if (!bemptyCells)
+        pGameFlow->setStatus(GameFlow::eGAME_OVER_DRAW);
+        
+    // game is open if not over
+    return (pGameFlow->isGameOver() == false);
 }
 
 
-// checks the observed line to see if there's a winner
 void Player::analyseLine(Line& oLine)
 {
     // first check if there are empty cells (the usual case)
@@ -245,18 +216,19 @@ void Player::analyseLine(Line& oLine)
     {
         bemptyCells = true;
     }
-    // if whole row is mine, I'm the winner!
-    else if (oLine.getNumMines() == 3)
+    // if whole line is mine, I'M THE WINNER!
+    else if (oLine.getNumMines() == GameBoard::LINE_SIZE)
     {
-        bwinner = true;
-        nameWinner = ID;
+        pGameFlow->setStatus(GameFlow::eGAME_OVER_WINNER);
+        pGameFlow->setWinner(oPlayerIdentity);
     }
     // if whole row is for other player, there's another winner!
-    else if (oLine.getNumOthers() == 3)
+    else if (oLine.getNumOthers() == GameBoard::LINE_SIZE)
     {
-        bwinner = true;
+        pGameFlow->setStatus(GameFlow::eGAME_OVER_WINNER);
     }
 }
+
 
 bool Player::isPlayerFinished()
 {
@@ -292,47 +264,7 @@ void Player::showStateChange()
 }
 
 
- // sets the rewards of the given GameTask using the specified calculator
-void Player::updateGameTaskRewards(GameTask& oGameTask, RewardCalculator& oRewardCalculator)
-{        
-    std::vector<sam::GameState>::iterator it_gameState = oGameTask.getListGameStates().begin();
-    std::vector<sam::GameState>::iterator it_end = oGameTask.getListGameStates().end();
-    
-    while (it_gameState != it_end)
-    { 
-        GameState& oGameState = *it_gameState;
-        int* cell = it_gameState->getCells(); // ESTO LO QUIERES PARA ALGO???
-        
-        computeStateDistances(oGameState);
-        updateStateRewards(oGameState, oRewardCalculator);
-        it_gameState++;
-    }
-}
 
-//calculate the distances and store them
-void Player::computeStateDistances(GameState& oGameState)
-{
-    GameDistance oGameDistance;
-    int mines = oGameState.getNumMines();
-    int others = oGameState.getNumOthers();
-    
-    int distanceVictory = oGameDistance.computeDistance2Victory(mines, others);
-    oGameState.setDVictory(distanceVictory);
-    
-    int distanceDefeat = oGameDistance.computeDistance2Defeat(mines, others);
-    oGameState.setDDefeat(distanceDefeat);
-}
-
-//calculate the rewards and store them
-void Player::updateStateRewards(GameState& oGameState, RewardCalculator& oRewardCalculator)
-{
-    float rewardAttack = oRewardCalculator.computeAttackReward(oRewardCalculator.getKAttack(), oGameState.getDVictory(), oRewardCalculator.getDMaxVictory());
-    oGameState.setReward(rewardAttack);
-    
-    float rewardDefend = oRewardCalculator.computeDefendReward(oRewardCalculator.getKDefend(), oGameState.getDDefeat(), oRewardCalculator.getDMaxDefeat());
-    oGameState.setRewardDefense(rewardDefend);
-    LOG4CXX_INFO(logger, "GameState" << oGameState.getID() << "rA: " << rewardAttack <<" rD: " << rewardDefend);
-}
 
 
 }
