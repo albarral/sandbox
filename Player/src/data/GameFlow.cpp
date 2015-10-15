@@ -75,6 +75,7 @@ void GameFlow::changeTurn()
     std::lock_guard<std::mutex> locker(mutex);
     // advance turn, rolling back to 0 if list end reached
     turn++;    
+    numMoves++;
     if (turn == listPlayers.size())        
         turn = 0;
 }

@@ -46,21 +46,21 @@ void Strategy2::playSmart(cv::Mat& matrix, int myMark)
         checkBestMovesInRow(i, oLine);
     }    
 
-//    // check columns
-//    for (int j=0; j<matrix.cols; j++)
-//    {
-//        // analyse column & check proper moves in it
-//        oLine.checkColumn(j, myMark, GameBoard::EMPTY_MARK);        
-//        checkBestMovesInColumn(j, oLine);
-//    }    
-//    
-//    // check diagonals
-//    for (int k=1; k<=2; k++)
-//    {
-//        // analyse diagonal & check proper moves in it
-//        oLine.checkDiagonal(k, myMark, GameBoard::EMPTY_MARK);        
-//        checkBestMovesInDiagonal(k, oLine);
-//    }    
+    // check columns
+    for (int j=0; j<matrix.cols; j++)
+    {
+        // analyse column & check proper moves in it
+        oLine.checkColumn(j, myMark, GameBoard::EMPTY_MARK);        
+        checkBestMovesInColumn(j, oLine);
+    }    
+    
+    // check diagonals
+    for (int k=1; k<=2; k++)
+    {
+        // analyse diagonal & check proper moves in it
+        oLine.checkDiagonal(k, myMark, GameBoard::EMPTY_MARK);        
+        checkBestMovesInDiagonal(k, oLine);
+    }    
     
     LOG4CXX_INFO(logger, toStringBestAttack());      
     LOG4CXX_INFO(logger, toStringBestDefense());      
@@ -129,13 +129,119 @@ void Strategy2::checkBestMovesInRow(int row, Line& oLine)
 // checks if this board's line holds the best attack or defense moves at present
 void Strategy2::checkBestMovesInColumn(int column, Line& oLine)
 {
-    // TO DO ...
+    float attackReward = 0.0, defenseReward = 0.0;
+    bestAttackTransition = 0;
+    bestDefenseTransition = 0;
+    PlayerActions oPlayerActions;
+
+    LOG4CXX_INFO(logger, "check column " << column);   
+    
+    analyseLine(oLine);
+    
+    // track best attack move
+    if (bestAttackTransition != 0)
+    {
+        attackReward = bestAttackTransition->getQ();
+        LOG4CXX_INFO(logger, "attackQ: " << attackReward);   
+        if (attackReward > bestAttackReward)
+        {
+            bestAttackReward = attackReward;
+            GameState& state1 = pGameTask->getListGameStates().at(bestAttackTransition->getStateID());
+            GameState& state2 = pGameTask->getListGameStates().at(bestAttackTransition->getNextState());
+            
+            // store attack move
+            if (oPlayerActions.getActions4Transition(state1, state2) > 0)
+            {
+                int x, y;
+                oPlayerActions.applyAction2Column(column, x, y);
+                        
+                bestAttackMove[0] = y;   // y stores the row
+                bestAttackMove[1] = x;   // x stores the column
+            }
+        }
+    }
+    
+    // track best defense move
+    if (bestDefenseTransition != 0)
+    {
+        defenseReward = bestDefenseTransition->getQDefend();
+        LOG4CXX_INFO(logger, "defendQ: " << defenseReward);  
+        if (defenseReward > bestDefenseReward)
+        {
+            bestDefenseReward = defenseReward;
+            GameState& state1 = pGameTask->getListGameStates().at(bestDefenseTransition->getStateID());
+            GameState& state2 = pGameTask->getListGameStates().at(bestDefenseTransition->getNextState());
+            
+            // store attack move
+            if (oPlayerActions.getActions4Transition(state1, state2) > 0)
+            {
+                int x, y;
+                oPlayerActions.applyAction2Column(column, x, y);
+                        
+                bestDefenseMove[0] = y;   // y stores the row
+                bestDefenseMove[1] = x;   // x stores the column
+            }
+        }    
+    }    
 }
 
 // checks if this board's line holds the best attack or defense moves at present
 void Strategy2::checkBestMovesInDiagonal(int diag, Line& oLine)
 {
-// TO DO ...
+    float attackReward = 0.0, defenseReward = 0.0;
+    bestAttackTransition = 0;
+    bestDefenseTransition = 0;
+    PlayerActions oPlayerActions;
+
+    LOG4CXX_INFO(logger, "check diagonal " << diag);   
+    
+    analyseLine(oLine);
+    
+    // track best attack move
+    if (bestAttackTransition != 0)
+    {
+        attackReward = bestAttackTransition->getQ();
+        LOG4CXX_INFO(logger, "attackQ: " << attackReward);   
+        if (attackReward > bestAttackReward)
+        {
+            bestAttackReward = attackReward;
+            GameState& state1 = pGameTask->getListGameStates().at(bestAttackTransition->getStateID());
+            GameState& state2 = pGameTask->getListGameStates().at(bestAttackTransition->getNextState());
+            
+            // store attack move
+            if (oPlayerActions.getActions4Transition(state1, state2) > 0)
+            {
+                int x, y;
+                oPlayerActions.applyAction2Diagonal(diag, x, y);
+                        
+                bestAttackMove[0] = y;   // y stores the row
+                bestAttackMove[1] = x;   // x stores the column
+            }
+        }
+    }
+    
+    // track best defense move
+    if (bestDefenseTransition != 0)
+    {
+        defenseReward = bestDefenseTransition->getQDefend();
+        LOG4CXX_INFO(logger, "defendQ: " << defenseReward);  
+        if (defenseReward > bestDefenseReward)
+        {
+            bestDefenseReward = defenseReward;
+            GameState& state1 = pGameTask->getListGameStates().at(bestDefenseTransition->getStateID());
+            GameState& state2 = pGameTask->getListGameStates().at(bestDefenseTransition->getNextState());
+            
+            // store attack move
+            if (oPlayerActions.getActions4Transition(state1, state2) > 0)
+            {
+                int x, y;
+                oPlayerActions.applyAction2Diagonal(diag, x, y);
+                        
+                bestDefenseMove[0] = y;   // y stores the row
+                bestDefenseMove[1] = x;   // x stores the column
+            }
+        }    
+    }    
 }
 
 
@@ -304,7 +410,6 @@ void Strategy2::updateStateRewards(GameState& oGameState, RewardCalculator& oRew
     
     float rewardDefend = oRewardCalculator.computeDefendReward(oRewardCalculator.getKDefend(), oGameState.getDDefeat(), oRewardCalculator.getDMaxDefeat());
     oGameState.setRewardDefense(rewardDefend);
-    LOG4CXX_INFO(logger, "GameState" << oGameState.getID() << "rA: " << rewardAttack <<" rD: " << rewardDefend);
 }
 
 std::string Strategy2::toStringBestAttack()

@@ -52,9 +52,11 @@ public:
     
     // adds a new player to the game
     void addPlayer(PlayerIdentity& oPlayerIdentity);
-    
+   
     // sets turn randomly 
     void initTurn();
+    //get the turn of the moment
+    int getTurn() {return turn;};
     // changes turn to next player (mutex protected)
     void changeTurn();
     // gets the player that has the turn

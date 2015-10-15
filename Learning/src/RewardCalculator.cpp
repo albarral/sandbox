@@ -22,7 +22,13 @@ float RewardCalculator::computeAttackReward(int kAttack, int dVictory, int dMaxV
 
 float RewardCalculator::computeDefendReward(int kDefend, int dDefeat, int dMaxDefeat)
 {
-    return (kDefend * (1 - (float(dDefeat)/float(dMaxDefeat))));
+    int Rdefend;
+    if(dDefeat > 1)
+        Rdefend = kDefend * 0.5 * (float(dDefeat)/(float(dDefeat)-1));
+    else 
+        Rdefend = kDefend;
+                
+    return Rdefend;
 }
 
 }
