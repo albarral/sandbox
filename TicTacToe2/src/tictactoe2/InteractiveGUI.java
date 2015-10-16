@@ -1,21 +1,47 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package tictactoe2;
 
+/***************************************************************************
+ *   Copyright (C) 2015 by Migtron Robotics   *
+ *   ainoa@migtron.com   *
+ ***************************************************************************/
+
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.SwingWorker;
 
-/**
- *
- * @author ainoa
- */
 public class InteractiveGUI extends javax.swing.JFrame {
-
-    /**
-     * Creates new form InteractiveGUI
-     */
+   
+    private static Connection conn = null;
+    private static Statement statement;
+    private static final String username = "sam";
+    private static final String password = "sam";      
+    private static final String url = "jdbc:mysql://localhost:3306/samMemo";    
+    private static PreparedStatement preparedStatement = null;
+    private static ResultSet resultSet = null;
+    int tryID = 0;
+    int cell1 = 0;
+    int cell2 = 0;
+    int cell3 = 0;
+    int cell4 = 0;
+    int cell5 = 0;
+    int cell6 = 0;
+    int cell7 = 0;
+    int cell8 = 0;
+    int cell9 = 0;
+    int bStatus = 0;
+    int turn = 0;
+    int previusStatus = 0;
+    String mark = "";
+    int chooseTurn = 0;
+    
     public InteractiveGUI() {
         initComponents();
     }
@@ -54,9 +80,13 @@ public class InteractiveGUI extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(380, 462));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel2MouseClicked(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Ubuntu", 0, 60)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -81,6 +111,11 @@ public class InteractiveGUI extends javax.swing.JFrame {
         jLabel1.setText("Turn:");
 
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel6MouseClicked(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Ubuntu", 0, 60)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -103,6 +138,11 @@ public class InteractiveGUI extends javax.swing.JFrame {
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel1MouseClicked(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Ubuntu", 0, 60)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -133,6 +173,11 @@ public class InteractiveGUI extends javax.swing.JFrame {
         });
 
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel7MouseClicked(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Ubuntu", 0, 60)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -157,6 +202,11 @@ public class InteractiveGUI extends javax.swing.JFrame {
         jLabel2.setText("Winner:");
 
         jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel8MouseClicked(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Ubuntu", 0, 60)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -180,6 +230,11 @@ public class InteractiveGUI extends javax.swing.JFrame {
         );
 
         jPanel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel9MouseClicked(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Ubuntu", 0, 60)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -202,6 +257,11 @@ public class InteractiveGUI extends javax.swing.JFrame {
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel3MouseClicked(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Ubuntu", 0, 60)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -232,6 +292,11 @@ public class InteractiveGUI extends javax.swing.JFrame {
         });
 
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel4MouseClicked(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Ubuntu", 0, 60)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -262,6 +327,11 @@ public class InteractiveGUI extends javax.swing.JFrame {
         });
 
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel5MouseClicked(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Ubuntu", 0, 60)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -289,9 +359,6 @@ public class InteractiveGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -322,7 +389,10 @@ public class InteractiveGUI extends javax.swing.JFrame {
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)))
                 .addGap(70, 70, 70))
         );
         layout.setVerticalGroup(
@@ -369,17 +439,24 @@ public class InteractiveGUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        options();
+        init();
+        jButton1.setEnabled(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    public void options()
+    {
         int dialogButton = JOptionPane.YES_NO_OPTION;
         int answer = JOptionPane.showConfirmDialog (null, "Do you want to start?","", dialogButton);
         if (answer == JOptionPane.YES_OPTION) 
         {
-            remove(dialogButton);
             System.out.println("yes");
+            chooseTurn = 0;
         }
         else if (answer == JOptionPane.NO_OPTION) 
         {
-            remove(dialogButton);
             System.out.println("no");
+            chooseTurn = 0;
         }
         else 
         {
@@ -392,19 +469,428 @@ public class InteractiveGUI extends javax.swing.JFrame {
         dialogButton2, JOptionPane.QUESTION_MESSAGE, null, buttons, buttons[1]);
         if (returnValue == 0) // O
         {
+            mark = "O";
             System.out.println("0: choose O");
+            
         }    
         else if (returnValue == 1) // X
         {
             System.out.println("1: choose X");
+            mark = "X";
         }
         else
         {
             System.out.println("no option");
+            mark = "O";
         }
+    }
+    
+    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+        // TODO add your handling code here:
+        if("".equals(jLabel3.getText()) && chooseTurn == 0)
+        {
+            jLabel3.setText(mark);  
+            saveMovement();
+        }      
+    }//GEN-LAST:event_jPanel1MouseClicked
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
+        // TODO add your handling code here:
+        if("".equals(jLabel4.getText()) && chooseTurn == 0) 
+        {
+            jLabel4.setText(mark);
+            saveMovement();
+        }
+    }//GEN-LAST:event_jPanel2MouseClicked
 
+    private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
+        // TODO add your handling code here:
+        if("".equals(jLabel5.getText()) && chooseTurn == 0) 
+        {
+            jLabel5.setText(mark);
+            saveMovement();
+        }
+    }//GEN-LAST:event_jPanel3MouseClicked
+
+    private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
+        // TODO add your handling code here:
+        if("".equals(jLabel6.getText()) && chooseTurn == 0) 
+        {
+            jLabel6.setText(mark);
+            saveMovement();
+        }
+    }//GEN-LAST:event_jPanel4MouseClicked
+
+    private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
+        // TODO add your handling code here:
+        if("".equals(jLabel7.getText()) && chooseTurn == 0)
+        {
+            jLabel7.setText(mark);
+            saveMovement();
+        }
+    }//GEN-LAST:event_jPanel5MouseClicked
+
+    private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
+        // TODO add your handling code here:
+        if("".equals(jLabel8.getText()) && chooseTurn == 0) 
+        {
+            jLabel8.setText(mark);
+            saveMovement();
+        }
+    }//GEN-LAST:event_jPanel6MouseClicked
+
+    private void jPanel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseClicked
+        // TODO add your handling code here:
+        if("".equals(jLabel9.getText()) && chooseTurn == 0) 
+        {
+            jLabel9.setText(mark);
+            saveMovement();
+        }
+    }//GEN-LAST:event_jPanel7MouseClicked
+
+    private void jPanel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseClicked
+        // TODO add your handling code here:
+        if("".equals(jLabel10.getText()) && chooseTurn == 0)
+        {
+            jLabel10.setText(mark);
+            saveMovement();
+        }
+    }//GEN-LAST:event_jPanel8MouseClicked
+
+    private void jPanel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel9MouseClicked
+        // TODO add your handling code here:
+        if("".equals(jLabel11.getText()) && chooseTurn == 0)
+        {
+            jLabel11.setText(mark);
+            saveMovement();
+        }
+    }//GEN-LAST:event_jPanel9MouseClicked
+ 
+    public void saveMovement()
+    {
+        tryID++;
+                        
+                        String value;
+                        value = jLabel3.getText();
+                        if ("X".equals(value))                        
+                            cell1 = 1;
+                        else if("O".equals(value))
+                            cell1 = 2;
+                        else cell1 = 0;
+                        
+                        value = jLabel4.getText();
+                        if ("X".equals(value))                        
+                            cell2 = 1;
+                        else if("O".equals(value))
+                            cell2 = 2;
+                        else cell2 = 0;
+                        
+                        value = jLabel5.getText();
+                        if ("X".equals(value))                        
+                            cell3 = 1;
+                        else if("O".equals(value))
+                            cell3 = 2;
+                        else cell3 = 0;
+
+                        value = jLabel6.getText();
+                        if ("X".equals(value))                        
+                            cell4 = 1;
+                        else if("O".equals(value))
+                            cell4 = 2;
+                        else cell4 = 0;
+                        
+                        value = jLabel7.getText();
+                        if ("X".equals(value))                        
+                            cell5 = 1;
+                        else if("O".equals(value))
+                            cell5 = 2;
+                        else cell5 = 0;
+                        
+                        value = jLabel8.getText();
+                        if ("X".equals(value))                        
+                            cell6 = 1;
+                        else if("O".equals(value))
+                            cell6 = 2;
+                        else cell6 = 0;
+                        
+                        value = jLabel9.getText();
+                        if ("X".equals(value))                        
+                            cell7 = 1;
+                        else if("O".equals(value))
+                            cell7 = 2;
+                        else cell7 = 0;
+                        
+                        value = jLabel10.getText();
+                        if ("X".equals(value))                        
+                            cell8 = 1;
+                        else if("O".equals(value))
+                            cell8 = 2;
+                        else cell8 = 0;
+                        
+                        value = jLabel11.getText();
+                        if ("X".equals(value))                        
+                            cell9 = 1;
+                        else if("O".equals(value))
+                            cell9 = 2;
+                        else cell9 = 0;
+                        
+                        //chooseTurn++;
+                        storeInMemo();          
+    }
+    
+    public void loadFromMemo()
+    {
+        //get the values from the database
+        try{
+            String sql= "SELECT * FROM TAB_BOARD";
+            statement.executeQuery(sql);
+            resultSet = statement.getResultSet();
+            
+            if (resultSet != null)
+            {
+                while (resultSet.next())
+                {
+                    tryID = resultSet.getInt("tryID");
+                    cell1 = resultSet.getInt("cell00");
+                    cell2 = resultSet.getInt("cell01");
+                    cell3 = resultSet.getInt("cell02");
+                    cell4 = resultSet.getInt("cell10");
+                    cell5 = resultSet.getInt("cell11");
+                    cell6 = resultSet.getInt("cell12");
+                    cell7 = resultSet.getInt("cell20");
+                    cell8 = resultSet.getInt("cell21");
+                    cell9 = resultSet.getInt("cell22");
+                    bStatus = resultSet.getInt("boardStatus");   
+                    turn = resultSet.getInt("turn");
+                }
+            }
+        } catch(SQLException e){
+            System.err.println("Error Code: " + ((SQLException)e).getErrorCode());
+            System.err.println("Message: " + e.getMessage());
+        }
+        
+    }
+    
+    public void storeInMemo()
+    {
+        try{
+            String sql = "INSERT INTO TAB_BOARD (tryID, Cell00, Cell01, Cell02, Cell10, Cell11, Cell12, "
+                    + "Cell20, Cell21, Cell22, boardStatus, turn) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, tryID);
+            preparedStatement.setInt(2, cell1);
+            preparedStatement.setInt(3, cell2);
+            preparedStatement.setInt(4, cell3);
+            preparedStatement.setInt(5, cell4);
+            preparedStatement.setInt(6, cell5);
+            preparedStatement.setInt(7, cell6);
+            preparedStatement.setInt(8, cell7);
+            preparedStatement.setInt(9, cell8);
+            preparedStatement.setInt(10, cell9);
+            preparedStatement.setInt(11, 1);           
+            preparedStatement.setInt(12, chooseTurn);
+            preparedStatement.executeUpdate();
+                      
+        } catch(SQLException e){
+            System.err.println("Error Code: " + ((SQLException)e).getErrorCode());
+            System.err.println("Message: " + e.getMessage());
+        }       
+    }   
+    
+    public void connectDB()
+    {
+        try{
+            conn = DriverManager.getConnection(url, username, password);
+            statement = conn.createStatement();
+                      
+        } catch (SQLException e) {
+            System.err.println("Error Code: " + ((SQLException)e).getErrorCode());
+            System.err.println("Message: " + e.getMessage());
+        }
+    }
+    
+    public void closeDB()
+    {
+        try{
+            statement.close();
+            conn.close();
+    
+        } catch(SQLException e){
+            System.err.println("Error Code: " + ((SQLException)e).getErrorCode());
+            System.err.println("Message: " + e.getMessage());
+        }
+    }
+    
+    private void init()
+    {
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() 
+        {
+            @Override
+            protected Void doInBackground() throws Exception 
+            {
+                connectDB();
+                
+                while (true){
+                    
+                    if (chooseTurn == 1)
+                    {
+                        loadFromMemo();
+
+                        //Put the values from the database into the GUI
+                        if (cell1 > 0)
+                        {
+                            if (cell1 == 1)
+                                jLabel3.setText("X");
+                            else if (cell1 == 2)
+                                jLabel3.setText("O");
+                        }
+                        else jLabel3.setText("");
+
+
+                        if (cell2 > 0)
+                        {
+                            if (cell2 == 1)
+                                jLabel4.setText("X");
+                            else if (cell2 == 2)
+                                jLabel4.setText("O");
+                        }
+                        else jLabel4.setText("");
+
+                        if (cell3 > 0)
+                        {
+                            if (cell3 == 1)
+                                jLabel5.setText("X");
+                            else if (cell3 == 2)
+                                jLabel5.setText("O");
+                        }
+                        else jLabel5.setText("");
+
+                        if (cell4 > 0)
+                        {
+                            if (cell4 == 1)
+                                jLabel6.setText("X");
+                            else if (cell4 == 2)
+                                jLabel6.setText("O");
+                        }
+                        else jLabel6.setText("");
+
+                        if (cell5 > 0)
+                        {
+                            if (cell5 == 1)
+                                jLabel7.setText("X");
+                            else if (cell5 == 2)
+                                jLabel7.setText("O");
+                        }
+                        else jLabel7.setText("");
+
+                        if (cell6 > 0)
+                        {
+                            if (cell6 == 1)
+                                jLabel8.setText("X");
+                            else if (cell6 == 2)
+                                jLabel8.setText("O");
+                        }
+                        else jLabel8.setText("");
+
+                        if (cell7 > 0)
+                        {
+                            if (cell7 == 1)
+                                jLabel9.setText("X");
+                            else if (cell7 == 2)
+                                jLabel9.setText("O");
+                        }
+                        else jLabel9.setText("");
+
+                        if (cell8 > 0)
+                        {
+                            if (cell8 == 1)
+                                jLabel10.setText("X");
+                            else if (cell8 == 2)
+                                jLabel10.setText("O");
+                        }
+                        else jLabel10.setText("");
+
+                        if (cell9 > 0)
+                        {
+                            if (cell9 == 1)
+                                jLabel11.setText("X");
+                            else if (cell9 == 2)
+                                jLabel11.setText("O");
+                        }
+                        else jLabel11.setText("");
+                    
+                    }
+                    
+                    if (turn == 0)  
+                        jTextField1.setText("YOU");
+                    else if (turn == 1)
+                        jTextField1.setText("TAM");
+                    else jTextField1.setText("");
+                    
+                    if (bStatus == 2)
+                    {
+                        jTextField2.setText("DRAW");
+                        jTextField1.setText("");
+                        
+                        jPanel1.setEnabled(false);
+                        jPanel2.setEnabled(false);
+                        jPanel3.setEnabled(false);
+                        jPanel4.setEnabled(false);
+                        jPanel5.setEnabled(false);
+                        jPanel6.setEnabled(false);
+                        jPanel7.setEnabled(false);
+                        jPanel8.setEnabled(false);
+                        jPanel9.setEnabled(false);
+                    }  
+                    else if (bStatus == 3)
+                    {
+                        if (previusStatus == 0)
+                            jTextField2.setText("YOU");
+                        else if (previusStatus == 1)
+                            jTextField2.setText("TAM"); 
+                        
+                        jTextField1.setText("");                       
+                        jPanel1.setEnabled(false);
+                        jPanel2.setEnabled(false);
+                        jPanel3.setEnabled(false);
+                        jPanel4.setEnabled(false);
+                        jPanel5.setEnabled(false);
+                        jPanel6.setEnabled(false);
+                        jPanel7.setEnabled(false);
+                        jPanel8.setEnabled(false);
+                        jPanel9.setEnabled(false);
+                        
+                    }      
+                    else 
+                    {
+                        jTextField2.setText("");
+                        if (turn < 2)
+                            previusStatus = turn;
+                    }
+                       
+                    Thread.sleep(500);
+                }
+                
+            }
+
+        };
+        worker.execute();
+        ExitApp();
+    }
+    
+    private void ExitApp()
+    {       
+        addWindowListener(new WindowAdapter()
+        {
+            @Override
+            public void windowClosing(WindowEvent e)
+            {
+                closeDB();        
+                System.exit(0);
+            }
+        });
+    }
+    
     /**
      * @param args the command line arguments
      */
