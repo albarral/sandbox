@@ -1,5 +1,5 @@
-#ifndef __SAM_PLAYER_T3TASK_H
-#define __SAM_PLAYER_T3TASK_H
+#ifndef __SAM_PLAYER_TASKFACTORY_H
+#define __SAM_PLAYER_TASKFACTORY_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
@@ -9,6 +9,8 @@
 #include <log4cxx/logger.h>
 
 #include "learn/GameTask.h"
+#include "learn/GameState.h"
+#include "Transition.h"
 
 namespace sam 
 {
@@ -20,7 +22,13 @@ private:
 public:
     TaskFactory();
     
-    static void buildTicTacToeTask(GameTask& oGameTask);
+    static void buildTicTacToeTask(GameTask& oGameTask);    
+    
+    // shows brief description of given task
+    static void describeTask(GameTask& oGameTask);    
+    // shows brief description of given state
+    static void describeState(GameState& oGameState);
+
 };
 }
 

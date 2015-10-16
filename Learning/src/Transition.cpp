@@ -96,8 +96,8 @@ float Transition::computeCost()
 
 std::string Transition::toString()
 {
-    return ("Transition: [ID=" + std::to_string(ID) + ", state=" + std::to_string(stateID) + ", nextState=" + std::to_string(nextState) + 
-            ", Q=" + std::to_string(Q) + ", Qdef=" + std::to_string(QDefend));
+    return ("Transition: [taskID=" + std::to_string(taskID) + ", stateID=" + std::to_string(stateID) + ", ID=" + std::to_string(ID) 
+            + ", nextState=" + std::to_string(nextState) + ", Q=" + std::to_string((int)Q) + "]");
 }
 
 }

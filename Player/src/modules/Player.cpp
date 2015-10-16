@@ -37,9 +37,10 @@ void Player::init(GameBoard& oGameBoard, GameFlow& oGameFlow)
 
     if (oPlayerIdentity.isSmartPlayer())
     {
-        LOG4CXX_INFO(logger, "Smart player: load game task ... (CREATE IT HERE AS NOT EXISTS YET IN DATABASE!!!)");     
+        LOG4CXX_INFO(logger, "Smart player: load game task ... (CREATED, NOT YET IN DATABASE)");     
         // TEMPORAL: Till not read from DB the game task will be built directly here.
-        TaskFactory::buildTicTacToeTask(oGameTask);
+        TaskFactory::buildTicTacToeTask(oGameTask);         
+        TaskFactory::describeTask(oGameTask);
         
         // set rewards of task states using my attack & defense sensibilty
         Strategy2::updateGameTaskRewards(oGameTask, oRewardCalculator);

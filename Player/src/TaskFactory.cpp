@@ -8,7 +8,6 @@
 
 #include "TaskFactory.h"
 #include "modules/Line.h"
-#include "learn/GameState.h"
 
 namespace sam 
 {
@@ -22,12 +21,12 @@ void TaskFactory::buildTicTacToeTask(GameTask& oGameTask)
             oGameState14, oGameState15, oGameState16, oGameState17, oGameState18, oGameState19, oGameState20, 
             oGameState21, oGameState22, oGameState23, oGameState24, oGameState25, oGameState26;
     Transition oTransition;
+    std::string taskName = "TicTacToe";
+    
+    LOG4CXX_INFO(logger, "TaskFactory: create task " << taskName); 
     
     int taskID = oGameTask.getID();
-    
-    LOG4CXX_INFO(logger, "Building tic tac toe ... taskID=" << taskID); 
-    
-    oGameTask.setDesc("Tic Tac Toe");
+    oGameTask.setDesc(taskName);
 
     // set ( pos1, pos2, pos3, numMines, numOthers )
     oGameState0.setID(0); 
@@ -222,39 +221,8 @@ void TaskFactory::buildTicTacToeTask(GameTask& oGameTask)
     // (2, 2, 0) to (2, 2, 1)   ->  24 to 25
     oTransition.set(24, 25);
     oGameState24.addTransition(oTransition);
-    
-    LOG4CXX_INFO(logger, oGameState0.showData());
-    LOG4CXX_INFO(logger, oGameState1.showData());
-    LOG4CXX_INFO(logger, oGameState2.showData());
-    LOG4CXX_INFO(logger, oGameState3.showData());
-    LOG4CXX_INFO(logger, oGameState4.showData());
-    LOG4CXX_INFO(logger, oGameState5.showData());
-    LOG4CXX_INFO(logger, oGameState6.showData());
-    LOG4CXX_INFO(logger, oGameState7.showData());
-    LOG4CXX_INFO(logger, oGameState8.showData());
-    LOG4CXX_INFO(logger, oGameState9.showData());
-    LOG4CXX_INFO(logger, oGameState10.showData());
-    LOG4CXX_INFO(logger, oGameState11.showData());
-    LOG4CXX_INFO(logger, oGameState12.showData());
-    LOG4CXX_INFO(logger, oGameState13.showData());
-    LOG4CXX_INFO(logger, oGameState14.showData());
-    LOG4CXX_INFO(logger, oGameState15.showData());
-    LOG4CXX_INFO(logger, oGameState16.showData());
-    LOG4CXX_INFO(logger, oGameState17.showData());
-    LOG4CXX_INFO(logger, oGameState18.showData());
-    LOG4CXX_INFO(logger, oGameState19.showData());
-    LOG4CXX_INFO(logger, oGameState20.showData());
-    LOG4CXX_INFO(logger, oGameState21.showData());
-    LOG4CXX_INFO(logger, oGameState22.showData());
-    LOG4CXX_INFO(logger, oGameState23.showData());
-    LOG4CXX_INFO(logger, oGameState24.showData());
-    LOG4CXX_INFO(logger, oGameState25.showData());
-    LOG4CXX_INFO(logger, oGameState26.showData());
-    
-    
-    
+               
     oGameTask.getListGameStates().clear();
-
     oGameTask.addGameState(oGameState0);
     oGameTask.addGameState(oGameState1);
     oGameTask.addGameState(oGameState2);
@@ -282,10 +250,36 @@ void TaskFactory::buildTicTacToeTask(GameTask& oGameTask)
     oGameTask.addGameState(oGameState24);
     oGameTask.addGameState(oGameState25);
     oGameTask.addGameState(oGameState26);
-    
-    LOG4CXX_INFO(logger, "tic tac toe built");
-    
 }
 
+void TaskFactory::describeTask(GameTask& oGameTask)
+{
+    // describe the task
+    LOG4CXX_INFO(logger, oGameTask.showData());
+
+    std::vector<GameState>::iterator it_gameState = oGameTask.getListGameStates().begin();
+    std::vector<GameState>::iterator it_end = oGameTask.getListGameStates().end();
+    // describe each task state
+    while (it_gameState != it_end)
+    {        
+        describeState(*it_gameState);
+        it_gameState++;
+    }    
+}
+
+void TaskFactory::describeState(GameState& oGameState)
+{
+    int* cells = oGameState.getCells();
+    LOG4CXX_INFO(logger, oGameState.toString());
+
+    std::vector<Transition>::iterator it_transition = oGameState.getListTransitions().begin();
+    std::vector<Transition>::iterator it_end = oGameState.getListTransitions().end();
+    // describe each state transition
+    while (it_transition != it_end)
+    {    
+        LOG4CXX_INFO(logger, it_transition->toString());
+        it_transition++;
+    }   
+}
 
 }

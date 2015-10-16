@@ -82,9 +82,9 @@ void GameState::deleteFromMemo2(Database* pDatabase)
 
 std::string GameState::toString()
 {
-  return ("GameState: [ID=" + std::to_string(ID) +
+  return ("GameState: [taskID=" + std::to_string(taskID) + ", ID=" + std::to_string(ID) +
           ", cells[]=(" + std::to_string(cells[0]) + "," + std::to_string(cells[1]) + "," + std::to_string(cells[2]) + ")" +
-          ", reward=" + std::to_string(reward) + ", rewardDef=" + std::to_string(rewardDefense) + "]");  
+          ", reward=" + std::to_string((int)reward) + "]");  
 }
 
 }

@@ -129,7 +129,7 @@ void Task::reset()
 
 std::string Task::showData()
 {
-    std::string data = "task " + std::to_string(ID) + ": " + desc;    
+    std::string data = "Task: [ID=" + std::to_string(ID) + ", desc=" + desc + "]";    
     return data;
 }
 

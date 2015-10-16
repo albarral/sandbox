@@ -8,7 +8,6 @@
 
 #include <string>
 #include <vector>
-#include <log4cxx/logger.h>
 
 #include "Task.h"
 #include "learn/GameState.h"
@@ -19,7 +18,6 @@ namespace sam
 class GameTask : public Task
 {
 private:
-    static log4cxx::LoggerPtr logger;
     Database oDatabase;
     std::vector<GameState> listGameStates;
     
@@ -34,12 +32,7 @@ public:
     void storeInMemo2();
     void loadFromMemo2();
     
-private:
-    // shows brief description of given task
-    void describeTask();
-    // shows brief description of given state
-    void describeState(GameState* pGameState);
-    
+private:    
     void gameStatesFromMemo(sql::Connection* con);
 };
 }
