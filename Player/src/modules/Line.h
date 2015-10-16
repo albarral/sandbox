@@ -16,6 +16,14 @@ namespace sam
 class Line 
 {  
 public:
+    enum eType
+    {
+        eLINE_ROW,        // line is a row
+        eLINE_COL,        // line is a column
+        eLINE_DIAG1,     // line is the ascending diagonal
+        eLINE_DIAG2      // line is the descending diagonal
+    };
+
     enum eCell  //cell state
     {
         eCELL_EMPTY,        // empty cell
@@ -41,7 +49,7 @@ public:
     // checks the given line (row, column or diagonal) computing which cells are mine, others or empty
     void checkRow (int row, int myMark, int emptyMark);
     void checkColumn (int col, int myMark, int emptyMark);
-    void checkDiagonal (int num, int myMark, int emptyMark);
+    void checkDiagonal (int lineType, int myMark, int emptyMark);
 
     int* getCells() {return cells;}
     int getNumMines() {return numMines;};

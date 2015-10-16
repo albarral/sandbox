@@ -40,9 +40,11 @@ private:
     GameBoard* pGameBoard;      // pointer to the game's board
     GameFlow* pGameFlow;  // pointer to the game's flow
     bool bemptyCells;
-    GameTask oGameTask;
+    GameTask oAttackTask;            // ofensive task
+    GameTask oDefenseTask;        // defensive task  
     RewardCalculator oRewardCalculator;
-    Strategy2 oStrategy2;
+    Strategy2 oAttackStrategy;            // ofensive strategy
+    Strategy2 oDefenseStrategy;         // defensive strategy 
 
 public:
     Player();

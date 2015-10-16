@@ -4,7 +4,9 @@
  ***************************************************************************/
 
 #include "PlayerActions.h"
+
 #include "data/GameBoard.h"
+#include "modules/Line.h"
 
 namespace sam
 {    
@@ -62,13 +64,13 @@ void PlayerActions::applyAction2Column(int col, int& x, int& y)
     y = listActions.at(0);
 }
 
-void PlayerActions::applyAction2Diagonal(int diag, int& x, int& y)
+void PlayerActions::applyAction2Diagonal(int lineType, int& x, int& y)
 {
-    if (diag == 1)
+    if (lineType == Line::eLINE_DIAG1)
     {
         x = y = listActions.at(0);
     }
-    else if (diag == 2)
+    else if (lineType == Line::eLINE_DIAG2)
     {
         x = 2 - listActions.at(0);
         y = listActions.at(0);

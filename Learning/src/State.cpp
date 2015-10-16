@@ -14,7 +14,6 @@ State::State()
     desc = "";
     taskID = 0;
     reward = 0; // 0.0 or 0f
-    rewardDefense = 0; // 0.0 or 0f
 }
 
 void State::addTransition(Transition& oTransition)
@@ -34,7 +33,6 @@ void State::loadFromMemo(Database* pDatabase, sql::Connection* con)
     {
         desc = res->getString("description");
         reward = res->getDouble("reward");
-        rewardDefense = res->getDouble("rewardDefense");
     }
     
     transitionsFromMemo(pDatabase, con);
@@ -43,9 +41,9 @@ void State::loadFromMemo(Database* pDatabase, sql::Connection* con)
 
 void State::storeInMemo(Database* pDatabase, sql::Connection* con)
 {
-    std::string insertDB = "INSERT INTO TAB_STATES (stateID, description, taskID, reward, rewardDefense) "
+    std::string insertDB = "INSERT INTO TAB_STATES (stateID, description, taskID, reward) "
             "VALUES (" + std::to_string(ID) + ", ' " + desc + " ', " + std::to_string(taskID) + ", " 
-            + std::to_string(reward) + ", " + std::to_string(rewardDefense) + ")";    
+            + std::to_string(reward) + ")";    
     pDatabase->update(insertDB, con);
 
     storeTransitions(pDatabase, con);
@@ -55,7 +53,7 @@ void State::upDateInMemo(Database* pDatabase)
 {
     sql::Connection* con = pDatabase->getConnectionDB();
     std::string update = "UPDATE TAB_STATES SET description = ' " + desc + " ' ,reward = " + std::to_string(reward)
-    + " ,rewardDefense = " + std::to_string(rewardDefense) + " WHERE stateID = " + std::to_string(ID) 
+    + " WHERE stateID = " + std::to_string(ID) 
     + " AND taskID= " + std::to_string(taskID);
     pDatabase->update(update, con);
     con->commit();

@@ -22,7 +22,6 @@ private:
     int nextState;
     float cost;
     float Q;
-    float QDefend;
   
 public:
     Transition();
@@ -55,10 +54,7 @@ public:
     
     float getQ() {return Q;};
     void setQ(float value) {Q = value;};
-    
-    float getQDefend() {return QDefend;};
-    void setQDefend(float value) {QDefend = value;};
-    
+        
     float computeCost();
     
     std::string toString();

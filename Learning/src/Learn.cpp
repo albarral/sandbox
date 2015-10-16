@@ -14,33 +14,21 @@ Learn::Learn()
     gamma = 0.8;   
 }
 
-// QAttack(state, action) = RewardAttack(state, action) + gamma * max [QAttack(next state, all actions)]
-float Learn::computeQAttack(State& oState)
+// Q(state, action) = Reward(state, action) + gamma * max [Q(next state, all actions)]
+float Learn::computeQ(State& oState)
 {
-    float rewardA, QNextState, QAttack;
+    float reward, QNextState, Q;
      
-    rewardA = oState.getReward();    
-    QNextState = maxQAttackValue(oState);
+    reward = oState.getReward();    
+    QNextState = maxQValue(oState);
     
-    QAttack = rewardA + gamma * QNextState;
+    Q = reward + gamma * QNextState;
        
-    return QAttack;
+    return Q;
 }
 
-// QDefend(state, action) = RewardDefend(state, action) + gamma * max [QDefend(next state, all actions)]
-float Learn::computeQDefend(State& oState)
-{
-    float rewardD, QNextState, QDefend;
-     
-    rewardD = oState.getRewardDefense();    
-    QNextState = maxQDefendValue(oState);
-    
-    QDefend = rewardD + gamma * QNextState;
-       
-    return QDefend;
-}
 
-float Learn::maxQAttackValue(State& oState)
+float Learn::maxQValue(State& oState)
 {
     float maxQ = 0.0;
     float Q;
@@ -51,27 +39,6 @@ float Learn::maxQAttackValue(State& oState)
     while (it_transition != it_end)
     {
         Q = it_transition->getQ();
-        
-        if (Q > maxQ)
-        {
-            maxQ = Q;            
-        }
-        it_transition ++;
-    }
-    return maxQ;
-}
-
-float Learn::maxQDefendValue(State& oState)
-{
-    float maxQ = 0.0;
-    float Q;
-    std::vector<sam::Transition>& listTransition = oState.getListTransitions();
-    
-    std::vector<sam::Transition>::iterator it_transition = listTransition.begin();
-    std::vector<sam::Transition>::iterator it_end = listTransition.end();
-    while (it_transition != it_end)
-    {
-        Q = it_transition->getQDefend();
         
         if (Q > maxQ)
         {

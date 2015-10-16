@@ -35,7 +35,7 @@ public:
     // applies deduced action to the given row, column or diagonal
     void applyAction2Row (int row, int& x, int& y);
     void applyAction2Column (int col, int& x, int& y);
-    void applyAction2Diagonal (int num, int& x, int& y);
+    void applyAction2Diagonal (int lineType, int& x, int& y);
 
     std::vector<int>& getListActions() {return listActions;}    
     

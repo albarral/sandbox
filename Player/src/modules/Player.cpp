@@ -38,13 +38,24 @@ void Player::init(GameBoard& oGameBoard, GameFlow& oGameFlow)
     if (oPlayerIdentity.isSmartPlayer())
     {
         LOG4CXX_INFO(logger, "Smart player: load game task ... (CREATED, NOT YET IN DATABASE)");     
-        // TEMPORAL: Till not read from DB the game task will be built directly here.
-        TaskFactory::buildTicTacToeTask(oGameTask);         
-        TaskFactory::describeTask(oGameTask);
         
-        // set rewards of task states using my attack & defense sensibilty
-        Strategy2::updateGameTaskRewards(oGameTask, oRewardCalculator);
-        oStrategy2.init(oGameTask);            
+        // prepare attack task & strategy
+        oAttackTask.setID(1);
+        // TEMPORAL: Till not read from DB the game task will be built directly here.
+        TaskFactory::buildTicTacToeTask(oAttackTask);         
+        TaskFactory::describeTask(oAttackTask);
+        // set rewards for attack & defense tasks
+        Strategy2::updateGameTaskRewards(oAttackTask, oRewardCalculator);
+        oAttackStrategy.init(oAttackTask);            
+        
+        // prepare defense task & strategy
+        oDefenseTask.setID(2);
+        // TEMPORAL: Till not read from DB the game task will be built directly here.
+        TaskFactory::buildTicTacToeTask(oDefenseTask);         
+        TaskFactory::describeTask(oDefenseTask);
+        // set rewards for attack & defense tasks        
+        Strategy2::updateGameTaskRewards(oDefenseTask, oRewardCalculator);
+        oDefenseStrategy.init(oDefenseTask);            
     }
 };
 
@@ -122,14 +133,15 @@ void Player::chooseCell()
     // SMART (LEARNING BASED)
     if (oPlayerIdentity.isSmartPlayer())
     {
-        oStrategy2.playSmart(matrix, oPlayerIdentity.getMyMark());
+        oAttackStrategy.playSmart(matrix, oPlayerIdentity.getMyMark());
+        oDefenseStrategy.playSmart(matrix, oPlayerIdentity.getMyMark());
         
         // attack move
-        if (oStrategy2.getBestAttackReward() >= oStrategy2.getBestDefenseReward())
-            pBestMove = oStrategy2.getBestAttackMove();
+        if (oAttackStrategy.getBestReward() >= oDefenseStrategy.getBestReward())
+            pBestMove = oAttackStrategy.getBestMove();
         // defensive move
         else
-            pBestMove = oStrategy2.getBestDefenseMove();            
+            pBestMove = oDefenseStrategy.getBestMove();            
     }
     // NO LEARNING    
     else

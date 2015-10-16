@@ -45,7 +45,7 @@ void Line::checkColumn(int col, int myMark, int emptyMark)
 }
 
 // checks the cells in the specified matrix diagonal (1 for first diagonal, 2 for second one) 
-void Line::checkDiagonal(int num, int myMark, int emptyMark)
+void Line::checkDiagonal(int lineType, int myMark, int emptyMark)
 {
     this->myMark = myMark;
     this->emptyMark = emptyMark;
@@ -55,7 +55,7 @@ void Line::checkDiagonal(int num, int myMark, int emptyMark)
         return;
         
     reset();
-    if (num == 1)
+    if (lineType == eLINE_DIAG1)
     {
         // walk first diagonal (from NW to SE)
         for (int k=0; k<mat.rows; k++)
@@ -63,7 +63,7 @@ void Line::checkDiagonal(int num, int myMark, int emptyMark)
             checkCell(k, k, k);  
         }
     }
-    else if (num == 2)
+    else if (lineType == eLINE_DIAG2)
     {
         // walk second diagonal (from NE to SW)
         int topColumn = mat.cols - 1;

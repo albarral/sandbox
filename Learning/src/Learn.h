@@ -26,12 +26,10 @@ public:
     void setGamma(float value) {gamma = value;};
 
     // Compute the Q value from a state with one connection
-    float computeQAttack(State& oState);
-    float computeQDefend(State& oState);
+    float computeQ(State& oState);
    
 private:    
-    float maxQAttackValue(State& oState);
-    float maxQDefendValue(State& oState);
+    float maxQValue(State& oState);
 };
 
 }
