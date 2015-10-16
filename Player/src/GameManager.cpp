@@ -26,14 +26,20 @@ void GameManager::startModules()
     oSamIdentity.setPlayMode(PlayerIdentity::eMODE_SMART);
 
     // Define TAM's identity
-    PlayerIdentity& oTamIdentity = oTam.getPlayerIdentity();
-    oTamIdentity.setID("TAM");
-    oTamIdentity.setMyMark(2);
-    oTamIdentity.setPlayMode(PlayerIdentity::eMODE_SIMPLE);
+//    PlayerIdentity& oTamIdentity = oTam.getPlayerIdentity();
+//    oTamIdentity.setID("TAM");
+//    oTamIdentity.setMyMark(2);
+//    oTamIdentity.setPlayMode(PlayerIdentity::eMODE_SIMPLE);
+    
+    // Define user's identity
+    PlayerIdentity& oHumanIdentity = oTam.getPlayerIdentity();
+    oHumanIdentity.setID("human");
+    oHumanIdentity.setMyMark(2);
 
     // init game flow & assign first turn randomly
     oGameFlow.addPlayer(oSamIdentity);
-    oGameFlow.addPlayer(oTamIdentity);
+//    oGameFlow.addPlayer(oTamIdentity);
+    oGameFlow.addPlayer(oHumanIdentity);
     oGameFlow.initTurn();
 
     // init SAM agent
@@ -42,9 +48,9 @@ void GameManager::startModules()
     oSam.on();
 
     // init TAM agent    
-    oTam.init(oGameBoard, oGameFlow);
-    oTam.setFrequency(2.0);
-    oTam.on();
+//    oTam.init(oGameBoard, oGameFlow);
+//    oTam.setFrequency(2.0);
+//    oTam.on();
     
     // Informer module added (stores game progress in DB for external monitoring)
     oInformer.init(oGameBoard, oGameFlow);

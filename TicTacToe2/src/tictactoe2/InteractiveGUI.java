@@ -37,10 +37,9 @@ public class InteractiveGUI extends javax.swing.JFrame {
     int cell8 = 0;
     int cell9 = 0;
     int bStatus = 0;
-    int turn = 0;
-    int previusStatus = 0;
-    String mark = "";
-    int chooseTurn = 0;
+    String turn = "";
+    String myMark = "";
+    String SamMark = "";
     
     public InteractiveGUI() {
         initComponents();
@@ -451,12 +450,10 @@ public class InteractiveGUI extends javax.swing.JFrame {
         if (answer == JOptionPane.YES_OPTION) 
         {
             System.out.println("yes");
-            chooseTurn = 0;
         }
         else if (answer == JOptionPane.NO_OPTION) 
         {
             System.out.println("no");
-            chooseTurn = 0;
         }
         else 
         {
@@ -469,99 +466,102 @@ public class InteractiveGUI extends javax.swing.JFrame {
         dialogButton2, JOptionPane.QUESTION_MESSAGE, null, buttons, buttons[1]);
         if (returnValue == 0) // O
         {
-            mark = "O";
+            myMark = "O";
+            SamMark = "X";
             System.out.println("0: choose O");
             
         }    
         else if (returnValue == 1) // X
         {
             System.out.println("1: choose X");
-            mark = "X";
+            myMark = "O";
+            SamMark = "X";
         }
         else
         {
             System.out.println("no option");
-            mark = "O";
+            myMark = "O";
+            SamMark = "X";
         }
     }
     
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
         // TODO add your handling code here:
-        if("".equals(jLabel3.getText()) && chooseTurn == 0)
+        if("".equals(jLabel3.getText()) && "human".equals(turn))
         {
-            jLabel3.setText(mark);  
+            jLabel3.setText(myMark);  
             saveMovement();
         }      
     }//GEN-LAST:event_jPanel1MouseClicked
 
     private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
         // TODO add your handling code here:
-        if("".equals(jLabel4.getText()) && chooseTurn == 0) 
+        if("".equals(jLabel4.getText()) && "human".equals(turn)) 
         {
-            jLabel4.setText(mark);
+            jLabel4.setText(myMark);
             saveMovement();
         }
     }//GEN-LAST:event_jPanel2MouseClicked
 
     private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
         // TODO add your handling code here:
-        if("".equals(jLabel5.getText()) && chooseTurn == 0) 
+        if("".equals(jLabel5.getText()) && "human".equals(turn)) 
         {
-            jLabel5.setText(mark);
+            jLabel5.setText(myMark);
             saveMovement();
         }
     }//GEN-LAST:event_jPanel3MouseClicked
 
     private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
         // TODO add your handling code here:
-        if("".equals(jLabel6.getText()) && chooseTurn == 0) 
+        if("".equals(jLabel6.getText()) && "human".equals(turn)) 
         {
-            jLabel6.setText(mark);
+            jLabel6.setText(myMark);
             saveMovement();
         }
     }//GEN-LAST:event_jPanel4MouseClicked
 
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
         // TODO add your handling code here:
-        if("".equals(jLabel7.getText()) && chooseTurn == 0)
+        if("".equals(jLabel7.getText()) && "human".equals(turn))
         {
-            jLabel7.setText(mark);
+            jLabel7.setText(myMark);
             saveMovement();
         }
     }//GEN-LAST:event_jPanel5MouseClicked
 
     private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
         // TODO add your handling code here:
-        if("".equals(jLabel8.getText()) && chooseTurn == 0) 
+        if("".equals(jLabel8.getText()) && "human".equals(turn)) 
         {
-            jLabel8.setText(mark);
+            jLabel8.setText(myMark);
             saveMovement();
         }
     }//GEN-LAST:event_jPanel6MouseClicked
 
     private void jPanel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseClicked
         // TODO add your handling code here:
-        if("".equals(jLabel9.getText()) && chooseTurn == 0) 
+        if("".equals(jLabel9.getText()) && "human".equals(turn)) 
         {
-            jLabel9.setText(mark);
+            jLabel9.setText(myMark);
             saveMovement();
         }
     }//GEN-LAST:event_jPanel7MouseClicked
 
     private void jPanel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseClicked
         // TODO add your handling code here:
-        if("".equals(jLabel10.getText()) && chooseTurn == 0)
+        if("".equals(jLabel10.getText()) && "human".equals(turn))
         {
-            jLabel10.setText(mark);
+            jLabel10.setText(myMark);
             saveMovement();
         }
     }//GEN-LAST:event_jPanel8MouseClicked
 
     private void jPanel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel9MouseClicked
         // TODO add your handling code here:
-        if("".equals(jLabel11.getText()) && chooseTurn == 0)
+        if("".equals(jLabel11.getText()) && "human".equals(turn))
         {
-            jLabel11.setText(mark);
+            jLabel11.setText(myMark);
             saveMovement();
         }
     }//GEN-LAST:event_jPanel9MouseClicked
@@ -570,72 +570,72 @@ public class InteractiveGUI extends javax.swing.JFrame {
     {
         tryID++;
                         
-                        String value;
-                        value = jLabel3.getText();
-                        if ("X".equals(value))                        
-                            cell1 = 1;
-                        else if("O".equals(value))
-                            cell1 = 2;
-                        else cell1 = 0;
+        String value;
+        value = jLabel3.getText();
+        if ("X".equals(value))                        
+            cell1 = 1;
+        else if("O".equals(value))
+            cell1 = 2;
+        else cell1 = 0;
                         
-                        value = jLabel4.getText();
-                        if ("X".equals(value))                        
-                            cell2 = 1;
-                        else if("O".equals(value))
-                            cell2 = 2;
-                        else cell2 = 0;
+        value = jLabel4.getText();
+        if ("X".equals(value))                        
+            cell2 = 1;
+        else if("O".equals(value))
+            cell2 = 2;
+        else cell2 = 0;
                         
-                        value = jLabel5.getText();
-                        if ("X".equals(value))                        
-                            cell3 = 1;
-                        else if("O".equals(value))
-                            cell3 = 2;
-                        else cell3 = 0;
+        value = jLabel5.getText();
+        if ("X".equals(value))                        
+            cell3 = 1;
+        else if("O".equals(value))
+            cell3 = 2;
+        else cell3 = 0;
 
-                        value = jLabel6.getText();
-                        if ("X".equals(value))                        
-                            cell4 = 1;
-                        else if("O".equals(value))
-                            cell4 = 2;
-                        else cell4 = 0;
+        value = jLabel6.getText();
+        if ("X".equals(value))                        
+            cell4 = 1;
+        else if("O".equals(value))
+            cell4 = 2;
+        else cell4 = 0;
                         
-                        value = jLabel7.getText();
-                        if ("X".equals(value))                        
-                            cell5 = 1;
-                        else if("O".equals(value))
-                            cell5 = 2;
-                        else cell5 = 0;
+        value = jLabel7.getText();
+        if ("X".equals(value))                        
+            cell5 = 1;
+        else if("O".equals(value))
+            cell5 = 2;
+        else cell5 = 0;
                         
-                        value = jLabel8.getText();
-                        if ("X".equals(value))                        
-                            cell6 = 1;
-                        else if("O".equals(value))
-                            cell6 = 2;
-                        else cell6 = 0;
+        value = jLabel8.getText();
+        if ("X".equals(value))                        
+            cell6 = 1;
+        else if("O".equals(value))
+            cell6 = 2;
+        else cell6 = 0;
                         
-                        value = jLabel9.getText();
-                        if ("X".equals(value))                        
-                            cell7 = 1;
-                        else if("O".equals(value))
-                            cell7 = 2;
-                        else cell7 = 0;
+        value = jLabel9.getText();
+        if ("X".equals(value))                        
+            cell7 = 1;
+        else if("O".equals(value))
+            cell7 = 2;
+        else cell7 = 0;
                         
-                        value = jLabel10.getText();
-                        if ("X".equals(value))                        
-                            cell8 = 1;
-                        else if("O".equals(value))
-                            cell8 = 2;
-                        else cell8 = 0;
+        value = jLabel10.getText();
+        if ("X".equals(value))                        
+            cell8 = 1;
+        else if("O".equals(value))
+            cell8 = 2;
+        else cell8 = 0;
                         
-                        value = jLabel11.getText();
-                        if ("X".equals(value))                        
-                            cell9 = 1;
-                        else if("O".equals(value))
-                            cell9 = 2;
-                        else cell9 = 0;
+        value = jLabel11.getText();
+        if ("X".equals(value))                        
+            cell9 = 1;
+        else if("O".equals(value))
+            cell9 = 2;
+        else cell9 = 0;
                         
-                        //chooseTurn++;
-                        storeInMemo();          
+        turn = "next";
+        storeInMemo();          
     }
     
     public void loadFromMemo()
@@ -661,7 +661,7 @@ public class InteractiveGUI extends javax.swing.JFrame {
                     cell8 = resultSet.getInt("cell21");
                     cell9 = resultSet.getInt("cell22");
                     bStatus = resultSet.getInt("boardStatus");   
-                    turn = resultSet.getInt("turn");
+                    turn = resultSet.getString("turn");
                 }
             }
         } catch(SQLException e){
@@ -688,7 +688,7 @@ public class InteractiveGUI extends javax.swing.JFrame {
             preparedStatement.setInt(9, cell8);
             preparedStatement.setInt(10, cell9);
             preparedStatement.setInt(11, 1);           
-            preparedStatement.setInt(12, chooseTurn);
+            preparedStatement.setString(12, turn);
             preparedStatement.executeUpdate();
                       
         } catch(SQLException e){
@@ -729,10 +729,11 @@ public class InteractiveGUI extends javax.swing.JFrame {
             protected Void doInBackground() throws Exception 
             {
                 connectDB();
+                loadFromMemo();
                 
                 while (true){
                     
-                    if (chooseTurn == 1)
+                    if ("next".equals(turn) || "SAM".equals(turn))
                     {
                         loadFromMemo();
 
@@ -820,11 +821,11 @@ public class InteractiveGUI extends javax.swing.JFrame {
                         else jLabel11.setText("");
                     
                     }
-                    
-                    if (turn == 0)  
-                        jTextField1.setText("YOU");
-                    else if (turn == 1)
-                        jTextField1.setText("TAM");
+
+                    if ("SAM".equals(turn) || "next".equals(turn))  
+                        jTextField1.setText("SAM");
+                    else if ("human".equals(turn))
+                        jTextField1.setText("Your turn");
                     else jTextField1.setText("");
                     
                     if (bStatus == 2)
@@ -844,10 +845,11 @@ public class InteractiveGUI extends javax.swing.JFrame {
                     }  
                     else if (bStatus == 3)
                     {
-                        if (previusStatus == 0)
-                            jTextField2.setText("YOU");
-                        else if (previusStatus == 1)
-                            jTextField2.setText("TAM"); 
+                        if ("SAM".equals(turn) || "next".equals(turn))
+                            jTextField2.setText("YOU WIN!");
+                        else if ("human".equals(turn))
+                            jTextField2.setText("SAM"); 
+                        jTextField1.setText("");
                         
                         jTextField1.setText("");                       
                         jPanel1.setEnabled(false);
@@ -858,21 +860,14 @@ public class InteractiveGUI extends javax.swing.JFrame {
                         jPanel6.setEnabled(false);
                         jPanel7.setEnabled(false);
                         jPanel8.setEnabled(false);
-                        jPanel9.setEnabled(false);
-                        
+                        jPanel9.setEnabled(false);                       
                     }      
                     else 
-                    {
                         jTextField2.setText("");
-                        if (turn < 2)
-                            previusStatus = turn;
-                    }
-                       
-                    Thread.sleep(500);
-                }
-                
-            }
 
+                    Thread.sleep(500);
+                }               
+            }
         };
         worker.execute();
         ExitApp();
