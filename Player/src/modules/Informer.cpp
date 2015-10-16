@@ -43,8 +43,22 @@ void Informer::first()
 
 void Informer::loop()
 {
+    std::string turn;
+    std::string sel = "SELECT turn FROM TAB_BOARD WHERE tryID = " + std::to_string(moveID); //moveID +1 ?
+    sql::ResultSet* res = oDatabase.select(sel, con);
+      
+    while (res->next())
+    {       
+        turn = res->getString("turn");        
+    }
+    
+    if (turn == "next")
+    {
+        pGameFlow->changeTurn();
+        loadGameState();
+    }
     // If number of moves has changed store new values of board cells in database
-    if(pGameFlow->getNumMoves() != moveID)
+    else if (pGameFlow->getNumMoves() != moveID)
     {
         moveID = pGameFlow->getNumMoves();
         
@@ -58,10 +72,11 @@ void Informer::storeGameState()
     LOG4CXX_INFO(logger, "Store game state - move " << moveID);     
 
     cv::Mat matrix = pGameBoard->getMatrix();
-        
+    
+    PlayerIdentity* pPlayerIdentity = pGameFlow->getPlayerWithTurn();    
     // insert new move (without cells info)
     std::string insert = "INSERT INTO TAB_BOARD (tryID, boardStatus, turn) VALUES (" + std::to_string(moveID) 
-            + ", " + std::to_string(pGameFlow->getStatus()) + ", " + std::to_string(pGameFlow->getTurn()) + ")";
+            + ", " + std::to_string(pGameFlow->getStatus()) + ", '" + pPlayerIdentity->getID() + "' )";
     oDatabase.update(insert, con);
 
     // update cells info
@@ -77,6 +92,24 @@ void Informer::storeGameState()
     con->commit();
 }
 
+void Informer::loadGameState()
+{
+    std::string sel = "SELECT * FROM TAB_BOARD WHERE tryID = " + std::to_string(moveID);
+    sql::ResultSet* res = oDatabase.select(sel, con);
+      
+    while (res->next())
+    {       
+        pGameBoard->markCell(res->getInt("Cell00"), 0, 0);
+        pGameBoard->markCell(res->getInt("Cell01"), 0, 1);
+        pGameBoard->markCell(res->getInt("Cell02"), 0, 2);
+        pGameBoard->markCell(res->getInt("Cell10"), 1, 0);
+        pGameBoard->markCell(res->getInt("Cell11"), 1, 1);
+        pGameBoard->markCell(res->getInt("Cell12"), 1, 2);
+        pGameBoard->markCell(res->getInt("Cell20"), 2, 0);
+        pGameBoard->markCell(res->getInt("Cell21"), 2, 1);
+        pGameBoard->markCell(res->getInt("Cell22"), 2, 2);
+    }
+}
 
 // clears from DB the stored info of last game (TAB_BOARD)
 void Informer::clearGameHistory()

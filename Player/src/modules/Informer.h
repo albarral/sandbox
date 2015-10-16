@@ -43,6 +43,8 @@ private:
     
     // stores in DB the present state of the game board (TAB_BOARD)
     void storeGameState();
+    // stores in matrix the present state of the game board in database
+    void loadGameState();
     // clears from DB the stored info of last game (TAB_BOARD)
     void clearGameHistory();        
     // gets from DB the ID of the most recent stored game state (TAB_BOARD)

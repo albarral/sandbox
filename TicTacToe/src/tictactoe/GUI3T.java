@@ -35,8 +35,8 @@ public class GUI3T extends javax.swing.JFrame {
     int cell8 = 0;
     int cell9 = 0;
     int bStatus = 0;
-    int turn = 0;
-    int previusStatus = 0;
+    String turn = "";
+    String previusStatus = "";
 
     public GUI3T() {
         initComponents();
@@ -416,7 +416,7 @@ public class GUI3T extends javax.swing.JFrame {
                     cell8 = resultSet.getInt("cell21");
                     cell9 = resultSet.getInt("cell22");
                     bStatus = resultSet.getInt("boardStatus");   
-                    turn = resultSet.getInt("turn");
+                    turn = resultSet.getString("turn");
                 }
             }
         } catch(SQLException e){
@@ -546,9 +546,9 @@ public class GUI3T extends javax.swing.JFrame {
                     }
                     else jLabel11.setText("");
                     
-                    if (turn == 0)  
+                    if ("SAM".equals(turn))  
                         jTextField1.setText("SAM");
-                    else if (turn == 1)
+                    else if ("TAM".equals(turn))
                         jTextField1.setText("TAM");
                     else jTextField1.setText("");
                     
@@ -559,18 +559,14 @@ public class GUI3T extends javax.swing.JFrame {
                     }  
                     else if (bStatus == 3)
                     {
-                        if (previusStatus == 0)
-                            jTextField2.setText("SAM");
-                        else if (previusStatus == 1)
-                            jTextField2.setText("TAM"); 
+                        if ("SAM".equals(turn))
+                            jTextField2.setText("TAM");
+                        else if ("TAM".equals(turn))
+                            jTextField2.setText("SAM"); 
                         jTextField1.setText("");
                     }      
                     else 
-                    {
                         jTextField2.setText("");
-                        if (turn < 2)
-                            previusStatus = turn;
-                    }
                        
                     Thread.sleep(500);
                 }
