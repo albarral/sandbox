@@ -58,10 +58,11 @@ void Informer::storeGameState()
     LOG4CXX_INFO(logger, "Store game state - move " << moveID);     
 
     cv::Mat matrix = pGameBoard->getMatrix();
-        
+    
+    PlayerIdentity* pPlayerIdentity = pGameFlow->getPlayerWithTurn();    
     // insert new move (without cells info)
     std::string insert = "INSERT INTO TAB_BOARD (tryID, boardStatus, turn) VALUES (" + std::to_string(moveID) 
-            + ", " + std::to_string(pGameFlow->getStatus()) + ", " + std::to_string(pGameFlow->getTurn()) + ")";
+            + ", " + std::to_string(pGameFlow->getStatus()) + ", '" + pPlayerIdentity->getID() + "' )";
     oDatabase.update(insert, con);
 
     // update cells info
