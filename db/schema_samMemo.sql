@@ -133,3 +133,25 @@ CREATE TABLE IF NOT EXISTS TAB_BOARD
 ALTER TABLE TAB_BOARD
 ADD CONSTRAINT PK_BOARD PRIMARY KEY (tryID);
 
+--- -----------------------------------------------------
+--- Table `samMemo`.`TAB_STATES_PLAYER`
+--- -----------------------------------------------------
+
+DROP TABLE IF EXISTS TAB_STATES_PLAYER;
+
+CREATE TABLE IF NOT EXISTS TAB_STATES_PLAYER 
+(
+  taskID INT NOT NULL,
+  stateID INT NOT NULL,
+  cell0 INT NULL,
+  cell1 INT NULL,
+  cell2 INT NULL,
+  numMines INT NULL,
+  numOthers INT NULL,
+  dVictory INT NULL,
+  dDefeat INT NULL
+);
+
+ALTER TABLE TAB_STATES_PLAYER
+ADD CONSTRAINT PK_TRANSITIONS PRIMARY KEY (taskID, stateID);
+
