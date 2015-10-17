@@ -41,11 +41,6 @@ public:
     float getBestReward() {return bestReward;}
     int* getBestMove() {return bestMove;}
 
-    // sets the rewards of the given GameTask using the specified calculator
-    static void updateGameTaskRewards(GameTask& oGameTask, RewardCalculator& oRewardCalculator);    
-    static void computeStateDistances(GameState& oGameState);
-    static void updateStateRewards(GameState& oGameState, RewardCalculator& oRewardCalculator);
-
 private:
     // checks if the given line holds the best move in the board 
     void checkBestMoveInLine(int lineType, int linePosition, Line& oLine);

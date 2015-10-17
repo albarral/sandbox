@@ -212,45 +212,6 @@ Transition* Strategy2::findBestTransition(std::vector<sam::Transition>& listTran
     return winner;
 }
 
- // sets the rewards of the given GameTask using the specified calculator
-void Strategy2::updateGameTaskRewards(GameTask& oGameTask, RewardCalculator& oRewardCalculator)
-{        
-    std::vector<sam::GameState>::iterator it_gameState = oGameTask.getListGameStates().begin();
-    std::vector<sam::GameState>::iterator it_end = oGameTask.getListGameStates().end();
-    
-    while (it_gameState != it_end)
-    { 
-        GameState& oGameState = *it_gameState;
-        int* cell = it_gameState->getCells(); // ESTO LO QUIERES PARA ALGO???
-        
-        computeStateDistances(oGameState);
-        updateStateRewards(oGameState, oRewardCalculator);
-        it_gameState++;
-    }
-}
-
-//calculate the distances and store them
-void Strategy2::computeStateDistances(GameState& oGameState)
-{    
-    int mines = oGameState.getNumMines();
-    int others = oGameState.getNumOthers();
-    
-    int distanceVictory = GameDistance::computeDistance2Victory(mines, others);
-    oGameState.setDVictory(distanceVictory);
-    
-    int distanceDefeat = GameDistance::computeDistance2Defeat(mines, others);
-    oGameState.setDDefeat(distanceDefeat);
-}
-
-//calculate the rewards and store them
-void Strategy2::updateStateRewards(GameState& oGameState, RewardCalculator& oRewardCalculator)
-{
-    float rewardAttack = oRewardCalculator.computeAttackReward(oRewardCalculator.getKAttack(), oGameState.getDVictory(), oRewardCalculator.getDMaxVictory());
-    oGameState.setReward(rewardAttack);
-    
-    float rewardDefend = oRewardCalculator.computeDefendReward(oRewardCalculator.getKDefend(), oGameState.getDDefeat(), oRewardCalculator.getDMaxDefeat());
-    oGameState.setRewardDefense(rewardDefend);
-}
 
 std::string Strategy2::toStringBestMove()
 {

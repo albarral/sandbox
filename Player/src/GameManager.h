@@ -17,8 +17,16 @@ namespace sam
 {
 class GameManager
 {
+public:    
+    enum eGameType
+    {
+        eGAME_SAM_VS_TAM,
+        eGAME_SAM_VS_HUMAN
+    };
+
 private:
     static log4cxx::LoggerPtr logger;
+    int gameType;
     GameBoard oGameBoard;
     GameFlow oGameFlow;
     Player oSam;
@@ -27,6 +35,8 @@ private:
     
 public:
     GameManager();
+    
+    void setGameType(int type) {gameType = type;};
     
     void startModules();
     void stopModules();

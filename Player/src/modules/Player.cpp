@@ -12,6 +12,7 @@
 #include "learn/GameTask.h"
 #include "learn/GameState.h"
 #include "learn/GameDistance.h"
+#include "learn/TaskReward.h"
 #include "TaskFactory.h"
 
 namespace sam 
@@ -43,19 +44,20 @@ void Player::init(GameBoard& oGameBoard, GameFlow& oGameFlow)
         oAttackTask.setID(1);
         // TEMPORAL: Till not read from DB the game task will be built directly here.
         TaskFactory::buildTicTacToeTask(oAttackTask);         
-        TaskFactory::describeTask(oAttackTask);
-        // set rewards for attack & defense tasks
-        Strategy2::updateGameTaskRewards(oAttackTask, oRewardCalculator);
+        // set rewards for attack task        
+        TaskReward::setTaskRewards(oAttackTask, TaskReward::eTASK_T3_ATTACK);
         oAttackStrategy.init(oAttackTask);            
         
         // prepare defense task & strategy
         oDefenseTask.setID(2);
         // TEMPORAL: Till not read from DB the game task will be built directly here.
         TaskFactory::buildTicTacToeTask(oDefenseTask);         
-        TaskFactory::describeTask(oDefenseTask);
-        // set rewards for attack & defense tasks        
-        Strategy2::updateGameTaskRewards(oDefenseTask, oRewardCalculator);
+        // set rewards for defense task        
+        TaskReward::setTaskRewards(oDefenseTask, TaskReward::eTASK_T3_DEFENSE);
         oDefenseStrategy.init(oDefenseTask);            
+
+        TaskFactory::describeTask(oAttackTask);
+        TaskFactory::describeTask(oDefenseTask);
     }
 };
 

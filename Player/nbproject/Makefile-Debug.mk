@@ -43,6 +43,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/learn/GameDistance.o \
 	${OBJECTDIR}/src/learn/GameState.o \
 	${OBJECTDIR}/src/learn/GameTask.o \
+	${OBJECTDIR}/src/learn/TaskReward.o \
 	${OBJECTDIR}/src/main.o \
 	${OBJECTDIR}/src/modules/Informer.o \
 	${OBJECTDIR}/src/modules/Line.o \
@@ -120,6 +121,11 @@ ${OBJECTDIR}/src/learn/GameTask.o: src/learn/GameTask.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/learn
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/learn/GameTask.o src/learn/GameTask.cpp
+
+${OBJECTDIR}/src/learn/TaskReward.o: src/learn/TaskReward.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/learn
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/learn/TaskReward.o src/learn/TaskReward.cpp
 
 ${OBJECTDIR}/src/main.o: src/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
