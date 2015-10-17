@@ -20,7 +20,6 @@ private:
     int taskID;
     int stateID;
     int nextState;
-    float cost;
     float Q;
   
 public:
@@ -49,13 +48,8 @@ public:
     int getNextState() {return nextState;};
     void setNextState(int value) {nextState = value;};
     
-    float getCost() {return cost;};
-    void setCost(float value) {cost = value;};
-    
     float getQ() {return Q;};
     void setQ(float value) {Q = value;};
-        
-    float computeCost();
     
     std::string toString();
 };
