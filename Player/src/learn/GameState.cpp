@@ -40,9 +40,6 @@ void GameState::loadFromMemo2(Database* pDatabase, sql::Connection* con)
         dVictory = res->getInt("dVictory");
         dDefeat = res->getInt("dDefeat");
     }
-    
-    transitionsFromMemo(pDatabase, con);
-    loadTransitions(pDatabase, con);
 }
 
 void GameState::storeInMemo2(Database* pDatabase, sql::Connection* con)
@@ -53,8 +50,6 @@ void GameState::storeInMemo2(Database* pDatabase, sql::Connection* con)
             + ", " + std::to_string(numMines) + + ", " + std::to_string(numOthers) + ", " + std::to_string(dVictory) 
             + ", " + std::to_string(dDefeat) + ")";    
     pDatabase->update(insertDB, con);
-    
-    storeTransitions(pDatabase, con);
 }
 
 void GameState::upDateInMemo2(Database* pDatabase)
