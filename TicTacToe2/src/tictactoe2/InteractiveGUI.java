@@ -438,32 +438,17 @@ public class InteractiveGUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        options();
+        option();
         init();
         jButton1.setEnabled(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    public void options()
+    public void option()
     {
         int dialogButton = JOptionPane.YES_NO_OPTION;
-        int answer = JOptionPane.showConfirmDialog (null, "Do you want to start?","", dialogButton);
-        if (answer == JOptionPane.YES_OPTION) 
-        {
-            System.out.println("yes");
-        }
-        else if (answer == JOptionPane.NO_OPTION) 
-        {
-            System.out.println("no");
-        }
-        else 
-        {
-            System.out.println("no option");
-        }
-        
-        int dialogButton2 = JOptionPane.YES_NO_OPTION;
         String[] buttons = { "O", "X"};
         int returnValue = JOptionPane.showOptionDialog(null, "Which piece do you want?", "",
-        dialogButton2, JOptionPane.QUESTION_MESSAGE, null, buttons, buttons[1]);
+        dialogButton, JOptionPane.QUESTION_MESSAGE, null, buttons, buttons[1]);
         if (returnValue == 0) // O
         {
             myMark = "O";
