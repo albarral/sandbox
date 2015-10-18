@@ -474,8 +474,8 @@ public class InteractiveGUI extends javax.swing.JFrame {
         else if (returnValue == 1) // X
         {
             System.out.println("1: choose X");
-            myMark = "O";
-            SamMark = "X";
+            myMark = "X";
+            SamMark = "O";
         }
         else
         {
@@ -572,65 +572,65 @@ public class InteractiveGUI extends javax.swing.JFrame {
                         
         String value;
         value = jLabel3.getText();
-        if ("X".equals(value))                        
+        if (SamMark.equals(value))                        
             cell1 = 1;
-        else if("O".equals(value))
+        else if(myMark.equals(value))
             cell1 = 2;
         else cell1 = 0;
                         
         value = jLabel4.getText();
-        if ("X".equals(value))                        
+        if (SamMark.equals(value))                        
             cell2 = 1;
-        else if("O".equals(value))
+        else if(myMark.equals(value))
             cell2 = 2;
         else cell2 = 0;
                         
         value = jLabel5.getText();
-        if ("X".equals(value))                        
+        if (SamMark.equals(value))                        
             cell3 = 1;
-        else if("O".equals(value))
+        else if(myMark.equals(value))
             cell3 = 2;
         else cell3 = 0;
 
         value = jLabel6.getText();
-        if ("X".equals(value))                        
+        if (SamMark.equals(value))                        
             cell4 = 1;
-        else if("O".equals(value))
+        else if(myMark.equals(value))
             cell4 = 2;
         else cell4 = 0;
                         
         value = jLabel7.getText();
-        if ("X".equals(value))                        
+        if (SamMark.equals(value))                        
             cell5 = 1;
-        else if("O".equals(value))
+        else if(myMark.equals(value))
             cell5 = 2;
         else cell5 = 0;
                         
         value = jLabel8.getText();
-        if ("X".equals(value))                        
+        if (SamMark.equals(value))                        
             cell6 = 1;
-        else if("O".equals(value))
+        else if(myMark.equals(value))
             cell6 = 2;
         else cell6 = 0;
                         
         value = jLabel9.getText();
-        if ("X".equals(value))                        
+        if (SamMark.equals(value))                        
             cell7 = 1;
-        else if("O".equals(value))
+        else if(myMark.equals(value))
             cell7 = 2;
         else cell7 = 0;
                         
         value = jLabel10.getText();
-        if ("X".equals(value))                        
+        if (SamMark.equals(value))                        
             cell8 = 1;
-        else if("O".equals(value))
+        else if(myMark.equals(value))
             cell8 = 2;
         else cell8 = 0;
                         
         value = jLabel11.getText();
-        if ("X".equals(value))                        
+        if (SamMark.equals(value))                        
             cell9 = 1;
-        else if("O".equals(value))
+        else if(myMark.equals(value))
             cell9 = 2;
         else cell9 = 0;
                         
@@ -741,9 +741,9 @@ public class InteractiveGUI extends javax.swing.JFrame {
                         if (cell1 > 0)
                         {
                             if (cell1 == 1)
-                                jLabel3.setText("X");
+                                jLabel3.setText(SamMark);
                             else if (cell1 == 2)
-                                jLabel3.setText("O");
+                                jLabel3.setText(myMark);
                         }
                         else jLabel3.setText("");
 
@@ -751,72 +751,72 @@ public class InteractiveGUI extends javax.swing.JFrame {
                         if (cell2 > 0)
                         {
                             if (cell2 == 1)
-                                jLabel4.setText("X");
+                                jLabel4.setText(SamMark);
                             else if (cell2 == 2)
-                                jLabel4.setText("O");
+                                jLabel4.setText(myMark);
                         }
                         else jLabel4.setText("");
 
                         if (cell3 > 0)
                         {
                             if (cell3 == 1)
-                                jLabel5.setText("X");
+                                jLabel5.setText(SamMark);
                             else if (cell3 == 2)
-                                jLabel5.setText("O");
+                                jLabel5.setText(myMark);
                         }
                         else jLabel5.setText("");
 
                         if (cell4 > 0)
                         {
                             if (cell4 == 1)
-                                jLabel6.setText("X");
+                                jLabel6.setText(SamMark);
                             else if (cell4 == 2)
-                                jLabel6.setText("O");
+                                jLabel6.setText(myMark);
                         }
                         else jLabel6.setText("");
 
                         if (cell5 > 0)
                         {
                             if (cell5 == 1)
-                                jLabel7.setText("X");
+                                jLabel7.setText(SamMark);
                             else if (cell5 == 2)
-                                jLabel7.setText("O");
+                                jLabel7.setText(myMark);
                         }
                         else jLabel7.setText("");
 
                         if (cell6 > 0)
                         {
                             if (cell6 == 1)
-                                jLabel8.setText("X");
+                                jLabel8.setText(SamMark);
                             else if (cell6 == 2)
-                                jLabel8.setText("O");
+                                jLabel8.setText(myMark);
                         }
                         else jLabel8.setText("");
 
                         if (cell7 > 0)
                         {
                             if (cell7 == 1)
-                                jLabel9.setText("X");
+                                jLabel9.setText(SamMark);
                             else if (cell7 == 2)
-                                jLabel9.setText("O");
+                                jLabel9.setText(myMark);
                         }
                         else jLabel9.setText("");
 
                         if (cell8 > 0)
                         {
                             if (cell8 == 1)
-                                jLabel10.setText("X");
+                                jLabel10.setText(SamMark);
                             else if (cell8 == 2)
-                                jLabel10.setText("O");
+                                jLabel10.setText(myMark);
                         }
                         else jLabel10.setText("");
 
                         if (cell9 > 0)
                         {
                             if (cell9 == 1)
-                                jLabel11.setText("X");
+                                jLabel11.setText(SamMark);
                             else if (cell9 == 2)
-                                jLabel11.setText("O");
+                                jLabel11.setText(myMark);
                         }
                         else jLabel11.setText("");
                     
