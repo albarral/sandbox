@@ -44,15 +44,18 @@ void Informer::first()
 void Informer::loop()
 {
     std::string turn;
-    std::string sel = "SELECT turn FROM TAB_BOARD WHERE tryID = " + std::to_string(moveID); //moveID +1 ?
-    sql::ResultSet* res = oDatabase.select(sel, con);
-      
-    while (res->next())
-    {       
-        turn = res->getString("turn");        
-    }
+    int move = moveID +1;
     
-    if (turn == "next")
+    std::string sel = "SELECT boardStatus FROM TAB_BOARD WHERE tryID = " + std::to_string(move);
+    sql::ResultSet* res = oDatabase.select(sel, con);
+    
+    while (res->absolute(move))
+    {   
+        turn = res->getString(12);    
+        LOG4CXX_INFO(logger, "turn: " + turn);
+    }
+ 
+    if (turn.compare("next") == 0)
     {
         pGameFlow->changeTurn();
         loadGameState();
@@ -94,7 +97,7 @@ void Informer::storeGameState()
 
 void Informer::loadGameState()
 {
-    std::string sel = "SELECT * FROM TAB_BOARD WHERE tryID = " + std::to_string(moveID);
+    std::string sel = "SELECT * FROM TAB_BOARD WHERE tryID = " + std::to_string(pGameFlow->getNumMoves());
     sql::ResultSet* res = oDatabase.select(sel, con);
       
     while (res->next())
@@ -109,6 +112,7 @@ void Informer::loadGameState()
         pGameBoard->markCell(res->getInt("Cell21"), 2, 1);
         pGameBoard->markCell(res->getInt("Cell22"), 2, 2);
     }
+    LOG4CXX_INFO(logger, "\n " << pGameBoard->getMatrix());
 }
 
 // clears from DB the stored info of last game (TAB_BOARD)
