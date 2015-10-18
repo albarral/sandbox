@@ -24,8 +24,6 @@ public:
 private:   
     float kAttack;
     float kDefend;
-    int dMaxVictory;
-    int dMaxDefeat;
     
 public:
     TaskReward();
@@ -35,12 +33,6 @@ public:
     
     float getKDefend() {return kDefend;};
     void setKDefend(float value) {kDefend = value;};
-    
-    int getDMaxVictory() {return dMaxVictory;};
-    void setDMaxVictory(int value) {dMaxVictory = value;};
-    
-    int getDMaxDefeat() {return dMaxDefeat;};
-    void setDMaxDefeat(int value) {dMaxDefeat = value;};
         
     // sets the rewards of the given task depending on its type (T3 attack, T3 defense ...)
     static void setTaskRewards(GameTask& oGameTask, int taskType);
@@ -50,11 +42,6 @@ private:
     static void setRewardT3Attack(GameState& oGameState);
     // sets the reward for a state of the T3 defensive task
     static void setRewardT3Defense(GameState& oGameState);
-    
-//        // sets the rewards of the given GameTask using the specified calculator
-//    static void computeStateDistances(GameState& oGameState);
-//    static void updateStateRewards(GameState& oGameState, RewardCalculator& oRewardCalculator);
-
 };
 
 }

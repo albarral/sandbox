@@ -14,8 +14,6 @@ TaskReward::TaskReward()
     // UNUSED FOR NOW ...
     kAttack = 0;
     kDefend = 0;
-    dMaxVictory = 0;
-    dMaxDefeat = 0;
 }
 
 // Sets the rewards of the given task depending on its type (T3 attack, T3 defense ...)
@@ -64,7 +62,7 @@ void TaskReward::setRewardT3Defense(GameState& oGameState)
 {
     float reward;
     
-    if (oGameState.getNumOthers() == 0 || oGameState.getNumMines() == 0 || oGameState.getNumOthers() < oGameState.getNumMines())
+    if (oGameState.getNumOthers() == 0 || oGameState.getNumMines() == 0 || oGameState.getNumOthers() =< oGameState.getNumMines())
     {
         reward = 0;
     }  
@@ -75,45 +73,5 @@ void TaskReward::setRewardT3Defense(GameState& oGameState)
     
     oGameState.setReward(reward);        
 }
-
-//
-//float TaskReward::computeAttackReward(int kAttack, int dVictory, int dMaxVictory)
-//{  
-//    return (kAttack * (1 - (float(dVictory)/float(dMaxVictory))));
-//}
-//
-//float TaskReward::computeDefendReward(int kDefend, int dDefeat, int dMaxDefeat)
-//{
-//    int Rdefend;
-//    if(dDefeat > 1)
-//        Rdefend = kDefend * 0.5 * (float(dDefeat)/(float(dDefeat)-1));
-//    else 
-//        Rdefend = kDefend;
-//                
-//    return Rdefend;
-//}
-
-////calculate the distances and store them
-//void Strategy2::computeStateDistances(GameState& oGameState)
-//{    
-//    int mines = oGameState.getNumMines();
-//    int others = oGameState.getNumOthers();
-//    
-//    int distanceVictory = GameDistance::computeDistance2Victory(mines, others);
-//    oGameState.setDVictory(distanceVictory);
-//    
-//    int distanceDefeat = GameDistance::computeDistance2Defeat(mines, others);
-//    oGameState.setDDefeat(distanceDefeat);
-//}
-//
-////calculate the rewards and store them
-//void Strategy2::updateStateRewards(GameState& oGameState, RewardCalculator& oRewardCalculator)
-//{
-//    float rewardAttack = oRewardCalculator.computeAttackReward(oRewardCalculator.getKAttack(), oGameState.getDVictory(), oRewardCalculator.getDMaxVictory());
-//    oGameState.setReward(rewardAttack);
-//    
-//    float rewardDefend = oRewardCalculator.computeDefendReward(oRewardCalculator.getKDefend(), oGameState.getDDefeat(), oRewardCalculator.getDMaxDefeat());
-//    oGameState.setRewardDefense(rewardDefend);
-//}
 
 }

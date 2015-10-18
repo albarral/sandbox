@@ -36,7 +36,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/Learn.o \
-	${OBJECTDIR}/src/RewardCalculator.o \
 	${OBJECTDIR}/src/State.o \
 	${OBJECTDIR}/src/Task.o \
 	${OBJECTDIR}/src/Transition.o \
@@ -77,11 +76,6 @@ ${OBJECTDIR}/src/Learn.o: src/Learn.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Learn.o src/Learn.cpp
-
-${OBJECTDIR}/src/RewardCalculator.o: src/RewardCalculator.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/RewardCalculator.o src/RewardCalculator.cpp
 
 ${OBJECTDIR}/src/State.o: src/State.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src

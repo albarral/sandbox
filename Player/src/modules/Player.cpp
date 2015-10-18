@@ -19,13 +19,7 @@ namespace sam
 {
 log4cxx::LoggerPtr Player::logger(log4cxx::Logger::getLogger("sam.player"));
 
-Player::Player() 
-{
-    oRewardCalculator.setKAttack(100);
-    oRewardCalculator.setKDefend(100);  
-    oRewardCalculator.setDMaxVictory(GameDistance::computeDistance2Victory(0,3));
-    oRewardCalculator.setDMaxDefeat(GameDistance::computeDistance2Defeat(3,0));
-}
+Player::Player() {}
 
 void Player::init(GameBoard& oGameBoard, GameFlow& oGameFlow)
 {  
@@ -43,7 +37,7 @@ void Player::init(GameBoard& oGameBoard, GameFlow& oGameFlow)
         // prepare attack task & strategy
         oAttackTask.setID(1);
         // TEMPORAL: Till not read from DB the game task will be built directly here.
-        TaskFactory::buildTicTacToeTask(oAttackTask);         
+        TaskFactory::buildTicTacToeTask(oAttackTask);  
         // set rewards for attack task        
         TaskReward::setTaskRewards(oAttackTask, TaskReward::eTASK_T3_ATTACK);
         oAttackStrategy.init(oAttackTask);            
@@ -51,7 +45,7 @@ void Player::init(GameBoard& oGameBoard, GameFlow& oGameFlow)
         // prepare defense task & strategy
         oDefenseTask.setID(2);
         // TEMPORAL: Till not read from DB the game task will be built directly here.
-        TaskFactory::buildTicTacToeTask(oDefenseTask);         
+        TaskFactory::buildTicTacToeTask(oDefenseTask);   
         // set rewards for defense task        
         TaskReward::setTaskRewards(oDefenseTask, TaskReward::eTASK_T3_DEFENSE);
         oDefenseStrategy.init(oDefenseTask);            
