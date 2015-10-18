@@ -16,7 +16,6 @@
 #include "learn/GameTask.h"
 #include "modules/Line.h"
 #include "modules/Strategy2.h"
-#include "RewardCalculator.h"
 
 namespace sam 
 {
@@ -42,7 +41,6 @@ private:
     bool bemptyCells;
     GameTask oAttackTask;            // ofensive task
     GameTask oDefenseTask;        // defensive task  
-    RewardCalculator oRewardCalculator;
     Strategy2 oAttackStrategy;            // ofensive strategy
     Strategy2 oDefenseStrategy;         // defensive strategy 
 

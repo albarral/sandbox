@@ -62,7 +62,7 @@ void TaskReward::setRewardT3Defense(GameState& oGameState)
 {
     float reward;
     
-    if (oGameState.getNumOthers() == 0 || oGameState.getNumMines() == 0 || oGameState.getNumOthers() =< oGameState.getNumMines())
+    if (oGameState.getNumOthers() == 0 || oGameState.getNumMines() == 0 || oGameState.getNumOthers() <= oGameState.getNumMines())
     {
         reward = 0;
     }  

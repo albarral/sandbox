@@ -12,7 +12,6 @@
 #include "learn/GameTask.h"
 #include "learn/GameState.h"
 #include "Learn.h"
-#include "RewardCalculator.h"
 #include "modules/Line.h"
 
 namespace sam
