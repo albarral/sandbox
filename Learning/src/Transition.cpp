@@ -41,7 +41,7 @@ void Transition::loadFromMemo(Database* pDatabase, sql::Connection* con)
 
 void Transition::storeInMemo(Database* pDatabase, sql::Connection* con)
 {
-    std::string insert = "INSERT INTO TAB_TRANSITIONS (transID, description, taskID, stateID, nextState, cost,"
+    std::string insert = "INSERT INTO TAB_TRANSITIONS (transID, description, taskID, stateID, nextState,"
             " Q) VALUES (" + std::to_string(ID) + ", ' " + desc + " ', " + std::to_string(taskID) 
             + ", " + std::to_string(stateID) + ", " + std::to_string(nextState) + ", " + std::to_string(Q) + ")";   
     pDatabase->update(insert, con);
