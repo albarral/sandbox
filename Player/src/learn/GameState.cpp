@@ -11,8 +11,6 @@ GameState::GameState()
 {
     numMines = 0;
     numOthers = 0;
-    dVictory = 0;
-    dDefeat = 0;   
 }
 
 void GameState::set(int cell1, int cell2, int cell3, int mines, int others)
@@ -37,18 +35,15 @@ void GameState::loadFromMemo2(Database* pDatabase, sql::Connection* con)
         cells[2] = res->getInt("cell2");
         numMines = res->getInt("numMines");
         numOthers = res->getInt("numOthers");
-        dVictory = res->getInt("dVictory");
-        dDefeat = res->getInt("dDefeat");
     }
 }
 
 void GameState::storeInMemo2(Database* pDatabase, sql::Connection* con)
 {
     std::string insertDB = "INSERT INTO TAB_STATES_PLAYER (stateID, taskID, cell0, cell1, cell2, numMines, "
-            "numOthers, dVictory, dDefeat) VALUES (" + std::to_string(getID()) + ", " + std::to_string(getTaskID()) 
+            "numOthers) VALUES (" + std::to_string(getID()) + ", " + std::to_string(getTaskID()) 
             + ", " + std::to_string(cells[0]) + ", " + std::to_string(cells[1]) + + ", " + std::to_string(cells[2]) 
-            + ", " + std::to_string(numMines) + + ", " + std::to_string(numOthers) + ", " + std::to_string(dVictory) 
-            + ", " + std::to_string(dDefeat) + ")";    
+            + ", " + std::to_string(numMines) + + ", " + std::to_string(numOthers) + ")";    
     pDatabase->update(insertDB, con);
 }
 
@@ -57,8 +52,7 @@ void GameState::upDateInMemo2(Database* pDatabase)
     sql::Connection* con = pDatabase->getConnectionDB();
     std::string update = "UPDATE TAB_STATES_PLAYER SET cell0 = " + std::to_string(cells[0]) + " ,cell1 = " 
             + std::to_string(cells[1]) + " ,cell2 = " + std::to_string(cells[2]) + " ,numMines = " 
-            + std::to_string(numMines) + " ,numOthers = " + std::to_string(numOthers) + " ,dVictory = " 
-            + std::to_string(dVictory) + " ,dDefeat = " + std::to_string(dDefeat) + " WHERE stateID = " 
+            + std::to_string(numMines) + " ,numOthers = " + std::to_string(numOthers) + " WHERE stateID = " 
             + std::to_string(getID()) + " AND taskID= " + std::to_string(getTaskID());
     pDatabase->update(update, con);
     con->commit();
