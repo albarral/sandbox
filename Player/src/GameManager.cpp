@@ -12,10 +12,7 @@ namespace sam
 {
 log4cxx::LoggerPtr GameManager::logger(log4cxx::Logger::getLogger("sam.player"));
 
-GameManager::GameManager() 
-{
-    gameType = eGAME_SAM_VS_TAM;
-}
+GameManager::GameManager() {}
 
 void GameManager::startModules()
 { 
