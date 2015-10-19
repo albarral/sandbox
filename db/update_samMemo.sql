@@ -79,4 +79,27 @@ CREATE TABLE IF NOT EXISTS TAB_STATES_PLAYER
 ALTER TABLE TAB_STATES_PLAYER
 ADD CONSTRAINT PK_STATES_PLAYER PRIMARY KEY (taskID, stateID);
 
+--- -----------------------------------------------------
+--- Table `samMemo`.`TAB_GAME_STATES`
+--- -----------------------------------------------------
+
+DROP TABLE IF EXISTS TAB_GAME_STATES;
+
+CREATE TABLE IF NOT EXISTS TAB_GAME_STATES
+(
+  taskID INT NOT NULL,
+  stateID INT NOT NULL,
+  description VARCHAR(30) NULL,
+  reward FLOAT NULL,
+  cell0 INT NULL,
+  cell1 INT NULL,
+  cell2 INT NULL,
+  numMines INT NULL,
+  numOthers INT NULL
+);
+
+ALTER TABLE TAB_GAMES_STATES
+ADD CONSTRAINT PK_GAME_STATES PRIMARY KEY (taskID, stateID);
+
+
 

@@ -43,6 +43,7 @@ private:
     GameTask oDefenseTask;        // defensive task  
     Strategy2 oAttackStrategy;            // ofensive strategy
     Strategy2 oDefenseStrategy;         // defensive strategy 
+    bool stored;
 
 public:
     Player();

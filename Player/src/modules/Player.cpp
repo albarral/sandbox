@@ -22,7 +22,8 @@ log4cxx::LoggerPtr Player::logger(log4cxx::Logger::getLogger("sam.player"));
 Player::Player() {}
 
 void Player::init(GameBoard& oGameBoard, GameFlow& oGameFlow)
-{  
+{
+    stored = false;
     // the agent is given an identity, which will determine its turn and how its cells are marked
     LOG4CXX_INFO(logger, "Initialize Player ...");     
     LOG4CXX_INFO(logger, oPlayerIdentity.toString());     
@@ -32,26 +33,37 @@ void Player::init(GameBoard& oGameBoard, GameFlow& oGameFlow)
 
     if (oPlayerIdentity.isSmartPlayer())
     {
-        LOG4CXX_INFO(logger, "Smart player: load game task ... (CREATED, NOT YET IN DATABASE)");     
+        LOG4CXX_INFO(logger, "Smart player: load game task ... (CREATED, NOT YET IN DATABASE)");  
         
-        // prepare attack task & strategy
         oAttackTask.setID(1);
-        // TEMPORAL: Till not read from DB the game task will be built directly here.
-        TaskFactory::buildTicTacToeTask(oAttackTask);  
-        // set rewards for attack task        
-        TaskReward::setTaskRewards(oAttackTask, TaskReward::eTASK_T3_ATTACK);
-        oAttackStrategy.init(oAttackTask);            
-        
-        // prepare defense task & strategy
         oDefenseTask.setID(2);
-        // TEMPORAL: Till not read from DB the game task will be built directly here.
-        TaskFactory::buildTicTacToeTask(oDefenseTask);   
-        // set rewards for defense task        
-        TaskReward::setTaskRewards(oDefenseTask, TaskReward::eTASK_T3_DEFENSE);
-        oDefenseStrategy.init(oDefenseTask);            
+        oAttackTask.loadFromMemo2();
+        oDefenseTask.loadFromMemo2();
+        
+        //if not exist on DB, create it
+        if(oAttackTask.getListGameStates().size() == 0 && oDefenseTask.getListGameStates().size() == 0)
+        {
+            // prepare attack task & strategy
+            // Built attack task
+            TaskFactory::buildTicTacToeTask(oAttackTask);  
+            // set rewards for attack task        
+            TaskReward::setTaskRewards(oAttackTask, TaskReward::eTASK_T3_ATTACK);
+            oAttackTask.storeInMemo2();         
 
+            // prepare defense task & strategy
+            // Built defense task
+            TaskFactory::buildTicTacToeTask(oDefenseTask);   
+            // set rewards for defense task        
+            TaskReward::setTaskRewards(oDefenseTask, TaskReward::eTASK_T3_DEFENSE);
+            oDefenseTask.storeInMemo2();         
+        }
+        
+        //prepare strategy
+        oAttackStrategy.init(oAttackTask); 
+        oDefenseStrategy.init(oDefenseTask);  
+        //Describe the tasks
         TaskFactory::describeTask(oAttackTask);
-        TaskFactory::describeTask(oDefenseTask);
+        TaskFactory::describeTask(oDefenseTask);      
     }
 };
 
@@ -82,6 +94,7 @@ void Player::loop()
             if (oPlayerIdentity.getID() == pGameFlow->getPlayerWithTurn()->getID())
             {
                 setNextState(ePLAYER_PLAY);
+                pGameFlow->setStatus(GameFlow::eGAME_PLAYING);  //NO SE SI ES EL SITIO ADECUADO
             }
             break;
             
@@ -97,15 +110,30 @@ void Player::loop()
                 if (checkBoardOpen())
                     setNextState(ePLAYER_WAIT);    
                 else
-                    setNextState(ePLAYER_FINISHED);                    
+                {
+                    if(!stored)
+                    {
+                        oAttackTask.storeQ();
+                        oDefenseTask.storeQ();
+                        stored = true;
+                    }
+                    setNextState(ePLAYER_FINISHED); 
+                }                                       
             }
             // Otherwise, go to FINISHED state 
             else 
+            {
+                if(!stored)
+                {
+                    oAttackTask.storeQ();
+                    oDefenseTask.storeQ();
+                    stored = true;
+                }
                 setNextState(ePLAYER_FINISHED);
-                
+            }    
             break;
                     
-        case ePLAYER_FINISHED:             
+        case ePLAYER_FINISHED:              
             // nothing done
             break;
     }   // end switch    

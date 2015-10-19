@@ -66,7 +66,7 @@ void Line::checkDiagonal(int lineType, int myMark, int emptyMark)
     else if (lineType == eLINE_DIAG2)
     {
         // walk second diagonal (from NE to SW)
-        int topColumn = mat.cols - 1;
+        int topColumn = mat.cols - 1;       
         for (int k=0; k<mat.rows; k++)
         {
             checkCell(k, topColumn - k, k);  

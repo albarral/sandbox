@@ -249,7 +249,7 @@ void TaskFactory::buildTicTacToeTask(GameTask& oGameTask)
     oGameTask.addGameState(oGameState23);  
     oGameTask.addGameState(oGameState24);
     oGameTask.addGameState(oGameState25);
-    oGameTask.addGameState(oGameState26);
+    oGameTask.addGameState(oGameState26);   
 }
 
 void TaskFactory::describeTask(GameTask& oGameTask)

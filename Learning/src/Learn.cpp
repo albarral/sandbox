@@ -11,7 +11,7 @@ namespace sam
 log4cxx::LoggerPtr Learn::logger(log4cxx::Logger::getLogger("sam.learn"));
 Learn::Learn()
 {
-    gamma = 0.8;   
+    gamma = 0;   
 }
 
 // Q(state, action) = Reward(state, action) + gamma * max [Q(next state, all actions)]
