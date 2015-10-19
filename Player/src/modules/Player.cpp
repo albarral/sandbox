@@ -45,19 +45,18 @@ void Player::init(GameBoard& oGameBoard, GameFlow& oGameFlow)
         {
             // prepare attack task & strategy
             // Built attack task
-            TaskFactory::buildTicTacToeTask(oAttackTask);  
-            // set rewards for attack task        
-            TaskReward::setTaskRewards(oAttackTask, TaskReward::eTASK_T3_ATTACK);
+            TaskFactory::buildTicTacToeTask(oAttackTask);             
             oAttackTask.storeInMemo2();         
 
             // prepare defense task & strategy
             // Built defense task
-            TaskFactory::buildTicTacToeTask(oDefenseTask);   
-            // set rewards for defense task        
-            TaskReward::setTaskRewards(oDefenseTask, TaskReward::eTASK_T3_DEFENSE);
+            TaskFactory::buildTicTacToeTask(oDefenseTask);               
             oDefenseTask.storeInMemo2();         
         }
-        
+        // set rewards for attack task        
+        TaskReward::setTaskRewards(oAttackTask, TaskReward::eTASK_T3_ATTACK);
+        // set rewards for defense task        
+        TaskReward::setTaskRewards(oDefenseTask, TaskReward::eTASK_T3_DEFENSE);
         //prepare strategy
         oAttackStrategy.init(oAttackTask); 
         oDefenseStrategy.init(oDefenseTask);  
@@ -94,7 +93,6 @@ void Player::loop()
             if (oPlayerIdentity.getID() == pGameFlow->getPlayerWithTurn()->getID())
             {
                 setNextState(ePLAYER_PLAY);
-                pGameFlow->setStatus(GameFlow::eGAME_PLAYING);  //NO SE SI ES EL SITIO ADECUADO
             }
             break;
             
@@ -155,7 +153,7 @@ void Player::chooseCell()
     // select move ...
     
     // SMART (LEARNING BASED)
-    if (oPlayerIdentity.isSmartPlayer())
+    if (oPlayerIdentity.isSmartPlayer() && !oPlayerIdentity.isExplorationMode())
     {
         oAttackStrategy.playSmart(matrix, oPlayerIdentity.getMyMark());
         oDefenseStrategy.playSmart(matrix, oPlayerIdentity.getMyMark());
@@ -166,6 +164,10 @@ void Player::chooseCell()
         // defensive move
         else
             pBestMove = oDefenseStrategy.getBestMove();            
+    }
+    else if (oPlayerIdentity.isSmartPlayer() && oPlayerIdentity.isExplorationMode())
+    {
+
     }
     // NO LEARNING    
     else

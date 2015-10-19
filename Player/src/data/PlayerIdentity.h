@@ -26,6 +26,7 @@ private:
     std::string ID;     // ID of the player 
     int myMark;        // mark used by player to select cells (can't be GameBoard::EMPTY_MARK)
     int playMode;      // playing mode used by player 
+    bool bExplorationMode; 
             
 public:
     PlayerIdentity();
@@ -41,6 +42,7 @@ public:
     
     bool isSmartPlayer() {return (playMode == eMODE_SMART);};
     bool isSimplePlayer() {return (playMode == eMODE_SIMPLE);};
+    bool isExplorationMode() {return (bExplorationMode == true);};
     
     // returns member values in string form
     std::string toString();

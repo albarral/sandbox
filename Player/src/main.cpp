@@ -44,8 +44,7 @@ void testPlayer()
     LOG4CXX_INFO(logger, "\n\n\n<<<<<<<<<<<<<<<< TEST PLAYER >>>>>>>>>>>>>>");
       
     sam::GameManager oGameManager; 
-    // setGameTask  0 -> for SAM vs TAM.  1 -> for SAM vs HUMAN
-    oGameManager.setGameType(0);
+    oGameManager.setGameType(sam::GameManager::eGAME_SAM_VS_TAM);
     oGameManager.startModules();
     
     LOG4CXX_INFO(logger, ">>>>>> New game:"); 

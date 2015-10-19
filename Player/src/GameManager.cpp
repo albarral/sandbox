@@ -46,6 +46,7 @@ void GameManager::startModules()
 
     // init game flow & assign first turn randomly
     oGameFlow.initTurn();
+    oGameFlow.setStatus(GameFlow::eGAME_PLAYING);
 
     // init SAM agent
     oSam.init(oGameBoard, oGameFlow);

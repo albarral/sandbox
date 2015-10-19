@@ -28,6 +28,36 @@ void Strategy2::init(GameTask& oGameTask)
     LOG4CXX_INFO(logger, "Strategy2 functionality initialized");      
 };
 
+bool Strategy2::playRandom(cv::Mat& matrix, int myMark)
+{
+    // Search for the empty cells and choose one of them randomly
+    std::vector<std::pair<int, int>> listEmptyCells;
+    cv::Mat matRow;
+    
+    // get list of empty cells 
+    for (int i=0; i<matrix.rows; i++)
+    {
+        matRow = matrix.row(i);                
+        for (int j=0; j<matRow.cols; j++)
+        {
+            if (matRow.at<int>(j) == GameBoard::EMPTY_MARK)
+                listEmptyCells.push_back(std::make_pair(i,j));
+        }
+    }
+
+    if (listEmptyCells.size() > 0)
+    {
+        // randomly select an empty cell
+        int randNum = rand() % listEmptyCells.size();
+        std::pair<int, int> selectedCell = listEmptyCells.at(randNum);
+        // and set it as best move
+        bestMove[0] = selectedCell.first;   
+        bestMove[1] = selectedCell.second; 
+        return true;
+    }
+    else
+        return false;
+}
 
 // Checks all lines in the board (rows, columns & diagonals) in search of the best attack & defense moves.
 void Strategy2::playSmart(cv::Mat& matrix, int myMark)

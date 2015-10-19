@@ -34,6 +34,9 @@ public:
     void init (GameTask& oGameTask);
     bool isEnabled() {return benabled;};
     
+    // Checks the board and randomly select one of its empty cells. Storing it as best move.
+    bool playRandom(cv::Mat& matrix, int myMark);
+    
     // Checks all lines in the board (rows, columns & diagonals) in search of the best attack & defense moves.
     void playSmart(cv::Mat& matrix, int myMark);
     
