@@ -11,7 +11,7 @@ PlayerIdentity::PlayerIdentity()
 {
     ID = "";
     myMark = 0;
-    bExplorationMode = true;
+    bExplorationMode = false;
     setPlayMode(eMODE_SIMPLE);
 }
 
