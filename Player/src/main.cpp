@@ -11,11 +11,13 @@
 #include "GameManager.h"
 #include "learn/GameTask.h"
 #include "TaskFactory.h"
+#include "modules/BoardSensor.h"
 
 log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("sam.player"));
 
 void insertTaskInDatabase();
 void testPlayer();
+void testBoardSensor();
 
 int main(int argc, char** argv) 
 {
@@ -24,6 +26,7 @@ int main(int argc, char** argv)
 //    insertTaskInDatabase();
   
     testPlayer();
+    //testBoardSensor();
     
     return 0;
 }
@@ -57,4 +60,25 @@ void testPlayer()
     sleep(2);
     
     LOG4CXX_INFO(logger, "End of test"); 
+}
+
+
+void testBoardSensor()
+{
+    LOG4CXX_INFO(logger, "\n\n\n<<<<<<<<<<<<<<<< TEST BOARD SENSOR >>>>>>>>>>>>>>");
+    sam::BoardSensor oBoardSensor;    
+    sam::GameBoard oGameBoard;
+    
+    for (int i=0; i<10; i++)
+    {
+        oBoardSensor.senseBoard(oGameBoard);
+
+        LOG4CXX_INFO(logger, i << "\n " << oGameBoard.getMatrix());
+        LOG4CXX_INFO(logger, "ID:" << oBoardSensor.getLastMoveNumber());
+        LOG4CXX_INFO(logger, "player: " << oBoardSensor.getLastMovePlayer());
+        LOG4CXX_INFO(logger, "status: " << oBoardSensor.getLastMoveStatus());
+        
+         sleep(2);
+    }
+    
 }

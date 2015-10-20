@@ -71,7 +71,7 @@ void Strategy2::playSmart(cv::Mat& matrix, int myMark)
     bestReward = 0.0;
 
     // check rows
-    LOG4CXX_INFO(logger, "check rows");   
+    LOG4CXX_INFO(logger, "CHECK ROWS");   
     for (int i=0; i<matrix.rows; i++)
     {
         // analyse row & check proper moves in it
@@ -80,7 +80,7 @@ void Strategy2::playSmart(cv::Mat& matrix, int myMark)
     }    
 
     // check columns
-    LOG4CXX_INFO(logger, "check columns");   
+    LOG4CXX_INFO(logger, "CHECK COLUMNS");   
     for (int j=0; j<matrix.cols; j++)
     {
         // analyse column & check proper moves in it
@@ -89,7 +89,7 @@ void Strategy2::playSmart(cv::Mat& matrix, int myMark)
     }    
     
     // check diagonals
-    LOG4CXX_INFO(logger, "check diagonals");   
+    LOG4CXX_INFO(logger, "CHECK DIAGONALS");   
     // analyse first diagonal & check proper moves in it
     int lineType = Line::eLINE_DIAG1;
     oLine.checkDiagonal(lineType, myMark, GameBoard::EMPTY_MARK);        

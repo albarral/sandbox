@@ -19,31 +19,36 @@ namespace sam
 {
 log4cxx::LoggerPtr Player::logger(log4cxx::Logger::getLogger("sam.player"));
 
-Player::Player() {}
+Player::Player() 
+{
+    //  initial state must be Module2::state_OFF
+}
 
-void Player::init(GameBoard& oGameBoard, GameFlow& oGameFlow)
+void Player::init(std::string firstPlayerID)
 {
     stored = false;
     // the agent is given an identity, which will determine its turn and how its cells are marked
     LOG4CXX_INFO(logger, "Initialize Player ...");     
     LOG4CXX_INFO(logger, oPlayerIdentity.toString());     
         
-    pGameBoard = &oGameBoard;    
-    pGameFlow = &oGameFlow;    
+    bFirstTurn = (firstPlayerID == oPlayerIdentity.getID());
+    oGameFlow.setStatus(GameFlow::eGAME_PLAYING);
 
     if (oPlayerIdentity.isSmartPlayer())
     {
-        LOG4CXX_INFO(logger, "Smart player: load game task ... (CREATED, NOT YET IN DATABASE)");  
+        LOG4CXX_INFO(logger, "Smart player: load game task ... ");  
         
+        // load attack & defense tasks from memory (DB))
         oAttackTask.setID(1);
         oDefenseTask.setID(2);
         oAttackTask.loadFromMemo2();
         oDefenseTask.loadFromMemo2();
         
-        //if not exist on DB, create it
-        if(oAttackTask.getListGameStates().size() == 0 && oDefenseTask.getListGameStates().size() == 0)
+        // if not in DB, create them
+        if (oAttackTask.getListGameStates().size() == 0 && oDefenseTask.getListGameStates().size() == 0)
         {
-            // prepare attack task & strategy
+            LOG4CXX_WARN(logger, "Smart player: game task CREATED, NOT YET IN DATABASE");  
+
             // Built attack task
             TaskFactory::buildTicTacToeTask(oAttackTask);             
             oAttackTask.storeInMemo2();         
@@ -53,14 +58,16 @@ void Player::init(GameBoard& oGameBoard, GameFlow& oGameFlow)
             TaskFactory::buildTicTacToeTask(oDefenseTask);               
             oDefenseTask.storeInMemo2();         
         }
-        // set rewards for attack task        
+        
+        // set rewards for tasks        
         TaskReward::setTaskRewards(oAttackTask, TaskReward::eTASK_T3_ATTACK);
-        // set rewards for defense task        
         TaskReward::setTaskRewards(oDefenseTask, TaskReward::eTASK_T3_DEFENSE);
-        //prepare strategy
+
+        // prepare strategies
         oAttackStrategy.init(oAttackTask); 
         oDefenseStrategy.init(oDefenseTask);  
-        //Describe the tasks
+
+        // describe the tasks
         TaskFactory::describeTask(oAttackTask);
         TaskFactory::describeTask(oDefenseTask);      
     }
@@ -68,12 +75,22 @@ void Player::init(GameBoard& oGameBoard, GameFlow& oGameFlow)
 
 void Player::first()
 {    
-    // agent starts waiting for its turn
-    setState(ePLAYER_WAIT);
-    setNextState(ePLAYER_WAIT);    
-
     log4cxx::NDC::push(oPlayerIdentity.getID());   	
-    log4cxx::NDC::push("wait");    
+    // agent starts waiting for its turn
+    if (bFirstTurn)
+    {
+        setState(ePLAYER_PLAY);    
+        setNextState(ePLAYER_PLAY);    
+        log4cxx::NDC::push("play");    
+    }
+    else
+    {
+        setState(ePLAYER_WAIT);    
+        setNextState(ePLAYER_WAIT);    
+        log4cxx::NDC::push("wait");    
+    }
+
+    LOG4CXX_INFO(logger, "first ... ");  
 }
 
 void Player::loop()
@@ -90,7 +107,10 @@ void Player::loop()
             
             // check if agent's turn has arrived 
             // if so, go to PLAY state 
-            if (oPlayerIdentity.getID() == pGameFlow->getPlayerWithTurn()->getID())
+            oBoardSensor.senseBoard(oGameBoard);            
+
+            // if last player is not me, it's my turn
+            if (oPlayerIdentity.getID() != oBoardSensor.getLastMovePlayer())            
             {
                 setNextState(ePLAYER_PLAY);
             }
@@ -101,6 +121,9 @@ void Player::loop()
             // check if game still open
             // If so, make move
             // check again & go back to WAIT state or to FINISHED depending on the result
+            oBoardSensor.senseBoard(oGameBoard);   
+            oGameFlow.setStatus(oBoardSensor.getLastMoveStatus());
+
             if (checkBoardOpen())
             {
                 chooseCell();          
@@ -108,31 +131,29 @@ void Player::loop()
                 if (checkBoardOpen())
                     setNextState(ePLAYER_WAIT);    
                 else
-                {
-                    if(!stored)
-                    {
-                        oAttackTask.storeQ();
-                        oDefenseTask.storeQ();
-                        stored = true;
-                    }
                     setNextState(ePLAYER_FINISHED); 
-                }                                       
+                
+                // perform move in TAB_BOARD
+                oBoardActuator.writeMove(oGameBoard, oPlayerIdentity.getID(), oGameFlow.getStatus());
             }
             // Otherwise, go to FINISHED state 
             else 
             {
-                if(!stored)
-                {
-                    oAttackTask.storeQ();
-                    oDefenseTask.storeQ();
-                    stored = true;
-                }
                 setNextState(ePLAYER_FINISHED);
-            }    
+                oBoardActuator.updateLastMoveStatus(oGameFlow.getStatus());
+            }
+                        
             break;
                     
         case ePLAYER_FINISHED:              
-            // nothing done
+
+            // store the learned task 
+            if (oPlayerIdentity.isSmartPlayer() && !stored)
+            {
+                oAttackTask.storeQ();
+                oDefenseTask.storeQ();
+                stored = true;
+            }
             break;
     }   // end switch    
 
@@ -146,7 +167,7 @@ void Player::chooseCell()
     // If bQlearn flag is active the cell selection is done using QLearning
     // If bsmart flag is active the cell selection is done using smart strategies 
     // Otherwise, random selection is made among available cells..
-    cv::Mat matrix = pGameBoard->getMatrix();    
+    cv::Mat matrix = oGameBoard.getMatrix();    
     Strategy oStrategy;
     int* pBestMove;
     
@@ -155,15 +176,23 @@ void Player::chooseCell()
     // SMART (LEARNING BASED)
     if (oPlayerIdentity.isSmartPlayer() && !oPlayerIdentity.isExplorationMode())
     {
+        LOG4CXX_INFO(logger, "ATTACK ... ");  
         oAttackStrategy.playSmart(matrix, oPlayerIdentity.getMyMark());
+        LOG4CXX_INFO(logger, "DEFEND ... ");  
         oDefenseStrategy.playSmart(matrix, oPlayerIdentity.getMyMark());
         
         // attack move
         if (oAttackStrategy.getBestReward() >= oDefenseStrategy.getBestReward())
+        {
+            LOG4CXX_INFO(logger, "ATTACK MOVE");  
             pBestMove = oAttackStrategy.getBestMove();
+        }
         // defensive move
         else
+        {
+            LOG4CXX_INFO(logger, "DEFENSE MOVE");  
             pBestMove = oDefenseStrategy.getBestMove();            
+        }
     }
     else if (oPlayerIdentity.isSmartPlayer() && oPlayerIdentity.isExplorationMode())
     {
@@ -189,22 +218,21 @@ void Player::chooseCell()
     
     LOG4CXX_INFO(logger, "mark cell " << pBestMove[0] << ", " << pBestMove[1]);  
     // perform move & change turn
-    pGameBoard->markCell(oPlayerIdentity.getMyMark(), pBestMove[0], pBestMove[1]);
-    pGameFlow->changeTurn();
+    oGameBoard.markCell(oPlayerIdentity.getMyMark(), pBestMove[0], pBestMove[1]);
 
-    LOG4CXX_INFO(logger, "\n " << pGameBoard->getMatrix());
+    LOG4CXX_INFO(logger, "\n " << oGameBoard.getMatrix());
 }
 
 bool Player::checkBoardOpen()
 {
     // Checks the cells of the board to see if the game has finished, whether with a winner or in draw 
-    cv::Mat matrix = pGameBoard->getMatrix();
+    cv::Mat matrix = oGameBoard.getMatrix();
     Line oLine;
     oLine.setMatrix(matrix);        
     // reset board analysis
     bemptyCells = false;
         
-    if (pGameFlow->isGameOver())
+    if (oGameFlow.isGameOver())
         return false;
  
     // if game open, check rows
@@ -215,7 +243,7 @@ bool Player::checkBoardOpen()
         analyseLine(oLine);
     }
 
-    if (pGameFlow->isGameOver())
+    if (oGameFlow.isGameOver())
         return false;
 
     // if game still open, check columns
@@ -226,7 +254,7 @@ bool Player::checkBoardOpen()
         analyseLine(oLine);
     }
     
-    if (pGameFlow->isGameOver())
+    if (oGameFlow.isGameOver())
         return false;
 
     // if game still open, check diagonals
@@ -237,15 +265,15 @@ bool Player::checkBoardOpen()
         analyseLine(oLine);
     }    
 
-    if (pGameFlow->isGameOver())
+    if (oGameFlow.isGameOver())
         return false;
     
     // if game not over, but no empty cells -> game over in draw
     if (!bemptyCells)
-        pGameFlow->setStatus(GameFlow::eGAME_OVER_DRAW);
+        oGameFlow.setStatus(GameFlow::eGAME_OVER_DRAW);
         
     // game is open if not over
-    return (pGameFlow->isGameOver() == false);
+    return (!oGameFlow.isGameOver());
 }
 
 
@@ -259,13 +287,13 @@ void Player::analyseLine(Line& oLine)
     // if whole line is mine, I'M THE WINNER!
     else if (oLine.getNumMines() == GameBoard::LINE_SIZE)
     {
-        pGameFlow->setStatus(GameFlow::eGAME_OVER_WINNER);
-        pGameFlow->setWinner(oPlayerIdentity);
+        oGameFlow.setStatus(GameFlow::eGAME_OVER_WINNER);
+        oGameFlow.setWinner(oPlayerIdentity);
     }
     // if whole row is for other player, there's another winner!
     else if (oLine.getNumOthers() == GameBoard::LINE_SIZE)
     {
-        pGameFlow->setStatus(GameFlow::eGAME_OVER_WINNER);
+        oGameFlow.setStatus(GameFlow::eGAME_OVER_WINNER);
     }
 }
 

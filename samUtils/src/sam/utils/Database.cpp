@@ -11,6 +11,8 @@ namespace sam
 Database::Database() 
 {
     binitialized = false;
+
+    res = 0;
 }
 
 void Database::init(std::string url, std::string user, std::string password, std::string database)
@@ -25,8 +27,8 @@ sql::Connection* Database::getConnectionDB()
 {
     driver = get_driver_instance();
     con = driver->connect(url, user, password); 
-    /* turn off the autocommit */
-    con->setAutoCommit(0);
+    // leave autocommit set, otherwise consecutive selects won't change
+    //con->setAutoCommit(0);    // turn off the autocommit 
     
     return con;
 }
@@ -47,6 +49,9 @@ void Database::update(std::string insert, sql::Connection* con)
 
 sql::ResultSet* Database::select(std::string sel, sql::Connection* con)
 {  
+    if (res != 0)
+        delete res;
+    
     con->setSchema(database);   
     stmt = con->createStatement();   
     res = stmt->executeQuery(sel);   

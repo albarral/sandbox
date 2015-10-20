@@ -34,8 +34,8 @@ public class GUI3T extends javax.swing.JFrame {
     int cell7 = 0;
     int cell8 = 0;
     int cell9 = 0;
-    int bStatus = 0;
-    String turn = "";
+    int boardStatus = 0;
+    String player = "";
     String previusStatus = "";
 
     public GUI3T() {
@@ -415,8 +415,8 @@ public class GUI3T extends javax.swing.JFrame {
                     cell7 = resultSet.getInt("cell20");
                     cell8 = resultSet.getInt("cell21");
                     cell9 = resultSet.getInt("cell22");
-                    bStatus = resultSet.getInt("boardStatus");   
-                    turn = resultSet.getString("turn");
+                    boardStatus = resultSet.getInt("boardStatus");   
+                    player = resultSet.getString("player");
                 }
             }
         } catch(SQLException e){
@@ -546,22 +546,22 @@ public class GUI3T extends javax.swing.JFrame {
                     }
                     else jLabel11.setText("");
                     
-                    if ("SAM".equals(turn))  
+                    if ("SAM".equals(player))  
                         jTextField1.setText("SAM");
-                    else if ("TAM".equals(turn))
+                    else if ("TAM".equals(player))
                         jTextField1.setText("TAM");
                     else jTextField1.setText("");
                     
-                    if (bStatus == 2)
+                    if (boardStatus == 2)
                     {
                         jTextField2.setText("DRAW");
                         jTextField1.setText("");
                     }  
-                    else if (bStatus == 3)
+                    else if (boardStatus == 3)
                     {
-                        if ("SAM".equals(turn))
+                        if ("SAM".equals(player))
                             jTextField2.setText("TAM");
-                        else if ("TAM".equals(turn))
+                        else if ("TAM".equals(player))
                             jTextField2.setText("SAM"); 
                         jTextField1.setText("");
                     }      

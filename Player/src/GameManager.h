@@ -11,7 +11,6 @@
 #include "data/GameBoard.h"
 #include "data/GameFlow.h"
 #include "modules/Player.h"
-#include "modules/Informer.h"
 
 namespace sam 
 {
@@ -31,7 +30,6 @@ private:
     GameFlow oGameFlow;
     Player oSam;
     Player oTam;
-    Informer oInformer;  // module used to store game progress in DB (to allow external monitoring)
     
 public:
     GameManager();

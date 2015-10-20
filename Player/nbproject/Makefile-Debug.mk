@@ -45,6 +45,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/learn/GameTask.o \
 	${OBJECTDIR}/src/learn/TaskReward.o \
 	${OBJECTDIR}/src/main.o \
+	${OBJECTDIR}/src/modules/BoardActuator.o \
+	${OBJECTDIR}/src/modules/BoardSensor.o \
 	${OBJECTDIR}/src/modules/Informer.o \
 	${OBJECTDIR}/src/modules/Line.o \
 	${OBJECTDIR}/src/modules/Player.o \
@@ -131,6 +133,16 @@ ${OBJECTDIR}/src/main.o: src/main.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
+
+${OBJECTDIR}/src/modules/BoardActuator.o: src/modules/BoardActuator.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/BoardActuator.o src/modules/BoardActuator.cpp
+
+${OBJECTDIR}/src/modules/BoardSensor.o: src/modules/BoardSensor.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/BoardSensor.o src/modules/BoardSensor.cpp
 
 ${OBJECTDIR}/src/modules/Informer.o: src/modules/Informer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/modules

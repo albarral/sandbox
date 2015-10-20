@@ -32,6 +32,10 @@
           <itemPath>src/learn/TaskReward.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f2" displayName="modules" projectFiles="true">
+          <itemPath>src/modules/BoardActuator.cpp</itemPath>
+          <itemPath>src/modules/BoardActuator.h</itemPath>
+          <itemPath>src/modules/BoardSensor.cpp</itemPath>
+          <itemPath>src/modules/BoardSensor.h</itemPath>
           <itemPath>src/modules/Informer.cpp</itemPath>
           <itemPath>src/modules/Informer.h</itemPath>
           <itemPath>src/modules/Line.cpp</itemPath>
@@ -161,6 +165,14 @@
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/modules/BoardActuator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/modules/BoardActuator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/modules/BoardSensor.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/modules/BoardSensor.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/modules/Informer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/modules/Informer.h" ex="false" tool="3" flavor2="0">
@@ -247,6 +259,14 @@
       <item path="src/learn/TaskReward.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/modules/BoardActuator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/modules/BoardActuator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/modules/BoardSensor.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/modules/BoardSensor.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/modules/Informer.cpp" ex="false" tool="1" flavor2="0">
       </item>

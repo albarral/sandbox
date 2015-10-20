@@ -16,6 +16,8 @@
 #include "learn/GameTask.h"
 #include "modules/Line.h"
 #include "modules/Strategy2.h"
+#include "modules/BoardSensor.h"
+#include "modules/BoardActuator.h"
 
 namespace sam 
 {
@@ -36,20 +38,23 @@ public:
 private:
     static log4cxx::LoggerPtr logger;
     PlayerIdentity oPlayerIdentity;    // player's identity
-    GameBoard* pGameBoard;      // pointer to the game's board
-    GameFlow* pGameFlow;  // pointer to the game's flow
+    GameBoard oGameBoard;      // game's board
+    GameFlow oGameFlow;          // game's flow
     bool bemptyCells;
     GameTask oAttackTask;            // ofensive task
     GameTask oDefenseTask;        // defensive task  
     Strategy2 oAttackStrategy;            // ofensive strategy
     Strategy2 oDefenseStrategy;         // defensive strategy 
+    BoardSensor oBoardSensor;
+    BoardActuator oBoardActuator;
+    bool bFirstTurn;                        // indicates we had the first turn
     bool stored;
 
 public:
     Player();
     
     // initializes the module 
-    void init (GameBoard& oGameBoard, GameFlow& oGameFlow);
+    void init (std::string firstPlayerID);
     
     PlayerIdentity& getPlayerIdentity() {return oPlayerIdentity;};     
 //    std::string getID() {return ID;};
