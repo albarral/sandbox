@@ -37,7 +37,7 @@ public class InteractiveGUI extends javax.swing.JFrame {
     int cell8 = 0;
     int cell9 = 0;
     int bStatus = 0;
-    String turn = "";
+    String player = "";
     String myMark = "";
     String SamMark = "";
     
@@ -452,19 +452,15 @@ public class InteractiveGUI extends javax.swing.JFrame {
         if (returnValue == 0) // O
         {
             myMark = "O";
-            SamMark = "X";
-            System.out.println("0: choose O");
-            
+            SamMark = "X";           
         }    
         else if (returnValue == 1) // X
         {
-            System.out.println("1: choose X");
             myMark = "X";
             SamMark = "O";
         }
         else
         {
-            System.out.println("no option");
             myMark = "O";
             SamMark = "X";
         }
@@ -472,7 +468,7 @@ public class InteractiveGUI extends javax.swing.JFrame {
     
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
         // TODO add your handling code here:
-        if("".equals(jLabel3.getText()) && "human".equals(turn))
+        if("".equals(jLabel3.getText()) && !("human".equals(player)))
         {
             jLabel3.setText(myMark);  
             saveMovement();
@@ -481,7 +477,7 @@ public class InteractiveGUI extends javax.swing.JFrame {
 
     private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
         // TODO add your handling code here:
-        if("".equals(jLabel4.getText()) && "human".equals(turn)) 
+        if("".equals(jLabel4.getText()) && !("human".equals(player))) 
         {
             jLabel4.setText(myMark);
             saveMovement();
@@ -490,7 +486,7 @@ public class InteractiveGUI extends javax.swing.JFrame {
 
     private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
         // TODO add your handling code here:
-        if("".equals(jLabel5.getText()) && "human".equals(turn)) 
+        if("".equals(jLabel5.getText()) && !("human".equals(player))) 
         {
             jLabel5.setText(myMark);
             saveMovement();
@@ -499,7 +495,7 @@ public class InteractiveGUI extends javax.swing.JFrame {
 
     private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
         // TODO add your handling code here:
-        if("".equals(jLabel6.getText()) && "human".equals(turn)) 
+        if("".equals(jLabel6.getText()) && !("human".equals(player))) 
         {
             jLabel6.setText(myMark);
             saveMovement();
@@ -508,7 +504,7 @@ public class InteractiveGUI extends javax.swing.JFrame {
 
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
         // TODO add your handling code here:
-        if("".equals(jLabel7.getText()) && "human".equals(turn))
+        if("".equals(jLabel7.getText()) && !("human".equals(player)))
         {
             jLabel7.setText(myMark);
             saveMovement();
@@ -517,7 +513,7 @@ public class InteractiveGUI extends javax.swing.JFrame {
 
     private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
         // TODO add your handling code here:
-        if("".equals(jLabel8.getText()) && "human".equals(turn)) 
+        if("".equals(jLabel8.getText()) && !("human".equals(player))) 
         {
             jLabel8.setText(myMark);
             saveMovement();
@@ -526,7 +522,7 @@ public class InteractiveGUI extends javax.swing.JFrame {
 
     private void jPanel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseClicked
         // TODO add your handling code here:
-        if("".equals(jLabel9.getText()) && "human".equals(turn)) 
+        if("".equals(jLabel9.getText()) && !("human".equals(player)))
         {
             jLabel9.setText(myMark);
             saveMovement();
@@ -535,7 +531,7 @@ public class InteractiveGUI extends javax.swing.JFrame {
 
     private void jPanel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseClicked
         // TODO add your handling code here:
-        if("".equals(jLabel10.getText()) && "human".equals(turn))
+        if("".equals(jLabel10.getText()) && !("human".equals(player)))
         {
             jLabel10.setText(myMark);
             saveMovement();
@@ -544,7 +540,7 @@ public class InteractiveGUI extends javax.swing.JFrame {
 
     private void jPanel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel9MouseClicked
         // TODO add your handling code here:
-        if("".equals(jLabel11.getText()) && "human".equals(turn))
+        if("".equals(jLabel11.getText()) && !("human".equals(player)))
         {
             jLabel11.setText(myMark);
             saveMovement();
@@ -552,7 +548,7 @@ public class InteractiveGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel9MouseClicked
  
     public void saveMovement()
-    {
+    {                        
         tryID++;
                         
         String value;
@@ -619,7 +615,7 @@ public class InteractiveGUI extends javax.swing.JFrame {
             cell9 = 2;
         else cell9 = 0;
                         
-        turn = "next";
+        player = "human";
         storeInMemo();          
     }
     
@@ -627,13 +623,13 @@ public class InteractiveGUI extends javax.swing.JFrame {
     {
         //get the values from the database
         try{
-            String sql= "SELECT * FROM TAB_BOARD";
+            String sql= "SELECT * FROM TAB_BOARD order by tryID desc";
             statement.executeQuery(sql);
             resultSet = statement.getResultSet();
             
             if (resultSet != null)
             {
-                while (resultSet.next())
+                if (resultSet.next())
                 {
                     tryID = resultSet.getInt("tryID");
                     cell1 = resultSet.getInt("cell00");
@@ -646,7 +642,7 @@ public class InteractiveGUI extends javax.swing.JFrame {
                     cell8 = resultSet.getInt("cell21");
                     cell9 = resultSet.getInt("cell22");
                     bStatus = resultSet.getInt("boardStatus");   
-                    turn = resultSet.getString("turn");
+                    player = resultSet.getString("player");
                 }
             }
         } catch(SQLException e){
@@ -660,7 +656,7 @@ public class InteractiveGUI extends javax.swing.JFrame {
     {
         try{
             String sql = "INSERT INTO TAB_BOARD (tryID, Cell00, Cell01, Cell02, Cell10, Cell11, Cell12, "
-                    + "Cell20, Cell21, Cell22, boardStatus, turn) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    + "Cell20, Cell21, Cell22, boardStatus, player) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setInt(1, tryID);
             preparedStatement.setInt(2, cell1);
@@ -672,8 +668,8 @@ public class InteractiveGUI extends javax.swing.JFrame {
             preparedStatement.setInt(8, cell7);
             preparedStatement.setInt(9, cell8);
             preparedStatement.setInt(10, cell9);
-            preparedStatement.setInt(11, 1);           
-            preparedStatement.setString(12, turn);
+            preparedStatement.setInt(11, bStatus);           
+            preparedStatement.setString(12, player);
             preparedStatement.executeUpdate();
                       
         } catch(SQLException e){
@@ -714,11 +710,11 @@ public class InteractiveGUI extends javax.swing.JFrame {
             protected Void doInBackground() throws Exception 
             {
                 connectDB();
-                loadFromMemo();
-                
+                //loadFromMemo();
+                              
                 while (true){
                     
-                    if ("next".equals(turn) || "SAM".equals(turn))
+                    if (!("SAM".equals(player)))
                     {
                         loadFromMemo();
 
@@ -807,9 +803,9 @@ public class InteractiveGUI extends javax.swing.JFrame {
                     
                     }
 
-                    if ("SAM".equals(turn) || "next".equals(turn))  
+                    if (!("SAM".equals(player)))  
                         jTextField1.setText("SAM");
-                    else if ("human".equals(turn))
+                    else if (!("human".equals(player)))
                         jTextField1.setText("Your turn");
                     else jTextField1.setText("");
                     
@@ -830,10 +826,10 @@ public class InteractiveGUI extends javax.swing.JFrame {
                     }  
                     else if (bStatus == 3)
                     {
-                        if ("SAM".equals(turn) || "next".equals(turn))
-                            jTextField2.setText("YOU WIN!");
-                        else if ("human".equals(turn))
-                            jTextField2.setText("SAM"); 
+                        if ("SAM".equals(player))
+                            jTextField2.setText("SAM");
+                        else if ("human".equals(player))
+                            jTextField2.setText("YOU WIN!"); 
                         jTextField1.setText("");
                         
                         jTextField1.setText("");                       

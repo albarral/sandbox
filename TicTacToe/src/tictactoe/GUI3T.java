@@ -37,6 +37,8 @@ public class GUI3T extends javax.swing.JFrame {
     int boardStatus = 0;
     String player = "";
     String previusStatus = "";
+    String samMark = "X";
+    String tamMark = "O";
 
     public GUI3T() {
         initComponents();
@@ -467,9 +469,9 @@ public class GUI3T extends javax.swing.JFrame {
                     if (cell1 > 0)
                     {
                         if (cell1 == 1)
-                            jLabel3.setText("X");
+                            jLabel3.setText(samMark);
                         else if (cell1 == 2)
-                            jLabel3.setText("O");
+                            jLabel3.setText(tamMark);
                     }
                     else jLabel3.setText("");
                         
@@ -477,78 +479,78 @@ public class GUI3T extends javax.swing.JFrame {
                     if (cell2 > 0)
                     {
                         if (cell2 == 1)
-                            jLabel4.setText("X");
+                            jLabel4.setText(samMark);
                         else if (cell2 == 2)
-                            jLabel4.setText("O");
+                            jLabel4.setText(tamMark);
                     }
                     else jLabel4.setText("");
                     
                     if (cell3 > 0)
                     {
                         if (cell3 == 1)
-                            jLabel5.setText("X");
+                            jLabel5.setText(samMark);
                         else if (cell3 == 2)
-                            jLabel5.setText("O");
+                            jLabel5.setText(tamMark);
                     }
                     else jLabel5.setText("");
                     
                     if (cell4 > 0)
                     {
                         if (cell4 == 1)
-                            jLabel6.setText("X");
+                            jLabel6.setText(samMark);
                         else if (cell4 == 2)
-                            jLabel6.setText("O");
+                            jLabel6.setText(tamMark);
                     }
                     else jLabel6.setText("");
                     
                     if (cell5 > 0)
                     {
                         if (cell5 == 1)
-                            jLabel7.setText("X");
+                            jLabel7.setText(samMark);
                         else if (cell5 == 2)
-                            jLabel7.setText("O");
+                            jLabel7.setText(tamMark);
                     }
                     else jLabel7.setText("");
                     
                     if (cell6 > 0)
                     {
                         if (cell6 == 1)
-                            jLabel8.setText("X");
+                            jLabel8.setText(samMark);
                         else if (cell6 == 2)
-                            jLabel8.setText("O");
+                            jLabel8.setText(tamMark);
                     }
                     else jLabel8.setText("");
                     
                     if (cell7 > 0)
                     {
                         if (cell7 == 1)
-                            jLabel9.setText("X");
+                            jLabel9.setText(samMark);
                         else if (cell7 == 2)
-                            jLabel9.setText("O");
+                            jLabel9.setText(tamMark);
                     }
                     else jLabel9.setText("");
                     
                     if (cell8 > 0)
                     {
                         if (cell8 == 1)
-                            jLabel10.setText("X");
+                            jLabel10.setText(samMark);
                         else if (cell8 == 2)
-                            jLabel10.setText("O");
+                            jLabel10.setText(tamMark);
                     }
                     else jLabel10.setText("");
                     
                     if (cell9 > 0)
                     {
                         if (cell9 == 1)
-                            jLabel11.setText("X");
+                            jLabel11.setText(samMark);
                         else if (cell9 == 2)
-                            jLabel11.setText("O");
+                            jLabel11.setText(tamMark);
                     }
                     else jLabel11.setText("");
                     
-                    if ("SAM".equals(player))  
+                    if (!("SAM".equals(player)))  
                         jTextField1.setText("SAM");
-                    else if ("TAM".equals(player))
+                    else if (!("TAM".equals(player)))
                         jTextField1.setText("TAM");
                     else jTextField1.setText("");
                     
@@ -560,9 +562,9 @@ public class GUI3T extends javax.swing.JFrame {
                     else if (boardStatus == 3)
                     {
                         if ("SAM".equals(player))
-                            jTextField2.setText("TAM");
+                            jTextField2.setText("SAM");
                         else if ("TAM".equals(player))
-                            jTextField2.setText("SAM"); 
+                            jTextField2.setText("TAM"); 
                         jTextField1.setText("");
                     }      
                     else 
