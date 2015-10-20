@@ -52,6 +52,7 @@ public:
     void setQ(float value) {Q = value;};
     
     std::string toString();
+    std::string toStringBrief();
 };
 }
 

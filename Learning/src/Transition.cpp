@@ -83,4 +83,8 @@ std::string Transition::toString()
             + ", nextState=" + std::to_string(nextState) + ", Q=" + std::to_string((int)Q) + "]");
 }
 
+std::string Transition::toStringBrief()
+{
+    return ("transition: "  + std::to_string(stateID) + " -> " + std::to_string(nextState) + ", Q=" + std::to_string((int)Q));
+}
 }

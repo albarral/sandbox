@@ -40,19 +40,18 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/data/GameBoard.o \
 	${OBJECTDIR}/src/data/GameFlow.o \
 	${OBJECTDIR}/src/data/PlayerIdentity.o \
-	${OBJECTDIR}/src/learn/GameDistance.o \
 	${OBJECTDIR}/src/learn/GameState.o \
 	${OBJECTDIR}/src/learn/GameTask.o \
 	${OBJECTDIR}/src/learn/TaskReward.o \
 	${OBJECTDIR}/src/main.o \
 	${OBJECTDIR}/src/modules/BoardActuator.o \
 	${OBJECTDIR}/src/modules/BoardSensor.o \
-	${OBJECTDIR}/src/modules/Informer.o \
 	${OBJECTDIR}/src/modules/Line.o \
 	${OBJECTDIR}/src/modules/Player.o \
 	${OBJECTDIR}/src/modules/PlayerActions.o \
 	${OBJECTDIR}/src/modules/Strategy.o \
 	${OBJECTDIR}/src/modules/Strategy2.o \
+	${OBJECTDIR}/src/utils/TaskTree.o \
 	${OBJECTDIR}/src/utils/module2.o
 
 
@@ -105,11 +104,6 @@ ${OBJECTDIR}/src/data/PlayerIdentity.o: src/data/PlayerIdentity.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/data/PlayerIdentity.o src/data/PlayerIdentity.cpp
 
-${OBJECTDIR}/src/learn/GameDistance.o: src/learn/GameDistance.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/learn
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/learn/GameDistance.o src/learn/GameDistance.cpp
-
 ${OBJECTDIR}/src/learn/GameState.o: src/learn/GameState.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/learn
 	${RM} "$@.d"
@@ -140,11 +134,6 @@ ${OBJECTDIR}/src/modules/BoardSensor.o: src/modules/BoardSensor.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/BoardSensor.o src/modules/BoardSensor.cpp
 
-${OBJECTDIR}/src/modules/Informer.o: src/modules/Informer.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/modules
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/Informer.o src/modules/Informer.cpp
-
 ${OBJECTDIR}/src/modules/Line.o: src/modules/Line.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/modules
 	${RM} "$@.d"
@@ -169,6 +158,11 @@ ${OBJECTDIR}/src/modules/Strategy2.o: src/modules/Strategy2.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/modules
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/Strategy2.o src/modules/Strategy2.cpp
+
+${OBJECTDIR}/src/utils/TaskTree.o: src/utils/TaskTree.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/utils
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utils/TaskTree.o src/utils/TaskTree.cpp
 
 ${OBJECTDIR}/src/utils/module2.o: src/utils/module2.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/utils

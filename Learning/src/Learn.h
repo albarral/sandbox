@@ -26,10 +26,11 @@ public:
     void setGamma(float value) {gamma = value;};
 
     // Compute the Q value from a state with one connection
-    float computeQ(State& oState);
+    float computeQ(State& oToState);
    
 private:    
-    float maxQValue(State& oState);
+    // gets maximum Q value of all transitions from the given state
+    float maxQFromState(State& oFromState);
 };
 
 }

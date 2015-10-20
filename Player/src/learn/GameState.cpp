@@ -85,4 +85,9 @@ std::string GameState::toString()
           ", reward=" + std::to_string((int)reward) + "]");  
 }
 
+std::string GameState::toStringBrief()
+{
+  return ("state: (" + std::to_string(cells[0]) + "," + std::to_string(cells[1]) + "," + std::to_string(cells[2]) + ") " + std::to_string(ID) +
+          ", rwd=" + std::to_string((int)reward));  
+}
 }

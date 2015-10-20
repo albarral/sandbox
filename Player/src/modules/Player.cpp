@@ -11,9 +11,9 @@
 #include "modules/Strategy.h"
 #include "learn/GameTask.h"
 #include "learn/GameState.h"
-#include "learn/GameDistance.h"
 #include "learn/TaskReward.h"
 #include "TaskFactory.h"
+#include "utils/TaskTree.h"
 
 namespace sam 
 {
@@ -68,8 +68,8 @@ void Player::init(std::string firstPlayerID)
         oDefenseStrategy.init(oDefenseTask);  
 
         // describe the tasks
-        TaskFactory::describeTask(oAttackTask);
-        TaskFactory::describeTask(oDefenseTask);      
+        TaskTree::showTask2(oAttackTask);
+        TaskTree::showTask2(oDefenseTask);      
     }
 };
 
@@ -176,9 +176,9 @@ void Player::chooseCell()
     // SMART (LEARNING BASED)
     if (oPlayerIdentity.isSmartPlayer() && !oPlayerIdentity.isExplorationMode())
     {
-        LOG4CXX_INFO(logger, "ATTACK ... ");  
+        LOG4CXX_INFO(logger, "ATTACK ... \n");  
         oAttackStrategy.playSmart(matrix, oPlayerIdentity.getMyMark());
-        LOG4CXX_INFO(logger, "DEFEND ... ");  
+        LOG4CXX_INFO(logger, "DEFEND ... \n");  
         oDefenseStrategy.playSmart(matrix, oPlayerIdentity.getMyMark());
         
         // attack move

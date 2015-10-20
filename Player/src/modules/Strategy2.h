@@ -50,7 +50,10 @@ private:
     // analyzes the observed line to obtain the best rewarded movement
     Transition* analyseLine (Line& oLine);    
 
-    Transition* findBestTransition(std::vector<sam::Transition>& listTransitions);
+    // gets the state that represents the given line configuration 
+    GameState* deduceState4Line(Line& oLine);
+    
+    Transition* findBestTransition(GameState& oFromState);
 
     std::string toStringBestMove();
 };

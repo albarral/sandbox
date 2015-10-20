@@ -14,25 +14,21 @@ Learn::Learn()
     gamma = 0;   
 }
 
-// Q(state, action) = Reward(state, action) + gamma * max [Q(next state, all actions)]
-float Learn::computeQ(State& oState)
+// Q(toState) = reward(toState) + gamma * max [Q(transitions from toState)]
+float Learn::computeQ(State& oToState)
 {
-    float reward, QNextState, Q;
-     
-    reward = oState.getReward();    
-    QNextState = maxQValue(oState);
-    
-    Q = reward + gamma * QNextState;
+    float Q = oToState.getReward() + gamma * maxQFromState(oToState);
        
     return Q;
 }
 
-
-float Learn::maxQValue(State& oState)
+    
+// gets max Q value of all transitions from the given state
+float Learn::maxQFromState(State& oFromState)
 {
     float maxQ = 0.0;
     float Q;
-    std::vector<sam::Transition>& listTransition = oState.getListTransitions();
+    std::vector<sam::Transition>& listTransition = oFromState.getListTransitions();
     
     std::vector<sam::Transition>::iterator it_transition = listTransition.begin();
     std::vector<sam::Transition>::iterator it_end = listTransition.end();

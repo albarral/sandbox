@@ -7,6 +7,8 @@
 #include <vector>
 
 #include "TaskFactory.h"
+#include "learn/GameState.h"
+#include "Transition.h"
 #include "modules/Line.h"
 
 namespace sam 
@@ -250,36 +252,6 @@ void TaskFactory::buildTicTacToeTask(GameTask& oGameTask)
     oGameTask.addGameState(oGameState24);
     oGameTask.addGameState(oGameState25);
     oGameTask.addGameState(oGameState26);   
-}
-
-void TaskFactory::describeTask(GameTask& oGameTask)
-{
-    // describe the task
-    LOG4CXX_INFO(logger, oGameTask.showData());
-
-    std::vector<GameState>::iterator it_gameState = oGameTask.getListGameStates().begin();
-    std::vector<GameState>::iterator it_end = oGameTask.getListGameStates().end();
-    // describe each task state
-    while (it_gameState != it_end)
-    {        
-        describeState(*it_gameState);
-        it_gameState++;
-    }    
-}
-
-void TaskFactory::describeState(GameState& oGameState)
-{
-    int* cells = oGameState.getCells();
-    LOG4CXX_INFO(logger, oGameState.toString());
-
-    std::vector<Transition>::iterator it_transition = oGameState.getListTransitions().begin();
-    std::vector<Transition>::iterator it_end = oGameState.getListTransitions().end();
-    // describe each state transition
-    while (it_transition != it_end)
-    {    
-        LOG4CXX_INFO(logger, it_transition->toString());
-        it_transition++;
-    }   
 }
 
 }

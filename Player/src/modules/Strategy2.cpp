@@ -8,7 +8,7 @@
 #include "Strategy2.h"
 #include "PlayerActions.h"
 #include "data/GameBoard.h"
-#include "learn/GameDistance.h"
+#include "utils/TaskTree.h"
 
 namespace sam
 {    
@@ -25,7 +25,7 @@ void Strategy2::init(GameTask& oGameTask)
     benabled = true;
     oLearn.setGamma(0.8);
 
-    LOG4CXX_INFO(logger, "Strategy2 functionality initialized");      
+    LOG4CXX_INFO(logger, "Strategy2 enabled");      
 };
 
 bool Strategy2::playRandom(cv::Mat& matrix, int myMark)
@@ -71,7 +71,7 @@ void Strategy2::playSmart(cv::Mat& matrix, int myMark)
     bestReward = 0.0;
 
     // check rows
-    LOG4CXX_INFO(logger, "CHECK ROWS");   
+    LOG4CXX_INFO(logger, "CHECK ROWS .....");   
     for (int i=0; i<matrix.rows; i++)
     {
         // analyse row & check proper moves in it
@@ -80,7 +80,7 @@ void Strategy2::playSmart(cv::Mat& matrix, int myMark)
     }    
 
     // check columns
-    LOG4CXX_INFO(logger, "CHECK COLUMNS");   
+    LOG4CXX_INFO(logger, "CHECK COLUMNS .....");   
     for (int j=0; j<matrix.cols; j++)
     {
         // analyse column & check proper moves in it
@@ -89,7 +89,7 @@ void Strategy2::playSmart(cv::Mat& matrix, int myMark)
     }    
     
     // check diagonals
-    LOG4CXX_INFO(logger, "CHECK DIAGONALS");   
+    LOG4CXX_INFO(logger, "CHECK DIAGONALS .....");   
     // analyse first diagonal & check proper moves in it
     int lineType = Line::eLINE_DIAG1;
     oLine.checkDiagonal(lineType, myMark, GameBoard::EMPTY_MARK);        
@@ -110,7 +110,7 @@ void Strategy2::checkBestMoveInLine(int lineType, int linePosition, Line& oLine)
     float maxLineReward = 0.0;
     PlayerActions oPlayerActions;
 
-    LOG4CXX_INFO(logger, "check line " << linePosition);   
+    LOG4CXX_INFO(logger, "> line " << linePosition);   
     
     // analyzes the line to obtain its best transition
     Transition* pBestTransition = analyseLine(oLine);    
@@ -119,11 +119,11 @@ void Strategy2::checkBestMoveInLine(int lineType, int linePosition, Line& oLine)
     if (pBestTransition != 0)
     {
         maxLineReward = pBestTransition->getQ();
-        LOG4CXX_INFO(logger, "max Q = " << maxLineReward);   
         
         // and it's the best transition till the moment
         if (maxLineReward > bestReward)
         {
+            LOG4CXX_INFO(logger, ">>> best till now!");               
             bestReward = maxLineReward;
                         
             // deduce the action that causes this transition
@@ -162,61 +162,77 @@ void Strategy2::checkBestMoveInLine(int lineType, int linePosition, Line& oLine)
 // Uses the learned knowledge about the task to obtain the best rewarded transition in this line
 Transition* Strategy2::analyseLine(Line& oLine)
 {
-    GameState* pPresentGameState = 0;
-    int* lineCells = oLine.getCells();
+    // find state for given line
+    GameState* pDeducedState = deduceState4Line(oLine);
+            
+    if (pDeducedState == 0)
+    {
+        LOG4CXX_WARN(logger, "analyseLine: no state deduced from Line");   
+        return 0;
+    }
     
-    // Find the game state that represents the configuration of the given line
-    std::vector<sam::GameState>& listGameStates = pGameTask->getListGameStates();
-    std::vector<sam::GameState>::iterator it_gameState = listGameStates.begin();
-    std::vector<sam::GameState>::iterator it_end = listGameStates.end();
+    TaskTree::showState2(*pDeducedState, *pGameTask);
+    
+    // from the present state, find the best possible transition
+    return (findBestTransition(*pDeducedState));
+}
+
+
+GameState* Strategy2::deduceState4Line(Line& oLine)
+{
+    GameState* pGameState = 0;
+    int* lineCells = oLine.getCells();
+
+    // Find the game state that represents the given Line configuration
+    std::vector<sam::GameState>::iterator it_gameState = pGameTask->getListGameStates().begin();
+    std::vector<sam::GameState>::iterator it_end = pGameTask->getListGameStates().end();
     while (it_gameState != it_end)
     {        
-        int* gameStateCells = it_gameState->getCells();
-        
-        if (gameStateCells[0] == lineCells[0] && gameStateCells[1] == lineCells[1] && gameStateCells[2] == lineCells[2])
+        int* stateCells = it_gameState->getCells();
+
+        if (stateCells[0] == lineCells[0] && stateCells[1] == lineCells[1] && stateCells[2] == lineCells[2])
         {
-            pPresentGameState = &(*it_gameState);
+            pGameState = &(*it_gameState);
             break;
         }
         it_gameState++;
     }    
     
-    LOG4CXX_INFO(logger, "present " << pPresentGameState->toString());   
-    
-    // From the present state, find the best possible transition
-    if (pPresentGameState->getListTransitions().size() > 0)
-    {
-        // the best  transition is the one with maximum Q value 
-        return (findBestTransition(pPresentGameState->getListTransitions()));   
-    }    
-    // if present state allows no transition
-    else
-        return 0;
+    return pGameState;
 }
 
-
-Transition* Strategy2::findBestTransition(std::vector<sam::Transition>& listTransitions)
+Transition* Strategy2::findBestTransition(GameState& oFromState)
 {
     sam::Transition* winnerTemporal = 0;
     sam::Transition* winner = 0;
     std::vector<sam::Transition> listWinners;
     float Q = 0, Qmax = 0;
     int randNumTrans;
+
+    // given state allows no transition
+    if (oFromState.getListTransitions().size() == 0)
+    {
+        LOG4CXX_WARN(logger, "findBestTransition: state without transitions");   
+        return 0;
+    }
     
+    std::vector<Transition>& listTransitions = oFromState.getListTransitions();
+
+    // walk transitions list computing their Q value
     std::vector<sam::Transition>::iterator it_transition = listTransitions.begin();
     std::vector<sam::Transition>::iterator it_end = listTransitions.end();
     while (it_transition != it_end)
     {    
         Transition& oTransition = *it_transition;
-        std::vector<sam::GameState>& listGameStates = pGameTask->getListGameStates();
-        GameState& oNextState = listGameStates.at(oTransition.getNextState()); 
+        
+        GameState& oToState = pGameTask->getListGameStates().at(oTransition.getNextState()); 
         
         //Calculate the Q values and search for the one with the highest value
-        Q = oLearn.computeQ(oNextState);
+        Q = oLearn.computeQ(oToState);
         it_transition->setQ(Q);
 
-        LOG4CXX_INFO(logger, "next " << oNextState.toString());   
-        LOG4CXX_INFO(logger, "Q=" << std::to_string(Q));
+        //LOG4CXX_INFO(logger, "next " << oNextState.toString());   
+        LOG4CXX_DEBUG(logger, "Q=" << std::to_string(Q));
         
         if (Q > Qmax)
         {
@@ -237,7 +253,7 @@ Transition* Strategy2::findBestTransition(std::vector<sam::Transition>& listTran
         it_transition++;
     }
 
-    LOG4CXX_INFO(logger, "best transition = " << winner->toString());  
+    LOG4CXX_INFO(logger, "best " << winner->toStringBrief());  
 
     return winner;
 }

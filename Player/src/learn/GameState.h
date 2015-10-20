@@ -36,6 +36,7 @@ public:
     void deleteFromMemo2(Database* pDatabase);
     
     std::string toString();
+    std::string toStringBrief();
 };
 }
 

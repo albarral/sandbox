@@ -9,8 +9,6 @@
 #include <log4cxx/logger.h>
 
 #include "learn/GameTask.h"
-#include "learn/GameState.h"
-#include "Transition.h"
 
 namespace sam 
 {
@@ -24,11 +22,6 @@ public:
     
     static void buildTicTacToeTask(GameTask& oGameTask);    
     
-    // shows brief description of given task
-    static void describeTask(GameTask& oGameTask);    
-    // shows brief description of given state
-    static void describeState(GameState& oGameState);
-
 };
 }
 

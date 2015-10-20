@@ -22,8 +22,6 @@
           <itemPath>src/data/PlayerIdentity.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f4" displayName="learn" projectFiles="true">
-          <itemPath>src/learn/GameDistance.cpp</itemPath>
-          <itemPath>src/learn/GameDistance.h</itemPath>
           <itemPath>src/learn/GameState.cpp</itemPath>
           <itemPath>src/learn/GameState.h</itemPath>
           <itemPath>src/learn/GameTask.cpp</itemPath>
@@ -36,8 +34,6 @@
           <itemPath>src/modules/BoardActuator.h</itemPath>
           <itemPath>src/modules/BoardSensor.cpp</itemPath>
           <itemPath>src/modules/BoardSensor.h</itemPath>
-          <itemPath>src/modules/Informer.cpp</itemPath>
-          <itemPath>src/modules/Informer.h</itemPath>
           <itemPath>src/modules/Line.cpp</itemPath>
           <itemPath>src/modules/Line.h</itemPath>
           <itemPath>src/modules/Player.cpp</itemPath>
@@ -50,6 +46,8 @@
           <itemPath>src/modules/Strategy2.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f3" displayName="utils" projectFiles="true">
+          <itemPath>src/utils/TaskTree.cpp</itemPath>
+          <itemPath>src/utils/TaskTree.h</itemPath>
           <itemPath>src/utils/module2.cpp</itemPath>
           <itemPath>src/utils/module2.h</itemPath>
         </logicalFolder>
@@ -147,10 +145,6 @@
       </item>
       <item path="src/data/PlayerIdentity.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/learn/GameDistance.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/learn/GameDistance.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/learn/GameState.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/learn/GameState.h" ex="false" tool="3" flavor2="0">
@@ -173,10 +167,6 @@
       </item>
       <item path="src/modules/BoardSensor.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/modules/Informer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/modules/Informer.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/modules/Line.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/modules/Line.h" ex="false" tool="3" flavor2="0">
@@ -196,6 +186,10 @@
       <item path="src/modules/Strategy2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/modules/Strategy2.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/TaskTree.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/TaskTree.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/module2.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -242,10 +236,6 @@
       </item>
       <item path="src/data/PlayerIdentity.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/learn/GameDistance.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/learn/GameDistance.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/learn/GameState.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/learn/GameState.h" ex="false" tool="3" flavor2="0">
@@ -268,10 +258,6 @@
       </item>
       <item path="src/modules/BoardSensor.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/modules/Informer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/modules/Informer.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/modules/Line.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/modules/Line.h" ex="false" tool="3" flavor2="0">
@@ -291,6 +277,10 @@
       <item path="src/modules/Strategy2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/modules/Strategy2.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/TaskTree.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/TaskTree.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/module2.cpp" ex="false" tool="1" flavor2="0">
       </item>
