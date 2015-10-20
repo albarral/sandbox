@@ -39,7 +39,10 @@ public class GUI3T extends javax.swing.JFrame {
     String previusStatus = "";
     String samMark = "X";
     String tamMark = "O";
-
+    int emptyCell = 0;
+    int samCell = 1;
+    int tamCell = 2;
+    
     public GUI3T() {
         initComponents();
     }
@@ -400,13 +403,13 @@ public class GUI3T extends javax.swing.JFrame {
     {
         //get the values from the database
         try{
-            String sql= "SELECT * FROM TAB_BOARD";
+            String sql= "SELECT * FROM TAB_BOARD order by tryID desc";
             statement.executeQuery(sql);
             resultSet = statement.getResultSet();
             
             if (resultSet != null)
             {
-                while (resultSet.next())
+                if (resultSet.next())
                 {
                     cell1 = resultSet.getInt("cell00");
                     cell2 = resultSet.getInt("cell01");
@@ -466,84 +469,84 @@ public class GUI3T extends javax.swing.JFrame {
                     doWork();
                     
                     //Put the values from the database into the GUI
-                    if (cell1 > 0)
+                    if (cell1 > emptyCell)
                     {
-                        if (cell1 == 1)
+                        if (cell1 == samCell)
                             jLabel3.setText(samMark);
-                        else if (cell1 == 2)
+                        else if (cell1 == tamCell)
                             jLabel3.setText(tamMark);
                     }
                     else jLabel3.setText("");
                         
                     
-                    if (cell2 > 0)
+                    if (cell2 > emptyCell)
                     {
-                        if (cell2 == 1)
+                        if (cell2 == samCell)
                             jLabel4.setText(samMark);
-                        else if (cell2 == 2)
+                        else if (cell2 == tamCell)
                             jLabel4.setText(tamMark);
                     }
                     else jLabel4.setText("");
                     
-                    if (cell3 > 0)
+                    if (cell3 > emptyCell)
                     {
-                        if (cell3 == 1)
+                        if (cell3 == samCell)
                             jLabel5.setText(samMark);
-                        else if (cell3 == 2)
+                        else if (cell3 == tamCell)
                             jLabel5.setText(tamMark);
                     }
                     else jLabel5.setText("");
                     
-                    if (cell4 > 0)
+                    if (cell4 > emptyCell)
                     {
-                        if (cell4 == 1)
+                        if (cell4 == samCell)
                             jLabel6.setText(samMark);
-                        else if (cell4 == 2)
+                        else if (cell4 == tamCell)
                             jLabel6.setText(tamMark);
                     }
                     else jLabel6.setText("");
                     
-                    if (cell5 > 0)
+                    if (cell5 > emptyCell)
                     {
-                        if (cell5 == 1)
+                        if (cell5 == samCell)
                             jLabel7.setText(samMark);
-                        else if (cell5 == 2)
+                        else if (cell5 == tamCell)
                             jLabel7.setText(tamMark);
                     }
                     else jLabel7.setText("");
                     
-                    if (cell6 > 0)
+                    if (cell6 > emptyCell)
                     {
-                        if (cell6 == 1)
+                        if (cell6 == samCell)
                             jLabel8.setText(samMark);
-                        else if (cell6 == 2)
+                        else if (cell6 == tamCell)
                             jLabel8.setText(tamMark);
                     }
                     else jLabel8.setText("");
                     
-                    if (cell7 > 0)
+                    if (cell7 > emptyCell)
                     {
-                        if (cell7 == 1)
+                        if (cell7 == samCell)
                             jLabel9.setText(samMark);
-                        else if (cell7 == 2)
+                        else if (cell7 == tamCell)
                             jLabel9.setText(tamMark);
                     }
                     else jLabel9.setText("");
                     
-                    if (cell8 > 0)
+                    if (cell8 > emptyCell)
                     {
-                        if (cell8 == 1)
+                        if (cell8 == samCell)
                             jLabel10.setText(samMark);
-                        else if (cell8 == 2)
+                        else if (cell8 == tamCell)
                             jLabel10.setText(tamMark);
                     }
                     else jLabel10.setText("");
                     
-                    if (cell9 > 0)
+                    if (cell9 > emptyCell)
                     {
-                        if (cell9 == 1)
+                        if (cell9 == samCell)
                             jLabel11.setText(samMark);
-                        else if (cell9 == 2)
+                        else if (cell9 == tamCell)
                             jLabel11.setText(tamMark);
                     }
                     else jLabel11.setText("");

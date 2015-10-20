@@ -40,6 +40,9 @@ public class InteractiveGUI extends javax.swing.JFrame {
     String player = "";
     String myMark = "";
     String SamMark = "";
+    int emptyCell = 0;
+    int samCell = 1;
+    int myCell = 2;
     
     public InteractiveGUI() {
         initComponents();
@@ -554,66 +557,66 @@ public class InteractiveGUI extends javax.swing.JFrame {
         String value;
         value = jLabel3.getText();
         if (SamMark.equals(value))                        
-            cell1 = 1;
+            cell1 = samCell;
         else if(myMark.equals(value))
-            cell1 = 2;
-        else cell1 = 0;
+            cell1 = myCell;
+        else cell1 = emptyCell;
                         
         value = jLabel4.getText();
         if (SamMark.equals(value))                        
-            cell2 = 1;
+            cell2 = samCell;
         else if(myMark.equals(value))
-            cell2 = 2;
-        else cell2 = 0;
+            cell2 = myCell;
+        else cell2 = emptyCell;
                         
         value = jLabel5.getText();
         if (SamMark.equals(value))                        
-            cell3 = 1;
+            cell3 = samCell;
         else if(myMark.equals(value))
-            cell3 = 2;
-        else cell3 = 0;
+            cell3 = myCell;
+        else cell3 = emptyCell;
 
         value = jLabel6.getText();
         if (SamMark.equals(value))                        
-            cell4 = 1;
+            cell4 = samCell;
         else if(myMark.equals(value))
-            cell4 = 2;
-        else cell4 = 0;
+            cell4 = myCell;
+        else cell4 = emptyCell;
                         
         value = jLabel7.getText();
         if (SamMark.equals(value))                        
-            cell5 = 1;
+            cell5 = samCell;
         else if(myMark.equals(value))
-            cell5 = 2;
-        else cell5 = 0;
+            cell5 = myCell;
+        else cell5 = emptyCell;
                         
         value = jLabel8.getText();
         if (SamMark.equals(value))                        
-            cell6 = 1;
+            cell6 = samCell;
         else if(myMark.equals(value))
-            cell6 = 2;
-        else cell6 = 0;
+            cell6 = myCell;
+        else cell6 = emptyCell;
                         
         value = jLabel9.getText();
         if (SamMark.equals(value))                        
-            cell7 = 1;
+            cell7 = samCell;
         else if(myMark.equals(value))
-            cell7 = 2;
-        else cell7 = 0;
+            cell7 = myCell;
+        else cell7 = emptyCell;
                         
         value = jLabel10.getText();
         if (SamMark.equals(value))                        
-            cell8 = 1;
+            cell8 = samCell;
         else if(myMark.equals(value))
-            cell8 = 2;
-        else cell8 = 0;
+            cell8 = myCell;
+        else cell8 = emptyCell;
                         
         value = jLabel11.getText();
         if (SamMark.equals(value))                        
-            cell9 = 1;
+            cell9 = samCell;
         else if(myMark.equals(value))
-            cell9 = 2;
-        else cell9 = 0;
+            cell9 = myCell;
+        else cell9 = emptyCell;
                         
         player = "human";
         storeInMemo();          
@@ -719,84 +722,84 @@ public class InteractiveGUI extends javax.swing.JFrame {
                         loadFromMemo();
 
                         //Put the values from the database into the GUI
-                        if (cell1 > 0)
+                        if (cell1 > emptyCell)
                         {
-                            if (cell1 == 1)
+                            if (cell1 == samCell)
                                 jLabel3.setText(SamMark);
-                            else if (cell1 == 2)
+                            else if (cell1 == myCell)
                                 jLabel3.setText(myMark);
                         }
                         else jLabel3.setText("");
 
 
-                        if (cell2 > 0)
+                        if (cell2 > emptyCell)
                         {
-                            if (cell2 == 1)
+                            if (cell2 == samCell)
                                 jLabel4.setText(SamMark);
-                            else if (cell2 == 2)
+                            else if (cell2 == myCell)
                                 jLabel4.setText(myMark);
                         }
                         else jLabel4.setText("");
 
-                        if (cell3 > 0)
+                        if (cell3 > emptyCell)
                         {
-                            if (cell3 == 1)
+                            if (cell3 == samCell)
                                 jLabel5.setText(SamMark);
-                            else if (cell3 == 2)
+                            else if (cell3 == myCell)
                                 jLabel5.setText(myMark);
                         }
                         else jLabel5.setText("");
 
-                        if (cell4 > 0)
+                        if (cell4 > emptyCell)
                         {
-                            if (cell4 == 1)
+                            if (cell4 == samCell)
                                 jLabel6.setText(SamMark);
-                            else if (cell4 == 2)
+                            else if (cell4 == myCell)
                                 jLabel6.setText(myMark);
                         }
                         else jLabel6.setText("");
 
-                        if (cell5 > 0)
+                        if (cell5 > emptyCell)
                         {
-                            if (cell5 == 1)
+                            if (cell5 == samCell)
                                 jLabel7.setText(SamMark);
-                            else if (cell5 == 2)
+                            else if (cell5 == myCell)
                                 jLabel7.setText(myMark);
                         }
                         else jLabel7.setText("");
 
-                        if (cell6 > 0)
+                        if (cell6 > emptyCell)
                         {
-                            if (cell6 == 1)
+                            if (cell6 == samCell)
                                 jLabel8.setText(SamMark);
-                            else if (cell6 == 2)
+                            else if (cell6 == myCell)
                                 jLabel8.setText(myMark);
                         }
                         else jLabel8.setText("");
 
-                        if (cell7 > 0)
+                        if (cell7 > emptyCell)
                         {
-                            if (cell7 == 1)
+                            if (cell7 == samCell)
                                 jLabel9.setText(SamMark);
-                            else if (cell7 == 2)
+                            else if (cell7 == myCell)
                                 jLabel9.setText(myMark);
                         }
                         else jLabel9.setText("");
 
-                        if (cell8 > 0)
+                        if (cell8 > emptyCell)
                         {
-                            if (cell8 == 1)
+                            if (cell8 == samCell)
                                 jLabel10.setText(SamMark);
-                            else if (cell8 == 2)
+                            else if (cell8 == myCell)
                                 jLabel10.setText(myMark);
                         }
                         else jLabel10.setText("");
 
-                        if (cell9 > 0)
+                        if (cell9 > emptyCell)
                         {
-                            if (cell9 == 1)
+                            if (cell9 == samCell)
                                 jLabel11.setText(SamMark);
-                            else if (cell9 == 2)
+                            else if (cell9 == myCell)
                                 jLabel11.setText(myMark);
                         }
                         else jLabel11.setText("");
