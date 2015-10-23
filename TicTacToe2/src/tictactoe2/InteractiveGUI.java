@@ -849,7 +849,7 @@ public class InteractiveGUI extends javax.swing.JFrame {
                     else 
                         jTextField2.setText("");
 
-                    Thread.sleep(500);
+                    Thread.sleep(1500);
                 }               
             }
         };

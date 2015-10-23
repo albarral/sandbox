@@ -93,7 +93,10 @@ void GameManager::stopModules()
 // checks board status to see if game has finished
 bool GameManager::isGameOver()
 {
-    return (oSam.isPlayerFinished() && oTam.isPlayerFinished());
+    if (gameType == eGAME_SAM_VS_TAM)
+        return (oSam.isPlayerFinished() && oTam.isPlayerFinished());
+    else 
+        return oSam.isPlayerFinished();
 }
 
 }
