@@ -174,8 +174,12 @@ void Player::chooseCell()
     // select move ...
     
     // SMART (LEARNING BASED)
-    if (oPlayerIdentity.isSmartPlayer() && !oPlayerIdentity.isExplorationMode())
+    if (oPlayerIdentity.isSmartPlayer())
     {
+        // set explorative modes
+        oAttackStrategy.setExplorativeMode(oPlayerIdentity.isSmartExplorativePlayer());
+        oDefenseStrategy.setExplorativeMode(oPlayerIdentity.isSmartExplorativePlayer());
+        
         LOG4CXX_INFO(logger, "ATTACK ... \n");  
         oAttackStrategy.playSmart(matrix, oPlayerIdentity.getMyMark());
         LOG4CXX_INFO(logger, "DEFEND ... \n");  
@@ -193,10 +197,6 @@ void Player::chooseCell()
             LOG4CXX_INFO(logger, "DEFENSE MOVE");  
             pBestMove = oDefenseStrategy.getBestMove();            
         }
-    }
-    else if (oPlayerIdentity.isSmartPlayer() && oPlayerIdentity.isExplorationMode())
-    {
-
     }
     // NO LEARNING    
     else

@@ -19,14 +19,15 @@ public:
     {
         eMODE_RANDOM,             // random player: selects cells in aleatory manner
         eMODE_SIMPLE,               // simple player: uses rules defined in Strategy class
-        eMODE_SMART                 // smart player: uses learning & knowledge
+        eMODE_SMART,                 // smart player: uses learning & knowledge
+        eMODE_SMART_EXPLORE,    // smart explorative player: uses learning & knowledge
+        eMODE_DIM
     };
 
 private:           
     std::string ID;     // ID of the player 
     int myMark;        // mark used by player to select cells (can't be GameBoard::EMPTY_MARK)
     int playMode;      // playing mode used by player 
-    bool bExplorationMode; 
             
 public:
     PlayerIdentity();
@@ -40,9 +41,9 @@ public:
     void setPlayMode(int playMode);    
     int getPlayMode() {return playMode;};
     
-    bool isSmartPlayer() {return (playMode == eMODE_SMART);};
     bool isSimplePlayer() {return (playMode == eMODE_SIMPLE);};
-    bool isExplorationMode() {return (bExplorationMode == true);};
+    bool isSmartPlayer() {return (playMode == eMODE_SMART || playMode == eMODE_SMART_EXPLORE);};
+    bool isSmartExplorativePlayer() {return (playMode == eMODE_SMART_EXPLORE);};
     
     // returns member values in string form
     std::string toString();

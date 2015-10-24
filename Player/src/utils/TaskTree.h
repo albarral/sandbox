@@ -28,11 +28,11 @@ public:
     static void showState(GameState& oGameState);
     
     // shows brief description of given task
-    static void showTask2(GameTask& oGameTask);    
+    static void showTask2(GameTask& oGameTask, bool bfilterOut = false);    
     // shows brief description of given state
-    static void showState2(GameState& oGameState, GameTask& oGameTask);
+    static void showState2(GameState& oGameState, GameTask& oGameTask, bool bfilterOut);
     // shows brief description of given transition
-    static void showTransition2(Transition& oTransition, GameTask& oGameTask);
+    static void showTransition2(Transition& oTransition, GameTask& oGameTask, bool bfilterOut);
 
 };
 }

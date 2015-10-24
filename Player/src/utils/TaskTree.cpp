@@ -43,7 +43,7 @@ void TaskTree::showState(GameState& oGameState)
     }   
 }
 
-void TaskTree::showTask2(GameTask& oGameTask)
+void TaskTree::showTask2(GameTask& oGameTask, bool bfilterOut)
 {
     // show the task
     LOG4CXX_INFO(logger, oGameTask.showData());
@@ -53,12 +53,12 @@ void TaskTree::showTask2(GameTask& oGameTask)
     // show each task state
     while (it_gameState != it_end)
     {        
-        showState2(*it_gameState, oGameTask);
+        showState2(*it_gameState, oGameTask, bfilterOut);
         it_gameState++;
     }    
 }
 
-void TaskTree::showState2(GameState& oGameState, GameTask& oGameTask)
+void TaskTree::showState2(GameState& oGameState, GameTask& oGameTask, bool bfilterOut)
 {
     LOG4CXX_INFO(logger, oGameState.toStringBrief());    
 
@@ -67,13 +67,17 @@ void TaskTree::showState2(GameState& oGameState, GameTask& oGameTask)
     // show each state transition
     while (it_transition != it_end)
     {    
-        showTransition2(*it_transition, oGameTask);
+        showTransition2(*it_transition, oGameTask, bfilterOut);
         it_transition++;
     }   
 }
 
-void TaskTree::showTransition2(Transition& oTransition, GameTask& oGameTask)
+void TaskTree::showTransition2(Transition& oTransition, GameTask& oGameTask, bool bfilterOut)
 {
+    // filter out transitions with zero Q
+    if (bfilterOut && oTransition.getQ() == 0.0)
+        return;
+    
     int nextStateID = oTransition.getNextState();
     GameState& oNextState = oGameTask.getListGameStates().at(nextStateID);
     int* nextCells = oNextState.getCells();

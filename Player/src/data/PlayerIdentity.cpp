@@ -11,14 +11,13 @@ PlayerIdentity::PlayerIdentity()
 {
     ID = "";
     myMark = 0;
-    bExplorationMode = false;
     setPlayMode(eMODE_SIMPLE);
 }
 
 void PlayerIdentity::setPlayMode(int playMode)
 {
     // just set if valid value
-    if (playMode >= 0 && playMode <= eMODE_SMART)
+    if (playMode >= 0 && playMode < eMODE_DIM)
         this->playMode = playMode;
 }
 

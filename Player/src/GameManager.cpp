@@ -27,7 +27,7 @@ void GameManager::startModules()
     PlayerIdentity& oSamIdentity = oSam.getPlayerIdentity();
     oSamIdentity.setID("SAM");
     oSamIdentity.setMyMark(1);
-    oSamIdentity.setPlayMode(PlayerIdentity::eMODE_SMART);
+    oSamIdentity.setPlayMode(PlayerIdentity::eMODE_SMART_EXPLORE);
     oGameFlow.addPlayer(oSamIdentity);
 
     if (gameType == eGAME_SAM_VS_TAM)

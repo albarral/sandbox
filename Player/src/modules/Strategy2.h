@@ -26,6 +26,7 @@ private:
     int bestMove[2];          // the cell selection (row, col) that gives the maximum attack reward
     GameTask* pGameTask;    //  pointer to the game task
     Learn oLearn;                    // the learning capability
+    bool bexplorative;
     
 public:
     Strategy2();
@@ -33,6 +34,9 @@ public:
     // enable Strategy2 functionality
     void init (GameTask& oGameTask);
     bool isEnabled() {return benabled;};
+    
+    void setExplorativeMode(bool bvalue) {bexplorative = bvalue;};
+    bool isExplorativeMode() {return bexplorative;};
     
     // Checks the board and randomly select one of its empty cells. Storing it as best move.
     bool playRandom(cv::Mat& matrix, int myMark);

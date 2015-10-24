@@ -17,13 +17,14 @@ log4cxx::LoggerPtr Strategy2::logger(log4cxx::Logger::getLogger("sam.player"));
 Strategy2::Strategy2() 
 {
     benabled = false;
+    setExplorativeMode(false);
 }
 
 void Strategy2::init(GameTask& oGameTask)
 {
     pGameTask = &oGameTask;
     benabled = true;
-    oLearn.setGamma(0.8);
+    oLearn.setGamma(0.0);
 
     LOG4CXX_INFO(logger, "Strategy2 enabled");      
 };
@@ -66,6 +67,7 @@ void Strategy2::playSmart(cv::Mat& matrix, int myMark)
     oLine.setMatrix(matrix);
 
     LOG4CXX_INFO(logger, "Strategy2: play smart ...");   
+    TaskTree::showTask2(*pGameTask, true);
 
     // zero reward before the analysis
     bestReward = 0.0;
@@ -123,7 +125,7 @@ void Strategy2::checkBestMoveInLine(int lineType, int linePosition, Line& oLine)
         // and it's the best transition till the moment
         if (maxLineReward > bestReward)
         {
-            LOG4CXX_INFO(logger, ">>> best till now!");               
+            LOG4CXX_INFO(logger, ">>> BEST!");               
             bestReward = maxLineReward;
                         
             // deduce the action that causes this transition
@@ -171,7 +173,7 @@ Transition* Strategy2::analyseLine(Line& oLine)
         return 0;
     }
     
-    TaskTree::showState2(*pDeducedState, *pGameTask);
+    LOG4CXX_INFO(logger, pDeducedState->toStringBrief());    
     
     // from the present state, find the best possible transition
     return (findBestTransition(*pDeducedState));
@@ -201,15 +203,16 @@ GameState* Strategy2::deduceState4Line(Line& oLine)
     return pGameState;
 }
 
+// Compute the Q value of all transitions from this state and return the best one
 Transition* Strategy2::findBestTransition(GameState& oFromState)
 {
-    sam::Transition* winnerTemporal = 0;
     sam::Transition* winner = 0;
-    std::vector<sam::Transition> listWinners;
-    float Q = 0, Qmax = 0;
-    int randNumTrans;
-
-    // given state allows no transition
+    float Q = 0, Qmax = 0.0;
+    //sam::Transition* winnerTemporal = 0;
+    //std::vector<sam::Transition> listWinners;
+    int randTrans;
+    
+    // if no transitions from this state return nothing
     if (oFromState.getListTransitions().size() == 0)
     {
         LOG4CXX_WARN(logger, "findBestTransition: state without transitions");   
@@ -230,29 +233,40 @@ Transition* Strategy2::findBestTransition(GameState& oFromState)
         //Calculate the Q values and search for the one with the highest value
         Q = oLearn.computeQ(oToState);
         it_transition->setQ(Q);
-
-        //LOG4CXX_INFO(logger, "next " << oNextState.toString());   
-        LOG4CXX_DEBUG(logger, "Q=" << std::to_string(Q));
         
+        //LOG4CXX_INFO(logger, "next " << oNextState.toString());   
+        LOG4CXX_DEBUG(logger, "-> " << std::to_string(it_transition->getNextState()) << " Q=" << std::to_string((int)Q));
+
+        // track best option
         if (Q > Qmax)
         {
             Qmax = Q;
-            listWinners.clear();
-            listWinners.push_back(oTransition);
             winner = &oTransition;
+            //listWinners.clear();
+            //listWinners.push_back(oTransition);
         }   
-        // if various connections share the maximum confidence, take winner randomly among them
-        else if (Q == Qmax)
-        {
-            listWinners.push_back(oTransition);
-            
-            randNumTrans = rand() % listWinners.size();
-            winnerTemporal = &(listWinners.at(randNumTrans));
-            winner = &(listTransitions.at(winnerTemporal->getID()));
-        }
+//        // if various connections share the maximum confidence, take winner randomly among them
+//        else if (Q == Qmax)
+//        {
+//            listWinners.push_back(oTransition);
+//            
+//            randNumTrans = rand() % listWinners.size();
+//            winnerTemporal = &(listWinners.at(randNumTrans));
+//            winner = &(listTransitions.at(winnerTemporal->getID()));
+//        }
         it_transition++;
     }
 
+    // on explorative mode, take any transition
+    if (bexplorative)
+    {
+        randTrans = rand() % listTransitions.size();
+        winner = &(listTransitions.at(randTrans));
+    }    
+    // all transitions will zero Q, take first
+    else if (Qmax == 0.0)
+        winner = &(listTransitions.at(0));
+    
     LOG4CXX_INFO(logger, "best " << winner->toStringBrief());  
 
     return winner;
@@ -261,7 +275,7 @@ Transition* Strategy2::findBestTransition(GameState& oFromState)
 
 std::string Strategy2::toStringBestMove()
 {
-    return ("bestAttack: [reward=" + std::to_string(bestReward) + 
+    return ("bestMove: [reward=" + std::to_string(bestReward) + 
             ", move=(" + std::to_string(bestMove[0]) + "," + std::to_string(bestMove[1]) + ")]"); 
 }
 
