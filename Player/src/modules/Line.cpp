@@ -55,7 +55,7 @@ void Line::checkDiagonal(int lineType, int myMark, int emptyMark)
         return;
         
     reset();
-    if (lineType == eLINE_DIAG1)
+    if (lineType == eTYPE_DIAG1)
     {
         // walk first diagonal (from NW to SE)
         for (int k=0; k<mat.rows; k++)
@@ -63,7 +63,7 @@ void Line::checkDiagonal(int lineType, int myMark, int emptyMark)
             checkCell(k, k, k);  
         }
     }
-    else if (lineType == eLINE_DIAG2)
+    else if (lineType == eTYPE_DIAG2)
     {
         // walk second diagonal (from NE to SW)
         int topColumn = mat.cols - 1;       
@@ -100,4 +100,29 @@ void Line::checkCell(int row, int col, int posLine)
         cells[posLine] = eCELL_OTHER;
     }
 }
+
+ int Line::getLineIdentifier(int lineType, int linePos)
+ {
+     int lineID = -1;
+     
+     switch (lineType)
+    {
+        case Line::eTYPE_ROW:
+            lineID = eLINE_ROW1 + linePos;
+            break;
+            
+        case Line::eTYPE_COL:
+            lineID = eLINE_COL1 + linePos;
+            break;
+         
+       case Line::eTYPE_DIAG1:
+            lineID = eLINE_DIAG1;
+
+         case Line::eTYPE_DIAG2:
+            lineID = eLINE_DIAG2;
+            break;                                                
+    }
+     
+     return (lineID);
+ }
 }

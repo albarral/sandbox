@@ -16,15 +16,29 @@ namespace sam
 class Line 
 {  
 public:
+    // line types
     enum eType
     {
-        eLINE_ROW,        // line is a row
-        eLINE_COL,        // line is a column
-        eLINE_DIAG1,     // line is the ascending diagonal
-        eLINE_DIAG2      // line is the descending diagonal
+        eTYPE_ROW,        // line is a row
+        eTYPE_COL,        // line is a column
+        eTYPE_DIAG1,     // line is the ascending diagonal
+        eTYPE_DIAG2      // line is the descending diagonal
     };
-
-    enum eCell  //cell state
+    // line identifiers
+    enum eLine 
+    {
+        eLINE_ROW1,
+        eLINE_ROW2,
+        eLINE_ROW3,
+        eLINE_COL1,  
+        eLINE_COL2,
+        eLINE_COL3,
+        eLINE_DIAG1,
+        eLINE_DIAG2,
+        eLINE_DIM   // dimension of eLine enum
+    };
+    // cell states
+    enum eCell  
     {
         eCELL_EMPTY,        // empty cell
         eCELL_MINE,	// cell occupied by me
@@ -56,6 +70,9 @@ public:
     int getNumOthers() {return numOthers;};
     int getNumEmpties() {return numEmpties;};
     std::vector<cv::Point>& getListEmptyCells() {return listEmptyCells;}
+    
+    // translates a given line type & position to a specific line identifier
+    static int getLineIdentifier(int lineType, int linePos);
     
 private:
     // reset line counters

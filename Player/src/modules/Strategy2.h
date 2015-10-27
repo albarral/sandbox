@@ -22,11 +22,12 @@ class Strategy2
 private:
     static log4cxx::LoggerPtr logger;
     bool benabled;                     // true when functionality is initialized
-    float bestReward;        // best reward of all possible attack movements (in present game state)
-    int bestMove[2];          // the cell selection (row, col) that gives the maximum attack reward
+    float bestReward;               // best reward of all possible attack movements (in present game state)
+    int bestMove[2];                 // the cell selection (row, col) that gives the maximum attack reward
     GameTask* pGameTask;    //  pointer to the game task
     Learn oLearn;                    // the learning capability
-    bool bexplorative;
+    bool bexplorative;              // flag to indicate explorative mode is to be used
+    int actionLine;                   // (in explorative mode) the line in which the action will be performed (one of Line::eLine values)
     
 public:
     Strategy2();
@@ -58,7 +59,7 @@ private:
     GameState* deduceState4Line(Line& oLine);
     
     Transition* findBestTransition(GameState& oFromState);
-
+        
     std::string toStringBestMove();
 };
 }

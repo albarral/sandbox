@@ -71,6 +71,12 @@ void Strategy2::playSmart(cv::Mat& matrix, int myMark)
 
     // zero reward before the analysis
     bestReward = 0.0;
+    // explorative mode: select random line for the action
+    if (bexplorative)
+    {
+        actionLine = rand() % Line::eLINE_DIM;
+        LOG4CXX_INFO(logger, "explore: action line " << actionLine);   
+    }
 
     // check rows
     LOG4CXX_INFO(logger, "CHECK ROWS .....");   
@@ -78,7 +84,7 @@ void Strategy2::playSmart(cv::Mat& matrix, int myMark)
     {
         // analyse row & check proper moves in it
         oLine.checkRow(i, myMark, GameBoard::EMPTY_MARK);        
-        checkBestMoveInLine(Line::eLINE_ROW, i, oLine);
+        checkBestMoveInLine(Line::eTYPE_ROW, i, oLine);
     }    
 
     // check columns
@@ -87,18 +93,18 @@ void Strategy2::playSmart(cv::Mat& matrix, int myMark)
     {
         // analyse column & check proper moves in it
         oLine.checkColumn(j, myMark, GameBoard::EMPTY_MARK);        
-        checkBestMoveInLine(Line::eLINE_COL, j, oLine);
+        checkBestMoveInLine(Line::eTYPE_COL, j, oLine);
     }    
     
     // check diagonals
     LOG4CXX_INFO(logger, "CHECK DIAGONALS .....");   
     // analyse first diagonal & check proper moves in it
-    int lineType = Line::eLINE_DIAG1;
+    int lineType = Line::eTYPE_DIAG1;
     oLine.checkDiagonal(lineType, myMark, GameBoard::EMPTY_MARK);        
     checkBestMoveInLine(lineType, 0, oLine);
 
     // analyse second diagonal & check proper moves in it
-    lineType = Line::eLINE_DIAG2;
+    lineType = Line::eTYPE_DIAG2;
     oLine.checkDiagonal(lineType, myMark, GameBoard::EMPTY_MARK);        
     checkBestMoveInLine(lineType, 0, oLine);
     
@@ -109,24 +115,34 @@ void Strategy2::playSmart(cv::Mat& matrix, int myMark)
 // checks if the given line holds the best move in the board 
 void Strategy2::checkBestMoveInLine(int lineType, int linePosition, Line& oLine)
 {
-    float maxLineReward = 0.0;
+    bool bUpdateBest = false;  // indicates the best move has to be updated
     PlayerActions oPlayerActions;
 
     LOG4CXX_INFO(logger, "> line " << linePosition);   
     
     // analyzes the line to obtain its best transition
     Transition* pBestTransition = analyseLine(oLine);    
-    
+        
     // if line transition was found ...
     if (pBestTransition != 0)
     {
-        maxLineReward = pBestTransition->getQ();
-        
-        // and it's the best transition till the moment
-        if (maxLineReward > bestReward)
+        // explorative mode: update best move if this is the randomly selected line
+        if (bexplorative)
         {
-            LOG4CXX_INFO(logger, ">>> BEST!");               
-            bestReward = maxLineReward;
+            int lineID = Line::getLineIdentifier(lineType, linePosition);
+            bUpdateBest = (lineID == actionLine);
+        }
+        // normal mode: update best move if this is the best transition till the moment
+        else
+        {
+            bUpdateBest = (pBestTransition->getQ() > bestReward);                                    
+        }                
+        
+        // if best move to be updated
+        if (bUpdateBest)
+        {
+            LOG4CXX_INFO(logger, ">>> UPDATE BEST!");               
+            bestReward = pBestTransition->getQ();
                         
             // deduce the action that causes this transition
             GameState& state1 = pGameTask->getListGameStates().at(pBestTransition->getStateID());
@@ -139,14 +155,14 @@ void Strategy2::checkBestMoveInLine(int lineType, int linePosition, Line& oLine)
                 // then translate it to the board's domain
                 switch (lineType)
                 {
-                    case Line::eLINE_ROW:
+                    case Line::eTYPE_ROW:
                         oPlayerActions.applyAction2Row(linePosition, x, y);
                         break;
-                    case Line::eLINE_COL:
+                    case Line::eTYPE_COL:
                         oPlayerActions.applyAction2Column(linePosition, x, y);
                         break;
-                    case Line::eLINE_DIAG1:
-                    case Line::eLINE_DIAG2:
+                    case Line::eTYPE_DIAG1:
+                    case Line::eTYPE_DIAG2:
                         oPlayerActions.applyAction2Diagonal(lineType, x, y);
                         break;                                                
                 }
@@ -208,8 +224,6 @@ Transition* Strategy2::findBestTransition(GameState& oFromState)
 {
     sam::Transition* winner = 0;
     float Q = 0, Qmax = 0.0;
-    //sam::Transition* winnerTemporal = 0;
-    //std::vector<sam::Transition> listWinners;
     int randTrans;
     
     // if no transitions from this state return nothing
@@ -242,18 +256,7 @@ Transition* Strategy2::findBestTransition(GameState& oFromState)
         {
             Qmax = Q;
             winner = &oTransition;
-            //listWinners.clear();
-            //listWinners.push_back(oTransition);
         }   
-//        // if various connections share the maximum confidence, take winner randomly among them
-//        else if (Q == Qmax)
-//        {
-//            listWinners.push_back(oTransition);
-//            
-//            randNumTrans = rand() % listWinners.size();
-//            winnerTemporal = &(listWinners.at(randNumTrans));
-//            winner = &(listTransitions.at(winnerTemporal->getID()));
-//        }
         it_transition++;
     }
 

@@ -66,11 +66,11 @@ void PlayerActions::applyAction2Column(int col, int& x, int& y)
 
 void PlayerActions::applyAction2Diagonal(int lineType, int& x, int& y)
 {
-    if (lineType == Line::eLINE_DIAG1)
+    if (lineType == Line::eTYPE_DIAG1)
     {
         x = y = listActions.at(0);
     }
-    else if (lineType == Line::eLINE_DIAG2)
+    else if (lineType == Line::eTYPE_DIAG2)
     {
         x = 2 - listActions.at(0);
         y = listActions.at(0);
