@@ -29,40 +29,17 @@ void Strategy2::init(GameTask& oGameTask)
     LOG4CXX_INFO(logger, "Strategy2 enabled");      
 };
 
-bool Strategy2::playRandom(cv::Mat& matrix, int myMark)
-{
-    // Search for the empty cells and choose one of them randomly
-    std::vector<std::pair<int, int>> listEmptyCells;
-    cv::Mat matRow;
-    
-    // get list of empty cells 
-    for (int i=0; i<matrix.rows; i++)
-    {
-        matRow = matrix.row(i);                
-        for (int j=0; j<matRow.cols; j++)
-        {
-            if (matRow.at<int>(j) == GameBoard::EMPTY_MARK)
-                listEmptyCells.push_back(std::make_pair(i,j));
-        }
-    }
-
-    if (listEmptyCells.size() > 0)
-    {
-        // randomly select an empty cell
-        int randNum = rand() % listEmptyCells.size();
-        std::pair<int, int> selectedCell = listEmptyCells.at(randNum);
-        // and set it as best move
-        bestMove[0] = selectedCell.first;   
-        bestMove[1] = selectedCell.second; 
-        return true;
-    }
-    else
-        return false;
-}
-
 // Checks all lines in the board (rows, columns & diagonals) in search of the best attack & defense moves.
 void Strategy2::playSmart(cv::Mat& matrix, int myMark)
-{    
+{   
+    if(bexplorative)
+    {
+        int randNum = rand() % 8;
+        setSelectedLine(randNum);  
+        LOG4CXX_INFO(logger, "numero de linea " << randNum);   
+    }
+    
+    listExploredTransitions.clear();
     Line oLine;
     oLine.setMatrix(matrix);
 
@@ -110,15 +87,43 @@ void Strategy2::playSmart(cv::Mat& matrix, int myMark)
 void Strategy2::checkBestMoveInLine(int lineType, int linePosition, Line& oLine)
 {
     float maxLineReward = 0.0;
-    PlayerActions oPlayerActions;
+    int total;
 
     LOG4CXX_INFO(logger, "> line " << linePosition);   
     
     // analyzes the line to obtain its best transition
-    Transition* pBestTransition = analyseLine(oLine);    
+    Transition* pBestTransition = analyseLine(oLine);
+    Transition& oBestTransition = *pBestTransition;    
     
+    if(bexplorative)
+    {
+        if (lineType == 0)
+            total = lineType + linePosition;
+        else if (lineType == 1)
+            total = lineType + 2 + linePosition;
+        else if (lineType == 2)
+            total = 6;
+        else if (lineType == 3)
+            total = 7;
+               
+        if(pBestTransition != 0)
+            listExploredTransitions.push_back(oBestTransition);
+        
+        if (pBestTransition != 0 && (total == selectedLine))
+        {
+            findBestMove(oBestTransition, lineType, linePosition, oLine);
+        }
+        else if (pBestTransition == 0 && (total == selectedLine))  // CUANDO LA SELECTEDLINE SEA LA 0 NO HABRÁ LISTA
+        {
+            int randNum = rand() % listExploredTransitions.size();
+            pBestTransition = &(listExploredTransitions.at(randNum));
+            Transition& oBestTransition = *pBestTransition; 
+            findBestMove(oBestTransition, lineType, linePosition, oLine);
+        }
+        
+    }
     // if line transition was found ...
-    if (pBestTransition != 0)
+    else if (pBestTransition != 0 && !bexplorative)
     {
         maxLineReward = pBestTransition->getQ();
         
@@ -127,34 +132,36 @@ void Strategy2::checkBestMoveInLine(int lineType, int linePosition, Line& oLine)
         {
             LOG4CXX_INFO(logger, ">>> BEST!");               
             bestReward = maxLineReward;
+            
+            findBestMove(oBestTransition, lineType, linePosition, oLine);
                         
-            // deduce the action that causes this transition
-            GameState& state1 = pGameTask->getListGameStates().at(pBestTransition->getStateID());
-            GameState& state2 = pGameTask->getListGameStates().at(pBestTransition->getNextState());                        
-            // deduce it in the line's domain
-            if (oPlayerActions.getActions4Transition(state1, state2) > 0)
-            {
-                int x, y;
-                
-                // then translate it to the board's domain
-                switch (lineType)
-                {
-                    case Line::eLINE_ROW:
-                        oPlayerActions.applyAction2Row(linePosition, x, y);
-                        break;
-                    case Line::eLINE_COL:
-                        oPlayerActions.applyAction2Column(linePosition, x, y);
-                        break;
-                    case Line::eLINE_DIAG1:
-                    case Line::eLINE_DIAG2:
-                        oPlayerActions.applyAction2Diagonal(lineType, x, y);
-                        break;                                                
-                }
-                        
-                // store this best move till now
-                bestMove[0] = y;   // y stores the row
-                bestMove[1] = x;   // x stores the column
-            }
+//            // deduce the action that causes this transition
+//            GameState& state1 = pGameTask->getListGameStates().at(pBestTransition->getStateID());
+//            GameState& state2 = pGameTask->getListGameStates().at(pBestTransition->getNextState());                        
+//            // deduce it in the line's domain
+//            if (oPlayerActions.getActions4Transition(state1, state2) > 0)
+//            {
+//                int x, y;
+//                
+//                // then translate it to the board's domain
+//                switch (lineType)
+//                {
+//                    case Line::eLINE_ROW:
+//                        oPlayerActions.applyAction2Row(linePosition, x, y);
+//                        break;
+//                    case Line::eLINE_COL:
+//                        oPlayerActions.applyAction2Column(linePosition, x, y);
+//                        break;
+//                    case Line::eLINE_DIAG1:
+//                    case Line::eLINE_DIAG2:
+//                        oPlayerActions.applyAction2Diagonal(lineType, x, y);
+//                        break;                                                
+//                }
+//                        
+//                // store this best move till now
+//                bestMove[0] = y;   // y stores the row
+//                bestMove[1] = x;   // x stores the column
+//            }
         }
     }    
 }
@@ -272,6 +279,38 @@ Transition* Strategy2::findBestTransition(GameState& oFromState)
     return winner;
 }
 
+void Strategy2::findBestMove(Transition& oBestTransition, int lineType, int linePosition, Line& oLine)
+{
+    PlayerActions oPlayerActions;
+    
+    // deduce the action that causes this transition
+            GameState& state1 = pGameTask->getListGameStates().at(oBestTransition.getStateID());
+            GameState& state2 = pGameTask->getListGameStates().at(oBestTransition.getNextState());                        
+            // deduce it in the line's domain
+            if (oPlayerActions.getActions4Transition(state1, state2) > 0)
+            {
+                int x, y;
+                
+                // then translate it to the board's domain
+                switch (lineType)
+                {
+                    case Line::eLINE_ROW:
+                        oPlayerActions.applyAction2Row(linePosition, x, y);
+                        break;
+                    case Line::eLINE_COL:
+                        oPlayerActions.applyAction2Column(linePosition, x, y);
+                        break;
+                    case Line::eLINE_DIAG1:
+                    case Line::eLINE_DIAG2:
+                        oPlayerActions.applyAction2Diagonal(lineType, x, y);
+                        break;                                                
+                }
+                        
+                // store this best move till now
+                bestMove[0] = y;   // y stores the row
+                bestMove[1] = x;   // x stores the column
+            }
+}
 
 std::string Strategy2::toStringBestMove()
 {

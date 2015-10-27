@@ -19,6 +19,18 @@ namespace sam
 // Class used to follow SMART strategy (with learning capability) for playing the tic-tac-toe game.    
 class Strategy2 
 {
+public:
+    enum eLine 
+    {
+        eLINE_ROW1,
+        eLINE_ROW2,
+        eLINE_ROW3,
+        eLINE_COL1,  
+        eLINE_COL2,
+        eLINE_COL3,
+        eLINE_DIAG1,
+        eLINE_DIAG2
+    };
 private:
     static log4cxx::LoggerPtr logger;
     bool benabled;                     // true when functionality is initialized
@@ -27,6 +39,8 @@ private:
     GameTask* pGameTask;    //  pointer to the game task
     Learn oLearn;                    // the learning capability
     bool bexplorative;
+    int selectedLine;
+    std::vector<Transition> listExploredTransitions;
     
 public:
     Strategy2();
@@ -38,14 +52,14 @@ public:
     void setExplorativeMode(bool bvalue) {bexplorative = bvalue;};
     bool isExplorativeMode() {return bexplorative;};
     
-    // Checks the board and randomly select one of its empty cells. Storing it as best move.
-    bool playRandom(cv::Mat& matrix, int myMark);
-    
     // Checks all lines in the board (rows, columns & diagonals) in search of the best attack & defense moves.
     void playSmart(cv::Mat& matrix, int myMark);
     
-    float getBestReward() {return bestReward;}
-    int* getBestMove() {return bestMove;}
+    float getBestReward() {return bestReward;};
+    int* getBestMove() {return bestMove;};
+    
+    int getSelectedLine() {return selectedLine;};
+    void setSelectedLine(int value) {selectedLine = value;};
 
 private:
     // checks if the given line holds the best move in the board 
@@ -58,6 +72,8 @@ private:
     GameState* deduceState4Line(Line& oLine);
     
     Transition* findBestTransition(GameState& oFromState);
+    
+    void findBestMove(Transition& oBestTransition, int lineType, int linePosition, Line& oLine);
 
     std::string toStringBestMove();
 };
