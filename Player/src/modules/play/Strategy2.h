@@ -12,7 +12,7 @@
 #include "learn/GameTask.h"
 #include "learn/GameState.h"
 #include "Learn.h"
-#include "modules/Line.h"
+#include "modules/play/Line.h"
 
 namespace sam
 {      

@@ -30,20 +30,26 @@
           <itemPath>src/learn/TaskReward.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f2" displayName="modules" projectFiles="true">
+          <logicalFolder name="f1" displayName="play" projectFiles="true">
+            <itemPath>src/modules/play/Line.cpp</itemPath>
+            <itemPath>src/modules/play/Line.h</itemPath>
+            <itemPath>src/modules/play/PlayerActions.cpp</itemPath>
+            <itemPath>src/modules/play/PlayerActions.h</itemPath>
+            <itemPath>src/modules/play/SimplePlayer.cpp</itemPath>
+            <itemPath>src/modules/play/SimplePlayer.h</itemPath>
+            <itemPath>src/modules/play/SmartPlayer.cpp</itemPath>
+            <itemPath>src/modules/play/SmartPlayer.h</itemPath>
+            <itemPath>src/modules/play/Strategy.cpp</itemPath>
+            <itemPath>src/modules/play/Strategy.h</itemPath>
+            <itemPath>src/modules/play/Strategy2.cpp</itemPath>
+            <itemPath>src/modules/play/Strategy2.h</itemPath>
+          </logicalFolder>
           <itemPath>src/modules/BoardActuator.cpp</itemPath>
           <itemPath>src/modules/BoardActuator.h</itemPath>
           <itemPath>src/modules/BoardSensor.cpp</itemPath>
           <itemPath>src/modules/BoardSensor.h</itemPath>
-          <itemPath>src/modules/Line.cpp</itemPath>
-          <itemPath>src/modules/Line.h</itemPath>
           <itemPath>src/modules/Player.cpp</itemPath>
           <itemPath>src/modules/Player.h</itemPath>
-          <itemPath>src/modules/PlayerActions.cpp</itemPath>
-          <itemPath>src/modules/PlayerActions.h</itemPath>
-          <itemPath>src/modules/Strategy.cpp</itemPath>
-          <itemPath>src/modules/Strategy.h</itemPath>
-          <itemPath>src/modules/Strategy2.cpp</itemPath>
-          <itemPath>src/modules/Strategy2.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f3" displayName="utils" projectFiles="true">
           <itemPath>src/utils/TaskTree.cpp</itemPath>
@@ -167,25 +173,33 @@
       </item>
       <item path="src/modules/BoardSensor.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/modules/Line.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/modules/Line.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/modules/Player.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/modules/Player.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/modules/PlayerActions.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/modules/play/Line.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/modules/PlayerActions.h" ex="false" tool="3" flavor2="0">
+      <item path="src/modules/play/Line.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/modules/Strategy.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/modules/play/PlayerActions.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/modules/Strategy.h" ex="false" tool="3" flavor2="0">
+      <item path="src/modules/play/PlayerActions.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/modules/Strategy2.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/modules/play/SimplePlayer.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/modules/Strategy2.h" ex="false" tool="3" flavor2="0">
+      <item path="src/modules/play/SimplePlayer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/modules/play/SmartPlayer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/modules/play/SmartPlayer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/modules/play/Strategy.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/modules/play/Strategy.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/modules/play/Strategy2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/modules/play/Strategy2.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/TaskTree.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -258,25 +272,33 @@
       </item>
       <item path="src/modules/BoardSensor.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/modules/Line.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/modules/Line.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/modules/Player.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/modules/Player.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/modules/PlayerActions.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/modules/play/Line.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/modules/PlayerActions.h" ex="false" tool="3" flavor2="0">
+      <item path="src/modules/play/Line.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/modules/Strategy.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/modules/play/PlayerActions.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/modules/Strategy.h" ex="false" tool="3" flavor2="0">
+      <item path="src/modules/play/PlayerActions.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/modules/Strategy2.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/modules/play/SimplePlayer.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/modules/Strategy2.h" ex="false" tool="3" flavor2="0">
+      <item path="src/modules/play/SimplePlayer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/modules/play/SmartPlayer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/modules/play/SmartPlayer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/modules/play/Strategy.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/modules/play/Strategy.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/modules/play/Strategy2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/modules/play/Strategy2.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/TaskTree.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -28,11 +28,12 @@ private:
     int gameType;
     GameBoard oGameBoard;
     GameFlow oGameFlow;
-    Player oSam;
-    Player oTam;
+    Player* oSam;
+    Player* oTam;
     
 public:
     GameManager();
+    ~GameManager();
     
     void setGameType(int type) {gameType = type;};
     

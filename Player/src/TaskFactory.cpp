@@ -9,7 +9,7 @@
 #include "TaskFactory.h"
 #include "learn/GameState.h"
 #include "Transition.h"
-#include "modules/Line.h"
+#include "modules/play/Line.h"
 
 namespace sam 
 {

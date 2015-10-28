@@ -6,6 +6,8 @@
 #include <string>
 
 #include "GameManager.h"
+#include "modules/play/SmartPlayer.h"
+#include "modules/play/SimplePlayer.h"
 #include "data/PlayerIdentity.h"
 #include "modules/BoardActuator.h"
 
@@ -16,6 +18,17 @@ log4cxx::LoggerPtr GameManager::logger(log4cxx::Logger::getLogger("sam.player"))
 GameManager::GameManager() 
 {
     gameType == eGAME_SAM_VS_TAM;
+    oSam = new SmartPlayer();
+    oTam = new SimplePlayer();
+}
+
+GameManager::~GameManager() 
+{
+    if (oSam != 0)
+        delete (oSam);
+
+    if (oTam != 0)
+        delete (oTam);
 }
 
 void GameManager::startModules()
@@ -24,7 +37,7 @@ void GameManager::startModules()
     LOG4CXX_INFO(logger, "GameManager: starting modules ..."); 
     
     // Define SAM's identity
-    PlayerIdentity& oSamIdentity = oSam.getPlayerIdentity();
+    PlayerIdentity& oSamIdentity = oSam->getPlayerIdentity();
     oSamIdentity.setID("SAM");
     oSamIdentity.setMyMark(1);
     oSamIdentity.setPlayMode(PlayerIdentity::eMODE_SMART_EXPLORE);
@@ -33,7 +46,7 @@ void GameManager::startModules()
     if (gameType == eGAME_SAM_VS_TAM)
     {
         // Define TAM's identity
-        PlayerIdentity& oTamIdentity = oTam.getPlayerIdentity();
+        PlayerIdentity& oTamIdentity = oTam->getPlayerIdentity();
         oTamIdentity.setID("TAM");
         oTamIdentity.setMyMark(2);
         oTamIdentity.setPlayMode(PlayerIdentity::eMODE_SIMPLE);
@@ -42,7 +55,7 @@ void GameManager::startModules()
     else if (gameType == eGAME_SAM_VS_HUMAN)
     {
         // Define user's identity
-        PlayerIdentity& oHumanIdentity = oTam.getPlayerIdentity();
+        PlayerIdentity& oHumanIdentity = oTam->getPlayerIdentity();
         oHumanIdentity.setID("human");
         oHumanIdentity.setMyMark(2);
         oGameFlow.addPlayer(oHumanIdentity);
@@ -59,16 +72,16 @@ void GameManager::startModules()
     oBoardActuator.writeMove(oGameBoard, "nobody", GameFlow::eGAME_PLAYING);
 
     // init SAM agent
-    oSam.init(oGameFlow.getPlayerWithTurn()->getID());
-    oSam.setFrequency(2.0);
-    oSam.on();
+    oSam->init(oGameFlow.getPlayerWithTurn()->getID());
+    oSam->setFrequency(2.0);
+    oSam->on();
 
     if (gameType == eGAME_SAM_VS_TAM)
     {
         // init TAM agent    
-        oTam.init(oGameFlow.getPlayerWithTurn()->getID());
-        oTam.setFrequency(2.0);
-        oTam.on();
+        oTam->init(oGameFlow.getPlayerWithTurn()->getID());
+        oTam->setFrequency(2.0);
+        oTam->on();
     }
 }
 
@@ -77,26 +90,26 @@ void GameManager::stopModules()
     // players are asked to stop, then we wait for them to finish
     LOG4CXX_INFO(logger, "GameManager: stopping modules ..."); 
 
-    oSam.off();
+    oSam->off();
     if (gameType == eGAME_SAM_VS_TAM)
-        oTam.off();
+        oTam->off();
     
-    oSam.wait();
+    oSam->wait();
     if (gameType == eGAME_SAM_VS_TAM)
-        oTam.wait();
+        oTam->wait();
     
-    LOG4CXX_INFO(logger, "GameManager: SAM off ? " << oSam.isOff()); 
+    LOG4CXX_INFO(logger, "GameManager: SAM off ? " << oSam->isOff()); 
     if (gameType == eGAME_SAM_VS_TAM)
-        LOG4CXX_INFO(logger, "GameManager: TAM off ? " << oTam.isOff()); 
+        LOG4CXX_INFO(logger, "GameManager: TAM off ? " << oTam->isOff()); 
 }
 
 // checks board status to see if game has finished
 bool GameManager::isGameOver()
 {
     if (gameType == eGAME_SAM_VS_TAM)
-        return (oSam.isPlayerFinished() && oTam.isPlayerFinished());
+        return (oSam->isPlayerFinished() && oTam->isPlayerFinished());
     else 
-        return oSam.isPlayerFinished();
+        return oSam->isPlayerFinished();
 }
 
 }

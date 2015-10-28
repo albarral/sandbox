@@ -46,11 +46,13 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/main.o \
 	${OBJECTDIR}/src/modules/BoardActuator.o \
 	${OBJECTDIR}/src/modules/BoardSensor.o \
-	${OBJECTDIR}/src/modules/Line.o \
 	${OBJECTDIR}/src/modules/Player.o \
-	${OBJECTDIR}/src/modules/PlayerActions.o \
-	${OBJECTDIR}/src/modules/Strategy.o \
-	${OBJECTDIR}/src/modules/Strategy2.o \
+	${OBJECTDIR}/src/modules/play/Line.o \
+	${OBJECTDIR}/src/modules/play/PlayerActions.o \
+	${OBJECTDIR}/src/modules/play/SimplePlayer.o \
+	${OBJECTDIR}/src/modules/play/SmartPlayer.o \
+	${OBJECTDIR}/src/modules/play/Strategy.o \
+	${OBJECTDIR}/src/modules/play/Strategy2.o \
 	${OBJECTDIR}/src/utils/TaskTree.o \
 	${OBJECTDIR}/src/utils/module2.o
 
@@ -138,30 +140,40 @@ ${OBJECTDIR}/src/modules/BoardSensor.o: src/modules/BoardSensor.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/BoardSensor.o src/modules/BoardSensor.cpp
 
-${OBJECTDIR}/src/modules/Line.o: src/modules/Line.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/modules
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/Line.o src/modules/Line.cpp
-
 ${OBJECTDIR}/src/modules/Player.o: src/modules/Player.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/modules
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/Player.o src/modules/Player.cpp
 
-${OBJECTDIR}/src/modules/PlayerActions.o: src/modules/PlayerActions.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/modules
+${OBJECTDIR}/src/modules/play/Line.o: src/modules/play/Line.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/modules/play
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/PlayerActions.o src/modules/PlayerActions.cpp
+	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/play/Line.o src/modules/play/Line.cpp
 
-${OBJECTDIR}/src/modules/Strategy.o: src/modules/Strategy.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/modules
+${OBJECTDIR}/src/modules/play/PlayerActions.o: src/modules/play/PlayerActions.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/modules/play
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/Strategy.o src/modules/Strategy.cpp
+	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/play/PlayerActions.o src/modules/play/PlayerActions.cpp
 
-${OBJECTDIR}/src/modules/Strategy2.o: src/modules/Strategy2.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/modules
+${OBJECTDIR}/src/modules/play/SimplePlayer.o: src/modules/play/SimplePlayer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/modules/play
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/Strategy2.o src/modules/Strategy2.cpp
+	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/play/SimplePlayer.o src/modules/play/SimplePlayer.cpp
+
+${OBJECTDIR}/src/modules/play/SmartPlayer.o: src/modules/play/SmartPlayer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/modules/play
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/play/SmartPlayer.o src/modules/play/SmartPlayer.cpp
+
+${OBJECTDIR}/src/modules/play/Strategy.o: src/modules/play/Strategy.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/modules/play
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/play/Strategy.o src/modules/play/Strategy.cpp
+
+${OBJECTDIR}/src/modules/play/Strategy2.o: src/modules/play/Strategy2.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/modules/play
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/play/Strategy2.o src/modules/play/Strategy2.cpp
 
 ${OBJECTDIR}/src/utils/TaskTree.o: src/utils/TaskTree.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/utils

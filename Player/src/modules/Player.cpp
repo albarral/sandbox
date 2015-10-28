@@ -3,17 +3,10 @@
  *   ainoa@migtron.com   *
  ***************************************************************************/
 
-#include <cstdlib>  //for random values
-#include <unistd.h> // for sleep()
+#include "opencv2/core/core.hpp" //for the matrix
 #include "log4cxx/ndc.h"
 
 #include "modules/Player.h"
-#include "modules/Strategy.h"
-#include "learn/GameTask.h"
-#include "learn/GameState.h"
-#include "learn/TaskReward.h"
-#include "TaskFactory.h"
-#include "utils/TaskTree.h"
 
 namespace sam 
 {
@@ -26,51 +19,12 @@ Player::Player()
 
 void Player::init(std::string firstPlayerID)
 {
-    stored = false;
     // the agent is given an identity, which will determine its turn and how its cells are marked
     LOG4CXX_INFO(logger, "Initialize Player ...");     
     LOG4CXX_INFO(logger, oPlayerIdentity.toString());     
         
     bFirstTurn = (firstPlayerID == oPlayerIdentity.getID());
     oGameFlow.setStatus(GameFlow::eGAME_PLAYING);
-
-    if (oPlayerIdentity.isSmartPlayer())
-    {
-        LOG4CXX_INFO(logger, "Smart player: load game task ... ");  
-        
-        // load attack & defense tasks from memory (DB))
-        oAttackTask.setID(1);
-        oDefenseTask.setID(2);
-        oAttackTask.loadFromMemo2();
-        oDefenseTask.loadFromMemo2();
-        
-        // if not in DB, create them
-        if (oAttackTask.getListGameStates().size() == 0 && oDefenseTask.getListGameStates().size() == 0)
-        {
-            LOG4CXX_WARN(logger, "Smart player: game task CREATED, NOT YET IN DATABASE");  
-
-            // Built attack task
-            TaskFactory::buildTicTacToeTask(oAttackTask);             
-            oAttackTask.storeInMemo2();         
-
-            // prepare defense task & strategy
-            // Built defense task
-            TaskFactory::buildTicTacToeTask(oDefenseTask);               
-            oDefenseTask.storeInMemo2();         
-        }
-        
-        // set rewards for tasks        
-        TaskReward::setTaskRewards(oAttackTask, TaskReward::eTASK_T3_ATTACK);
-        TaskReward::setTaskRewards(oDefenseTask, TaskReward::eTASK_T3_DEFENSE);
-
-        // prepare strategies
-        oAttackStrategy.init(oAttackTask); 
-        oDefenseStrategy.init(oDefenseTask);  
-
-        // describe the tasks
-        TaskTree::showTask2(oAttackTask);
-        TaskTree::showTask2(oDefenseTask);      
-    }
 };
 
 void Player::first()
@@ -147,13 +101,7 @@ void Player::loop()
                     
         case ePLAYER_FINISHED:              
 
-            // store the learned task 
-            if (oPlayerIdentity.isSmartPlayer() && !stored)
-            {
-                oAttackTask.storeQ();
-                oDefenseTask.storeQ();
-                stored = true;
-            }
+            finishGame();
             break;
     }   // end switch    
 
@@ -161,67 +109,6 @@ void Player::loop()
         showStateChange();    
 }
 
-void Player::chooseCell()
-{
-    // Chooses an empty cell from the board, marking it with the agent's mark
-    // If bQlearn flag is active the cell selection is done using QLearning
-    // If bsmart flag is active the cell selection is done using smart strategies 
-    // Otherwise, random selection is made among available cells..
-    cv::Mat matrix = oGameBoard.getMatrix();    
-    Strategy oStrategy;
-    int* pBestMove;
-    
-    // select move ...
-    
-    // SMART (LEARNING BASED)
-    if (oPlayerIdentity.isSmartPlayer())
-    {
-        // set explorative modes
-        oAttackStrategy.setExplorativeMode(oPlayerIdentity.isSmartExplorativePlayer());
-        oDefenseStrategy.setExplorativeMode(oPlayerIdentity.isSmartExplorativePlayer());
-        
-        LOG4CXX_INFO(logger, "ATTACK ... \n");  
-        oAttackStrategy.playSmart(matrix, oPlayerIdentity.getMyMark());
-        LOG4CXX_INFO(logger, "DEFEND ... \n");  
-        oDefenseStrategy.playSmart(matrix, oPlayerIdentity.getMyMark());
-        
-        // attack move
-        if (oAttackStrategy.getBestReward() >= oDefenseStrategy.getBestReward())
-        {
-            LOG4CXX_INFO(logger, "ATTACK MOVE");  
-            pBestMove = oAttackStrategy.getBestMove();
-        }
-        // defensive move
-        else
-        {
-            LOG4CXX_INFO(logger, "DEFENSE MOVE");  
-            pBestMove = oDefenseStrategy.getBestMove();            
-        }
-    }
-    // NO LEARNING    
-    else
-    {
-        // SIMPLE (use simple Strategy rules)
-        if (oPlayerIdentity.isSimplePlayer())
-        {
-            if (oStrategy.attack(matrix, oPlayerIdentity.getMyMark()) == false)
-            {
-                oStrategy.attackRandom(matrix, oPlayerIdentity.getMyMark());
-            }       
-        }
-        // RANDOM
-        else
-            oStrategy.attackRandom(matrix, oPlayerIdentity.getMyMark());
-        
-        pBestMove = oStrategy.getBestMove();        
-    }
-    
-    LOG4CXX_INFO(logger, "mark cell " << pBestMove[0] << ", " << pBestMove[1]);  
-    // perform move & change turn
-    oGameBoard.markCell(oPlayerIdentity.getMyMark(), pBestMove[0], pBestMove[1]);
-
-    LOG4CXX_INFO(logger, "\n " << oGameBoard.getMatrix());
-}
 
 bool Player::checkBoardOpen()
 {

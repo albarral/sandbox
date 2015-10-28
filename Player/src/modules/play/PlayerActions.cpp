@@ -6,7 +6,7 @@
 #include "PlayerActions.h"
 
 #include "data/GameBoard.h"
-#include "modules/Line.h"
+#include "modules/play/Line.h"
 
 namespace sam
 {    
