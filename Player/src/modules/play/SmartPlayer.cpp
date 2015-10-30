@@ -18,6 +18,12 @@ SmartPlayer::SmartPlayer()
     pPlayerPurpose = new PurposeWinner(5, 10);  // games to learn, games to play
 }
 
+SmartPlayer::~SmartPlayer()
+{
+    if (pPlayerPurpose != 0)
+    delete pPlayerPurpose;
+}
+
 void SmartPlayer::init(std::string firstPlayerID)
 {
     Player::init(firstPlayerID);
@@ -98,9 +104,9 @@ void SmartPlayer::chooseCell()
 }
 
 
-void SmartPlayer::finishGame()
+void SmartPlayer::endOfGame()
 {
-    // store the learned task 
+    // when a game ends, update the learned knowledge about the task
     oAttackTask.storeQ();
     oDefenseTask.storeQ();
 }

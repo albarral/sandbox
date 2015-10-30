@@ -50,10 +50,10 @@ public:
 
     void setPlayerType(int value) {playerType = value;};    
     int getPlayerType() {return playerType;};
-
     void setPlayMode(int value) {playMode = value;};    
     int getPlayMode() {return playMode;};
-    
+    int getGamesPlayed() {return gamesPlayed;};        
+
     bool isSimplePlayer() {return (playMode == eMODE_SIMPLE);};
     bool isSmartPlayer() {return (playMode == eMODE_SMART);};
     bool isExplorativePlayer() {return (playMode == eMODE_SMART_EXPLORE);};

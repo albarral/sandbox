@@ -28,7 +28,7 @@ private:
     // select a proper cell in the game board (using any strategy) and mark it
     virtual void chooseCell();
     // finish the game in a proper manner
-    virtual void finishGame();
+    virtual void endOfGame();
 
 };
 }

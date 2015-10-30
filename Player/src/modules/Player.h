@@ -32,7 +32,8 @@ public:
     // states of Player module
     enum eState
     {
-        ePLAYER_OFF,			// initial state before game starts
+        ePLAYER_READY,		// initial state before game starts
+        ePLAYER_START,		// first state when game starts
         ePLAYER_WAIT,		// waiting for my turn
         ePLAYER_PLAY,		// it's my turn, do my move
         ePLAYER_FINISHED		// game is finished
@@ -74,10 +75,12 @@ protected:
     // checks the observed line to see if there's a winner
     void analyseLine (Line& oLine);    
     // finish the game in a proper manner
-    virtual void finishGame() = 0;
+    virtual void endOfGame() = 0;
     
+private:    
     // shows the next state name
     void showStateChange();        
+    
 };
 }
 #endif

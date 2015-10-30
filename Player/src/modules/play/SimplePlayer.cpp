@@ -14,6 +14,12 @@ SimplePlayer::SimplePlayer()
     pPlayerPurpose = new PurposeTrainer();
 }
 
+SimplePlayer::~SimplePlayer()
+{
+    if (pPlayerPurpose != 0)
+        delete pPlayerPurpose;
+}
+
 void SimplePlayer::chooseCell()
 {
     // Chooses an empty cell from the board, marking it with the agent's mark
@@ -43,8 +49,9 @@ void SimplePlayer::chooseCell()
     LOG4CXX_INFO(logger, "\n " << oGameBoard.getMatrix());
 }
 
-void SimplePlayer::finishGame()
+void SimplePlayer::endOfGame()
 {
+    // nothing done
 }
 
 }

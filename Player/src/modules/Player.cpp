@@ -31,21 +31,11 @@ void Player::init(std::string firstPlayerID)
 void Player::first()
 {    
     log4cxx::NDC::push(oPlayerIdentity.getID());   	
-    // agent starts waiting for its turn
-    if (bFirstTurn)
-    {
-        setState(ePLAYER_PLAY);    
-        setNextState(ePLAYER_PLAY);    
-        log4cxx::NDC::push("play");    
-    }
-    else
-    {
-        setState(ePLAYER_WAIT);    
-        setNextState(ePLAYER_WAIT);    
-        log4cxx::NDC::push("wait");    
-    }
-
     LOG4CXX_INFO(logger, "first ... ");  
+
+    pPlayerPurpose->reset();
+    setNextState(ePLAYER_READY);    
+    log4cxx::NDC::push("ready");    
 }
 
 void Player::loop()
@@ -54,10 +44,21 @@ void Player::loop()
           
     switch (getState())
     {
-        case ePLAYER_OFF:            
-            // nothing done
+        case ePLAYER_READY:            
+            
+            // want to play & there's an opponent? start
+            setNextState(ePLAYER_START);    
             break;
             
+        case ePLAYER_START:            
+
+            // board empty? play or wait (depending on first turn)
+            if (bFirstTurn)
+                setNextState(ePLAYER_PLAY);    
+            else
+                setNextState(ePLAYER_WAIT);    
+            break;
+
         case ePLAYER_WAIT:   
             
             // check if agent's turn has arrived 
@@ -102,7 +103,12 @@ void Player::loop()
                     
         case ePLAYER_FINISHED:              
 
-            finishGame();
+            // on game finished, evolve purpose & go back to ready state
+            if (pPlayerPurpose->getGamesPlayed() == 0)
+            {
+                pPlayerPurpose->evolve();   // TEMP (must evolve always & go to READY)
+                endOfGame();
+            }            
             break;
     }   // end switch    
 
@@ -197,10 +203,14 @@ void Player::showStateChange()
     std::string nextStateName;
     switch (getNextState())
     {
-        case ePLAYER_OFF:            
-            nextStateName = "off";
+        case ePLAYER_READY:            
+            nextStateName = "ready";
             break;
             
+        case ePLAYER_START:            
+            nextStateName = "start";
+            break;
+
         case ePLAYER_WAIT:
             nextStateName = "wait";
             break;
