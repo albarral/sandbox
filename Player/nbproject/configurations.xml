@@ -50,6 +50,12 @@
           <itemPath>src/modules/BoardSensor.h</itemPath>
           <itemPath>src/modules/Player.cpp</itemPath>
           <itemPath>src/modules/Player.h</itemPath>
+          <itemPath>src/modules/PlayerPurpose.cpp</itemPath>
+          <itemPath>src/modules/PlayerPurpose.h</itemPath>
+          <itemPath>src/modules/PurposeTrainer.cpp</itemPath>
+          <itemPath>src/modules/PurposeTrainer.h</itemPath>
+          <itemPath>src/modules/PurposeWinner.cpp</itemPath>
+          <itemPath>src/modules/PurposeWinner.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f3" displayName="utils" projectFiles="true">
           <itemPath>src/utils/TaskTree.cpp</itemPath>
@@ -177,6 +183,18 @@
       </item>
       <item path="src/modules/Player.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/modules/PlayerPurpose.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/modules/PlayerPurpose.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/modules/PurposeTrainer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/modules/PurposeTrainer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/modules/PurposeWinner.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/modules/PurposeWinner.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/modules/play/Line.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/modules/play/Line.h" ex="false" tool="3" flavor2="0">
@@ -275,6 +293,18 @@
       <item path="src/modules/Player.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/modules/Player.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/modules/PlayerPurpose.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/modules/PlayerPurpose.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/modules/PurposeTrainer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/modules/PurposeTrainer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/modules/PurposeWinner.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/modules/PurposeWinner.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/modules/play/Line.cpp" ex="false" tool="1" flavor2="0">
       </item>

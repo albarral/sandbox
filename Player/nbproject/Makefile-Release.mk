@@ -47,6 +47,9 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/modules/BoardActuator.o \
 	${OBJECTDIR}/src/modules/BoardSensor.o \
 	${OBJECTDIR}/src/modules/Player.o \
+	${OBJECTDIR}/src/modules/PlayerPurpose.o \
+	${OBJECTDIR}/src/modules/PurposeTrainer.o \
+	${OBJECTDIR}/src/modules/PurposeWinner.o \
 	${OBJECTDIR}/src/modules/play/Line.o \
 	${OBJECTDIR}/src/modules/play/PlayerActions.o \
 	${OBJECTDIR}/src/modules/play/SimplePlayer.o \
@@ -140,6 +143,21 @@ ${OBJECTDIR}/src/modules/Player.o: src/modules/Player.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/modules
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/Player.o src/modules/Player.cpp
+
+${OBJECTDIR}/src/modules/PlayerPurpose.o: src/modules/PlayerPurpose.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/PlayerPurpose.o src/modules/PlayerPurpose.cpp
+
+${OBJECTDIR}/src/modules/PurposeTrainer.o: src/modules/PurposeTrainer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/PurposeTrainer.o src/modules/PurposeTrainer.cpp
+
+${OBJECTDIR}/src/modules/PurposeWinner.o: src/modules/PurposeWinner.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/PurposeWinner.o src/modules/PurposeWinner.cpp
 
 ${OBJECTDIR}/src/modules/play/Line.o: src/modules/play/Line.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/modules/play
