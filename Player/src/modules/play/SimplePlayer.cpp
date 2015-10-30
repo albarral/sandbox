@@ -5,11 +5,13 @@
 
 
 #include "modules/play/SimplePlayer.h"
+#include "modules/PurposeTrainer.h"
 
 namespace sam 
 {
 SimplePlayer::SimplePlayer() 
 {    
+    pPlayerPurpose = new PurposeTrainer();
 }
 
 void SimplePlayer::chooseCell()

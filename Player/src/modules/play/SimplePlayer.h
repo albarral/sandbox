@@ -13,6 +13,7 @@
 namespace sam 
 {
 // Simple version of the Player agent.
+// It's player purpose is of trainer type.
 // Has no learning capability and uses a suboptimal prefixed strategy.
 class SimplePlayer : public Player
 {
@@ -21,6 +22,7 @@ private:
 
 public:
     SimplePlayer();
+    ~SimplePlayer();
             
 private:    
     // select a proper cell in the game board (using any strategy) and mark it

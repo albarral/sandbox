@@ -15,6 +15,7 @@ log4cxx::LoggerPtr Player::logger(log4cxx::Logger::getLogger("sam.player"));
 Player::Player() 
 {
     //  initial state must be Module2::state_OFF
+    pPlayerPurpose = 0;
 }
 
 void Player::init(std::string firstPlayerID)

@@ -14,11 +14,17 @@
 #include "data/PlayerIdentity.h"
 #include "modules/BoardSensor.h"
 #include "modules/BoardActuator.h"
+#include "modules/PlayerPurpose.h"
 #include "modules/play/Line.h"
 
 namespace sam 
 {
-// Agent (with own thread) that plays the tic-tac-toe game
+// Base class for player agents
+// This class launches the thread where the agent lives.
+// It also controls the agent's states flow to allow it playing the tic-tac-toe game.
+// It senses & acts on the game board through the BoardSensor & BoardActuator objects.
+// It has its own identity & purpose thanks to the PlayerIdentity & PlayerPurpose objects.    
+// The player's purpose must be instantiated in Player derived classes.
 // It derives from base class Module2
 class Player : public Module2
 {
@@ -34,7 +40,8 @@ public:
 
 protected:
     static log4cxx::LoggerPtr logger;
-    PlayerIdentity oPlayerIdentity;    // player's identity
+    PlayerIdentity oPlayerIdentity;         // player's identity
+    PlayerPurpose* pPlayerPurpose;     // player's purpose (determines the will to play & the playing mode) 
     GameBoard oGameBoard;      // game's board
     GameFlow oGameFlow;          // game's flow
     bool bemptyCells;
@@ -49,6 +56,7 @@ public:
     virtual void init (std::string firstPlayerID);
     
     PlayerIdentity& getPlayerIdentity() {return oPlayerIdentity;};     
+    PlayerPurpose& getPlayerPurpose() {return *pPlayerPurpose;}
     
     // asks the player if game is finished for him
     bool isPlayerFinished();
@@ -69,8 +77,7 @@ protected:
     virtual void finishGame() = 0;
     
     // shows the next state name
-    void showStateChange();    
-    
+    void showStateChange();        
 };
 }
 #endif

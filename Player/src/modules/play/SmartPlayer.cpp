@@ -9,20 +9,19 @@
 #include "learn/TaskReward.h"
 #include "TaskFactory.h"    // temp until task in DB
 #include "utils/TaskTree.h"
-#include "modules/Player.h"
+#include "modules/PurposeWinner.h"
 
 namespace sam 
 {
 SmartPlayer::SmartPlayer() 
-{    
+{  
+    pPlayerPurpose = new PurposeWinner(5, 10);  // games to learn, games to play
 }
 
 void SmartPlayer::init(std::string firstPlayerID)
 {
     Player::init(firstPlayerID);
     
-    stored = false;
-
     LOG4CXX_INFO(logger, "Smart player: load game task ... ");  
 
     // load attack & defense tasks from memory (DB))
@@ -102,11 +101,7 @@ void SmartPlayer::chooseCell()
 void SmartPlayer::finishGame()
 {
     // store the learned task 
-    if (!stored)
-    {
-        oAttackTask.storeQ();
-        oDefenseTask.storeQ();
-        stored = true;
-    }
+    oAttackTask.storeQ();
+    oDefenseTask.storeQ();
 }
 }

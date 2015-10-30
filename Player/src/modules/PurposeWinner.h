@@ -19,11 +19,11 @@ namespace sam
 class PurposeWinner : public PlayerPurpose
 {
 private:           
-    int games2Learn;   // number of games used for explorative mode
+    int games2Learn;   // number of games played in explorative mode
     int games2Play;     // number of games the agent wants to play
             
 public:
-    PurposeWinner();
+    PurposeWinner(int games2Learn = 0, int games2Play = 0);
     
     // resets purpose
     virtual void reset();

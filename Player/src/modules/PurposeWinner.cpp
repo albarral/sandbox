@@ -7,11 +7,11 @@
 
 namespace sam
 {   
-PurposeWinner::PurposeWinner()
+PurposeWinner::PurposeWinner(int games2Learn, int games2Play)
 {
     playerType = PlayerPurpose::eTYPE_WINNER;
-    games2Learn = 5;    // default
-    games2Play = 10;    // default
+    this->games2Learn = games2Learn;    
+    this->games2Play = games2Play;
 }
 
 void PurposeWinner::reset()
