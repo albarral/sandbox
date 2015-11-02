@@ -7,6 +7,7 @@
  ***************************************************************************/
 
 #include <log4cxx/logger.h>
+#include "opencv2/core/core.hpp"
 
 #include "learn/GameTask.h"
 #include "learn/GameState.h"
@@ -33,6 +34,13 @@ public:
     static void showState2(GameState& oGameState, GameTask& oGameTask, bool bfilterOut);
     // shows brief description of given transition
     static void showTransition2(Transition& oTransition, GameTask& oGameTask, bool bfilterOut);
+    
+    // returns the Qmatrix representation of a task's Q values
+    static void getTaskQMatrix(cv::Mat& matQ, GameTask& oGameTask);
+
+private:   
+    // fills a Qmatrix row using the transitions a the given state
+    static void fillQMatrixRow(cv::Mat& matRow, GameState& oGameState);
 
 };
 }

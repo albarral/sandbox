@@ -3,12 +3,13 @@
  *   ainoa@migtron.com   *
  ***************************************************************************/
 
+#include <vector>
+
 #include "Learn.h"
 #include "Transition.h"
 
 namespace sam
 {  
-log4cxx::LoggerPtr Learn::logger(log4cxx::Logger::getLogger("sam.learn"));
 Learn::Learn()
 {
     gamma = 0;   
@@ -43,6 +44,32 @@ float Learn::maxQFromState(State& oFromState)
         it_transition ++;
     }
     return maxQ;
+}
+
+cv::Mat Learn::getTaskQMatrix(Task& oTask)
+{
+    int numStates = oTask.getListStates().size();
+    cv::Mat matQ = cv::Mat(numStates, numStates, CV_8UC1);     
+    matQ = cv::Scalar(0);
+           
+    // for each state, fill the corresponding Q matrix row
+    for (auto& oState : oTask.getListStates()) 
+    {
+        cv::Mat matRow = matQ.row(oState.getID());
+        fillQMatrixRow(matRow, oState);        
+    }        
+
+    return matQ;
+}
+
+void Learn::fillQMatrixRow(cv::Mat matRow, State& oState)
+{
+    // fill the Q row cells that correspond to a state transition
+    for (auto& oTransition : oState.getListTransitions()) 
+    {
+        int j = oTransition.getNextState();
+        matRow.at<int>(j) = (int)oTransition.getQ();        
+    }                
 }
 
 }

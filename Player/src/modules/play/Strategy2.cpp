@@ -8,7 +8,6 @@
 #include "Strategy2.h"
 #include "PlayerActions.h"
 #include "data/GameBoard.h"
-#include "utils/TaskTree.h"
 
 namespace sam
 {    
@@ -67,7 +66,6 @@ void Strategy2::playSmart(cv::Mat& matrix, int myMark)
     oLine.setMatrix(matrix);
 
     LOG4CXX_INFO(logger, "Strategy2: play smart ...");   
-    TaskTree::showTask2(*pGameTask, true);
 
     // zero reward before the analysis
     bestReward = 0.0;
@@ -248,8 +246,7 @@ Transition* Strategy2::findBestTransition(GameState& oFromState)
         Q = oLearn.computeQ(oToState);
         it_transition->setQ(Q);
         
-        //LOG4CXX_INFO(logger, "next " << oNextState.toString());   
-        LOG4CXX_DEBUG(logger, "-> " << std::to_string(it_transition->getNextState()) << " Q=" << std::to_string((int)Q));
+        //LOG4CXX_DEBUG(logger, "-> " << std::to_string(it_transition->getNextState()) << " Q=" << std::to_string((int)Q));
 
         // track best option
         if (Q > Qmax)

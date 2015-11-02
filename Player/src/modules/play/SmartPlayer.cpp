@@ -3,8 +3,8 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "modules/play/SmartPlayer.h"
 
+#include "modules/play/SmartPlayer.h"
 #include "learn/GameState.h"
 #include "learn/TaskReward.h"
 #include "TaskFactory.h"    // temp until task in DB
@@ -62,6 +62,10 @@ void SmartPlayer::init(std::string firstPlayerID)
     // describe the tasks
     TaskTree::showTask2(oAttackTask);
     TaskTree::showTask2(oDefenseTask);      
+    
+    int numStates = oAttackTask.getListGameStates().size();
+    matQattack = cv::Mat(numStates, numStates, CV_8UC1);     
+    matQdefense = cv::Mat(numStates, numStates, CV_8UC1);     
 };
 
 
@@ -73,6 +77,12 @@ void SmartPlayer::chooseCell()
     int* pBestMove;
     
     // select move ...
+
+    // show Q matrices
+    TaskTree::getTaskQMatrix(matQattack, oAttackTask);
+    TaskTree::getTaskQMatrix(matQdefense, oDefenseTask);
+    LOG4CXX_INFO(logger, "\n Qattack:\n" << matQattack);
+    LOG4CXX_INFO(logger, "\n Qdefend:\n" << matQdefense);
     
     // set explorative modes
     oAttackStrategy.setExplorativeMode(oPlayerIdentity.isSmartExplorativePlayer());

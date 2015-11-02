@@ -86,4 +86,27 @@ void TaskTree::showTransition2(Transition& oTransition, GameTask& oGameTask, boo
             + ", rwd=" + std::to_string((int)oNextState.getReward())  + ", Q=" + std::to_string((int)oTransition.getQ()));           
 }
 
+
+void TaskTree::getTaskQMatrix(cv::Mat& matQ, GameTask& oGameTask)
+{
+    matQ = cv::Scalar(0);
+           
+    // for each state, fill the corresponding Q matrix row
+    for (auto& oGameState : oGameTask.getListGameStates()) 
+    {
+        cv::Mat matRow = matQ.row(oGameState.getID());
+        fillQMatrixRow(matRow, oGameState);        
+    }        
+}
+
+void TaskTree::fillQMatrixRow(cv::Mat& matRow, GameState& oGameState)
+{
+    // fill the Q row cells that correspond to a state transition
+    for (auto& oTransition : oGameState.getListTransitions()) 
+    {
+        int j = oTransition.getNextState();
+        matRow.at<int>(j) = (int)oTransition.getQ();        
+    }                
+}
+
 }

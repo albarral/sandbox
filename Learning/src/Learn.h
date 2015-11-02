@@ -6,9 +6,9 @@
  *   ainoa@migtron.com   *
  ***************************************************************************/
 
-#include <string>
-#include <log4cxx/logger.h>
+#include "opencv2/core/core.hpp"
 
+#include "Task.h"
 #include "State.h"
 
 namespace sam
@@ -17,7 +17,6 @@ class Learn
 {
 private:   
     float gamma;
-    static log4cxx::LoggerPtr logger;
     
 public:
     Learn();
@@ -27,10 +26,16 @@ public:
 
     // Compute the Q value from a state with one connection
     float computeQ(State& oToState);
+    
+    // returns the Qmatrix representation of a task's Q values
+    static cv::Mat getTaskQMatrix(Task& oTask);
    
 private:    
     // gets maximum Q value of all transitions from the given state
     float maxQFromState(State& oFromState);
+    
+    // fills a Qmatrix row using the transitions a the given state
+    static void fillQMatrixRow(cv::Mat matRow, State& oState);
 };
 
 }
