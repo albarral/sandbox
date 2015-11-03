@@ -6,8 +6,6 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "opencv2/core/core.hpp"
-
 #include "modules/Player.h"
 #include "learn/GameTask.h"
 #include "modules/play/Strategy2.h"
@@ -25,8 +23,6 @@ private:
     GameTask oDefenseTask;        // defensive task  
     Strategy2 oAttackStrategy;            // ofensive strategy
     Strategy2 oDefenseStrategy;         // defensive strategy 
-    cv::Mat matQattack;
-    cv::Mat matQdefense;
 
 public:
     SmartPlayer();

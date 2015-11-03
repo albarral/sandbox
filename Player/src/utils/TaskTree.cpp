@@ -82,8 +82,8 @@ void TaskTree::showTransition2(Transition& oTransition, GameTask& oGameTask, boo
     GameState& oNextState = oGameTask.getListGameStates().at(nextStateID);
     int* nextCells = oNextState.getCells();
 
-    LOG4CXX_INFO(logger, "-----> (" + std::to_string(nextCells[0]) + "," + std::to_string(nextCells[1]) + "," + std::to_string(nextCells[2]) + ") " + std::to_string(nextStateID)
-            + ", rwd=" + std::to_string((int)oNextState.getReward())  + ", Q=" + std::to_string((int)oTransition.getQ()));           
+    LOG4CXX_INFO(logger, "-> " + std::to_string(nextStateID) +  " (" + std::to_string(nextCells[0]) + "," + std::to_string(nextCells[1]) + "," + std::to_string(nextCells[2]) + ")" 
+            + " Q=" + std::to_string((int)oTransition.getQ()));           
 }
 
 

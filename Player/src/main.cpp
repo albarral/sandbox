@@ -44,7 +44,7 @@ void insertTaskInDatabase()
 
 void testPlayer()
 {
-    LOG4CXX_INFO(logger, "\n\n\n<<<<<<<<<<<<<<<< TEST PLAYER >>>>>>>>>>>>>>");
+    LOG4CXX_INFO(logger, "\n\n<<<<<<<<<<<<<<<< TEST PLAYER >>>>>>>>>>>>>>\n");
       
     sam::GameManager oGameManager; 
     // setGameTask   SAM vs TAM   or    SAM vs HUMAN

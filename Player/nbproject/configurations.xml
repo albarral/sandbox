@@ -58,6 +58,8 @@
           <itemPath>src/modules/PurposeWinner.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f3" displayName="utils" projectFiles="true">
+          <itemPath>src/utils/QExtractor.cpp</itemPath>
+          <itemPath>src/utils/QExtractor.h</itemPath>
           <itemPath>src/utils/TaskTree.cpp</itemPath>
           <itemPath>src/utils/TaskTree.h</itemPath>
           <itemPath>src/utils/module2.cpp</itemPath>
@@ -219,6 +221,10 @@
       </item>
       <item path="src/modules/play/Strategy2.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/utils/QExtractor.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/QExtractor.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/utils/TaskTree.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/utils/TaskTree.h" ex="false" tool="3" flavor2="0">
@@ -329,6 +335,10 @@
       <item path="src/modules/play/Strategy2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/modules/play/Strategy2.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utils/QExtractor.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/utils/QExtractor.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/utils/TaskTree.cpp" ex="false" tool="1" flavor2="0">
       </item>

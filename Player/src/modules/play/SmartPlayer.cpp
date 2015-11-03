@@ -9,6 +9,7 @@
 #include "learn/TaskReward.h"
 #include "TaskFactory.h"    // temp until task in DB
 #include "utils/TaskTree.h"
+#include "utils/QExtractor.h"
 #include "modules/PurposeWinner.h"
 
 namespace sam 
@@ -60,12 +61,8 @@ void SmartPlayer::init(std::string firstPlayerID)
     oDefenseStrategy.init(oDefenseTask);  
 
     // describe the tasks
-    TaskTree::showTask2(oAttackTask);
-    TaskTree::showTask2(oDefenseTask);      
-    
-    int numStates = oAttackTask.getListGameStates().size();
-    matQattack = cv::Mat(numStates, numStates, CV_8UC1);     
-    matQdefense = cv::Mat(numStates, numStates, CV_8UC1);     
+//    TaskTree::showTask2(oAttackTask);
+//    TaskTree::showTask2(oDefenseTask);      
 };
 
 
@@ -79,10 +76,12 @@ void SmartPlayer::chooseCell()
     // select move ...
 
     // show Q matrices
-    TaskTree::getTaskQMatrix(matQattack, oAttackTask);
-    TaskTree::getTaskQMatrix(matQdefense, oDefenseTask);
-    LOG4CXX_INFO(logger, "\n Qattack:\n" << matQattack);
-    LOG4CXX_INFO(logger, "\n Qdefend:\n" << matQdefense);
+    QExtractor oQExtractor;
+    oQExtractor.exploreTask(oAttackTask);
+    LOG4CXX_INFO(logger, "\n Qattack:\n" << oQExtractor.getQMatrix());
+//    QExtractor oQExtractor2;
+//    oQExtractor2.exploreTask(oDefenseTask);
+//    LOG4CXX_INFO(logger, "\n Qdefend:\n" << oQExtractor2.getQMatrix());
     
     // set explorative modes
     oAttackStrategy.setExplorativeMode(oPlayerIdentity.isSmartExplorativePlayer());

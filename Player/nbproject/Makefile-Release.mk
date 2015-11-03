@@ -56,6 +56,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/modules/play/SmartPlayer.o \
 	${OBJECTDIR}/src/modules/play/Strategy.o \
 	${OBJECTDIR}/src/modules/play/Strategy2.o \
+	${OBJECTDIR}/src/utils/QExtractor.o \
 	${OBJECTDIR}/src/utils/TaskTree.o \
 	${OBJECTDIR}/src/utils/module2.o
 
@@ -188,6 +189,11 @@ ${OBJECTDIR}/src/modules/play/Strategy2.o: src/modules/play/Strategy2.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/modules/play
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/play/Strategy2.o src/modules/play/Strategy2.cpp
+
+${OBJECTDIR}/src/utils/QExtractor.o: src/utils/QExtractor.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/utils
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utils/QExtractor.o src/utils/QExtractor.cpp
 
 ${OBJECTDIR}/src/utils/TaskTree.o: src/utils/TaskTree.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/utils
