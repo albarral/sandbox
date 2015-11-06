@@ -25,11 +25,11 @@ private:
 public:
     Transition();
     
-    void loadFromMemo(Database* pDatabase, sql::Connection* con);
-    void storeInMemo(Database* pDatabase, sql::Connection* con);
-    void upDateInMemo(Database* pDatabase);
-    void deleteFromMemo(Database* pDatabase);
-    void storeQ(Database* pDatabase, sql::Connection* con);
+    void loadFromMemo(utils::Database* pDatabase, sql::Connection* con);
+    void storeInMemo(utils::Database* pDatabase, sql::Connection* con);
+    void upDateInMemo(utils::Database* pDatabase);
+    void deleteFromMemo(utils::Database* pDatabase);
+    void storeQ(utils::Database* pDatabase, sql::Connection* con);
     
     void set(int stateID, int nextState);
     

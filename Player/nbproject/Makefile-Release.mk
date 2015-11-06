@@ -35,30 +35,30 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/GameManager.o \
-	${OBJECTDIR}/src/TaskFactory.o \
-	${OBJECTDIR}/src/data/GameBoard.o \
-	${OBJECTDIR}/src/data/GameFlow.o \
-	${OBJECTDIR}/src/data/PlayerIdentity.o \
-	${OBJECTDIR}/src/learn/GameState.o \
-	${OBJECTDIR}/src/learn/GameTask.o \
-	${OBJECTDIR}/src/learn/TaskReward.o \
-	${OBJECTDIR}/src/main.o \
-	${OBJECTDIR}/src/modules/BoardActuator.o \
-	${OBJECTDIR}/src/modules/BoardSensor.o \
-	${OBJECTDIR}/src/modules/Player.o \
-	${OBJECTDIR}/src/modules/PlayerPurpose.o \
-	${OBJECTDIR}/src/modules/PurposeTrainer.o \
-	${OBJECTDIR}/src/modules/PurposeWinner.o \
-	${OBJECTDIR}/src/modules/play/Line.o \
-	${OBJECTDIR}/src/modules/play/PlayerActions.o \
-	${OBJECTDIR}/src/modules/play/SimplePlayer.o \
-	${OBJECTDIR}/src/modules/play/SmartPlayer.o \
-	${OBJECTDIR}/src/modules/play/Strategy.o \
-	${OBJECTDIR}/src/modules/play/Strategy2.o \
-	${OBJECTDIR}/src/utils/QExtractor.o \
-	${OBJECTDIR}/src/utils/TaskTree.o \
-	${OBJECTDIR}/src/utils/module2.o
+	${OBJECTDIR}/src/sam/player/GameManager.o \
+	${OBJECTDIR}/src/sam/player/TaskFactory.o \
+	${OBJECTDIR}/src/sam/player/data/GameBoard.o \
+	${OBJECTDIR}/src/sam/player/data/GameFlow.o \
+	${OBJECTDIR}/src/sam/player/data/PlayerIdentity.o \
+	${OBJECTDIR}/src/sam/player/learn/GameState.o \
+	${OBJECTDIR}/src/sam/player/learn/GameTask.o \
+	${OBJECTDIR}/src/sam/player/learn/TaskReward.o \
+	${OBJECTDIR}/src/sam/player/main.o \
+	${OBJECTDIR}/src/sam/player/modules/BoardActuator.o \
+	${OBJECTDIR}/src/sam/player/modules/BoardSensor.o \
+	${OBJECTDIR}/src/sam/player/modules/Player.o \
+	${OBJECTDIR}/src/sam/player/modules/PlayerPurpose.o \
+	${OBJECTDIR}/src/sam/player/modules/PurposeTrainer.o \
+	${OBJECTDIR}/src/sam/player/modules/PurposeWinner.o \
+	${OBJECTDIR}/src/sam/player/modules/play/Line.o \
+	${OBJECTDIR}/src/sam/player/modules/play/PlayerActions.o \
+	${OBJECTDIR}/src/sam/player/modules/play/SimplePlayer.o \
+	${OBJECTDIR}/src/sam/player/modules/play/SmartPlayer.o \
+	${OBJECTDIR}/src/sam/player/modules/play/Strategy.o \
+	${OBJECTDIR}/src/sam/player/modules/play/Strategy2.o \
+	${OBJECTDIR}/src/sam/player/utils/QExtractor.o \
+	${OBJECTDIR}/src/sam/player/utils/TaskTree.o \
+	${OBJECTDIR}/src/sam/player/utils/module2.o
 
 
 # C Compiler Flags
@@ -85,125 +85,125 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/player: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/player ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/src/GameManager.o: src/GameManager.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
+${OBJECTDIR}/src/sam/player/GameManager.o: src/sam/player/GameManager.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GameManager.o src/GameManager.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/GameManager.o src/sam/player/GameManager.cpp
 
-${OBJECTDIR}/src/TaskFactory.o: src/TaskFactory.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
+${OBJECTDIR}/src/sam/player/TaskFactory.o: src/sam/player/TaskFactory.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/TaskFactory.o src/TaskFactory.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/TaskFactory.o src/sam/player/TaskFactory.cpp
 
-${OBJECTDIR}/src/data/GameBoard.o: src/data/GameBoard.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/data
+${OBJECTDIR}/src/sam/player/data/GameBoard.o: src/sam/player/data/GameBoard.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/data
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/data/GameBoard.o src/data/GameBoard.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/data/GameBoard.o src/sam/player/data/GameBoard.cpp
 
-${OBJECTDIR}/src/data/GameFlow.o: src/data/GameFlow.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/data
+${OBJECTDIR}/src/sam/player/data/GameFlow.o: src/sam/player/data/GameFlow.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/data
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/data/GameFlow.o src/data/GameFlow.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/data/GameFlow.o src/sam/player/data/GameFlow.cpp
 
-${OBJECTDIR}/src/data/PlayerIdentity.o: src/data/PlayerIdentity.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/data
+${OBJECTDIR}/src/sam/player/data/PlayerIdentity.o: src/sam/player/data/PlayerIdentity.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/data
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/data/PlayerIdentity.o src/data/PlayerIdentity.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/data/PlayerIdentity.o src/sam/player/data/PlayerIdentity.cpp
 
-${OBJECTDIR}/src/learn/GameState.o: src/learn/GameState.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/learn
+${OBJECTDIR}/src/sam/player/learn/GameState.o: src/sam/player/learn/GameState.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/learn
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/learn/GameState.o src/learn/GameState.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/learn/GameState.o src/sam/player/learn/GameState.cpp
 
-${OBJECTDIR}/src/learn/GameTask.o: src/learn/GameTask.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/learn
+${OBJECTDIR}/src/sam/player/learn/GameTask.o: src/sam/player/learn/GameTask.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/learn
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/learn/GameTask.o src/learn/GameTask.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/learn/GameTask.o src/sam/player/learn/GameTask.cpp
 
-${OBJECTDIR}/src/learn/TaskReward.o: src/learn/TaskReward.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/learn
+${OBJECTDIR}/src/sam/player/learn/TaskReward.o: src/sam/player/learn/TaskReward.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/learn
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/learn/TaskReward.o src/learn/TaskReward.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/learn/TaskReward.o src/sam/player/learn/TaskReward.cpp
 
-${OBJECTDIR}/src/main.o: src/main.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
+${OBJECTDIR}/src/sam/player/main.o: src/sam/player/main.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/main.o src/sam/player/main.cpp
 
-${OBJECTDIR}/src/modules/BoardActuator.o: src/modules/BoardActuator.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/modules
+${OBJECTDIR}/src/sam/player/modules/BoardActuator.o: src/sam/player/modules/BoardActuator.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/BoardActuator.o src/modules/BoardActuator.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/BoardActuator.o src/sam/player/modules/BoardActuator.cpp
 
-${OBJECTDIR}/src/modules/BoardSensor.o: src/modules/BoardSensor.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/modules
+${OBJECTDIR}/src/sam/player/modules/BoardSensor.o: src/sam/player/modules/BoardSensor.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/BoardSensor.o src/modules/BoardSensor.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/BoardSensor.o src/sam/player/modules/BoardSensor.cpp
 
-${OBJECTDIR}/src/modules/Player.o: src/modules/Player.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/modules
+${OBJECTDIR}/src/sam/player/modules/Player.o: src/sam/player/modules/Player.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/Player.o src/modules/Player.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/Player.o src/sam/player/modules/Player.cpp
 
-${OBJECTDIR}/src/modules/PlayerPurpose.o: src/modules/PlayerPurpose.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/modules
+${OBJECTDIR}/src/sam/player/modules/PlayerPurpose.o: src/sam/player/modules/PlayerPurpose.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/PlayerPurpose.o src/modules/PlayerPurpose.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/PlayerPurpose.o src/sam/player/modules/PlayerPurpose.cpp
 
-${OBJECTDIR}/src/modules/PurposeTrainer.o: src/modules/PurposeTrainer.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/modules
+${OBJECTDIR}/src/sam/player/modules/PurposeTrainer.o: src/sam/player/modules/PurposeTrainer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/PurposeTrainer.o src/modules/PurposeTrainer.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/PurposeTrainer.o src/sam/player/modules/PurposeTrainer.cpp
 
-${OBJECTDIR}/src/modules/PurposeWinner.o: src/modules/PurposeWinner.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/modules
+${OBJECTDIR}/src/sam/player/modules/PurposeWinner.o: src/sam/player/modules/PurposeWinner.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/PurposeWinner.o src/modules/PurposeWinner.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/PurposeWinner.o src/sam/player/modules/PurposeWinner.cpp
 
-${OBJECTDIR}/src/modules/play/Line.o: src/modules/play/Line.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/modules/play
+${OBJECTDIR}/src/sam/player/modules/play/Line.o: src/sam/player/modules/play/Line.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules/play
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/play/Line.o src/modules/play/Line.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/play/Line.o src/sam/player/modules/play/Line.cpp
 
-${OBJECTDIR}/src/modules/play/PlayerActions.o: src/modules/play/PlayerActions.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/modules/play
+${OBJECTDIR}/src/sam/player/modules/play/PlayerActions.o: src/sam/player/modules/play/PlayerActions.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules/play
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/play/PlayerActions.o src/modules/play/PlayerActions.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/play/PlayerActions.o src/sam/player/modules/play/PlayerActions.cpp
 
-${OBJECTDIR}/src/modules/play/SimplePlayer.o: src/modules/play/SimplePlayer.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/modules/play
+${OBJECTDIR}/src/sam/player/modules/play/SimplePlayer.o: src/sam/player/modules/play/SimplePlayer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules/play
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/play/SimplePlayer.o src/modules/play/SimplePlayer.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/play/SimplePlayer.o src/sam/player/modules/play/SimplePlayer.cpp
 
-${OBJECTDIR}/src/modules/play/SmartPlayer.o: src/modules/play/SmartPlayer.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/modules/play
+${OBJECTDIR}/src/sam/player/modules/play/SmartPlayer.o: src/sam/player/modules/play/SmartPlayer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules/play
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/play/SmartPlayer.o src/modules/play/SmartPlayer.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/play/SmartPlayer.o src/sam/player/modules/play/SmartPlayer.cpp
 
-${OBJECTDIR}/src/modules/play/Strategy.o: src/modules/play/Strategy.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/modules/play
+${OBJECTDIR}/src/sam/player/modules/play/Strategy.o: src/sam/player/modules/play/Strategy.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules/play
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/play/Strategy.o src/modules/play/Strategy.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/play/Strategy.o src/sam/player/modules/play/Strategy.cpp
 
-${OBJECTDIR}/src/modules/play/Strategy2.o: src/modules/play/Strategy2.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/modules/play
+${OBJECTDIR}/src/sam/player/modules/play/Strategy2.o: src/sam/player/modules/play/Strategy2.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules/play
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/play/Strategy2.o src/modules/play/Strategy2.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/play/Strategy2.o src/sam/player/modules/play/Strategy2.cpp
 
-${OBJECTDIR}/src/utils/QExtractor.o: src/utils/QExtractor.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/utils
+${OBJECTDIR}/src/sam/player/utils/QExtractor.o: src/sam/player/utils/QExtractor.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utils/QExtractor.o src/utils/QExtractor.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/utils/QExtractor.o src/sam/player/utils/QExtractor.cpp
 
-${OBJECTDIR}/src/utils/TaskTree.o: src/utils/TaskTree.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/utils
+${OBJECTDIR}/src/sam/player/utils/TaskTree.o: src/sam/player/utils/TaskTree.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utils/TaskTree.o src/utils/TaskTree.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/utils/TaskTree.o src/sam/player/utils/TaskTree.cpp
 
-${OBJECTDIR}/src/utils/module2.o: src/utils/module2.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/utils
+${OBJECTDIR}/src/sam/player/utils/module2.o: src/sam/player/utils/module2.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utils/module2.o src/utils/module2.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/utils/module2.o src/sam/player/utils/module2.cpp
 
 # Subprojects
 .build-subprojects:

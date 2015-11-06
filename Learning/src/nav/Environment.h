@@ -21,7 +21,7 @@ private:
     std::string desc;
     int type;
     std::vector<Place> listPlaces;
-    Database* pDatabase;
+    utils::Database* pDatabase;
     
 public:
     Environment();
@@ -38,7 +38,7 @@ public:
     std::vector<Place>& getListPlaces() {return listPlaces;};
     void addPlace(Place& oPlace);
 
-    void setDatabase(Database& oDatabase) {pDatabase = &oDatabase;}
+    void setDatabase(utils::Database& oDatabase) {pDatabase = &oDatabase;}
     
     void loadFromMemo();
     void storeInMemo();

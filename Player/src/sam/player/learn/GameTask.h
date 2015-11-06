@@ -1,5 +1,5 @@
-#ifndef __SAM_TASK_H
-#define __SAM_TASK_H
+#ifndef __SAM_PLAYER_GAMETASK_H
+#define __SAM_PLAYER_GAMETASK_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
@@ -9,22 +9,25 @@
 #include <string>
 #include <vector>
 
-#include "State.h"
+#include "Task.h"
+#include "sam/player/learn/GameState.h"
 #include "sam/utils/Database.h"
 
 namespace sam 
 {
-class Task
+namespace player
+{     
+class GameTask
 {
 private:
     int ID;
     std::string desc;
     int type;
-    std::vector<State> listStates;
-    utils::Database* pDatabase;
+    utils::Database oDatabase;
+    std::vector<GameState> listGameStates;
     
 public:
-    Task();
+    GameTask();
     
     int getID() {return ID;};
     void setID(int value) {ID = value;};
@@ -35,27 +38,24 @@ public:
     int getType() {return type;};
     void setType(int value) {type = value;};
     
-    std::vector<State>& getListStates() {return listStates;}; 
-    void addState(State& oState);
+    std::vector<GameState>& getListGameStates() {return listGameStates;}; 
+    void addGameState(GameState& oGameState);
     
-    void setDatabase(utils::Database& oDatabase) {pDatabase = &oDatabase;}
-    
-    void loadFromMemo();
-    void storeInMemo();
-    void upDateInMemo();
-    void deleteFromMemo();
+    void storeInMemo2();
+    void loadFromMemo2();
+    void upDateInMemo2();
+    void deleteFromMemo2();
     void storeQ();
     void reset();
     
     std::string showData();
-
-private:
-    void statesFromMemo(sql::Connection* con);
-    void loadStates(sql::Connection* con);
-    void storeStates(sql::Connection* con);
-
-
+    
+private:    
+    void gameStatesFromMemo(sql::Connection* con);
+    void loadGameStates(sql::Connection* con, utils::Database* pDatabase);
+    void storeGameStates(sql::Connection* con, utils::Database* pDatabase);
 };
+}
 }
 
 #endif

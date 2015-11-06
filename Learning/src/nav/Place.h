@@ -26,11 +26,11 @@ private:
 public:
     Place();
     void addConnection(Connection& oConnection);
-    void loadFromMemo(Database* pDatabase, sql::Connection* con);
-    void storeInMemo(Database* pDatabase, sql::Connection* con);
-    void upDateInMemo(Database* pDatabase);
-    void deleteFromMemo(Database* pDatabase);
-    void storeQ(Database* pDatabase, sql::Connection* con);
+    void loadFromMemo(utils::Database* pDatabase, sql::Connection* con);
+    void storeInMemo(utils::Database* pDatabase, sql::Connection* con);
+    void upDateInMemo(utils::Database* pDatabase);
+    void deleteFromMemo(utils::Database* pDatabase);
+    void storeQ(utils::Database* pDatabase, sql::Connection* con);
     
     int getID() {return ID;}; 
     void setID(int value) {ID = value;};
@@ -49,9 +49,9 @@ public:
     std::string showData();
    
 private:
-    void connectionsFromMemo(Database* pDatabase, sql::Connection* con);
-    void loadConnections(Database* pDatabase, sql::Connection* con);
-    void storeConnections(Database* pDatabase, sql::Connection* con);
+    void connectionsFromMemo(utils::Database* pDatabase, sql::Connection* con);
+    void loadConnections(utils::Database* pDatabase, sql::Connection* con);
+    void storeConnections(utils::Database* pDatabase, sql::Connection* con);
 
 };
 }

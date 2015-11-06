@@ -62,6 +62,7 @@
         <ccTool>
           <standard>8</standard>
           <incDir>
+            <pElem>src</pElem>
             <pElem>../samUtils/src</pElem>
           </incDir>
         </ccTool>

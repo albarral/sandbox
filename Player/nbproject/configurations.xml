@@ -13,63 +13,65 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="f1" displayName="src" projectFiles="true">
-        <logicalFolder name="f1" displayName="data" projectFiles="true">
-          <itemPath>src/data/GameBoard.cpp</itemPath>
-          <itemPath>src/data/GameBoard.h</itemPath>
-          <itemPath>src/data/GameFlow.cpp</itemPath>
-          <itemPath>src/data/GameFlow.h</itemPath>
-          <itemPath>src/data/PlayerIdentity.cpp</itemPath>
-          <itemPath>src/data/PlayerIdentity.h</itemPath>
-        </logicalFolder>
-        <logicalFolder name="f4" displayName="learn" projectFiles="true">
-          <itemPath>src/learn/GameState.cpp</itemPath>
-          <itemPath>src/learn/GameState.h</itemPath>
-          <itemPath>src/learn/GameTask.cpp</itemPath>
-          <itemPath>src/learn/GameTask.h</itemPath>
-          <itemPath>src/learn/TaskReward.cpp</itemPath>
-          <itemPath>src/learn/TaskReward.h</itemPath>
-        </logicalFolder>
-        <logicalFolder name="f2" displayName="modules" projectFiles="true">
-          <logicalFolder name="f1" displayName="play" projectFiles="true">
-            <itemPath>src/modules/play/Line.cpp</itemPath>
-            <itemPath>src/modules/play/Line.h</itemPath>
-            <itemPath>src/modules/play/PlayerActions.cpp</itemPath>
-            <itemPath>src/modules/play/PlayerActions.h</itemPath>
-            <itemPath>src/modules/play/SimplePlayer.cpp</itemPath>
-            <itemPath>src/modules/play/SimplePlayer.h</itemPath>
-            <itemPath>src/modules/play/SmartPlayer.cpp</itemPath>
-            <itemPath>src/modules/play/SmartPlayer.h</itemPath>
-            <itemPath>src/modules/play/Strategy.cpp</itemPath>
-            <itemPath>src/modules/play/Strategy.h</itemPath>
-            <itemPath>src/modules/play/Strategy2.cpp</itemPath>
-            <itemPath>src/modules/play/Strategy2.h</itemPath>
+        <logicalFolder name="player" displayName="player" projectFiles="true">
+          <logicalFolder name="data" displayName="data" projectFiles="true">
+            <itemPath>src/sam/player/data/GameBoard.cpp</itemPath>
+            <itemPath>src/sam/player/data/GameBoard.h</itemPath>
+            <itemPath>src/sam/player/data/GameFlow.cpp</itemPath>
+            <itemPath>src/sam/player/data/GameFlow.h</itemPath>
+            <itemPath>src/sam/player/data/PlayerIdentity.cpp</itemPath>
+            <itemPath>src/sam/player/data/PlayerIdentity.h</itemPath>
           </logicalFolder>
-          <itemPath>src/modules/BoardActuator.cpp</itemPath>
-          <itemPath>src/modules/BoardActuator.h</itemPath>
-          <itemPath>src/modules/BoardSensor.cpp</itemPath>
-          <itemPath>src/modules/BoardSensor.h</itemPath>
-          <itemPath>src/modules/Player.cpp</itemPath>
-          <itemPath>src/modules/Player.h</itemPath>
-          <itemPath>src/modules/PlayerPurpose.cpp</itemPath>
-          <itemPath>src/modules/PlayerPurpose.h</itemPath>
-          <itemPath>src/modules/PurposeTrainer.cpp</itemPath>
-          <itemPath>src/modules/PurposeTrainer.h</itemPath>
-          <itemPath>src/modules/PurposeWinner.cpp</itemPath>
-          <itemPath>src/modules/PurposeWinner.h</itemPath>
+          <logicalFolder name="learn" displayName="learn" projectFiles="true">
+            <itemPath>src/sam/player/learn/GameState.cpp</itemPath>
+            <itemPath>src/sam/player/learn/GameState.h</itemPath>
+            <itemPath>src/sam/player/learn/GameTask.cpp</itemPath>
+            <itemPath>src/sam/player/learn/GameTask.h</itemPath>
+            <itemPath>src/sam/player/learn/TaskReward.cpp</itemPath>
+            <itemPath>src/sam/player/learn/TaskReward.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="modules" displayName="modules" projectFiles="true">
+            <logicalFolder name="play" displayName="play" projectFiles="true">
+              <itemPath>src/sam/player/modules/play/Line.cpp</itemPath>
+              <itemPath>src/sam/player/modules/play/Line.h</itemPath>
+              <itemPath>src/sam/player/modules/play/PlayerActions.cpp</itemPath>
+              <itemPath>src/sam/player/modules/play/PlayerActions.h</itemPath>
+              <itemPath>src/sam/player/modules/play/SimplePlayer.cpp</itemPath>
+              <itemPath>src/sam/player/modules/play/SimplePlayer.h</itemPath>
+              <itemPath>src/sam/player/modules/play/SmartPlayer.cpp</itemPath>
+              <itemPath>src/sam/player/modules/play/SmartPlayer.h</itemPath>
+              <itemPath>src/sam/player/modules/play/Strategy.cpp</itemPath>
+              <itemPath>src/sam/player/modules/play/Strategy.h</itemPath>
+              <itemPath>src/sam/player/modules/play/Strategy2.cpp</itemPath>
+              <itemPath>src/sam/player/modules/play/Strategy2.h</itemPath>
+            </logicalFolder>
+            <itemPath>src/sam/player/modules/BoardActuator.cpp</itemPath>
+            <itemPath>src/sam/player/modules/BoardActuator.h</itemPath>
+            <itemPath>src/sam/player/modules/BoardSensor.cpp</itemPath>
+            <itemPath>src/sam/player/modules/BoardSensor.h</itemPath>
+            <itemPath>src/sam/player/modules/Player.cpp</itemPath>
+            <itemPath>src/sam/player/modules/Player.h</itemPath>
+            <itemPath>src/sam/player/modules/PlayerPurpose.cpp</itemPath>
+            <itemPath>src/sam/player/modules/PlayerPurpose.h</itemPath>
+            <itemPath>src/sam/player/modules/PurposeTrainer.cpp</itemPath>
+            <itemPath>src/sam/player/modules/PurposeTrainer.h</itemPath>
+            <itemPath>src/sam/player/modules/PurposeWinner.cpp</itemPath>
+            <itemPath>src/sam/player/modules/PurposeWinner.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="utils" displayName="utils" projectFiles="true">
+            <itemPath>src/sam/player/utils/QExtractor.cpp</itemPath>
+            <itemPath>src/sam/player/utils/QExtractor.h</itemPath>
+            <itemPath>src/sam/player/utils/TaskTree.cpp</itemPath>
+            <itemPath>src/sam/player/utils/TaskTree.h</itemPath>
+            <itemPath>src/sam/player/utils/module2.cpp</itemPath>
+            <itemPath>src/sam/player/utils/module2.h</itemPath>
+          </logicalFolder>
+          <itemPath>src/sam/player/GameManager.cpp</itemPath>
+          <itemPath>src/sam/player/GameManager.h</itemPath>
+          <itemPath>src/sam/player/TaskFactory.cpp</itemPath>
+          <itemPath>src/sam/player/TaskFactory.h</itemPath>
+          <itemPath>src/sam/player/main.cpp</itemPath>
         </logicalFolder>
-        <logicalFolder name="f3" displayName="utils" projectFiles="true">
-          <itemPath>src/utils/QExtractor.cpp</itemPath>
-          <itemPath>src/utils/QExtractor.h</itemPath>
-          <itemPath>src/utils/TaskTree.cpp</itemPath>
-          <itemPath>src/utils/TaskTree.h</itemPath>
-          <itemPath>src/utils/module2.cpp</itemPath>
-          <itemPath>src/utils/module2.h</itemPath>
-        </logicalFolder>
-        <itemPath>src/GameManager.cpp</itemPath>
-        <itemPath>src/GameManager.h</itemPath>
-        <itemPath>src/TaskFactory.cpp</itemPath>
-        <itemPath>src/TaskFactory.h</itemPath>
-        <itemPath>src/main.cpp</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -139,99 +141,174 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="src/GameManager.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/GameManager.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/GameManager.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/GameManager.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/TaskFactory.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/TaskFactory.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/TaskFactory.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/TaskFactory.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/data/GameBoard.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/data/GameBoard.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/data/GameBoard.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/data/GameBoard.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/data/GameFlow.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/data/GameFlow.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/data/GameFlow.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/data/GameFlow.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/data/PlayerIdentity.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/data/PlayerIdentity.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/data/PlayerIdentity.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/data/PlayerIdentity.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/learn/GameState.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/learn/GameState.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/learn/GameState.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/learn/GameState.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/learn/GameTask.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/learn/GameTask.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/learn/GameTask.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/learn/GameTask.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/learn/TaskReward.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/learn/TaskReward.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/learn/TaskReward.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/learn/TaskReward.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/modules/BoardActuator.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/modules/BoardActuator.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/modules/BoardActuator.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/modules/BoardActuator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/modules/BoardSensor.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/modules/BoardSensor.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/modules/BoardSensor.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/modules/BoardSensor.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/modules/Player.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/modules/Player.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/modules/Player.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/modules/Player.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/modules/PlayerPurpose.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/modules/PlayerPurpose.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/modules/PlayerPurpose.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/modules/PlayerPurpose.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/modules/PurposeTrainer.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/modules/PurposeTrainer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/modules/PurposeTrainer.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/modules/PurposeTrainer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/modules/PurposeWinner.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/modules/PurposeWinner.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/modules/PurposeWinner.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/modules/PurposeWinner.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/modules/play/Line.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/modules/play/Line.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/modules/play/Line.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/modules/play/Line.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/modules/play/PlayerActions.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/modules/play/PlayerActions.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/modules/play/PlayerActions.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/modules/play/PlayerActions.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/modules/play/SimplePlayer.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/modules/play/SimplePlayer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/modules/play/SimplePlayer.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/modules/play/SimplePlayer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/modules/play/SmartPlayer.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/modules/play/SmartPlayer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/modules/play/SmartPlayer.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/modules/play/SmartPlayer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/modules/play/Strategy.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/modules/play/Strategy.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/modules/play/Strategy.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/modules/play/Strategy.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/modules/play/Strategy2.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/modules/play/Strategy2.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/modules/play/Strategy2.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/modules/play/Strategy2.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/utils/QExtractor.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/utils/QExtractor.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/utils/QExtractor.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/utils/QExtractor.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/TaskTree.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/utils/TaskTree.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/utils/TaskTree.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/utils/TaskTree.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/module2.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/utils/module2.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/utils/module2.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/utils/module2.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -254,99 +331,174 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="src/GameManager.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/GameManager.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/GameManager.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/GameManager.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/TaskFactory.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/TaskFactory.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/TaskFactory.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/TaskFactory.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/data/GameBoard.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/data/GameBoard.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/data/GameBoard.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/data/GameBoard.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/data/GameFlow.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/data/GameFlow.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/data/GameFlow.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/data/GameFlow.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/data/PlayerIdentity.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/data/PlayerIdentity.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/data/PlayerIdentity.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/data/PlayerIdentity.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/learn/GameState.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/learn/GameState.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/learn/GameState.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/learn/GameState.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/learn/GameTask.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/learn/GameTask.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/learn/GameTask.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/learn/GameTask.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/learn/TaskReward.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/learn/TaskReward.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/learn/TaskReward.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/learn/TaskReward.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/modules/BoardActuator.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/modules/BoardActuator.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/modules/BoardActuator.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/modules/BoardActuator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/modules/BoardSensor.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/modules/BoardSensor.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/modules/BoardSensor.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/modules/BoardSensor.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/modules/Player.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/modules/Player.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/modules/Player.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/modules/Player.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/modules/PlayerPurpose.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/modules/PlayerPurpose.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/modules/PlayerPurpose.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/modules/PlayerPurpose.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/modules/PurposeTrainer.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/modules/PurposeTrainer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/modules/PurposeTrainer.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/modules/PurposeTrainer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/modules/PurposeWinner.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/modules/PurposeWinner.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/modules/PurposeWinner.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/modules/PurposeWinner.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/modules/play/Line.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/modules/play/Line.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/modules/play/Line.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/modules/play/Line.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/modules/play/PlayerActions.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/modules/play/PlayerActions.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/modules/play/PlayerActions.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/modules/play/PlayerActions.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/modules/play/SimplePlayer.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/modules/play/SimplePlayer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/modules/play/SimplePlayer.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/modules/play/SimplePlayer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/modules/play/SmartPlayer.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/modules/play/SmartPlayer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/modules/play/SmartPlayer.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/modules/play/SmartPlayer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/modules/play/Strategy.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/modules/play/Strategy.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/modules/play/Strategy.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/modules/play/Strategy.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/modules/play/Strategy2.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/modules/play/Strategy2.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/modules/play/Strategy2.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/modules/play/Strategy2.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/utils/QExtractor.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/utils/QExtractor.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/utils/QExtractor.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/utils/QExtractor.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/TaskTree.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/utils/TaskTree.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/utils/TaskTree.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/utils/TaskTree.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/utils/module2.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/utils/module2.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/utils/module2.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/utils/module2.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

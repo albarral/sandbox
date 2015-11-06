@@ -26,11 +26,11 @@ protected:
 public:
     State();
     void addTransition(Transition& oTransition);
-    void loadFromMemo(Database* pDatabase, sql::Connection* con);
-    void storeInMemo(Database* pDatabase, sql::Connection* con);
-    void upDateInMemo(Database* pDatabase);
-    void deleteFromMemo(Database* pDatabase);
-    void storeQ(Database* pDatabase, sql::Connection* con);
+    void loadFromMemo(utils::Database* pDatabase, sql::Connection* con);
+    void storeInMemo(utils::Database* pDatabase, sql::Connection* con);
+    void upDateInMemo(utils::Database* pDatabase);
+    void deleteFromMemo(utils::Database* pDatabase);
+    void storeQ(utils::Database* pDatabase, sql::Connection* con);
     
     int getID() {return ID;};
     void setID(int value) {ID = value;};
@@ -49,9 +49,9 @@ public:
     std::string showData();
    
 //private:
-    void transitionsFromMemo(Database* pDatabase, sql::Connection* con);
-    void loadTransitions(Database* pDatabase, sql::Connection* con);
-    void storeTransitions(Database* pDatabase, sql::Connection* con);
+    void transitionsFromMemo(utils::Database* pDatabase, sql::Connection* con);
+    void loadTransitions(utils::Database* pDatabase, sql::Connection* con);
+    void storeTransitions(utils::Database* pDatabase, sql::Connection* con);
 };
 }
 

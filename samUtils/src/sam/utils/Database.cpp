@@ -4,10 +4,12 @@
  *   ainoa@migtron.com   *
  ***************************************************************************/
 
-#include "Database.h"
+#include "sam/utils/Database.h"
 
 namespace sam 
 {
+namespace utils
+{     
 Database::Database() 
 {
     binitialized = false;
@@ -60,4 +62,5 @@ sql::ResultSet* Database::select(std::string sel, sql::Connection* con)
     return res;
 }
 
+}
 }

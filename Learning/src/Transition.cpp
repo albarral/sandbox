@@ -5,7 +5,6 @@
 
 #include "Transition.h"
 #include "State.h"
-#include "nav/Connection.h"
 
 namespace sam 
 {
@@ -25,7 +24,7 @@ void Transition::set(int stateID, int nextState)
     this->nextState = nextState;
 }
 
-void Transition::loadFromMemo(Database* pDatabase, sql::Connection* con)
+void Transition::loadFromMemo(utils::Database* pDatabase, sql::Connection* con)
 {
     std::string sel = "SELECT * FROM TAB_TRANSITIONS WHERE taskID = " + std::to_string(taskID)
             + " AND stateID = " + std::to_string(stateID) + " AND transID = " + std::to_string(ID);
@@ -39,7 +38,7 @@ void Transition::loadFromMemo(Database* pDatabase, sql::Connection* con)
     }
 }
 
-void Transition::storeInMemo(Database* pDatabase, sql::Connection* con)
+void Transition::storeInMemo(utils::Database* pDatabase, sql::Connection* con)
 {
     std::string insert = "INSERT INTO TAB_TRANSITIONS (transID, description, taskID, stateID, nextState,"
             " Q) VALUES (" + std::to_string(ID) + ", ' " + desc + " ', " + std::to_string(taskID) 
@@ -47,7 +46,7 @@ void Transition::storeInMemo(Database* pDatabase, sql::Connection* con)
     pDatabase->update(insert, con);
 }
 
-void Transition::upDateInMemo(Database* pDatabase)
+void Transition::upDateInMemo(utils::Database* pDatabase)
 {
     sql::Connection* con = pDatabase->getConnectionDB();
     std::string update = "UPDATE TAB_TRANSITIONS SET description= ' " + desc +
@@ -59,7 +58,7 @@ void Transition::upDateInMemo(Database* pDatabase)
     pDatabase->closeConnectionDB();
 }
 
-void Transition::deleteFromMemo(Database* pDatabase)
+void Transition::deleteFromMemo(utils::Database* pDatabase)
 {
     sql::Connection* con = pDatabase->getConnectionDB();
     std::string deleteDB = "DELETE FROM TAB_TRANSITIONS WHERE transID= " + std::to_string(ID);
@@ -69,7 +68,7 @@ void Transition::deleteFromMemo(Database* pDatabase)
     pDatabase->closeConnectionDB();
 }
 
-void Transition::storeQ(Database* pDatabase, sql::Connection* con)
+void Transition::storeQ(utils::Database* pDatabase, sql::Connection* con)
 {
     std::string storeQ = "UPDATE TAB_TRANSITIONS SET Q= " + std::to_string(Q) + 
             " WHERE transID= " + std::to_string(ID) + " AND taskID= " 

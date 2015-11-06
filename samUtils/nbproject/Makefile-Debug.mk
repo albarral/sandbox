@@ -65,7 +65,7 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_utils.${CND_DLIB_EXT}: ${OBJEC
 ${OBJECTDIR}/src/sam/utils/Database.o: src/sam/utils/Database.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/utils/Database.o src/sam/utils/Database.cpp
+	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/utils/Database.o src/sam/utils/Database.cpp
 
 # Subprojects
 .build-subprojects:

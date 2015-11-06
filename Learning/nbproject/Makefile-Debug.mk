@@ -75,47 +75,47 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_learning.${CND_DLIB_EXT}: ${OB
 ${OBJECTDIR}/src/Learn.o: src/Learn.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Learn.o src/Learn.cpp
+	$(COMPILE.cc) -g -Isrc -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Learn.o src/Learn.cpp
 
 ${OBJECTDIR}/src/State.o: src/State.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/State.o src/State.cpp
+	$(COMPILE.cc) -g -Isrc -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/State.o src/State.cpp
 
 ${OBJECTDIR}/src/Task.o: src/Task.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Task.o src/Task.cpp
+	$(COMPILE.cc) -g -Isrc -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Task.o src/Task.cpp
 
 ${OBJECTDIR}/src/Transition.o: src/Transition.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Transition.o src/Transition.cpp
+	$(COMPILE.cc) -g -Isrc -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Transition.o src/Transition.cpp
 
 ${OBJECTDIR}/src/nav/Connection.o: src/nav/Connection.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/nav
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/nav/Connection.o src/nav/Connection.cpp
+	$(COMPILE.cc) -g -Isrc -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/nav/Connection.o src/nav/Connection.cpp
 
 ${OBJECTDIR}/src/nav/ConnectionType.o: src/nav/ConnectionType.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/nav
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/nav/ConnectionType.o src/nav/ConnectionType.cpp
+	$(COMPILE.cc) -g -Isrc -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/nav/ConnectionType.o src/nav/ConnectionType.cpp
 
 ${OBJECTDIR}/src/nav/Environment.o: src/nav/Environment.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/nav
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/nav/Environment.o src/nav/Environment.cpp
+	$(COMPILE.cc) -g -Isrc -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/nav/Environment.o src/nav/Environment.cpp
 
 ${OBJECTDIR}/src/nav/LearnNav.o: src/nav/LearnNav.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/nav
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/nav/LearnNav.o src/nav/LearnNav.cpp
+	$(COMPILE.cc) -g -Isrc -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/nav/LearnNav.o src/nav/LearnNav.cpp
 
 ${OBJECTDIR}/src/nav/Place.o: src/nav/Place.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/nav
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/nav/Place.o src/nav/Place.cpp
+	$(COMPILE.cc) -g -Isrc -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/nav/Place.o src/nav/Place.cpp
 
 # Subprojects
 .build-subprojects:

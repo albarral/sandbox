@@ -1,5 +1,5 @@
-#ifndef __DATABASE_H
-#define __DATABASE_H
+#ifndef __SAM_UTILS_DATABASE_H
+#define __SAM_UTILS_DATABASE_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
@@ -20,6 +20,8 @@
 
 namespace sam 
 {
+namespace utils
+{  
 class Database
 {  
 private:
@@ -50,6 +52,7 @@ public:
     sql::ResultSet* select(std::string, sql::Connection* con);
     
 };
+}
 }
 
 #endif

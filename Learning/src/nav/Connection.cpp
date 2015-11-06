@@ -35,7 +35,7 @@ void Connection::set(int placeID, int nextPlace, int type)
     this->abruptness = oType.getAbruptness();
 }
 
-void Connection::loadFromMemo(Database* pDatabase, sql::Connection* con)
+void Connection::loadFromMemo(utils::Database* pDatabase, sql::Connection* con)
 {
     std::string sel = "SELECT * FROM TAB_CONNECTIONS WHERE envID = " + std::to_string(environmentID)
             + " AND placeID = " + std::to_string(placeID) + " AND connID = " + std::to_string(ID);
@@ -52,7 +52,7 @@ void Connection::loadFromMemo(Database* pDatabase, sql::Connection* con)
     }
 }
 
-void Connection::storeInMemo(Database* pDatabase, sql::Connection* con)
+void Connection::storeInMemo(utils::Database* pDatabase, sql::Connection* con)
 {
     std::string insert = "INSERT INTO TAB_CONNECTIONS (connID, description, envID, placeID, nextPlace, length, "
             "slope, abruptness, Q) VALUES (" + std::to_string(ID) + ", ' " + desc + " ', " + std::to_string(environmentID) 
@@ -61,7 +61,7 @@ void Connection::storeInMemo(Database* pDatabase, sql::Connection* con)
     pDatabase->update(insert, con);
 }
 
-void Connection::upDateInMemo(Database* pDatabase)
+void Connection::upDateInMemo(utils::Database* pDatabase)
 {
     sql::Connection *con = pDatabase->getConnectionDB();
     std::string update = "UPDATE TAB_CONNECTIONS SET description= ' " + desc +
@@ -74,7 +74,7 @@ void Connection::upDateInMemo(Database* pDatabase)
     pDatabase->closeConnectionDB();
 }
 
-void Connection::deleteFromMemo(Database* pDatabase)
+void Connection::deleteFromMemo(utils::Database* pDatabase)
 {
     sql::Connection *con = pDatabase->getConnectionDB();
     std::string deleteDB = "DELETE FROM TAB_CONNECTIONS WHERE connID= " + std::to_string(ID)
@@ -84,7 +84,7 @@ void Connection::deleteFromMemo(Database* pDatabase)
     pDatabase->closeConnectionDB();
 }
 
-void Connection::storeQ(Database* pDatabase, sql::Connection* con)
+void Connection::storeQ(utils::Database* pDatabase, sql::Connection* con)
 {
     std::string storeQ = "UPDATE TAB_CONNECTIONS SET Q= " + std::to_string(Q) + " WHERE connID= " + std::to_string(ID)
             + " AND envID= " + std::to_string(environmentID) + " AND placeID= " + std::to_string(placeID);   
