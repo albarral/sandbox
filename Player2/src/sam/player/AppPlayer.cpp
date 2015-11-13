@@ -6,6 +6,7 @@
 #include <string>
 
 #include "sam/player/AppPlayer.h"
+#include "sam/player/modules/analyse/SimpleAnalyser.h"
 
 namespace sam 
 {
@@ -15,11 +16,14 @@ log4cxx::LoggerPtr AppPlayer::logger(log4cxx::Logger::getLogger("sam.player"));
 
 AppPlayer::AppPlayer() 
 {
+    pLineAnalyser = 0;
     counter = 0;
 }
 
 AppPlayer::~AppPlayer() 
 {
+    if (pLineAnalyser != 0)
+        delete (pLineAnalyser);
 }
 
  // TEMP for test
@@ -66,14 +70,16 @@ void AppPlayer::startModules()
 { 
     // game is started with 2 player agents (SAM & TAM) & first turn assigned randomly
     LOG4CXX_INFO(logger, "AppPlayer: starting modules ..."); 
-    
+
+    // TEMP for test
     setTestMarks();
     setTestLine();
     
-    oLineAnalyser.init(oBoardLine, oPlayerMode);
+    pLineAnalyser = new SimpleAnalyser();    
+    pLineAnalyser->init(oBoardLine, oPlayerMode);
     //oLineAnalyser.connect(oBus);
-    oLineAnalyser.setFrequency(4.0);
-    oLineAnalyser.on();    
+    pLineAnalyser->setFrequency(4.0);
+    pLineAnalyser->on();    
 }
 
 void AppPlayer::stopModules()
@@ -81,8 +87,8 @@ void AppPlayer::stopModules()
     // players are asked to stop, then we wait for them to finish
     LOG4CXX_INFO(logger, "AppPlayer: stopping modules ..."); 
 
-    oLineAnalyser.off();
-    oLineAnalyser.wait();
+    pLineAnalyser->off();
+    pLineAnalyser->wait();
     
     LOG4CXX_INFO(logger, "AppPlayer: off");
 }
@@ -90,7 +96,8 @@ void AppPlayer::stopModules()
 bool AppPlayer::isGameOver()
 {
     counter++;
-    
+
+    // TEMP for test    
     setTestLine();
     
     if (counter == 5)

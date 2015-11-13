@@ -24,7 +24,7 @@ private:
     Bus oBus;
     BoardLine oBoardLine;
     PlayerMode oPlayerMode;
-    LineAnalyser oLineAnalyser;
+    LineAnalyser* pLineAnalyser;
     // temp
     int counter = 0;
     

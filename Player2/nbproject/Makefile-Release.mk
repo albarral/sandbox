@@ -43,6 +43,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/sam/player/data/PlayerMode.o \
 	${OBJECTDIR}/src/sam/player/main.o \
 	${OBJECTDIR}/src/sam/player/modules/analyse/LineAnalyser.o \
+	${OBJECTDIR}/src/sam/player/modules/analyse/SimpleAnalyser.o \
+	${OBJECTDIR}/src/sam/player/modules/analyse/Strategy.o \
 	${OBJECTDIR}/src/sam/player/utils/module2.o
 
 
@@ -109,6 +111,16 @@ ${OBJECTDIR}/src/sam/player/modules/analyse/LineAnalyser.o: src/sam/player/modul
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules/analyse
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/analyse/LineAnalyser.o src/sam/player/modules/analyse/LineAnalyser.cpp
+
+${OBJECTDIR}/src/sam/player/modules/analyse/SimpleAnalyser.o: src/sam/player/modules/analyse/SimpleAnalyser.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules/analyse
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/analyse/SimpleAnalyser.o src/sam/player/modules/analyse/SimpleAnalyser.cpp
+
+${OBJECTDIR}/src/sam/player/modules/analyse/Strategy.o: src/sam/player/modules/analyse/Strategy.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules/analyse
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/analyse/Strategy.o src/sam/player/modules/analyse/Strategy.cpp
 
 ${OBJECTDIR}/src/sam/player/utils/module2.o: src/sam/player/utils/module2.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/utils

@@ -31,6 +31,10 @@
           <logicalFolder name="analyse" displayName="analyse" projectFiles="true">
             <itemPath>src/sam/player/modules/analyse/LineAnalyser.cpp</itemPath>
             <itemPath>src/sam/player/modules/analyse/LineAnalyser.h</itemPath>
+            <itemPath>src/sam/player/modules/analyse/SimpleAnalyser.cpp</itemPath>
+            <itemPath>src/sam/player/modules/analyse/SimpleAnalyser.h</itemPath>
+            <itemPath>src/sam/player/modules/analyse/Strategy.cpp</itemPath>
+            <itemPath>src/sam/player/modules/analyse/Strategy.h</itemPath>
           </logicalFolder>
         </logicalFolder>
         <logicalFolder name="utils" displayName="utils" projectFiles="true">
@@ -114,6 +118,26 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/sam/player/modules/analyse/SimpleAnalyser.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/player/modules/analyse/SimpleAnalyser.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/player/modules/analyse/Strategy.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/player/modules/analyse/Strategy.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/sam/player/utils/module2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/sam/player/utils/module2.h" ex="false" tool="3" flavor2="0">
@@ -171,6 +195,26 @@
             flavor2="0">
       </item>
       <item path="src/sam/player/modules/analyse/LineAnalyser.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/player/modules/analyse/SimpleAnalyser.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/player/modules/analyse/SimpleAnalyser.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/player/modules/analyse/Strategy.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/player/modules/analyse/Strategy.h"
             ex="false"
             tool="3"
             flavor2="0">

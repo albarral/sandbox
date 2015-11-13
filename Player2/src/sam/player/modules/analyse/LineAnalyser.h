@@ -75,13 +75,13 @@ private:
     // shows the next state name
     void showStateChange();     
     
-//protected:    
-//    // selects the best cell in the line for attacking purpose
-//    virtual void getBestAttack() = 0;
-//    // selects the best cell in the line for defensive purpose
-//    virtual void getBestDefense() = 0;
-//    // stores the increased knowledge (for smart players)
-//    virtual void storeKnowledge() = 0;                
+protected:    
+    // searches the best attack move for the present board line
+    virtual void searchBestAttack() = 0;
+    // searches the best defense move for the present board line
+    virtual void searchBestDefense() = 0;
+    // updates the stored knowledge about the task (for smart players)
+    virtual void storeKnowledge() = 0;                
 };
 }
 }

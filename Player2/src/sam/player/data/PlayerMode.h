@@ -43,9 +43,10 @@ public:
     void setPlayMode(int playMode);    
     int getPlayMode() {return playMode;};
     
-    bool isSimplePlayer() {return (playMode == eMODE_SIMPLE);};
-    bool isSmartPlayer() {return (playMode == eMODE_SMART || playMode == eMODE_SMART_EXPLORE);};
-    bool isSmartExplorativePlayer() {return (playMode == eMODE_SMART_EXPLORE);};
+    bool isRandomPlayMode() {return (playMode == eMODE_SIMPLE);};
+    bool isSimplePlayMode() {return (playMode == eMODE_SIMPLE);};
+    bool isSmartPlayMode() {return (playMode == eMODE_SMART || playMode == eMODE_SMART_EXPLORE);};
+    bool isSmartExplorativePlayMode() {return (playMode == eMODE_SMART_EXPLORE);};
 
     // returns member values in string form
     std::string toString();    

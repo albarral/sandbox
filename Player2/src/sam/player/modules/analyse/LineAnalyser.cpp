@@ -141,25 +141,25 @@ void LineAnalyser::doAnalysis()
 
     LOG4CXX_INFO(logger, "doAnalysis: line = " << lineCopy[0] << "," << lineCopy[1] << "," << lineCopy[2]);     
 
+    // reset analysis info
+    numMines = numOthers = numEmpties = 0;
+    listEmptyCells.clear();    
+
     // analyse line
     analyseLine();
-
-    LOG4CXX_INFO(logger, "doAnalysis: result = " << pBoardLine->toStringLineResult());     
     
     // if line open, search best move
     if (pBoardLine->getLineResult() == BoardLine::eRESULT_OPEN)
     {
         // search attack move
-        //getBestAttack();
+        searchBestAttack();
         // search defense move
-        //getBestDefense();        
-        
-        // TEMP
-        int bestMove = listEmptyCells.at(0);
-        pBoardLine->setBestAttackCell(bestMove);
-        pBoardLine->setBestAttackQ(99.0);
-
-        LOG4CXX_INFO(logger, "doAnalysis: attack move = " << bestMove);     
+        searchBestDefense();                
+    }
+    // line not open (closed, winner or looser)
+    else
+    {
+        LOG4CXX_INFO(logger, "doAnalysis: result = " << pBoardLine->toStringLineResult());             
     }
 }
 
@@ -170,10 +170,6 @@ void LineAnalyser::doAnalysis()
 // lost: all cells other's, looser
 void LineAnalyser::analyseLine()
 {
-    // reset analysis info
-    numMines = numOthers = numEmpties = 0;
-    listEmptyCells.clear();    
-
     // analyze cells one by one
     for (int i=0; i<BoardLine::eCELLS_DIM; i++)
     {
@@ -196,7 +192,7 @@ void LineAnalyser::analyseLine()
     {
         pBoardLine->setLineResult(BoardLine::eRESULT_LOST);
     }
-    // no empty cells, but mixed color -> closed line
+    // no empty cells & mixed color -> closed line
     else
     {
         pBoardLine->setLineResult(BoardLine::eRESULT_CLOSED);
