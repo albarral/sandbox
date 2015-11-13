@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="97">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <logicalFolder name="player" displayName="player" projectFiles="true">
+        <logicalFolder name="bus" displayName="bus" projectFiles="true">
+          <itemPath>src/sam/player/bus/Bus.cpp</itemPath>
+          <itemPath>src/sam/player/bus/Bus.h</itemPath>
+          <itemPath>src/sam/player/bus/BusCO.cpp</itemPath>
+          <itemPath>src/sam/player/bus/BusCO.h</itemPath>
+          <itemPath>src/sam/player/bus/BusSO.cpp</itemPath>
+          <itemPath>src/sam/player/bus/BusSO.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="data" displayName="data" projectFiles="true">
+          <itemPath>src/sam/player/data/BoardLine.cpp</itemPath>
+          <itemPath>src/sam/player/data/BoardLine.h</itemPath>
+          <itemPath>src/sam/player/data/PlayerMode.cpp</itemPath>
+          <itemPath>src/sam/player/data/PlayerMode.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="modules" displayName="modules" projectFiles="true">
+          <logicalFolder name="analyse" displayName="analyse" projectFiles="true">
+            <itemPath>src/sam/player/modules/analyse/LineAnalyser.cpp</itemPath>
+            <itemPath>src/sam/player/modules/analyse/LineAnalyser.h</itemPath>
+          </logicalFolder>
+        </logicalFolder>
+        <logicalFolder name="utils" displayName="utils" projectFiles="true">
+          <itemPath>src/sam/player/utils/module2.cpp</itemPath>
+          <itemPath>src/sam/player/utils/module2.h</itemPath>
+        </logicalFolder>
+        <itemPath>src/sam/player/AppPlayer.cpp</itemPath>
+        <itemPath>src/sam/player/AppPlayer.h</itemPath>
+        <itemPath>src/sam/player/main.cpp</itemPath>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>src/sam/player</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <standard>8</standard>
+          <incDir>
+            <pElem>src</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibLibItem>log4cxx</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+      <item path="src/sam/player/AppPlayer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/player/AppPlayer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/player/bus/Bus.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/player/bus/Bus.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/player/bus/BusCO.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/player/bus/BusCO.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/player/bus/BusSO.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/player/bus/BusSO.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/player/data/BoardLine.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/player/data/BoardLine.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/player/data/PlayerMode.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/player/data/PlayerMode.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/player/main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/player/modules/analyse/LineAnalyser.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/player/modules/analyse/LineAnalyser.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/player/utils/module2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/player/utils/module2.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+      </compileType>
+      <item path="src/sam/player/AppPlayer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/player/AppPlayer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/player/bus/Bus.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/player/bus/Bus.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/player/bus/BusCO.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/player/bus/BusCO.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/player/bus/BusSO.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/player/bus/BusSO.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/player/data/BoardLine.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/player/data/BoardLine.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/player/data/PlayerMode.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/player/data/PlayerMode.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/player/main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/player/modules/analyse/LineAnalyser.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/player/modules/analyse/LineAnalyser.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/player/utils/module2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/player/utils/module2.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>
