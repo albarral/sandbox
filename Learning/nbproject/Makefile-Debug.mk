@@ -21,7 +21,7 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-Linux-x86
+CND_PLATFORM=GNU-Linux
 CND_DLIB_EXT=so
 CND_CONF=Debug
 CND_DISTDIR=dist
@@ -60,13 +60,13 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../samUtils/dist/Debug/GNU-Linux-x86 -L../samUtils/dist/Debug/GNU-Linux-x86 -lsam_utils -lmysqlcppconn -lopencv_core
+LDLIBSOPTIONS=-Wl,-rpath,../samUtils/dist/Debug/GNU-Linux -L../samUtils/dist/Debug/GNU-Linux -lsam_utils -lmysqlcppconn -lopencv_core
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_learning.${CND_DLIB_EXT}
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_learning.${CND_DLIB_EXT}: ../samUtils/dist/Debug/GNU-Linux-x86/libsam_utils.so
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_learning.${CND_DLIB_EXT}: ../samUtils/dist/Debug/GNU-Linux/libsam_utils.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_learning.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}

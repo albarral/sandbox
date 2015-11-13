@@ -21,7 +21,7 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-Linux-x86
+CND_PLATFORM=GNU-Linux
 CND_DLIB_EXT=so
 CND_CONF=Debug
 CND_DISTDIR=dist
@@ -75,15 +75,15 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-llog4cxx -lopencv_core -Wl,-rpath,../samUtils/dist/Debug/GNU-Linux-x86 -L../samUtils/dist/Debug/GNU-Linux-x86 -lsam_utils -Wl,-rpath,../Learning/dist/Debug/GNU-Linux-x86 -L../Learning/dist/Debug/GNU-Linux-x86 -lsam_learning
+LDLIBSOPTIONS=-llog4cxx -lopencv_core -Wl,-rpath,../samUtils/dist/Debug/GNU-Linux -L../samUtils/dist/Debug/GNU-Linux -lsam_utils -Wl,-rpath,../Learning/dist/Debug/GNU-Linux -L../Learning/dist/Debug/GNU-Linux -lsam_learning
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/player
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/player: ../samUtils/dist/Debug/GNU-Linux-x86/libsam_utils.so
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/player: ../samUtils/dist/Debug/GNU-Linux/libsam_utils.so
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/player: ../Learning/dist/Debug/GNU-Linux-x86/libsam_learning.so
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/player: ../Learning/dist/Debug/GNU-Linux/libsam_learning.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/player: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
