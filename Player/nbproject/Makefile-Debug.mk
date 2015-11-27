@@ -75,13 +75,13 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-llog4cxx -lopencv_core -Wl,-rpath,../samUtils/dist/Debug/GNU-Linux -L../samUtils/dist/Debug/GNU-Linux -lsam_utils -Wl,-rpath,../Learning/dist/Debug/GNU-Linux -L../Learning/dist/Debug/GNU-Linux -lsam_learning
+LDLIBSOPTIONS=-Wl,-rpath,../utilsDB/dist/Debug/GNU-Linux -L../utilsDB/dist/Debug/GNU-Linux -lsam_utilsDB -Wl,-rpath,../Learning/dist/Debug/GNU-Linux -L../Learning/dist/Debug/GNU-Linux -lsam_learning -llog4cxx -lopencv_core
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/player
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/player: ../samUtils/dist/Debug/GNU-Linux/libsam_utils.so
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/player: ../utilsDB/dist/Debug/GNU-Linux/libsam_utilsDB.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/player: ../Learning/dist/Debug/GNU-Linux/libsam_learning.so
 
@@ -92,126 +92,126 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/player: ${OBJECTFILES}
 ${OBJECTDIR}/src/sam/player/GameManager.o: src/sam/player/GameManager.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/GameManager.o src/sam/player/GameManager.cpp
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/GameManager.o src/sam/player/GameManager.cpp
 
 ${OBJECTDIR}/src/sam/player/TaskFactory.o: src/sam/player/TaskFactory.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/TaskFactory.o src/sam/player/TaskFactory.cpp
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/TaskFactory.o src/sam/player/TaskFactory.cpp
 
 ${OBJECTDIR}/src/sam/player/data/GameBoard.o: src/sam/player/data/GameBoard.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/data
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/data/GameBoard.o src/sam/player/data/GameBoard.cpp
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/data/GameBoard.o src/sam/player/data/GameBoard.cpp
 
 ${OBJECTDIR}/src/sam/player/data/GameFlow.o: src/sam/player/data/GameFlow.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/data
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/data/GameFlow.o src/sam/player/data/GameFlow.cpp
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/data/GameFlow.o src/sam/player/data/GameFlow.cpp
 
 ${OBJECTDIR}/src/sam/player/data/PlayerIdentity.o: src/sam/player/data/PlayerIdentity.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/data
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/data/PlayerIdentity.o src/sam/player/data/PlayerIdentity.cpp
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/data/PlayerIdentity.o src/sam/player/data/PlayerIdentity.cpp
 
 ${OBJECTDIR}/src/sam/player/learn/GameState.o: src/sam/player/learn/GameState.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/learn
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/learn/GameState.o src/sam/player/learn/GameState.cpp
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/learn/GameState.o src/sam/player/learn/GameState.cpp
 
 ${OBJECTDIR}/src/sam/player/learn/GameTask.o: src/sam/player/learn/GameTask.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/learn
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/learn/GameTask.o src/sam/player/learn/GameTask.cpp
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/learn/GameTask.o src/sam/player/learn/GameTask.cpp
 
 ${OBJECTDIR}/src/sam/player/learn/TaskReward.o: src/sam/player/learn/TaskReward.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/learn
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/learn/TaskReward.o src/sam/player/learn/TaskReward.cpp
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/learn/TaskReward.o src/sam/player/learn/TaskReward.cpp
 
 ${OBJECTDIR}/src/sam/player/main.o: src/sam/player/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/main.o src/sam/player/main.cpp
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/main.o src/sam/player/main.cpp
 
 ${OBJECTDIR}/src/sam/player/modules/BoardActuator.o: src/sam/player/modules/BoardActuator.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/BoardActuator.o src/sam/player/modules/BoardActuator.cpp
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/BoardActuator.o src/sam/player/modules/BoardActuator.cpp
 
 ${OBJECTDIR}/src/sam/player/modules/BoardSensor.o: src/sam/player/modules/BoardSensor.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/BoardSensor.o src/sam/player/modules/BoardSensor.cpp
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/BoardSensor.o src/sam/player/modules/BoardSensor.cpp
 
 ${OBJECTDIR}/src/sam/player/modules/Player.o: src/sam/player/modules/Player.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/Player.o src/sam/player/modules/Player.cpp
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/Player.o src/sam/player/modules/Player.cpp
 
 ${OBJECTDIR}/src/sam/player/modules/PlayerPurpose.o: src/sam/player/modules/PlayerPurpose.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/PlayerPurpose.o src/sam/player/modules/PlayerPurpose.cpp
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/PlayerPurpose.o src/sam/player/modules/PlayerPurpose.cpp
 
 ${OBJECTDIR}/src/sam/player/modules/PurposeTrainer.o: src/sam/player/modules/PurposeTrainer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/PurposeTrainer.o src/sam/player/modules/PurposeTrainer.cpp
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/PurposeTrainer.o src/sam/player/modules/PurposeTrainer.cpp
 
 ${OBJECTDIR}/src/sam/player/modules/PurposeWinner.o: src/sam/player/modules/PurposeWinner.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/PurposeWinner.o src/sam/player/modules/PurposeWinner.cpp
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/PurposeWinner.o src/sam/player/modules/PurposeWinner.cpp
 
 ${OBJECTDIR}/src/sam/player/modules/play/Line.o: src/sam/player/modules/play/Line.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules/play
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/play/Line.o src/sam/player/modules/play/Line.cpp
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/play/Line.o src/sam/player/modules/play/Line.cpp
 
 ${OBJECTDIR}/src/sam/player/modules/play/PlayerActions.o: src/sam/player/modules/play/PlayerActions.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules/play
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/play/PlayerActions.o src/sam/player/modules/play/PlayerActions.cpp
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/play/PlayerActions.o src/sam/player/modules/play/PlayerActions.cpp
 
 ${OBJECTDIR}/src/sam/player/modules/play/SimplePlayer.o: src/sam/player/modules/play/SimplePlayer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules/play
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/play/SimplePlayer.o src/sam/player/modules/play/SimplePlayer.cpp
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/play/SimplePlayer.o src/sam/player/modules/play/SimplePlayer.cpp
 
 ${OBJECTDIR}/src/sam/player/modules/play/SmartPlayer.o: src/sam/player/modules/play/SmartPlayer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules/play
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/play/SmartPlayer.o src/sam/player/modules/play/SmartPlayer.cpp
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/play/SmartPlayer.o src/sam/player/modules/play/SmartPlayer.cpp
 
 ${OBJECTDIR}/src/sam/player/modules/play/Strategy.o: src/sam/player/modules/play/Strategy.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules/play
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/play/Strategy.o src/sam/player/modules/play/Strategy.cpp
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/play/Strategy.o src/sam/player/modules/play/Strategy.cpp
 
 ${OBJECTDIR}/src/sam/player/modules/play/Strategy2.o: src/sam/player/modules/play/Strategy2.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules/play
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/play/Strategy2.o src/sam/player/modules/play/Strategy2.cpp
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/play/Strategy2.o src/sam/player/modules/play/Strategy2.cpp
 
 ${OBJECTDIR}/src/sam/player/utils/QExtractor.o: src/sam/player/utils/QExtractor.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/utils/QExtractor.o src/sam/player/utils/QExtractor.cpp
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/utils/QExtractor.o src/sam/player/utils/QExtractor.cpp
 
 ${OBJECTDIR}/src/sam/player/utils/TaskTree.o: src/sam/player/utils/TaskTree.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/utils/TaskTree.o src/sam/player/utils/TaskTree.cpp
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/utils/TaskTree.o src/sam/player/utils/TaskTree.cpp
 
 ${OBJECTDIR}/src/sam/player/utils/module2.o: src/sam/player/utils/module2.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/utils/module2.o src/sam/player/utils/module2.cpp
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -I../Learning/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/utils/module2.o src/sam/player/utils/module2.cpp
 
 # Subprojects
 .build-subprojects:
-	cd ../samUtils && ${MAKE}  -f Makefile CONF=Debug
+	cd ../utilsDB && ${MAKE}  -f Makefile CONF=Debug
 	cd ../Learning && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
@@ -221,7 +221,7 @@ ${OBJECTDIR}/src/sam/player/utils/module2.o: src/sam/player/utils/module2.cpp
 
 # Subprojects
 .clean-subprojects:
-	cd ../samUtils && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../utilsDB && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../Learning && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking

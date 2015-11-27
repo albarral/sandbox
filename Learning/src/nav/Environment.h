@@ -1,5 +1,5 @@
-#ifndef __SAM_ENVIRONMENT_H
-#define __SAM_ENVIRONMENT_H
+#ifndef __SAM_LEARN_ENVIRONMENT_H
+#define __SAM_LEARN_ENVIRONMENT_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
@@ -10,7 +10,7 @@
 #include <vector>
 
 #include "Place.h"
-#include "sam/utils/Database.h"
+#include "sam/utilsDB/Database.h"
 
 namespace sam 
 {
@@ -21,7 +21,7 @@ private:
     std::string desc;
     int type;
     std::vector<Place> listPlaces;
-    utils::Database* pDatabase;
+    utilsDB::Database* pDatabase;
     
 public:
     Environment();
@@ -38,7 +38,7 @@ public:
     std::vector<Place>& getListPlaces() {return listPlaces;};
     void addPlace(Place& oPlace);
 
-    void setDatabase(utils::Database& oDatabase) {pDatabase = &oDatabase;}
+    void setDatabase(utilsDB::Database& oDatabase) {pDatabase = &oDatabase;}
     
     void loadFromMemo();
     void storeInMemo();

@@ -11,7 +11,7 @@
 
 #include "sam/player/learn/GameTask.h"
 #include "sam/player/learn/GameState.h"
-#include "Transition.h"
+#include "sam/learn/Transition.h"
 
 namespace sam 
 {
@@ -35,7 +35,7 @@ public:
     // shows brief description of given state
     static void showState2(GameState& oGameState, GameTask& oGameTask, bool bfilterOut);
     // shows brief description of given transition
-    static void showTransition2(Transition& oTransition, GameTask& oGameTask, bool bfilterOut);
+    static void showTransition2(learn::Transition& oTransition, GameTask& oGameTask, bool bfilterOut);
     
     // returns the Qmatrix representation of a task's Q values
     static void getTaskQMatrix(cv::Mat& matQ, GameTask& oGameTask);

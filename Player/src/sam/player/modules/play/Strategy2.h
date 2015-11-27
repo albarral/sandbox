@@ -11,8 +11,9 @@
 
 #include "sam/player/learn/GameTask.h"
 #include "sam/player/learn/GameState.h"
-#include "Learn.h"
 #include "sam/player/modules/play/Line.h"
+#include "sam/learn/Transition.h"
+#include "sam/learn/Learn.h"
 
 namespace sam
 {    
@@ -27,7 +28,7 @@ private:
     float bestReward;               // best reward of all possible attack movements (in present game state)
     int bestMove[2];                 // the cell selection (row, col) that gives the maximum attack reward
     GameTask* pGameTask;    //  pointer to the game task
-    Learn oLearn;                    // the learning capability
+    learn::Learn oLearn;                    // the learning capability
     bool bexplorative;              // flag to indicate explorative mode is to be used
     int actionLine;                   // (in explorative mode) the line in which the action will be performed (one of Line::eLine values)
     
@@ -55,12 +56,12 @@ private:
     void checkBestMoveInLine(int lineType, int linePosition, Line& oLine);
         
     // analyzes the observed line to obtain the best rewarded movement
-    Transition* analyseLine (Line& oLine);    
+    learn::Transition* analyseLine (Line& oLine);    
 
     // gets the state that represents the given line configuration 
     GameState* deduceState4Line(Line& oLine);
     
-    Transition* findBestTransition(GameState& oFromState);
+    learn::Transition* findBestTransition(GameState& oFromState);
         
     std::string toStringBestMove();
 };

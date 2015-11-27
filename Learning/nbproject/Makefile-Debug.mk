@@ -35,15 +35,15 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/Learn.o \
-	${OBJECTDIR}/src/State.o \
-	${OBJECTDIR}/src/Task.o \
-	${OBJECTDIR}/src/Transition.o \
 	${OBJECTDIR}/src/nav/Connection.o \
 	${OBJECTDIR}/src/nav/ConnectionType.o \
 	${OBJECTDIR}/src/nav/Environment.o \
 	${OBJECTDIR}/src/nav/LearnNav.o \
-	${OBJECTDIR}/src/nav/Place.o
+	${OBJECTDIR}/src/nav/Place.o \
+	${OBJECTDIR}/src/sam/learn/Learn.o \
+	${OBJECTDIR}/src/sam/learn/State.o \
+	${OBJECTDIR}/src/sam/learn/Task.o \
+	${OBJECTDIR}/src/sam/learn/Transition.o
 
 
 # C Compiler Flags
@@ -60,66 +60,66 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../samUtils/dist/Debug/GNU-Linux -L../samUtils/dist/Debug/GNU-Linux -lsam_utils -lmysqlcppconn -lopencv_core
+LDLIBSOPTIONS=-Wl,-rpath,../utilsDB/dist/Debug/GNU-Linux -L../utilsDB/dist/Debug/GNU-Linux -lsam_utilsDB -lmysqlcppconn -lopencv_core
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_learning.${CND_DLIB_EXT}
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_learning.${CND_DLIB_EXT}: ../samUtils/dist/Debug/GNU-Linux/libsam_utils.so
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_learning.${CND_DLIB_EXT}: ../utilsDB/dist/Debug/GNU-Linux/libsam_utilsDB.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_learning.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_learning.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
 
-${OBJECTDIR}/src/Learn.o: src/Learn.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Learn.o src/Learn.cpp
-
-${OBJECTDIR}/src/State.o: src/State.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/State.o src/State.cpp
-
-${OBJECTDIR}/src/Task.o: src/Task.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Task.o src/Task.cpp
-
-${OBJECTDIR}/src/Transition.o: src/Transition.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Transition.o src/Transition.cpp
-
 ${OBJECTDIR}/src/nav/Connection.o: src/nav/Connection.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/nav
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/nav/Connection.o src/nav/Connection.cpp
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/nav/Connection.o src/nav/Connection.cpp
 
 ${OBJECTDIR}/src/nav/ConnectionType.o: src/nav/ConnectionType.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/nav
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/nav/ConnectionType.o src/nav/ConnectionType.cpp
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/nav/ConnectionType.o src/nav/ConnectionType.cpp
 
 ${OBJECTDIR}/src/nav/Environment.o: src/nav/Environment.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/nav
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/nav/Environment.o src/nav/Environment.cpp
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/nav/Environment.o src/nav/Environment.cpp
 
 ${OBJECTDIR}/src/nav/LearnNav.o: src/nav/LearnNav.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/nav
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/nav/LearnNav.o src/nav/LearnNav.cpp
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/nav/LearnNav.o src/nav/LearnNav.cpp
 
 ${OBJECTDIR}/src/nav/Place.o: src/nav/Place.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/nav
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../samUtils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/nav/Place.o src/nav/Place.cpp
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/nav/Place.o src/nav/Place.cpp
+
+${OBJECTDIR}/src/sam/learn/Learn.o: src/sam/learn/Learn.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/learn
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/learn/Learn.o src/sam/learn/Learn.cpp
+
+${OBJECTDIR}/src/sam/learn/State.o: src/sam/learn/State.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/learn
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/learn/State.o src/sam/learn/State.cpp
+
+${OBJECTDIR}/src/sam/learn/Task.o: src/sam/learn/Task.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/learn
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/learn/Task.o src/sam/learn/Task.cpp
+
+${OBJECTDIR}/src/sam/learn/Transition.o: src/sam/learn/Transition.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/learn
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../utilsDB/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/learn/Transition.o src/sam/learn/Transition.cpp
 
 # Subprojects
 .build-subprojects:
-	cd ../samUtils && ${MAKE}  -f Makefile CONF=Debug
+	cd ../utilsDB && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -128,7 +128,7 @@ ${OBJECTDIR}/src/nav/Place.o: src/nav/Place.cpp
 
 # Subprojects
 .clean-subprojects:
-	cd ../samUtils && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../utilsDB && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

@@ -1,5 +1,5 @@
-#ifndef __SAM_CONNECTION_H
-#define __SAM_CONNECTION_H
+#ifndef __SAM_LEARN_CONNECTION_H
+#define __SAM_LEARN_CONNECTION_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
@@ -8,7 +8,7 @@
 
 #include <string>
 
-#include "sam/utils/Database.h"
+#include "sam/utilsDB/Database.h"
 
 namespace sam
 {
@@ -28,11 +28,11 @@ private:
 public:
     Connection();
         
-    void loadFromMemo(utils::Database* pDatabase, sql::Connection* con);
-    void storeInMemo(utils::Database* pDatabase, sql::Connection* con);
-    void upDateInMemo(utils::Database* pDatabase);
-    void deleteFromMemo(utils::Database* pDatabase);
-    void storeQ(utils::Database* pDatabase, sql::Connection* con);
+    void loadFromMemo(utilsDB::Database* pDatabase, sql::Connection* con);
+    void storeInMemo(utilsDB::Database* pDatabase, sql::Connection* con);
+    void upDateInMemo(utilsDB::Database* pDatabase);
+    void deleteFromMemo(utilsDB::Database* pDatabase);
+    void storeQ(utilsDB::Database* pDatabase, sql::Connection* con);
     
     // sets 6 members at a time (type is a ConnectionType predefined type)
     void set(int placeID, int nextPlace, int type);

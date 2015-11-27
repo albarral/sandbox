@@ -1,5 +1,5 @@
-#ifndef __SAM_PLACE_H
-#define __SAM_PLACE_H
+#ifndef __SAM_LEARN_PLACE_H
+#define __SAM_LEARN_PLACE_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
@@ -10,7 +10,7 @@
 #include <vector>
 
 #include "Connection.h"
-#include "sam/utils/Database.h"
+#include "sam/utilsDB/Database.h"
 
 namespace sam 
 {
@@ -26,11 +26,11 @@ private:
 public:
     Place();
     void addConnection(Connection& oConnection);
-    void loadFromMemo(utils::Database* pDatabase, sql::Connection* con);
-    void storeInMemo(utils::Database* pDatabase, sql::Connection* con);
-    void upDateInMemo(utils::Database* pDatabase);
-    void deleteFromMemo(utils::Database* pDatabase);
-    void storeQ(utils::Database* pDatabase, sql::Connection* con);
+    void loadFromMemo(utilsDB::Database* pDatabase, sql::Connection* con);
+    void storeInMemo(utilsDB::Database* pDatabase, sql::Connection* con);
+    void upDateInMemo(utilsDB::Database* pDatabase);
+    void deleteFromMemo(utilsDB::Database* pDatabase);
+    void storeQ(utilsDB::Database* pDatabase, sql::Connection* con);
     
     int getID() {return ID;}; 
     void setID(int value) {ID = value;};
@@ -49,9 +49,9 @@ public:
     std::string showData();
    
 private:
-    void connectionsFromMemo(utils::Database* pDatabase, sql::Connection* con);
-    void loadConnections(utils::Database* pDatabase, sql::Connection* con);
-    void storeConnections(utils::Database* pDatabase, sql::Connection* con);
+    void connectionsFromMemo(utilsDB::Database* pDatabase, sql::Connection* con);
+    void loadConnections(utilsDB::Database* pDatabase, sql::Connection* con);
+    void storeConnections(utilsDB::Database* pDatabase, sql::Connection* con);
 
 };
 }

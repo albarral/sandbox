@@ -9,14 +9,14 @@
 #include <string>
 #include <vector>
 
-#include "State.h"
-#include "sam/utils/Database.h"
+#include "sam/learn/State.h"
+#include "sam/utilsDB/Database.h"
 
 namespace sam 
 {
 namespace player
 {    
-class GameState : public State
+class GameState : public learn::State
 {
 private:
     int cells[3];
@@ -33,10 +33,10 @@ public:
     
     void set(int cell1, int cell2, int cell3, int mines, int others);
     
-    void loadFromMemo2(utils::Database* pDatabase, sql::Connection* con);
-    void storeInMemo2(utils::Database* pDatabase, sql::Connection* con);
-    void upDateInMemo2(utils::Database* pDatabase);
-    void deleteFromMemo2(utils::Database* pDatabase);
+    void loadFromMemo2(utilsDB::Database* pDatabase, sql::Connection* con);
+    void storeInMemo2(utilsDB::Database* pDatabase, sql::Connection* con);
+    void upDateInMemo2(utilsDB::Database* pDatabase);
+    void deleteFromMemo2(utilsDB::Database* pDatabase);
     
     std::string toString();
     std::string toStringBrief();

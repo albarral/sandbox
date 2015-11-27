@@ -8,7 +8,11 @@
             <cpp-extensions>cpp</cpp-extensions>
             <header-extensions>h</header-extensions>
             <sourceEncoding>UTF-8</sourceEncoding>
-            <make-dep-projects/>
+            <make-dep-projects>
+                <make-dep-project>../brooks</make-dep-project>
+                <make-dep-project>../utilsDB</make-dep-project>
+                <make-dep-project>../utils</make-dep-project>
+            </make-dep-projects>
             <sourceRootList>
                 <sourceRootElem>src/sam/player</sourceRootElem>
             </sourceRootList>

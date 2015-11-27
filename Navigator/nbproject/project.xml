@@ -10,7 +10,7 @@
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects>
                 <make-dep-project>../Learning</make-dep-project>
-                <make-dep-project>../samUtils</make-dep-project>
+                <make-dep-project>../utilsDB</make-dep-project>
             </make-dep-projects>
             <sourceRootList>
                 <sourceRootElem>src</sourceRootElem>

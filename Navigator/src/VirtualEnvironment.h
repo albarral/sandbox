@@ -11,7 +11,7 @@
 
 #include "nav/Environment.h"
 #include "nav/Connection.h"
-#include "sam/utils/Database.h"
+#include "sam/utilsDB/Database.h"
 
 namespace sam 
 {
@@ -31,7 +31,7 @@ public:
 private:
     static log4cxx::LoggerPtr logger;
     Environment oEnvironment;
-    Database oDatabase;
+    utilsDB::Database oDatabase;
     int placeNow;
     
 public:

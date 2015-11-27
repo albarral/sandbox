@@ -36,16 +36,23 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/sam/player/AppPlayer.o \
+	${OBJECTDIR}/src/sam/player/ConsolePlayer.o \
 	${OBJECTDIR}/src/sam/player/bus/Bus.o \
-	${OBJECTDIR}/src/sam/player/bus/BusCO.o \
-	${OBJECTDIR}/src/sam/player/bus/BusSO.o \
+	${OBJECTDIR}/src/sam/player/bus/BusUser.o \
+	${OBJECTDIR}/src/sam/player/bus/COBus.o \
+	${OBJECTDIR}/src/sam/player/bus/SOBus.o \
 	${OBJECTDIR}/src/sam/player/data/BoardLine.o \
+	${OBJECTDIR}/src/sam/player/data/GameBoard.o \
 	${OBJECTDIR}/src/sam/player/data/PlayerMode.o \
+	${OBJECTDIR}/src/sam/player/data/T3Board.o \
+	${OBJECTDIR}/src/sam/player/data/T3Line.o \
 	${OBJECTDIR}/src/sam/player/main.o \
-	${OBJECTDIR}/src/sam/player/modules/analyse/LineAnalyser.o \
-	${OBJECTDIR}/src/sam/player/modules/analyse/SimpleAnalyser.o \
 	${OBJECTDIR}/src/sam/player/modules/analyse/Strategy.o \
-	${OBJECTDIR}/src/sam/player/utils/module2.o
+	${OBJECTDIR}/src/sam/player/modules/move/VirtualMover.o \
+	${OBJECTDIR}/src/sam/player/modules/watch/BoardWatcher.o \
+	${OBJECTDIR}/src/sam/player/modules/watch/VirtualWatcher.o \
+	${OBJECTDIR}/src/sam/player/utils/Board.o \
+	${OBJECTDIR}/src/sam/player/utils/BoardZone.o
 
 
 # C Compiler Flags
@@ -77,55 +84,90 @@ ${OBJECTDIR}/src/sam/player/AppPlayer.o: src/sam/player/AppPlayer.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/AppPlayer.o src/sam/player/AppPlayer.cpp
 
+${OBJECTDIR}/src/sam/player/ConsolePlayer.o: src/sam/player/ConsolePlayer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/ConsolePlayer.o src/sam/player/ConsolePlayer.cpp
+
 ${OBJECTDIR}/src/sam/player/bus/Bus.o: src/sam/player/bus/Bus.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/bus
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/bus/Bus.o src/sam/player/bus/Bus.cpp
 
-${OBJECTDIR}/src/sam/player/bus/BusCO.o: src/sam/player/bus/BusCO.cpp 
+${OBJECTDIR}/src/sam/player/bus/BusUser.o: src/sam/player/bus/BusUser.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/bus
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/bus/BusCO.o src/sam/player/bus/BusCO.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/bus/BusUser.o src/sam/player/bus/BusUser.cpp
 
-${OBJECTDIR}/src/sam/player/bus/BusSO.o: src/sam/player/bus/BusSO.cpp 
+${OBJECTDIR}/src/sam/player/bus/COBus.o: src/sam/player/bus/COBus.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/bus
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/bus/BusSO.o src/sam/player/bus/BusSO.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/bus/COBus.o src/sam/player/bus/COBus.cpp
+
+${OBJECTDIR}/src/sam/player/bus/SOBus.o: src/sam/player/bus/SOBus.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/bus
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/bus/SOBus.o src/sam/player/bus/SOBus.cpp
 
 ${OBJECTDIR}/src/sam/player/data/BoardLine.o: src/sam/player/data/BoardLine.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/data
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/data/BoardLine.o src/sam/player/data/BoardLine.cpp
 
+${OBJECTDIR}/src/sam/player/data/GameBoard.o: src/sam/player/data/GameBoard.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/data
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/data/GameBoard.o src/sam/player/data/GameBoard.cpp
+
 ${OBJECTDIR}/src/sam/player/data/PlayerMode.o: src/sam/player/data/PlayerMode.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/data
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/data/PlayerMode.o src/sam/player/data/PlayerMode.cpp
+
+${OBJECTDIR}/src/sam/player/data/T3Board.o: src/sam/player/data/T3Board.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/data
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/data/T3Board.o src/sam/player/data/T3Board.cpp
+
+${OBJECTDIR}/src/sam/player/data/T3Line.o: src/sam/player/data/T3Line.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/data
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/data/T3Line.o src/sam/player/data/T3Line.cpp
 
 ${OBJECTDIR}/src/sam/player/main.o: src/sam/player/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/main.o src/sam/player/main.cpp
 
-${OBJECTDIR}/src/sam/player/modules/analyse/LineAnalyser.o: src/sam/player/modules/analyse/LineAnalyser.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules/analyse
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/analyse/LineAnalyser.o src/sam/player/modules/analyse/LineAnalyser.cpp
-
-${OBJECTDIR}/src/sam/player/modules/analyse/SimpleAnalyser.o: src/sam/player/modules/analyse/SimpleAnalyser.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules/analyse
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/analyse/SimpleAnalyser.o src/sam/player/modules/analyse/SimpleAnalyser.cpp
-
 ${OBJECTDIR}/src/sam/player/modules/analyse/Strategy.o: src/sam/player/modules/analyse/Strategy.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules/analyse
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/analyse/Strategy.o src/sam/player/modules/analyse/Strategy.cpp
 
-${OBJECTDIR}/src/sam/player/utils/module2.o: src/sam/player/utils/module2.cpp 
+${OBJECTDIR}/src/sam/player/modules/move/VirtualMover.o: src/sam/player/modules/move/VirtualMover.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules/move
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/move/VirtualMover.o src/sam/player/modules/move/VirtualMover.cpp
+
+${OBJECTDIR}/src/sam/player/modules/watch/BoardWatcher.o: src/sam/player/modules/watch/BoardWatcher.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules/watch
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/watch/BoardWatcher.o src/sam/player/modules/watch/BoardWatcher.cpp
+
+${OBJECTDIR}/src/sam/player/modules/watch/VirtualWatcher.o: src/sam/player/modules/watch/VirtualWatcher.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules/watch
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/watch/VirtualWatcher.o src/sam/player/modules/watch/VirtualWatcher.cpp
+
+${OBJECTDIR}/src/sam/player/utils/Board.o: src/sam/player/utils/Board.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/utils/module2.o src/sam/player/utils/module2.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/utils/Board.o src/sam/player/utils/Board.cpp
+
+${OBJECTDIR}/src/sam/player/utils/BoardZone.o: src/sam/player/utils/BoardZone.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/utils
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/utils/BoardZone.o src/sam/player/utils/BoardZone.cpp
 
 # Subprojects
 .build-subprojects:

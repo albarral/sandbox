@@ -9,9 +9,8 @@
 #include <string>
 #include <vector>
 
-#include "Task.h"
 #include "sam/player/learn/GameState.h"
-#include "sam/utils/Database.h"
+#include "sam/utilsDB/Database.h"
 
 namespace sam 
 {
@@ -23,7 +22,7 @@ private:
     int ID;
     std::string desc;
     int type;
-    utils::Database oDatabase;
+    utilsDB::Database oDatabase;
     std::vector<GameState> listGameStates;
     
 public:
@@ -52,8 +51,8 @@ public:
     
 private:    
     void gameStatesFromMemo(sql::Connection* con);
-    void loadGameStates(sql::Connection* con, utils::Database* pDatabase);
-    void storeGameStates(sql::Connection* con, utils::Database* pDatabase);
+    void loadGameStates(sql::Connection* con, utilsDB::Database* pDatabase);
+    void storeGameStates(sql::Connection* con, utilsDB::Database* pDatabase);
 };
 }
 }

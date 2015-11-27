@@ -1,5 +1,5 @@
-#ifndef __SAM_LEARNNAV_H
-#define __SAM_LEARNNAV_H
+#ifndef __SAM_LEARN_LEARNNAV_H
+#define __SAM_LEARN_LEARNNAV_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *

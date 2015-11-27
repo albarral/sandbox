@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="95">
+<configurationDescriptor version="97">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -105,25 +105,23 @@
           <standard>8</standard>
           <incDir>
             <pElem>src</pElem>
-            <pElem>../samUtils/src</pElem>
+            <pElem>../utilsDB/src</pElem>
             <pElem>../Learning/src</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/player</output>
           <linkerLibItems>
-            <linkerLibLibItem>log4cxx</linkerLibLibItem>
-            <linkerLibLibItem>opencv_core</linkerLibLibItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../samUtils"
+              <makeArtifact PL="../utilsDB"
                             CT="2"
                             CN="Debug"
                             AC="true"
                             BL="true"
-                            WD="../samUtils"
+                            WD="../utilsDB"
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_utils.${CND_DLIB_EXT}">
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_utilsDB.${CND_DLIB_EXT}">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -138,6 +136,8 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsam_learning.${CND_DLIB_EXT}">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibLibItem>log4cxx</linkerLibLibItem>
+            <linkerLibLibItem>opencv_core</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>

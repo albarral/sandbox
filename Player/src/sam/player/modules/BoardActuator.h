@@ -11,7 +11,7 @@
 #include <log4cxx/logger.h>
 
 #include "sam/player/data/GameBoard.h"
-#include "sam/utils/Database.h"
+#include "sam/utilsDB/Database.h"
 
 namespace sam 
 {
@@ -22,7 +22,7 @@ class BoardActuator
 {
 private:
     static log4cxx::LoggerPtr logger;
-    utils::Database oDatabase;
+    utilsDB::Database oDatabase;
     sql::Connection* con;
     std::string updateBoard;
     std::string selectMaxTryID;

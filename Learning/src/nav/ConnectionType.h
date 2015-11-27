@@ -1,5 +1,5 @@
-#ifndef __SAM_CONNECTION_TYPE_H
-#define __SAM_CONNECTION_TYPE_H
+#ifndef __SAM_LEARN_CONNECTION_TYPE_H
+#define __SAM_LEARN_CONNECTION_TYPE_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *

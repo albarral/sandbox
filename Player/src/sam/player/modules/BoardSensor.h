@@ -11,7 +11,7 @@
 #include <log4cxx/logger.h>
 
 #include "sam/player/data/GameBoard.h"
-#include "sam/utils/Database.h"
+#include "sam/utilsDB/Database.h"
 
 namespace sam 
 {
@@ -25,7 +25,7 @@ private:
     int moveID;                        // number of last sensed move 
     std::string movedPlayer;     // player ID of the last sensed move 
     int status;                          // status of the last sensed move                    
-    utils::Database oDatabase;
+    utilsDB::Database oDatabase;
     sql::Connection* con;
     std::string selectMoves;
 

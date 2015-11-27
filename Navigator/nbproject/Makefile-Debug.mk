@@ -56,7 +56,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../Learning/dist/Debug/GNU-Linux -L../Learning/dist/Debug/GNU-Linux -lsam_learning -Wl,-rpath,../samUtils/dist/Debug/GNU-Linux -L../samUtils/dist/Debug/GNU-Linux -lsam_utils -llog4cxx -lopencv_core
+LDLIBSOPTIONS=-Wl,-rpath,../Learning/dist/Debug/GNU-Linux -L../Learning/dist/Debug/GNU-Linux -lsam_learning -Wl,-rpath,../utilsDB/dist/Debug/GNU-Linux -L../utilsDB/dist/Debug/GNU-Linux -lsam_utilsDB -llog4cxx -lopencv_core
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -64,7 +64,7 @@ LDLIBSOPTIONS=-Wl,-rpath,../Learning/dist/Debug/GNU-Linux -L../Learning/dist/Deb
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/navigator: ../Learning/dist/Debug/GNU-Linux/libsam_learning.so
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/navigator: ../samUtils/dist/Debug/GNU-Linux/libsam_utils.so
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/navigator: ../utilsDB/dist/Debug/GNU-Linux/libsam_utilsDB.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/navigator: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
@@ -73,32 +73,32 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/navigator: ${OBJECTFILES}
 ${OBJECTDIR}/src/VirtualEnvironment.o: src/VirtualEnvironment.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../Learning/src -I../samUtils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/VirtualEnvironment.o src/VirtualEnvironment.cpp
+	$(COMPILE.cc) -g -Isrc -I../Learning/src -I../utilsDB/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/VirtualEnvironment.o src/VirtualEnvironment.cpp
 
 ${OBJECTDIR}/src/data/Experiment.o: src/data/Experiment.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/data
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../Learning/src -I../samUtils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/data/Experiment.o src/data/Experiment.cpp
+	$(COMPILE.cc) -g -Isrc -I../Learning/src -I../utilsDB/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/data/Experiment.o src/data/Experiment.cpp
 
 ${OBJECTDIR}/src/main.o: src/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../Learning/src -I../samUtils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
+	$(COMPILE.cc) -g -Isrc -I../Learning/src -I../utilsDB/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
 
 ${OBJECTDIR}/src/modules/Navigation.o: src/modules/Navigation.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../Learning/src -I../samUtils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/Navigation.o src/modules/Navigation.cpp
+	$(COMPILE.cc) -g -Isrc -I../Learning/src -I../utilsDB/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/modules/Navigation.o src/modules/Navigation.cpp
 
 ${OBJECTDIR}/src/utils/module2.o: src/utils/module2.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../Learning/src -I../samUtils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utils/module2.o src/utils/module2.cpp
+	$(COMPILE.cc) -g -Isrc -I../Learning/src -I../utilsDB/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utils/module2.o src/utils/module2.cpp
 
 # Subprojects
 .build-subprojects:
 	cd ../Learning && ${MAKE}  -f Makefile CONF=Debug
-	cd ../samUtils && ${MAKE}  -f Makefile CONF=Debug
+	cd ../utilsDB && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -108,7 +108,7 @@ ${OBJECTDIR}/src/utils/module2.o: src/utils/module2.cpp
 # Subprojects
 .clean-subprojects:
 	cd ../Learning && ${MAKE}  -f Makefile CONF=Debug clean
-	cd ../samUtils && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../utilsDB && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

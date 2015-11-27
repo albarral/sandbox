@@ -9,14 +9,14 @@
 #include <log4cxx/xml/domconfigurator.h>
 
 #include "sam/player/AppPlayer.h"
+#include "sam/player/ConsolePlayer.h"
 
 log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("sam.player"));
 
+using namespace sam;
+
 void insertTaskInDatabase();
 void testPlayer();
-void testBoardSensor();
-
-using namespace sam;
 
 int main(int argc, char** argv) 
 {
@@ -30,16 +30,20 @@ int main(int argc, char** argv)
 void testPlayer()
 {
     LOG4CXX_INFO(logger, "\n\n<<<<<<<<<<<<<<<< TEST PLAYER2  >>>>>>>>>>>>>>\n");
-      
-    player::AppPlayer oAppPlayer; 
-    oAppPlayer.startModules();
         
-    while (oAppPlayer.isGameOver() == false)
+    player::AppPlayer oAppPlayer; 
+    player::ConsolePlayer oConsolePlayer;
+//    oAppPlayer.startModules();
+        
+    while (!oAppPlayer.isGameOver() && !oConsolePlayer.want2QuitGame())
+    {
+        oConsolePlayer.play();
         sleep(1);
+    }
     
-    oAppPlayer.stopModules();
+//    oAppPlayer.stopModules();
     sleep(2);
     
     LOG4CXX_INFO(logger, "End of test"); 
 }
-
+    

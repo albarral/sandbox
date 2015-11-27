@@ -33,8 +33,8 @@ void TaskTree::showState(GameState& oGameState)
 {
     LOG4CXX_INFO(logger, oGameState.toString());
 
-    std::vector<Transition>::iterator it_transition = oGameState.getListTransitions().begin();
-    std::vector<Transition>::iterator it_end = oGameState.getListTransitions().end();
+    std::vector<learn::Transition>::iterator it_transition = oGameState.getListTransitions().begin();
+    std::vector<learn::Transition>::iterator it_end = oGameState.getListTransitions().end();
     // show each state transition
     while (it_transition != it_end)
     {    
@@ -62,8 +62,8 @@ void TaskTree::showState2(GameState& oGameState, GameTask& oGameTask, bool bfilt
 {
     LOG4CXX_INFO(logger, oGameState.toStringBrief());    
 
-    std::vector<Transition>::iterator it_transition = oGameState.getListTransitions().begin();
-    std::vector<Transition>::iterator it_end = oGameState.getListTransitions().end();
+    std::vector<learn::Transition>::iterator it_transition = oGameState.getListTransitions().begin();
+    std::vector<learn::Transition>::iterator it_end = oGameState.getListTransitions().end();
     // show each state transition
     while (it_transition != it_end)
     {    
@@ -72,7 +72,7 @@ void TaskTree::showState2(GameState& oGameState, GameTask& oGameTask, bool bfilt
     }   
 }
 
-void TaskTree::showTransition2(Transition& oTransition, GameTask& oGameTask, bool bfilterOut)
+void TaskTree::showTransition2(learn::Transition& oTransition, GameTask& oGameTask, bool bfilterOut)
 {
     // filter out transitions with zero Q
     if (bfilterOut && oTransition.getQ() == 0.0)

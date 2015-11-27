@@ -10,8 +10,9 @@
 
 #include "sam/player/bus/Bus.h"
 #include "sam/player/data/BoardLine.h"
+#include "sam/player/data/GameBoard.h"
 #include "sam/player/data/PlayerMode.h"
-#include "sam/player/modules/analyse/LineAnalyser.h"
+#include "sam/player/modules/watch/BoardWatcher.h"
 
 namespace sam 
 {
@@ -22,9 +23,12 @@ class AppPlayer
 private:
     static log4cxx::LoggerPtr logger;
     Bus oBus;
+    // shared data
+    GameBoard* pGameBoard;
     BoardLine oBoardLine;
     PlayerMode oPlayerMode;
-    LineAnalyser* pLineAnalyser;
+    // modules
+    BoardWatcher* pBoardWatcher;
     // temp
     int counter = 0;
     
@@ -38,7 +42,6 @@ public:
   
 private:
     void setTestMarks(); // TMP for test
-    void setTestLine(); // TMP for test
 };
 }
 }

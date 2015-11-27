@@ -8,8 +8,8 @@
 
 #include "sam/player/TaskFactory.h"
 #include "sam/player/learn/GameState.h"
-#include "Transition.h"
 #include "sam/player/modules/play/Line.h"
+#include "sam/learn/Transition.h"
 
 namespace sam 
 { 
@@ -24,7 +24,7 @@ void TaskFactory::buildTicTacToeTask(GameTask& oGameTask)
             oGameState7, oGameState8, oGameState9, oGameState10, oGameState11, oGameState12, oGameState13,
             oGameState14, oGameState15, oGameState16, oGameState17, oGameState18, oGameState19, oGameState20, 
             oGameState21, oGameState22, oGameState23, oGameState24, oGameState25, oGameState26;
-    Transition oTransition;
+    learn::Transition oTransition;
     std::string taskName = "TicTacToe";
     
     LOG4CXX_INFO(logger, "TaskFactory: create task " << taskName); 

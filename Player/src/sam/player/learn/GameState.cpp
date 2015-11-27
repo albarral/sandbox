@@ -24,7 +24,7 @@ void GameState::set(int cell1, int cell2, int cell3, int mines, int others)
     numOthers = others;
 }
 
-void GameState::loadFromMemo2(utils::Database* pDatabase, sql::Connection* con)
+void GameState::loadFromMemo2(utilsDB::Database* pDatabase, sql::Connection* con)
 {
     std::string sel = "SELECT * FROM TAB_GAME_STATES WHERE taskID = " + std::to_string(getTaskID())
             + " AND stateID = " + std::to_string(getID());
@@ -32,8 +32,8 @@ void GameState::loadFromMemo2(utils::Database* pDatabase, sql::Connection* con)
       
     while (res->next())
     {
-        State::desc = res->getString("description");
-        State::reward = res->getDouble("reward");
+        desc = res->getString("description");
+        reward = res->getDouble("reward");
         cells[0] = res->getInt("cell0");
         cells[1] = res->getInt("cell1");
         cells[2] = res->getInt("cell2");
@@ -41,11 +41,11 @@ void GameState::loadFromMemo2(utils::Database* pDatabase, sql::Connection* con)
         numOthers = res->getInt("numOthers");
     }
     
-    State::transitionsFromMemo(pDatabase, con);
-    State::loadTransitions(pDatabase, con);
+    learn::State::transitionsFromMemo(pDatabase, con);
+    learn::State::loadTransitions(pDatabase, con);
 }
 
-void GameState::storeInMemo2(utils::Database* pDatabase, sql::Connection* con)
+void GameState::storeInMemo2(utilsDB::Database* pDatabase, sql::Connection* con)
 {
     std::string insertDB = "INSERT INTO TAB_GAME_STATES (stateID, taskID, description, reward, cell0, cell1, "
             "cell2, numMines, numOthers) VALUES (" + std::to_string(getID()) + ", " + std::to_string(getTaskID()) 
@@ -54,10 +54,10 @@ void GameState::storeInMemo2(utils::Database* pDatabase, sql::Connection* con)
             + ", " + std::to_string(numMines) + + ", " + std::to_string(numOthers) + ")";    
     pDatabase->update(insertDB, con);
     
-    State::storeTransitions(pDatabase, con);
+    learn::State::storeTransitions(pDatabase, con);
 }
 
-void GameState::upDateInMemo2(utils::Database* pDatabase)
+void GameState::upDateInMemo2(utilsDB::Database* pDatabase)
 {
     sql::Connection* con = pDatabase->getConnectionDB();
     std::string update = "UPDATE TAB_STATES_PLAYER SET description = ' " + desc + " ' ,reward = " 
@@ -70,7 +70,7 @@ void GameState::upDateInMemo2(utils::Database* pDatabase)
     pDatabase->closeConnectionDB();
 }
 
-void GameState::deleteFromMemo2(utils::Database* pDatabase)
+void GameState::deleteFromMemo2(utilsDB::Database* pDatabase)
 {
     sql::Connection* con = pDatabase->getConnectionDB();
     std::string deleteDB = "DELETE FROM TAB_STATES_PLAYER WHERE stateID= "+ std::to_string(getID());

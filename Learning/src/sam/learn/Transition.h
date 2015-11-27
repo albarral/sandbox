@@ -1,0 +1,61 @@
+#ifndef __SAM_LEARN_TRANSITION_H
+#define __SAM_LEARN_TRANSITION_H
+
+/***************************************************************************
+ *   Copyright (C) 2015 by Migtron Robotics   *
+ *   ainoa@migtron.com   *
+ ***************************************************************************/
+
+#include <string>
+
+#include "sam/utilsDB/Database.h"
+
+namespace sam 
+{
+namespace learn
+{
+class Transition
+{
+private:
+    int ID;
+    std::string desc;
+    int taskID;
+    int stateID;
+    int nextState;
+    float Q;
+  
+public:
+    Transition();
+    
+    void loadFromMemo(utilsDB::Database* pDatabase, sql::Connection* con);
+    void storeInMemo(utilsDB::Database* pDatabase, sql::Connection* con);
+    void upDateInMemo(utilsDB::Database* pDatabase);
+    void deleteFromMemo(utilsDB::Database* pDatabase);
+    void storeQ(utilsDB::Database* pDatabase, sql::Connection* con);
+    
+    void set(int stateID, int nextState);
+    
+    int getID() {return ID;};
+    void setID(int value) {ID = value;};
+    
+    std::string getDesc() {return desc;};
+    void setDesc(std::string value) {desc = value;};
+    
+    int getTaskID() {return taskID;};
+    void setTaskID(int value) {taskID = value;};
+    
+    int getStateID() {return stateID;};
+    void setStateID(int value) {stateID = value;};
+    
+    int getNextState() {return nextState;};
+    void setNextState(int value) {nextState = value;};
+    
+    float getQ() {return Q;};
+    void setQ(float value) {Q = value;};
+    
+    std::string toString();
+    std::string toStringBrief();
+};
+}
+}
+#endif

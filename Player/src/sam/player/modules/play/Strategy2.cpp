@@ -121,7 +121,7 @@ void Strategy2::checkBestMoveInLine(int lineType, int linePosition, Line& oLine)
     LOG4CXX_INFO(logger, "> line " << linePosition);   
     
     // analyzes the line to obtain its best transition
-    Transition* pBestTransition = analyseLine(oLine);    
+    learn::Transition* pBestTransition = analyseLine(oLine);    
         
     // if line transition was found ...
     if (pBestTransition != 0)
@@ -178,7 +178,7 @@ void Strategy2::checkBestMoveInLine(int lineType, int linePosition, Line& oLine)
 
 // (CORE OF THE SMART STRATEGY)
 // Uses the learned knowledge about the task to obtain the best rewarded transition in this line
-Transition* Strategy2::analyseLine(Line& oLine)
+learn::Transition* Strategy2::analyseLine(Line& oLine)
 {
     // find state for given line
     GameState* pDeducedState = deduceState4Line(oLine);
@@ -220,9 +220,9 @@ GameState* Strategy2::deduceState4Line(Line& oLine)
 }
 
 // Compute the Q value of all transitions from this state and return the best one
-Transition* Strategy2::findBestTransition(GameState& oFromState)
+learn::Transition* Strategy2::findBestTransition(GameState& oFromState)
 {
-    sam::Transition* winner = 0;
+    learn::Transition* winner = 0;
     float Q = 0, Qmax = 0.0;
     int randTrans;
     
@@ -233,14 +233,14 @@ Transition* Strategy2::findBestTransition(GameState& oFromState)
         return 0;
     }
     
-    std::vector<Transition>& listTransitions = oFromState.getListTransitions();
+    std::vector<learn::Transition>& listTransitions = oFromState.getListTransitions();
 
     // walk transitions list computing their Q value
-    std::vector<sam::Transition>::iterator it_transition = listTransitions.begin();
-    std::vector<sam::Transition>::iterator it_end = listTransitions.end();
+    std::vector<learn::Transition>::iterator it_transition = listTransitions.begin();
+    std::vector<learn::Transition>::iterator it_end = listTransitions.end();
     while (it_transition != it_end)
     {    
-        Transition& oTransition = *it_transition;
+        learn::Transition& oTransition = *it_transition;
         
         GameState& oToState = pGameTask->getListGameStates().at(oTransition.getNextState()); 
         

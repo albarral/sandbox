@@ -29,10 +29,10 @@ float LearnNav::maxQvalue(Place& oPlace)
 {
     float maxQ = 0.0;
     float Q;
-    std::vector<sam::Connection>& listConnection = oPlace.getListConnections();
+    std::vector<Connection>& listConnection = oPlace.getListConnections();
     
-    std::vector<sam::Connection>::iterator it_connection = listConnection.begin();
-    std::vector<sam::Connection>::iterator it_end = listConnection.end();
+    std::vector<Connection>::iterator it_connection = listConnection.begin();
+    std::vector<Connection>::iterator it_end = listConnection.end();
     while (it_connection != it_end)
     {
         Q = it_connection->getQ();

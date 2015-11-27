@@ -5,7 +5,7 @@
 
 
 #include "sam/player/utils/QExtractor.h"
-#include "Transition.h"
+#include "sam/learn/Transition.h"
 
 namespace sam 
 {

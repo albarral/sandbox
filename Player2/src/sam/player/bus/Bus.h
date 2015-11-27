@@ -8,8 +8,8 @@
 
 //#include <string>
 
-#include "sam/player/bus/BusCO.h"
-#include "sam/player/bus/BusSO.h"
+#include "sam/player/bus/COBus.h"
+#include "sam/player/bus/SOBus.h"
 
 
 namespace sam 
@@ -21,14 +21,14 @@ class Bus
 {
     private:        
         bool benabled;        
-        BusCO oBusCO;   // control data
-        BusSO oBusSO;   // sensor data
+        COBus oCOBus;   // control data
+        SOBus oSOBus;   // sensor data
                 
     public:
         Bus();
 
-        BusCO& getBusCO() {return oBusCO;};
-        BusSO& getBusSO() {return oBusSO;};
+        COBus& getCOBus() {return oCOBus;};
+        SOBus& getSOBus() {return oSOBus;};
 };
 
 }

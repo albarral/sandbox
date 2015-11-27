@@ -100,7 +100,7 @@ void GameTask::gameStatesFromMemo(sql::Connection* con)
     }    
 }
 
-void GameTask::loadGameStates(sql::Connection* con, utils::Database* pDatabase)
+void GameTask::loadGameStates(sql::Connection* con, utilsDB::Database* pDatabase)
 {
     std::vector<GameState>::iterator it_state = listGameStates.begin();
     std::vector<GameState>::iterator it_end = listGameStates.end();
@@ -111,7 +111,7 @@ void GameTask::loadGameStates(sql::Connection* con, utils::Database* pDatabase)
     }
 }
 
-void GameTask::storeGameStates(sql::Connection* con, utils::Database* pDatabase)
+void GameTask::storeGameStates(sql::Connection* con, utilsDB::Database* pDatabase)
 {
     std::vector<GameState>::iterator it_state = listGameStates.begin();
     std::vector<GameState>::iterator it_end = listGameStates.end();
