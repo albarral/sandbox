@@ -9,7 +9,7 @@
 #include <string>
 #include <log4cxx/logger.h>
 
-#include "sam/utilsDB/Database.h"
+#include "sam/utilsDB/DBClient.h"
 
 namespace sam 
 {
@@ -21,8 +21,7 @@ class VirtualMover
 {
 private:
     static log4cxx::LoggerPtr logger;
-    utilsDB::Database oDatabase;
-    sql::Connection* con;
+    utilsDB::DBClient* pDatabase;
     std::string updateBoard;
 
 public:

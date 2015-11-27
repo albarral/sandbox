@@ -28,10 +28,9 @@ DBClient::~DBClient()
 {
     // release objects
     //  never delete driver
+    disconnect();
     if (con != 0)
         delete con;
-    if (stmt != 0)
-        delete stmt;
     if (res != 0)
         delete res;        
 }
@@ -65,7 +64,10 @@ void DBClient::disconnect()
 sql::ResultSet* DBClient::read(std::string select)
 {  
     if (res != 0)
+    {
         delete res;
+        res = 0;
+    }
     
     if (isConnected())
     {
@@ -73,8 +75,6 @@ sql::ResultSet* DBClient::read(std::string select)
         res = stmt->executeQuery(select);   
         delete stmt;
     }
-    else
-        res = 0;
 
     return res;
 }

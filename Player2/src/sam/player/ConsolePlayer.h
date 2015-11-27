@@ -29,7 +29,10 @@ public:
     ConsolePlayer();
     ~ConsolePlayer();
 
+    void init();
+    // request cell selection through the console and perform the (virtual) movement
     void play();
+    // check if user wants to quit the game (responded "q")
     bool want2QuitGame() {return bQuitGame;};
 };
 }

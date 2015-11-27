@@ -34,6 +34,7 @@ void BoardWatcher::init(GameBoard& oGameBoard)
 void BoardWatcher::first()
 {    
     log4cxx::NDC::push("BoardWatcher");   	
+    log4cxx::NDC::push("()");   	
 
     // we start in LOST state
     if (binitialized && isConnected())
@@ -45,7 +46,7 @@ void BoardWatcher::first()
     // if not initialized or not connected to bus -> OFF
     else
     {
-        LOG4CXX_WARN(logger, "BoardWatcher NOT initialized or connected. Going off ... ");  
+        LOG4CXX_WARN(logger, "NOT initialized or connected. Going off ... ");  
         Module::off();        
     }
 }
@@ -115,7 +116,10 @@ void BoardWatcher::loop()
     }   // end switch    
     
     if (isStateChanged())
+    {
         showStateChange();    
+        setPrevState(getState());
+    }
 
     // write to bus
     writeBus();
@@ -145,7 +149,7 @@ void BoardWatcher::writeBus()
 
 void BoardWatcher::processBoard()
 {
-    LOG4CXX_INFO(logger, "check board changes ...");     
+    LOG4CXX_DEBUG(logger, "check board changes ...");     
 
     // reset changes
     linesChanged.clear();
@@ -156,6 +160,8 @@ void BoardWatcher::processBoard()
     // if board changed    
     if (cv::countNonZero(matDif) > 0)
     {
+        LOG4CXX_INFO(logger, "board changed \n " << matrixNow);     
+                
         // update matrix copy
         matrixNow.copyTo(matrixPrev);
         
@@ -252,15 +258,15 @@ void BoardWatcher::showStateChange()
     switch (getState())
     {
         case BoardWatcher::eSTATE_STABLE:
-            stateName = "stable";
+            stateName = "(stable)";
             break;
             
         case BoardWatcher::eSTATE_CHANGING:            
-            stateName = "changing";
+            stateName = "(changing)";
             break;
 
         case BoardWatcher::eSTATE_LOST:
-            stateName = "lost";
+            stateName = "(lost)";
             break;
     }   // end switch    
 

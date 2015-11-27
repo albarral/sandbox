@@ -41,7 +41,7 @@ public:
     bool isGameOver();
   
 private:
-    void setTestMarks(); // TMP for test
+    void emptyBoard(); // TMP for test
 };
 }
 }

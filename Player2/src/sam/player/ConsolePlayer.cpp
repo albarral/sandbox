@@ -3,8 +3,10 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include "log4cxx/ndc.h"
+
 #include <string>
-#include <bits/basic_string.h>
+#include <stdexcept>    
 
 #include "sam/player/ConsolePlayer.h"
 
@@ -24,32 +26,45 @@ ConsolePlayer::~ConsolePlayer()
 {
 }
 
+void ConsolePlayer::init()
+{
+    log4cxx::NDC::push("ConsolePlayer");   	    
+}
 
 void ConsolePlayer::play()
 { 
-    // ask selected row
-    oConsole.ask("row?");    
-    std::string answerRow = oConsole.getAnswer();
-    // check for quit command
-    if (answerRow == "q")
+    int row, col;    
+
+    // ask selected cell
+    oConsole.ask("select cell (x-y) ...");    
+    std::string input= oConsole.getAnswer();
+
+    // chek response and skip if wrong input
+    try
     {
-        LOG4CXX_INFO(logger, "ConsolePlayer: quit game"); 
-        bQuitGame = true;
-        return;
+        // get first character
+        std::string inputRow = input.substr(0,1);  
+    
+        // check for quit command
+        if (inputRow == "q")
+        {
+            LOG4CXX_WARN(logger, "quit requested."); 
+            bQuitGame = true;
+            return;
+        }
+
+        // get third character
+        std::string inputCol = input.substr(2,1);  
+        // convert user input to row and column digits
+        row = std::stoi(inputRow);
+        col = std::stoi(inputCol);
     }
-    // ask selected col
-    oConsole.ask("col?");    
-    std::string answerCol = oConsole.getAnswer();
-    // check for quit command
-    if (answerCol == "q")
+    catch (const std::exception& ex)
     {
-        LOG4CXX_INFO(logger, "ConsolePlayer: quit game"); 
-        bQuitGame = true;
+        LOG4CXX_ERROR(logger, "Invalid response format! Ignored. " << ex.what());
         return;
     }
     
-    int row = std::stoi(answerRow);
-    int col = std::stoi(answerCol);
     // make move if valid cell
     if (row >= 0 && row < 3 && col >= 0 && col < 3 )
     {
@@ -57,8 +72,8 @@ void ConsolePlayer::play()
     }
     else
     {
-        LOG4CXX_WARN(logger, "ConsolePlayer: invalid cell, ignored"); 
-    }
+        LOG4CXX_WARN(logger, "Invalid cell selection (out of range values)"); 
+    }    
 }
 
 }

@@ -7,6 +7,7 @@
 
 #include "sam/player/AppPlayer.h"
 #include "sam/player/modules/watch/VirtualWatcher.h"
+#include "sam/player/modules/move/VirtualMover.h"
 
 namespace sam 
 {
@@ -30,10 +31,15 @@ AppPlayer::~AppPlayer()
 }
 
  // TEMP for test
-void AppPlayer::setTestMarks()
+void AppPlayer::emptyBoard()
 {
-    oPlayerMode.setEmptyMark(0);
-    oPlayerMode.setMyMark(1);        
+    LOG4CXX_INFO(logger, "Empty board"); 
+    
+    VirtualMover oVirtualMover;
+    
+    for (int i=0; i<3; i++)
+    for (int j=0; j<3; j++)
+        oVirtualMover.removePiece(i, j);
 }
 
 
@@ -43,7 +49,9 @@ void AppPlayer::startModules()
     LOG4CXX_INFO(logger, "AppPlayer: starting modules ..."); 
 
     // TEMP for test
-    setTestMarks();
+    oPlayerMode.setEmptyMark(0);
+    oPlayerMode.setMyMark(1);        
+    emptyBoard();
     
     pGameBoard = new GameBoard(3);
     

@@ -3,6 +3,8 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include "log4cxx/ndc.h"
+
 #include "sam/player/modules/move/VirtualMover.h"
 
 namespace sam 
@@ -13,29 +15,26 @@ log4cxx::LoggerPtr VirtualMover::logger(log4cxx::Logger::getLogger("sam.player")
 
 VirtualMover::VirtualMover() 
 {
-    oDatabase.init("tcp://127.0.0.1:3306", "sam", "sam", "samMemo");
-    con = 0;
+    pDatabase = new utilsDB::DBClient("tcp://127.0.0.1:3306", "samMemo", "sam", "sam");
 }
 
 VirtualMover::~VirtualMover()
 {
-    oDatabase.closeConnectionDB();        
+    if (pDatabase != 0)
+        delete (pDatabase);
 }
 
 bool VirtualMover::connectDB()
 {
-    // if not connected or connection closed, reconnect
-    if (con == 0 || con->isClosed())        
-        con = oDatabase.getConnectionDB();
-    
+    pDatabase->connect();    
     // true if connection ok
-    return (con != 0); 
+    return (pDatabase->isConnected());    
 }
 
 
 void VirtualMover::putPiece(int row, int col, int pieceType)
 {        
-    LOG4CXX_INFO(logger, "VirtualMover: put piece " << pieceType << " in cell (" << row << ", " << col << ")");
+    LOG4CXX_INFO(logger, "put piece " << pieceType << " in cell (" << row << ", " << col << ")");
     
     // try reconnection
     if (!connectDB())
@@ -49,8 +48,8 @@ void VirtualMover::putPiece(int row, int col, int pieceType)
     updateBoard =  "update TAB_VIRTUAL_BOARD set " + cell + "=" + std::to_string(pieceType) 
                             + " where row_ID=" + std::to_string(row);
     
-    oDatabase.update(updateBoard, con);
-    con->commit();
+    pDatabase->write(updateBoard);
+    pDatabase->commit();    
 }
 
 
@@ -69,8 +68,8 @@ void VirtualMover::removePiece(int row, int col)
     updateBoard =  "update TAB_VIRTUAL_BOARD set " + cell + "=" + std::to_string(0) 
                             + " where row_ID=" + std::to_string(row);
     
-    oDatabase.update(updateBoard, con);
-    con->commit();
+    pDatabase->write(updateBoard);
+    pDatabase->commit();    
 }
 
 }

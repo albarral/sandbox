@@ -15,7 +15,6 @@ log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("sam.player"));
 
 using namespace sam;
 
-void insertTaskInDatabase();
 void testPlayer();
 
 int main(int argc, char** argv) 
@@ -33,7 +32,8 @@ void testPlayer()
         
     player::AppPlayer oAppPlayer; 
     player::ConsolePlayer oConsolePlayer;
-//    oAppPlayer.startModules();
+    oAppPlayer.startModules();
+    oConsolePlayer.init();
         
     while (!oAppPlayer.isGameOver() && !oConsolePlayer.want2QuitGame())
     {
@@ -41,7 +41,7 @@ void testPlayer()
         sleep(1);
     }
     
-//    oAppPlayer.stopModules();
+    oAppPlayer.stopModules();
     sleep(2);
     
     LOG4CXX_INFO(logger, "End of test"); 
