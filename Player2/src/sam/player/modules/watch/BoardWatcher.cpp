@@ -7,7 +7,6 @@
 
 #include "sam/player/modules/watch/BoardWatcher.h"
 #include "sam/player/data/GameDefs.h"
-#include "sam/player/data/T3Line.h"
 
 namespace sam 
 {
@@ -19,8 +18,8 @@ BoardWatcher::BoardWatcher()
 {
     //  initial state must be Module2::state_OFF
     binitialized = false;
-    matrixNow = cv::Mat(GameDefs::eCELLS_DIM, GameDefs::eCELLS_DIM, CV_8UC1); 
-    matrixPrev = cv::Mat(GameDefs::eCELLS_DIM, GameDefs::eCELLS_DIM, CV_8UC1); 
+    matrixNow = cv::Mat(GameDefs::eCELL_DIM, GameDefs::eCELL_DIM, CV_8UC1); 
+    matrixPrev = cv::Mat(GameDefs::eCELL_DIM, GameDefs::eCELL_DIM, CV_8UC1); 
     pGameBoard = 0;
 }
 
@@ -182,7 +181,7 @@ void BoardWatcher::processBoard()
 void BoardWatcher::checkChangedRows(cv::Mat& matDif)
 {
     // get board zones of type row
-    std::vector<BoardZone> listRows = oT3Board.getZonesOfType(T3Line::eTYPE_ROW);
+    std::vector<BoardZone> listRows = oT3Board.getZonesOfType(T3Board::eTYPE_ROW);
     int numRows = listRows.size();
     
     // analyse each row in matDif
@@ -199,7 +198,7 @@ void BoardWatcher::checkChangedRows(cv::Mat& matDif)
 void BoardWatcher::checkChangedColumns(cv::Mat& matDif)
 {
     // get board zones of type column
-    std::vector<BoardZone> listColumns = oT3Board.getZonesOfType(T3Line::eTYPE_COL);
+    std::vector<BoardZone> listColumns = oT3Board.getZonesOfType(T3Board::eTYPE_COL);
     int numColumns = listColumns.size();
     
     // analyse each column in matDif 
@@ -216,7 +215,7 @@ void BoardWatcher::checkChangedColumns(cv::Mat& matDif)
 void BoardWatcher::checkChangedDiagonals(cv::Mat& matDif)
 {
     // get board zone of type main diagonal
-    std::vector<BoardZone> listMainDiagonal = oT3Board.getZonesOfType(T3Line::eTYPE_MAIN_DIAGONAL);
+    std::vector<BoardZone> listMainDiagonal = oT3Board.getZonesOfType(T3Board::eTYPE_MAIN_DIAGONAL);
     
     // analyse the matDif main diagonal
     cv::Mat matDiagonal = matDif.diag(0);
@@ -231,7 +230,7 @@ void BoardWatcher::checkChangedDiagonals(cv::Mat& matDif)
     matDif.row(2).copyTo(matDif2.row(0));
 
     // get board zone of type anti diagonal
-    std::vector<BoardZone> listAntiDiagonal = oT3Board.getZonesOfType(T3Line::eTYPE_ANTI_DIAGONAL);
+    std::vector<BoardZone> listAntiDiagonal = oT3Board.getZonesOfType(T3Board::eTYPE_ANTI_DIAGONAL);
     
     // analyse the matDif2 main diagonal (the antidiagonal of matDif)
     cv::Mat matAntiDiagonal = matDif2.diag(0);

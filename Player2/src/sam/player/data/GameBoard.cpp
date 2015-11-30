@@ -24,14 +24,14 @@ void GameBoard::updateInfo(cv::Mat& mat, std::vector<BoardZone> listChangedLines
     linesChanged.insert(linesChanged.end(), listChangedLines.begin(), listChangedLines.end());
 }
 
-void GameBoard::getCopyMatrix(cv::Mat& matCopy)
+void GameBoard::getMatrixCopy(cv::Mat& matCopy)
 {
     std::lock_guard<std::mutex> locker(mutex);
     // copies matrix data into matCopy
     matrix.copyTo(matCopy);    
 }
 
-void GameBoard::getCopyChangedLines(std::vector<BoardZone>& listCopy)
+void GameBoard::getChangedLinesCopy(std::vector<BoardZone>& listCopy)
 {
     std::lock_guard<std::mutex> locker(mutex);
     listCopy = linesChanged;    

@@ -8,6 +8,7 @@
 #include "sam/player/AppPlayer.h"
 #include "sam/player/modules/watch/VirtualWatcher.h"
 #include "sam/player/modules/move/VirtualMover.h"
+#include "modules/analyse/GameAnalyser.h"
 
 namespace sam 
 {
@@ -49,8 +50,8 @@ void AppPlayer::startModules()
     LOG4CXX_INFO(logger, "AppPlayer: starting modules ..."); 
 
     // TEMP for test
-    oPlayerMode.setEmptyMark(0);
-    oPlayerMode.setMyMark(1);        
+//    oPlayerMode.setEmptyMark(0);
+//    oPlayerMode.setMyMark(1);        
     emptyBoard();
     
     pGameBoard = new GameBoard(3);
@@ -60,6 +61,11 @@ void AppPlayer::startModules()
     pBoardWatcher->connect(oBus);
     pBoardWatcher->setFrequency(4.0);
     pBoardWatcher->on();      
+    
+    oGameAnalyser.init(*pGameBoard, oGameAction);
+    oGameAnalyser.connect(oBus);
+    oGameAnalyser.setFrequency(4.0);
+    oGameAnalyser.on();
 }
 
 void AppPlayer::stopModules()
@@ -67,6 +73,9 @@ void AppPlayer::stopModules()
     // players are asked to stop, then we wait for them to finish
     LOG4CXX_INFO(logger, "AppPlayer: stopping modules ..."); 
 
+    oGameAnalyser.off();
+    oGameAnalyser.wait();
+    
     pBoardWatcher->off();
     pBoardWatcher->wait();
         

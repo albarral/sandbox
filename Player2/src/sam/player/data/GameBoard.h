@@ -33,8 +33,8 @@ public:
     // both elements are updated together to grant coherence
     void updateInfo(cv::Mat& mat, std::vector<BoardZone> listChangedLines);    
 
-    void getCopyMatrix(cv::Mat& matCopy);         
-    void getCopyChangedLines(std::vector<BoardZone>& listCopy);  
+    void getMatrixCopy(cv::Mat& matCopy);         
+    void getChangedLinesCopy(std::vector<BoardZone>& listCopy);  
     
     int getNumChangedLines();  
     void resetChangedLines();

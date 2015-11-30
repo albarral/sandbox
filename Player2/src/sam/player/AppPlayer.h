@@ -9,10 +9,11 @@
 #include <log4cxx/logger.h>
 
 #include "sam/player/bus/Bus.h"
-#include "sam/player/data/BoardLine.h"
 #include "sam/player/data/GameBoard.h"
-#include "sam/player/data/PlayerMode.h"
+#include "sam/player/data/GameAction.h"
+//#include "sam/player/data/PlayerMode.h"
 #include "sam/player/modules/watch/BoardWatcher.h"
+#include "sam/player/modules/analyse/GameAnalyser.h"
 
 namespace sam 
 {
@@ -25,10 +26,11 @@ private:
     Bus oBus;
     // shared data
     GameBoard* pGameBoard;
-    BoardLine oBoardLine;
-    PlayerMode oPlayerMode;
+    GameAction oGameAction;
+    //PlayerMode oPlayerMode;
     // modules
     BoardWatcher* pBoardWatcher;
+    GameAnalyser oGameAnalyser;
     // temp
     int counter = 0;
     

@@ -30,6 +30,8 @@ public:
     std::vector<BoardZone> getZonesOfType(int type);    
     // returns the zone in the specified position of the zones list
     BoardZone& getZone(int index);
+    
+    virtual std::vector<int> getZoneTypes() = 0;
 };
 
 }

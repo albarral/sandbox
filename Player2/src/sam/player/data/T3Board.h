@@ -13,12 +13,24 @@ namespace sam
 namespace player
 {    
 // Class that represents a tic-tac-toe board
-// It has 8 different BoardZones, each of them a T3Line.
+// It has 8 different BoardZones: 3 rows, 3 columns and 2 diagonals
 // Derives from Board
 class T3Board : public Board
 {
 public:
-    T3Board();              
+    // zone types
+    enum eZones 
+    {
+        eTYPE_ROW,
+        eTYPE_COL,  
+        eTYPE_MAIN_DIAGONAL,    // diagonal going from top-left to bottom-right
+        eTYPE_ANTI_DIAGONAL,    // diagonal going from bottom-left to top-right
+        eTYPE_DIM   // dimension of eLine enum
+    };
+
+    T3Board();        
+    
+    virtual std::vector<int> getZoneTypes();
 };
 
 }

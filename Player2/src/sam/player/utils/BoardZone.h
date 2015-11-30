@@ -28,8 +28,11 @@ public:
     
     void setID(int value) {ID = value;};
     int getID() {return ID;};
+    
     void setType(int value) {type = value;};
     int getType() {return type;}
+    
+    void setNumElements(int value) {numElements = value;};    
     int getNumElements() {return numElements;};    
 };
 

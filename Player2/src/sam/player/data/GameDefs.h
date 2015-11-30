@@ -17,23 +17,10 @@ public:
     // cell positions
     enum eCell
     {
-        eCELLS_FIRST, 
-        eCELLS_SECOND,
-        eCELLS_THIRD,
-        eCELLS_DIM
-    };
-    // line types
-    enum eType 
-    {
-        eTYPE_ROW1,
-        eTYPE_ROW2,
-        eTYPE_ROW3,
-        eTYPE_COL1,  
-        eTYPE_COL2,
-        eTYPE_COL3,
-        eTYPE_DIAG1,
-        eTYPE_DIAG2,
-        eTYPE_DIM   // dimension of eLine enum
+        eCELL_FIRST, 
+        eCELL_SECOND,
+        eCELL_THIRD,
+        eCELL_DIM
     };
     // result of line analysis
     enum eResult  
