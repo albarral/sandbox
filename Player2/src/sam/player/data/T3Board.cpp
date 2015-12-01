@@ -3,6 +3,8 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include <string>
+
 #include "sam/player/data/T3Board.h"
 #include "sam/player/utils/BoardZone.h"
 
@@ -15,42 +17,46 @@ T3Board::T3Board()
     // defines the list of zones of the tic-tac-toe board
     // 3 rows + 3 columns + 2 diagonals
    
-    int lineID; // the zone ID 
+    std::string lineID; // the zone ID 
     
-    // add the 3 rows (IDs 0-2)
+    // add the 3 rows 
     BoardZone oRow;
     oRow.setNumElements(3);
     oRow.setType(T3Board::eTYPE_ROW);    
-    lineID = 0;
     for (int i=0; i<3; i++)
     {
+        lineID = "row" + std::to_string(i);
         oRow.setID(lineID);
+        oRow.setOrdinal(i);
         this->addZone(oRow);                
-        lineID ++;
     }
     
-    // add the 3 columns (IDs 3-5)
+    // add the 3 columns 
     BoardZone oColumn;
     oColumn.setNumElements(3);
     oColumn.setType(T3Board::eTYPE_COL);    
     for (int i=0; i<3; i++)
     {
+        lineID = "column" + std::to_string(i);
         oColumn.setID(lineID);
+        oColumn.setOrdinal(i);
         this->addZone(oColumn);                
-        lineID ++;
     }
     
-    // add the main diagonal (ID 6)
+    // add the main diagonal 
+    lineID = "main_diagonal";
     BoardZone oDiagonal;
     oDiagonal.setNumElements(3);
     oDiagonal.setType(T3Board::eTYPE_MAIN_DIAGONAL);  
     oDiagonal.setID(lineID);
+    oDiagonal.setOrdinal(0);
     this->addZone(oDiagonal);                
-    lineID ++;
 
-    // add the anti diagonal (ID 7)
+    // add the anti diagonal 
+    lineID = "anti_diagonal";
     oDiagonal.setType(T3Board::eTYPE_ANTI_DIAGONAL);  
     oDiagonal.setID(lineID);
+    oDiagonal.setOrdinal(0);    // unchanged
     this->addZone(oDiagonal);                
 }
 

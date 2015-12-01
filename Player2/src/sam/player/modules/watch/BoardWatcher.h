@@ -23,7 +23,14 @@ namespace player
 {    
 // This module monitors the board and extracts the board matrix.
 // It also checks which lines have changed.
-// It stores this info in the shared GameBoard object.    
+// It stores this info in the shared GameBoard object.        
+// Brooks IN:
+// CO_WATCHER_INHIBIT
+// CO_WATCHER_ACK         - acknowledges detected changes in game board (changed lines can be reset)
+// Brooks OUT:
+// SO_WATCHER_STATE
+// SO_STABLE_TIME           - accumulated time of board stability    
+    
 class BoardWatcher : public utils::Module, public BusUser
 {
 public:
@@ -38,13 +45,14 @@ public:
 protected:
     static log4cxx::LoggerPtr logger;
     bool binitialized;
-    bool binhibited;                    // module inhibition through bus CO
     T3Board oT3Board;
     cv::Mat matrixNow;                // matrix representing the present board cells 
     cv::Mat matrixPrev;                // matrix representing the previous board cells 
     std::vector<BoardZone> linesChanged;    // list of changed lines in the last check
-    int timeStable;                      // accumulated time in STABLE state (from last change)
     GameBoard* pGameBoard;    // pointer to shared data object
+    // controls & sensors
+    bool binhibited;                    // module inhibition 
+    int timeStable;                      // accumulated time of board stability (since last change)
 
 public:
     BoardWatcher();

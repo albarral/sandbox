@@ -19,12 +19,16 @@ class SOBus
         // watcher module
         brooks::SensorT<int> soWatcherState; 
         brooks::SensorT<int> soStableTime;         
+        // analyser module
+        brooks::SensorT<int> soAnalyserState; 
         
     public:
         SOBus();
-        
+        // watcher module        
         brooks::SensorT<int>& getSO_WATCHER_STATE(){return soWatcherState;};        
         brooks::SensorT<int>& getSO_STABLE_TIME() {return soStableTime;};           
+        // analyser module
+        brooks::SensorT<int>& getSO_ANALYSER_STATE(){return soAnalyserState;};        
 };
 
 }

@@ -6,7 +6,6 @@
 #include "log4cxx/ndc.h"
 
 #include "sam/player/modules/watch/BoardWatcher.h"
-#include "sam/player/data/GameDefs.h"
 
 namespace sam 
 {
@@ -18,14 +17,14 @@ BoardWatcher::BoardWatcher()
 {
     //  initial state must be Module2::state_OFF
     binitialized = false;
-    matrixNow = cv::Mat(GameDefs::eCELL_DIM, GameDefs::eCELL_DIM, CV_8UC1); 
-    matrixPrev = cv::Mat(GameDefs::eCELL_DIM, GameDefs::eCELL_DIM, CV_8UC1); 
     pGameBoard = 0;
 }
 
 void BoardWatcher::init(GameBoard& oGameBoard)
 {
     pGameBoard = &oGameBoard;
+    matrixNow = pGameBoard->getMatrixClone();
+    matrixPrev = matrixNow.clone();
     binitialized = true;
     LOG4CXX_INFO(logger, "BoardWatcher initialized");     
 };
@@ -126,20 +125,21 @@ void BoardWatcher::loop()
 
 void BoardWatcher::senseBus()
 {
-    // read control inputs: 
+    // read controls IN: 
     // CO_INHIBIT_WATCHER
-    binhibited = pBus->getCOBus().getCO_INHIBIT_WATCHER().checkRequested();
-    // CO_RESET_WATCHER
-    if (pBus->getCOBus().getCO_RESET_WATCHER().checkRequested())
+    binhibited = pBus->getCOBus().getCO_WATCHER_INHIBIT().checkRequested();
+    // CO_WATCHER_ACK
+    if (pBus->getCOBus().getCO_WATCHER_ACK().checkRequested())
     {
-        LOG4CXX_INFO(logger, "reset watcher requested");     
+        // on ack received, reset changed lines
+        LOG4CXX_INFO(logger, "watcher ack");     
         pGameBoard->resetChangedLines();
     }
 }
 
 void BoardWatcher::writeBus()
 {
-    // write sensor outputs: 
+    // write sensors OUT: 
     // SO_WATCHER_STATE
     pBus->getSOBus().getSO_WATCHER_STATE().setValue(getState());
     // SO_TIME_STABLE

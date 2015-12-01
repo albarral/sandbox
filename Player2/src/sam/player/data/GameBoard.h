@@ -31,10 +31,11 @@ public:
     GameBoard(int size);
           
     // both elements are updated together to grant coherence
-    void updateInfo(cv::Mat& mat, std::vector<BoardZone> listChangedLines);    
-
-    void getMatrixCopy(cv::Mat& matCopy);         
-    void getChangedLinesCopy(std::vector<BoardZone>& listCopy);  
+    void updateInfo(cv::Mat& mat, std::vector<BoardZone>& listChangedLines);    
+    // both elements are fetched together to grant coherence (returned values are copies, not permanent accesses to data)
+    void fetchInfo(cv::Mat& matCopy, std::vector<BoardZone>& listCopy);    
+    // returns matrix clone
+    cv::Mat getMatrixClone();
     
     int getNumChangedLines();  
     void resetChangedLines();

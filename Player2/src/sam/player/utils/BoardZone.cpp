@@ -12,16 +12,10 @@ namespace player
 BoardZone::BoardZone()
 {
     // initially the zone is invalid 
-    ID = -1;
+    ID = "";
     type = -1;
+    ordinal = 0;
     numElements = 0;
-}
-
-std::vector<int> BoardZone::getZoneTypes()
-{
-    std::vector<int> listTypes;
-    // return empty list
-    return listTypes;
 }
 }
 }

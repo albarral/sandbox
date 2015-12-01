@@ -17,14 +17,21 @@ class COBus
 {
     private:                
         // watcher module
-        brooks::Control coInhibitWatcher; 
-        brooks::Control coResetWatcher; 
+        brooks::Control coWatcherInhibit; 
+        brooks::Control coWatcherAck;     
+        // analyser module
+        brooks::Control coAnalyserInhibit;
+        brooks::Control coAnalyseFull;
+        
         
     public:
         COBus();
-        
-        brooks::Control& getCO_INHIBIT_WATCHER() {return coInhibitWatcher;};           
-        brooks::Control& getCO_RESET_WATCHER() {return coResetWatcher;};           
+        // watcher module        
+        brooks::Control& getCO_WATCHER_INHIBIT() {return coWatcherInhibit;};           
+        brooks::Control& getCO_WATCHER_ACK() {return coWatcherAck;};           
+        // analyser module
+        brooks::Control& getCO_ANALYSER_INHIBIT() {return coAnalyserInhibit;};           
+        brooks::Control& getCO_ANALYSE_FULL() {return coAnalyseFull;};           
 };
 
 }

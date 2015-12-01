@@ -15,7 +15,7 @@ GameBoard::GameBoard(int size)
     matrix = cv::Mat_<uchar>(size,size);   
 }
 
-void GameBoard::updateInfo(cv::Mat& mat, std::vector<BoardZone> listChangedLines)
+void GameBoard::updateInfo(cv::Mat& mat, std::vector<BoardZone>& listChangedLines)
 {
     std::lock_guard<std::mutex> locker(mutex);
     // updates matrix data
@@ -24,17 +24,20 @@ void GameBoard::updateInfo(cv::Mat& mat, std::vector<BoardZone> listChangedLines
     linesChanged.insert(linesChanged.end(), listChangedLines.begin(), listChangedLines.end());
 }
 
-void GameBoard::getMatrixCopy(cv::Mat& matCopy)
+void GameBoard::fetchInfo(cv::Mat& matCopy, std::vector<BoardZone>& listCopy)
 {
     std::lock_guard<std::mutex> locker(mutex);
-    // copies matrix data into matCopy
+    // copies matrix data
     matrix.copyTo(matCopy);    
+    // copies linesChanged list
+    listCopy = linesChanged;        
 }
 
-void GameBoard::getChangedLinesCopy(std::vector<BoardZone>& listCopy)
+cv::Mat GameBoard::getMatrixClone()
 {
     std::lock_guard<std::mutex> locker(mutex);
-    listCopy = linesChanged;    
+    // clones matrix, generating a new Mat instance
+    return matrix.clone();    
 }
 
 int GameBoard::getNumChangedLines()

@@ -6,6 +6,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include <string>
 #include <vector>
 
 namespace sam
@@ -17,21 +18,23 @@ namespace player
 class BoardZone
 {
 protected:   
-    int ID;
+    std::string ID;
     int type;
+    int ordinal;
     int numElements;
     
 public:
     BoardZone();
-
-    virtual std::vector<int> getZoneTypes();
     
-    void setID(int value) {ID = value;};
-    int getID() {return ID;};
+    void setID(std::string value) {ID = value;};
+    std::string getID() {return ID;};
     
     void setType(int value) {type = value;};
     int getType() {return type;}
     
+    void setOrdinal(int value) {ordinal = value;};
+    int getOrdinal() {return ordinal;}
+
     void setNumElements(int value) {numElements = value;};    
     int getNumElements() {return numElements;};    
 };
