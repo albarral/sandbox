@@ -71,6 +71,8 @@ private:
     virtual void first();
     // loop inside the module thread 
     virtual void loop();             
+    // last action before thread ends
+    virtual void bye();
 
     // sense bus
     void senseBus();
@@ -85,7 +87,7 @@ private:
     void doAnalysis();
 
     // traces the changes in state
-    void showStateChange();     
+    void showStateName();     
 };
 
 }

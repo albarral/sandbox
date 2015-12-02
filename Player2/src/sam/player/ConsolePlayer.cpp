@@ -61,7 +61,7 @@ void ConsolePlayer::play()
     }
     catch (const std::exception& ex)
     {
-        LOG4CXX_ERROR(logger, "Invalid response format! Ignored. " << ex.what());
+        LOG4CXX_ERROR(logger, "Invalid response (wrong format) " << ex.what());
         return;
     }
     
@@ -72,7 +72,7 @@ void ConsolePlayer::play()
     }
     else
     {
-        LOG4CXX_WARN(logger, "Invalid cell selection (out of range values)"); 
+        LOG4CXX_WARN(logger, "Invalid cell (out of board)"); 
     }    
 }
 

@@ -6,6 +6,7 @@
 #include "log4cxx/ndc.h"
 
 #include "sam/player/modules/watch/BoardWatcher.h"
+ #include "sam/player/data/GameDefs.h"
 
 namespace sam 
 {
@@ -22,7 +23,7 @@ BoardWatcher::BoardWatcher()
 
 void BoardWatcher::init(GameBoard& oGameBoard)
 {
-    pGameBoard = &oGameBoard;
+    pGameBoard = &oGameBoard;    
     matrixNow = pGameBoard->getMatrixClone();
     matrixPrev = matrixNow.clone();
     binitialized = true;
@@ -31,15 +32,16 @@ void BoardWatcher::init(GameBoard& oGameBoard)
 
 void BoardWatcher::first()
 {    
-    log4cxx::NDC::push("BoardWatcher");   	
-    log4cxx::NDC::push("()");   	
+    log4cxx::NDC::push("Watcher");   	
+    //log4cxx::NDC::push("");   	
 
     // we start in LOST state
     if (binitialized && isConnected())
     {
-        LOG4CXX_INFO(logger, "first ... ");  
+        LOG4CXX_INFO(logger, "started");  
         setState(BoardWatcher::eSTATE_LOST);    
-        showStateChange();        
+        setPrevState(BoardWatcher::eSTATE_LOST);
+        showStateName();        
     }
     // if not initialized or not connected to bus -> OFF
     else
@@ -47,6 +49,11 @@ void BoardWatcher::first()
         LOG4CXX_WARN(logger, "NOT initialized or connected. Going off ... ");  
         Module::off();        
     }
+}
+
+void BoardWatcher::bye()
+{
+    LOG4CXX_INFO(logger, "ended");     
 }
 
 void BoardWatcher::loop()
@@ -115,7 +122,7 @@ void BoardWatcher::loop()
     
     if (isStateChanged())
     {
-        showStateChange();    
+        showStateName();    
         setPrevState(getState());
     }
 
@@ -132,7 +139,7 @@ void BoardWatcher::senseBus()
     if (pBus->getCOBus().getCO_WATCHER_ACK().checkRequested())
     {
         // on ack received, reset changed lines
-        LOG4CXX_INFO(logger, "watcher ack");     
+        LOG4CXX_INFO(logger, "ack received");     
         pGameBoard->resetChangedLines();
     }
 }
@@ -152,10 +159,9 @@ void BoardWatcher::processBoard()
 
     // reset changes
     linesChanged.clear();
-    
+        
     // compare present & previous board configuration
-    cv::Mat matDif = matrixNow - matrixPrev;    
-
+    cv::Mat matDif = matrixNow != matrixPrev;    
     // if board changed    
     if (cv::countNonZero(matDif) > 0)
     {
@@ -250,28 +256,28 @@ void BoardWatcher::resetStableTime()
     timeStable = 0; // TEMP: iterations instead of time  
 }
 
-// Shows the next state name
-void BoardWatcher::showStateChange()
+// Shows the state name
+void BoardWatcher::showStateName()
 {
     std::string stateName;
     switch (getState())
     {
         case BoardWatcher::eSTATE_STABLE:
-            stateName = "(stable)";
+            stateName = "stable";
             break;
             
         case BoardWatcher::eSTATE_CHANGING:            
-            stateName = "(changing)";
+            stateName = "changing";
             break;
 
         case BoardWatcher::eSTATE_LOST:
-            stateName = "(lost)";
+            stateName = "lost";
             break;
     }   // end switch    
 
     LOG4CXX_INFO(logger, ">> " << stateName);
-    log4cxx::NDC::pop();
-    log4cxx::NDC::push(stateName);   	
+//    log4cxx::NDC::pop();
+//    log4cxx::NDC::push(stateName);   	
 }
 
 }

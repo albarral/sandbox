@@ -35,15 +35,16 @@ void GameAnalyser::init(GameBoard& oGameBoard, GameAction& oGameAction)
 
 void GameAnalyser::first()
 {    
-    log4cxx::NDC::push("GameAnalyser");   	
-    log4cxx::NDC::push("()");   	
+    log4cxx::NDC::push("Analyser");   	
+    //log4cxx::NDC::push("()");   	
 
     // we start in WAITING state
     if (binitialized && isConnected())
     {
-        LOG4CXX_INFO(logger, "first ... ");  
+        LOG4CXX_INFO(logger, "started");  
         setState(GameAnalyser::eSTATE_DONE);    
-        showStateChange();        
+        setPrevState(GameAnalyser::eSTATE_DONE);    
+        showStateName();        
     }
     // if not initialized or not connected to bus -> OFF
     else
@@ -51,6 +52,11 @@ void GameAnalyser::first()
         LOG4CXX_WARN(logger, "NOT initialized or connected. Going off ... ");  
         Module::off();        
     }
+}
+
+void GameAnalyser::bye()
+{
+    LOG4CXX_INFO(logger, "ended");     
 }
 
 void GameAnalyser::loop()
@@ -101,7 +107,7 @@ void GameAnalyser::loop()
     
     if (isStateChanged())
     {
-        showStateChange();    
+        showStateName();    
         setPrevState(getState());
     }
 
@@ -114,7 +120,6 @@ void GameAnalyser::senseBus()
     // read controls IN: 
     // CO_ANALYSER_INHIBIT
     binhibited = pBus->getCOBus().getCO_ANALYSER_INHIBIT().checkRequested();
-    binhibited = true;
     // CO_ANALYSE_FULL
     bFullAnalysis = pBus->getCOBus().getCO_ANALYSE_FULL().checkRequested();
     
@@ -192,28 +197,28 @@ void GameAnalyser::doAnalysis()
 }
 
 
-// Shows the next state name
-void GameAnalyser::showStateChange()
+// Shows the state name
+void GameAnalyser::showStateName()
 {
     std::string stateName;
     switch (getState())
     {
         case GameAnalyser::eSTATE_WAIT:
-            stateName = "(wait)";
+            stateName = "wait";
             break;
             
         case GameAnalyser::eSTATE_ANALYSE:
-            stateName = "(analyse)";
+            stateName = "analyse";
             break;
 
         case GameAnalyser::eSTATE_DONE:
-            stateName = "(done)";
+            stateName = "done";
             break;
     }   // end switch    
 
     LOG4CXX_INFO(logger, ">> " << stateName);
-    log4cxx::NDC::pop();
-    log4cxx::NDC::push(stateName);   	
+//    log4cxx::NDC::pop();
+//    log4cxx::NDC::push(stateName);   	
 }
 
 }

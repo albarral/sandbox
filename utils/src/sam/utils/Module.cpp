@@ -68,7 +68,8 @@ void Module::run ()
         usleep(period);
     }
     
-    // set final state OFF
+    // last action & OFF state
+    bye();
     setState(Module::state_OFF);
 }
 

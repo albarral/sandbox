@@ -38,7 +38,7 @@ bool VirtualWatcher::senseBoard()
     // try reconnection
     if (!connectDB())
     {
-        LOG4CXX_ERROR(logger, "virtual board not sensed!");
+        LOG4CXX_ERROR(logger, "board not sensed!");
         return false;
     }
 
@@ -64,12 +64,12 @@ bool VirtualWatcher::searchBoard()
     // try reconnection
     if (connectDB())
     {
-        LOG4CXX_INFO(logger, "virtual board found!");
+        LOG4CXX_INFO(logger, "board found!");
         return true;
     }
     else 
     {
-        LOG4CXX_ERROR(logger, "virtual board not found!");
+        LOG4CXX_ERROR(logger, "board not found!");
         return false;
     }        
 }

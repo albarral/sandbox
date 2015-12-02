@@ -12,7 +12,7 @@ namespace player
 GameBoard::GameBoard(int size)
 {
     // 3x3 board
-    matrix = cv::Mat_<uchar>(size,size);   
+    matrix = cv::Mat::zeros(size, size, CV_8UC1);   
 }
 
 void GameBoard::updateInfo(cv::Mat& mat, std::vector<BoardZone>& listChangedLines)

@@ -67,10 +67,12 @@ protected:
     virtual bool senseBoard() = 0;
 
 private:
-    // first actions when the thread begins 
+    // first action after thread begins 
     virtual void first();
     // loop inside the module thread 
     virtual void loop();             
+    // last action before thread ends
+    virtual void bye();
 
     // sense bus
     void senseBus();
@@ -92,7 +94,7 @@ private:
     void checkChangedDiagonals(cv::Mat& matDif);
     
     // traces the changes in state
-    void showStateChange();     
+    void showStateName();     
 };
 
 }

@@ -59,12 +59,12 @@ void AppPlayer::startModules()
     pBoardWatcher = new VirtualWatcher();
     pBoardWatcher->init(*pGameBoard);
     pBoardWatcher->connect(oBus);
-    pBoardWatcher->setFrequency(4.0);
+    pBoardWatcher->setFrequency(2.0);
     pBoardWatcher->on();      
     
     oGameAnalyser.init(*pGameBoard, oGameAction);
     oGameAnalyser.connect(oBus);
-    oGameAnalyser.setFrequency(4.0);
+    oGameAnalyser.setFrequency(2.0);
     oGameAnalyser.on();
 }
 
@@ -77,7 +77,7 @@ void AppPlayer::stopModules()
     oGameAnalyser.wait();
     
     pBoardWatcher->off();
-    pBoardWatcher->wait();
+    pBoardWatcher->wait();    
         
     LOG4CXX_INFO(logger, "AppPlayer: off");
 }
@@ -87,7 +87,10 @@ bool AppPlayer::isGameOver()
     counter++;
 
     if (counter == 10)
+    {
+        LOG4CXX_INFO(logger, "AppPlayer: game over");
         return true;
+    }
     else 
         return false;
 }

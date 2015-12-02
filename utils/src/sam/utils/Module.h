@@ -14,7 +14,7 @@ namespace sam
 namespace utils
 {  
 // Base class designed to run a module inside its own thread.
-// Derived classes must implement the first() and loop() methods.    
+// Derived classes must implement 3 methods: first(), loop() and bye().
 // For starting & stopping the module use the following methods:
 // - on() -> starts the module.
 // - off()  -> asks the module to stop.
@@ -62,10 +62,12 @@ protected:
         // checks if off was requested and clears the request
         bool isOffRequested();     
         
-        // first actions when the thread begins 
+        // first action after thread begins 
         virtual void first() = 0;
         // loops inside the thread 
         virtual void loop() = 0;            
+        // last action before thread ends
+        virtual void bye() = 0;
         
         // sets the state (also stores previous state)
         void setState(int value);

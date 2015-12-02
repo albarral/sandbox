@@ -34,7 +34,7 @@ bool VirtualMover::connectDB()
 
 void VirtualMover::putPiece(int row, int col, int pieceType)
 {        
-    LOG4CXX_INFO(logger, "put piece " << pieceType << " in cell (" << row << ", " << col << ")");
+    LOG4CXX_INFO(logger, "mark cell (" << row << ", " << col << ")");
     
     // try reconnection
     if (!connectDB())
@@ -55,7 +55,7 @@ void VirtualMover::putPiece(int row, int col, int pieceType)
 
 void VirtualMover::removePiece(int row, int col)
 {        
-    LOG4CXX_INFO(logger, "VirtualMover: remove piece from cell (" << row << ", " << col << ")");
+    LOG4CXX_INFO(logger, "VirtualMover: clear cell (" << row << ", " << col << ")");
 
     // try reconnection
     if (!connectDB())
