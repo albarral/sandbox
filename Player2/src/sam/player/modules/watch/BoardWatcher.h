@@ -45,11 +45,14 @@ public:
 protected:
     static log4cxx::LoggerPtr logger;
     bool binitialized;
-    T3Board oT3Board;
+    // params (none)
+    // shared data
+    GameBoard* pGameBoard;    // pointer to shared data object
+    // logic
+    T3Board oT3Board;               // tic-tac-toe board structure (zone types)
     cv::Mat matrixNow;                // matrix representing the present board cells 
     cv::Mat matrixPrev;                // matrix representing the previous board cells 
     std::vector<BoardZone> linesChanged;    // list of changed lines in the last check
-    GameBoard* pGameBoard;    // pointer to shared data object
     // controls & sensors
     bool binhibited;                    // module inhibition 
     int timeStable;                      // accumulated time of board stability (since last change)

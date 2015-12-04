@@ -1,20 +1,21 @@
-#ifndef __SAM_PLAYER_PLAYERMODE_H
-#define __SAM_PLAYER_PLAYERMODE_H
+#ifndef __SAM_PLAYER_PLAYERDATA_H
+#define __SAM_PLAYER_PLAYERDATA_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include <mutex>
 #include <string>
 
 namespace sam
 {
 namespace player
 {    
-// This class represents the player mode .
-// It's where the playing mode is defined (simple, smart ...) for the agent.
-class PlayerMode
+// (shared data) This class represents the player data.
+// It holds personal info for the player agent: it's mark, the empty mark, the playing mode (simple, smart, random ...)
+class PlayerData
 {
 public:
     enum eModes  // playing modes
@@ -27,26 +28,29 @@ public:
     };
 
 private:           
+    std::mutex mutex;
     int playMode;      // playing mode used by player 
-    int myMark;        // mark used by player to select cells
-    int emptyMark;    // value hold by empty cells  
+    int myMark;        // (not mutex protected) mark used by player to select cells 
+    int emptyMark;    // (not mutex protected) value hold by empty cells 
             
 public:
-    PlayerMode();
+    PlayerData();
     
+    // not mutex protected (not a changing variable)
     void setMyMark(int mark) {myMark = mark;};    
     int getMyMark() {return myMark;}
 
+    // not mutex protected (not a changing variable)
     void setEmptyMark(int mark) {emptyMark = mark;};    
     int getEmptyMark() {return emptyMark;}
 
     void setPlayMode(int playMode);    
-    int getPlayMode() {return playMode;};
+    int getPlayMode();
     
-    bool isRandomPlayMode() {return (playMode == eMODE_SIMPLE);};
-    bool isSimplePlayMode() {return (playMode == eMODE_SIMPLE);};
-    bool isSmartPlayMode() {return (playMode == eMODE_SMART || playMode == eMODE_SMART_EXPLORE);};
-    bool isSmartExplorativePlayMode() {return (playMode == eMODE_SMART_EXPLORE);};
+    bool isRandomPlayMode();
+    bool isSimplePlayMode();
+    bool isSmartPlayMode();
+    bool isSmartExplorativePlayMode();
 
     // returns member values in string form
     std::string toString();    

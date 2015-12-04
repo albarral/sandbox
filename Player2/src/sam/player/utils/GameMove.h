@@ -16,21 +16,20 @@ namespace player
 class GameMove
 {
 private:   
+    BoardZone oZone;    // board zone (a line) where the move is done
+    int element;               // element (a cell) where the move is done
     float Q;                     // Q value (expected reward)
-    BoardZone oZone;    // board zone where the move is done
-    int element;               // element (in the zone) where the move is done
     
 public:
     GameMove();
               
-    void setQ(float value) {Q = value;};
+    void reset() {Q = -1.0;};
+        
+    BoardZone& getZone() {return oZone;}    
+    int getElement() {return element;};   
     int getQ() {return Q;};
     
-    void setZone(BoardZone& oZone) {this->oZone = oZone;};
-    BoardZone& getZone() {return oZone;}
-    
-    void setElement(int value) {element = value;};    
-    int getElement() {return element;};    
+    void update(BoardZone& oZone, int element, float Qvalue);
 };
 
 }

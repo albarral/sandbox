@@ -24,11 +24,14 @@ GameAnalyser::GameAnalyser()
     pGameBoard = 0;
 }
 
-void GameAnalyser::init(GameBoard& oGameBoard, GameAction& oGameAction)
+void GameAnalyser::init(GameBoard& oGameBoard, GameAction& oGameAction, PlayerData& oPlayerData)
 {
     pGameBoard = &oGameBoard;
     pGameAction = &oGameAction;
+    pPlayerData = &oPlayerData;
     matBoard = pGameBoard->getMatrixClone();
+    // empty mark obtained here (will not change through the game)
+    oLineAnalyser.setEmptyMark(oPlayerData.getEmptyMark());
     binitialized = true;
     LOG4CXX_INFO(logger, "GameAnalyser initialized");     
 };
@@ -155,47 +158,74 @@ void GameAnalyser::fetchBoardData()
 
 void GameAnalyser::doAnalysis()
 {
-    LOG4CXX_INFO(logger, "do analysis ...");     
+    LOG4CXX_INFO(logger, "analyse ...");     
+    oAttackMove.reset();
+    oDefenseMove.reset();    
+
     // analyse each of the lines in the check list
     while (!lines2Check.empty())
     {        
         BoardZone& oZone = lines2Check.front();
                 
-        // extract the proper line data from the board matrix
-        cv::Mat matLine;
-        switch (oZone.getType())
-        {
-            case T3Board::eTYPE_ROW:
-                matLine = matBoard.row(oZone.getOrdinal());
-                break;
-                
-            case T3Board::eTYPE_COL:
-                matLine = matBoard.col(oZone.getOrdinal());
-                break;
-                
-            case T3Board::eTYPE_MAIN_DIAGONAL:
-                matLine = matBoard.diag(0);
-                break;
-                
-            case T3Board::eTYPE_ANTI_DIAGONAL:
-                // a matrix antidiagonal is the main diagonal of the matrix's vertical flip
-                cv::Mat matFlip = matBoard.clone();
-                // fast vertical flip
-                matBoard.row(0).copyTo(matFlip.row(2));
-                matBoard.row(2).copyTo(matFlip.row(0));
-                matLine = matFlip.diag(0);
-                break;                
-        }
+        // extract proper line from board
+        cv::Mat matLine = getLineFromBoard(oZone);
         
         // analyse line ...
-        LOG4CXX_INFO(logger, "analyse line " << oZone.getID());    
+        LOG4CXX_INFO(logger, "line ... " << oZone.getID());    
         LOG4CXX_INFO(logger, matLine);    
-        // LineAnalyser ...
+        oLineAnalyser.analyseLine(matLine, pPlayerData->getMyMark(), pPlayerData->getPlayMode());
         
+        // track best attack
+        if (oLineAnalyser.getAttackQ() > oAttackMove.getQ())
+        {
+            LOG4CXX_INFO(logger, "best attack updated");    
+            oAttackMove.update(oZone, oLineAnalyser.getAttackElement(), oLineAnalyser.getAttackQ());                        
+        }
+        // track best defense
+        if (oLineAnalyser.getDefenseQ() > oDefenseMove.getQ())
+        {
+            LOG4CXX_INFO(logger, "best defense updated");    
+            oDefenseMove.update(oZone, oLineAnalyser.getDefenseElement(), oLineAnalyser.getDefenseQ());                        
+        }
+        
+        // remove this line from check list
         lines2Check.pop_front();
     }
+    
+    // finally store learned data
+    oLineAnalyser.storeKnowledge();
 }
 
+// Extract the proper line data from the board matrix
+cv::Mat GameAnalyser::getLineFromBoard(BoardZone& oZone)
+{
+    cv::Mat matLine;
+    switch (oZone.getType())
+    {
+        case T3Board::eTYPE_ROW:
+            matLine = matBoard.row(oZone.getOrdinal());
+            break;
+
+        case T3Board::eTYPE_COL:
+            matLine = matBoard.col(oZone.getOrdinal());
+            break;
+
+        case T3Board::eTYPE_MAIN_DIAGONAL:
+            matLine = matBoard.diag(0);
+            break;
+
+        case T3Board::eTYPE_ANTI_DIAGONAL:
+            // a matrix antidiagonal is the main diagonal of the matrix's vertical flip
+            cv::Mat matFlip = matBoard.clone();
+            // fast vertical flip
+            matBoard.row(0).copyTo(matFlip.row(2));
+            matBoard.row(2).copyTo(matFlip.row(0));
+            matLine = matFlip.diag(0);
+            break;                
+    }
+
+    return matLine;    
+}
 
 // Shows the state name
 void GameAnalyser::showStateName()

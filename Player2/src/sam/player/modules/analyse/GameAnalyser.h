@@ -13,21 +13,24 @@
 
 #include "sam/utils/Module.h"
 #include "sam/player/bus/BusUser.h"
-#include "sam/player/data/GameBoard.h"
 #include "sam/player/data/GameAction.h"
+#include "sam/player/data/GameBoard.h"
+#include "sam/player/data/PlayerData.h"
+#include "sam/player/modules/analyse/LineAnalyser2.h"
 #include "sam/player/utils/BoardZone.h"
+#include "sam/player/utils/GameMove.h"
 
 namespace sam 
 {
 namespace player
 {    
-// This module analyzes the board and deduces the best moves for attack and defense.
-// Analyses the changed lines every time the board changes. 
-// To avoid unnecessary work, waits for changes to be stable before the analysis is done.
-// Stability measure is controlled by requiredStableTime parameter.        
+// This module analyzes the board and gets the best possible moves (for attack and defense).
+// It triggers a new analysis after each board change (only checking changed lines).
+// Exhaustive analysis of all lines can be forced through CO input.
+// Board stability is required before each analysis to avoid glitching results (waiting time in param requiredStableTime).
 // Brooks IN:
 // CO_ANALYSER_INHIBIT
-// CO_ANALYSE_FULL          - forces exhaustive analysis of game board (not only of changed lines)
+// CO_ANALYSE_FULL          - forces exhaustive board analysis (all lines)
 // SO_WATCHER_STATE
 // SO_STABLE_TIME           - accumulated time of board stability
 // Brooks OUT:    
@@ -40,20 +43,26 @@ public:
     // states of GameAnalyser module
     enum eState
     {
-        eSTATE_WAIT,                    // the board has not changed since last analysis, wait for changes
-        eSTATE_ANALYSE,          // the board has changed, analyse board to get best move
-        eSTATE_DONE                   // the analysis is done, best move ready to be done
+        eSTATE_WAIT,                // board is changing, wait for change to finish
+        eSTATE_ANALYSE,          // board change finished, analyse board 
+        eSTATE_DONE               // analysis done, wait for next change
     };
 
 protected:
     static log4cxx::LoggerPtr logger;
     bool binitialized;
-    cv::Mat matBoard;              // matrix representing the present board cells 
-    std::deque<BoardZone> lines2Check;    // list of changed lines that need to be checked
+    // params
     int requiredStableTime;          // minimum required time to trust board stability
-    GameBoard* pGameBoard;    // pointer to shared data object
-    GameAction* pGameAction;      // pointer to shared data object
-    //LineAnalyser oLineAnalyser;
+    // shared data
+    GameBoard* pGameBoard;      // sensed board 
+    GameAction* pGameAction;      // next move  
+    PlayerData* pPlayerData;         // marks and play mode
+    // logic
+    cv::Mat matBoard;              // matrix of present board
+    std::deque<BoardZone> lines2Check;    // list of changed lines that need to be checked
+    LineAnalyser oLineAnalyser;    // tool for line analysis
+    GameMove oAttackMove;
+    GameMove oDefenseMove;
     // controls & sensors
     bool binhibited;                    // module inhibition
     bool bFullAnalysis;                 // requested analysis of the full board
@@ -64,7 +73,7 @@ public:
     GameAnalyser();
     
     // initializes the module 
-    void init(GameBoard& oGameBoard, GameAction& oGameAction);
+    void init(GameBoard& oGameBoard, GameAction& oGameAction, PlayerData& oPlayerData);
        
 private:
     // first actions when the thread begins 
@@ -85,6 +94,8 @@ private:
     void fetchBoardData();
     // processes the board changes in a line by line basis
     void doAnalysis();
+    // get the specified zone (line) from the board
+    cv::Mat getLineFromBoard(BoardZone& oZone);
 
     // traces the changes in state
     void showStateName();     

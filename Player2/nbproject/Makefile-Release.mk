@@ -44,10 +44,11 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/sam/player/data/BoardLine.o \
 	${OBJECTDIR}/src/sam/player/data/GameAction.o \
 	${OBJECTDIR}/src/sam/player/data/GameBoard.o \
-	${OBJECTDIR}/src/sam/player/data/PlayerMode.o \
+	${OBJECTDIR}/src/sam/player/data/PlayerData.o \
 	${OBJECTDIR}/src/sam/player/data/T3Board.o \
 	${OBJECTDIR}/src/sam/player/main.o \
 	${OBJECTDIR}/src/sam/player/modules/analyse/GameAnalyser.o \
+	${OBJECTDIR}/src/sam/player/modules/analyse/LineAnalyser2.o \
 	${OBJECTDIR}/src/sam/player/modules/analyse/Strategy.o \
 	${OBJECTDIR}/src/sam/player/modules/move/VirtualMover.o \
 	${OBJECTDIR}/src/sam/player/modules/watch/BoardWatcher.o \
@@ -126,10 +127,10 @@ ${OBJECTDIR}/src/sam/player/data/GameBoard.o: src/sam/player/data/GameBoard.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/data/GameBoard.o src/sam/player/data/GameBoard.cpp
 
-${OBJECTDIR}/src/sam/player/data/PlayerMode.o: src/sam/player/data/PlayerMode.cpp 
+${OBJECTDIR}/src/sam/player/data/PlayerData.o: src/sam/player/data/PlayerData.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/data
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/data/PlayerMode.o src/sam/player/data/PlayerMode.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/data/PlayerData.o src/sam/player/data/PlayerData.cpp
 
 ${OBJECTDIR}/src/sam/player/data/T3Board.o: src/sam/player/data/T3Board.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/data
@@ -145,6 +146,11 @@ ${OBJECTDIR}/src/sam/player/modules/analyse/GameAnalyser.o: src/sam/player/modul
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules/analyse
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/analyse/GameAnalyser.o src/sam/player/modules/analyse/GameAnalyser.cpp
+
+${OBJECTDIR}/src/sam/player/modules/analyse/LineAnalyser2.o: src/sam/player/modules/analyse/LineAnalyser2.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules/analyse
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/analyse/LineAnalyser2.o src/sam/player/modules/analyse/LineAnalyser2.cpp
 
 ${OBJECTDIR}/src/sam/player/modules/analyse/Strategy.o: src/sam/player/modules/analyse/Strategy.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules/analyse

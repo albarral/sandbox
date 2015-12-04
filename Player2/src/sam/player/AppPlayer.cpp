@@ -6,9 +6,10 @@
 #include <string>
 
 #include "sam/player/AppPlayer.h"
+#include "sam/player/data/GameDefs.h"
 #include "sam/player/modules/watch/VirtualWatcher.h"
 #include "sam/player/modules/move/VirtualMover.h"
-#include "modules/analyse/GameAnalyser.h"
+#include "sam/player/modules/analyse/GameAnalyser.h"
 
 namespace sam 
 {
@@ -50,9 +51,10 @@ void AppPlayer::startModules()
     LOG4CXX_INFO(logger, "AppPlayer: starting modules ..."); 
 
     // TEMP for test
-//    oPlayerMode.setEmptyMark(0);
-//    oPlayerMode.setMyMark(1);        
     emptyBoard();
+    oPlayerData.setEmptyMark(0);
+    oPlayerData.setMyMark(2);    
+    oPlayerData.setPlayMode(PlayerData::eMODE_SIMPLE);    
     
     pGameBoard = new GameBoard(3);
     
@@ -62,7 +64,7 @@ void AppPlayer::startModules()
     pBoardWatcher->setFrequency(2.0);
     pBoardWatcher->on();      
     
-    oGameAnalyser.init(*pGameBoard, oGameAction);
+    oGameAnalyser.init(*pGameBoard, oGameAction, oPlayerData);
     oGameAnalyser.connect(oBus);
     oGameAnalyser.setFrequency(2.0);
     oGameAnalyser.on();

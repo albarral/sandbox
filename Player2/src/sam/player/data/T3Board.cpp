@@ -25,7 +25,7 @@ T3Board::T3Board()
     oRow.setType(T3Board::eTYPE_ROW);    
     for (int i=0; i<3; i++)
     {
-        lineID = "row" + std::to_string(i);
+        lineID = "row " + std::to_string(i);
         oRow.setID(lineID);
         oRow.setOrdinal(i);
         this->addZone(oRow);                
@@ -37,7 +37,7 @@ T3Board::T3Board()
     oColumn.setType(T3Board::eTYPE_COL);    
     for (int i=0; i<3; i++)
     {
-        lineID = "column" + std::to_string(i);
+        lineID = "column " + std::to_string(i);
         oColumn.setID(lineID);
         oColumn.setOrdinal(i);
         this->addZone(oColumn);                

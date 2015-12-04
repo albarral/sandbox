@@ -31,8 +31,8 @@
           <itemPath>src/sam/player/data/GameBoard.cpp</itemPath>
           <itemPath>src/sam/player/data/GameBoard.h</itemPath>
           <itemPath>src/sam/player/data/GameDefs.h</itemPath>
-          <itemPath>src/sam/player/data/PlayerMode.cpp</itemPath>
-          <itemPath>src/sam/player/data/PlayerMode.h</itemPath>
+          <itemPath>src/sam/player/data/PlayerData.cpp</itemPath>
+          <itemPath>src/sam/player/data/PlayerData.h</itemPath>
           <itemPath>src/sam/player/data/T3Board.cpp</itemPath>
           <itemPath>src/sam/player/data/T3Board.h</itemPath>
         </logicalFolder>
@@ -40,6 +40,8 @@
           <logicalFolder name="analyse" displayName="analyse" projectFiles="true">
             <itemPath>src/sam/player/modules/analyse/GameAnalyser.cpp</itemPath>
             <itemPath>src/sam/player/modules/analyse/GameAnalyser.h</itemPath>
+            <itemPath>src/sam/player/modules/analyse/LineAnalyser2.cpp</itemPath>
+            <itemPath>src/sam/player/modules/analyse/LineAnalyser2.h</itemPath>
             <itemPath>src/sam/player/modules/analyse/Strategy.cpp</itemPath>
             <itemPath>src/sam/player/modules/analyse/Strategy.h</itemPath>
           </logicalFolder>
@@ -184,9 +186,9 @@
       </item>
       <item path="src/sam/player/data/GameDefs.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/sam/player/data/PlayerMode.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/data/PlayerData.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/sam/player/data/PlayerMode.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/data/PlayerData.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/sam/player/data/T3Board.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -200,6 +202,16 @@
             flavor2="0">
       </item>
       <item path="src/sam/player/modules/analyse/GameAnalyser.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/player/modules/analyse/LineAnalyser2.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/player/modules/analyse/LineAnalyser2.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -315,9 +327,9 @@
       </item>
       <item path="src/sam/player/data/GameDefs.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/sam/player/data/PlayerMode.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/sam/player/data/PlayerData.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/sam/player/data/PlayerMode.h" ex="false" tool="3" flavor2="0">
+      <item path="src/sam/player/data/PlayerData.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/sam/player/data/T3Board.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -331,6 +343,16 @@
             flavor2="0">
       </item>
       <item path="src/sam/player/modules/analyse/GameAnalyser.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/player/modules/analyse/LineAnalyser2.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/player/modules/analyse/LineAnalyser2.h"
             ex="false"
             tool="3"
             flavor2="0">

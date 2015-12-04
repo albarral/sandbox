@@ -15,6 +15,12 @@ GameMove::GameMove()
     element = 0;
 }
 
+void GameMove::update(BoardZone& oZone, int element, float Qvalue)
+{
+    this->oZone = oZone;
+    this->element = element;   
+    Q = Qvalue;
+}
 
 }
 }

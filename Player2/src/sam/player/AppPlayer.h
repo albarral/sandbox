@@ -11,7 +11,7 @@
 #include "sam/player/bus/Bus.h"
 #include "sam/player/data/GameBoard.h"
 #include "sam/player/data/GameAction.h"
-//#include "sam/player/data/PlayerMode.h"
+#include "sam/player/data/PlayerData.h"
 #include "sam/player/modules/watch/BoardWatcher.h"
 #include "sam/player/modules/analyse/GameAnalyser.h"
 
@@ -27,7 +27,7 @@ private:
     // shared data
     GameBoard* pGameBoard;
     GameAction oGameAction;
-    //PlayerMode oPlayerMode;
+    PlayerData oPlayerData;
     // modules
     BoardWatcher* pBoardWatcher;
     GameAnalyser oGameAnalyser;
