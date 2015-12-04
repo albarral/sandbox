@@ -27,21 +27,32 @@ void SimpleAnalyser::searchAttackMove(int playMode)
     // random play mode
     else if (playMode == PlayerData::eMODE_RANDOM)
     {
-        oStrategy.moveRandom(listEmptyCells);
+        oStrategy.randomAttack(listEmptyCells);
     }
 
     // set attack element & reward
-    attackElement = oStrategy.getBestMove();        
-    Qattack = oStrategy.getBestChance();              
+    attackElement = oStrategy.getAttackElement();        
+    Qattack = oStrategy.getAttackChance();              
     LOG4CXX_INFO(logger, "attack move: " << attackElement << ", Q=" << Qattack);  
 }
 
 void SimpleAnalyser::searchDefenseMove(int playMode)
 {
-    // no defensive moves performed
-    Qdefense = -1.0;
-    defenseElement = -1;
-    LOG4CXX_INFO(logger, "no defense: Q=" << Qdefense);  
+    // simple play mode
+    if (playMode == PlayerData::eMODE_SIMPLE)
+    {
+        oStrategy.defend(numMines, numOthers, numEmpties, listEmptyCells);
+    }
+    // random play mode
+    else if (playMode == PlayerData::eMODE_RANDOM)
+    {
+        oStrategy.randomDefense(listEmptyCells);
+    }
+
+    // set defense element & reward
+    defenseElement = oStrategy.getDefenseElement();
+    Qdefense = oStrategy.getDefenseChance();
+    LOG4CXX_INFO(logger, "defense move: " << defenseElement << ", Q=" << Qdefense);  
 }
 
 void SimpleAnalyser::storeKnowledge()

@@ -29,10 +29,10 @@ void SimpleAnalyser::searchBestAttack()
         oStrategy.moveRandom(listEmptyCells);
     }
 
-    pBoardLine->setBestAttackCell(oStrategy.getBestMove());
-    pBoardLine->setBestAttackQ(oStrategy.getBestChance());
+    pBoardLine->setBestAttackCell(oStrategy.getAttackElement());
+    pBoardLine->setBestAttackQ(oStrategy.getAttackChance());
     
-    LOG4CXX_INFO(logger, "best attack: " << oStrategy.getBestMove() << ", Q=" << oStrategy.getBestChance());  
+    LOG4CXX_INFO(logger, "best attack: " << oStrategy.getAttackElement() << ", Q=" << oStrategy.getAttackChance());  
 }
 
 void SimpleAnalyser::searchBestDefense()

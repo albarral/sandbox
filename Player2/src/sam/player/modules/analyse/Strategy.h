@@ -21,31 +21,41 @@ public:
     // Chances to win when selecting a cell from a given line (row, column or diagonal) 
     enum eChance
     {
-        eCHANCES_ZERO,        // no chances: closed line or open line - some others
-        eCHANCES_LOW,         // low chances: open line - all empty
-        eCHANCES_HIGH,        // high changes: open line - 1 mine + 2 empties
-        eCHANCES_WINNER     // winner move: open line - 2 mines + 1 empty
+        eREWARD_ZERO,        // no chances: closed line or open line - some others
+        eREWARD_LOW,         // low chances: open line - all empty
+        eREWARD_HIGH,        // high changes: open line - 1 mine + 2 empties
+        eREWARD_MAX     // winner move: open line - 2 mines + 1 empty
     };
 
 private:
     static log4cxx::LoggerPtr logger;
-    int bestMove;           // selected cell for attack move (cell position in the board line)
-    int bestChance;        // best chance for attach move
+    int attackCell;           // selected cell for attack move (cell position in the board line)
+    int attackReward;        // best chance for attach move
+    int defenseCell;           // selected cell for attack move (cell position in the board line)
+    int defenseReward;        // best chance for attach move
     
 public:
     Strategy();
 
-    int getBestMove() {return bestMove;}
-    int getBestChance() {return bestChance;}
+    int getAttackElement() {return attackCell;}
+    int getAttackChance() {return attackReward;}
+    int getDefenseElement() {return defenseCell;}
+    int getDefenseChance() {return defenseReward;}
         
     // selects the attack move based on a simple predefined knowledge
     void attack(int numMines, int numOthers, int numEmpties, std::vector<int> listEmptyCells);
-    // selects the attack move randomly among the available empty cells
-    void moveRandom(std::vector<int> listEmptyCells);
+    // selects the defense move based on a simple predefined knowledge
+    void defend(int numMines, int numOthers, int numEmpties, std::vector<int> listEmptyCells);
+    // random attack
+    void randomAttack(std::vector<int> listEmptyCells);
+    // random defense
+    void randomDefense(std::vector<int> listEmptyCells);
     
 private:    
     // sets values to invalid attack (no chance, no move)
     void setInvalidAttack();
+    // sets values to invalid attack (no chance, no move)
+    void setInvalidDefense();
 };
 }
 }
