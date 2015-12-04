@@ -33,7 +33,7 @@ int PlayerData::getPlayMode()
 bool PlayerData::isRandomPlayMode() 
 {
     std::lock_guard<std::mutex> locker(mutex);
-    return (playMode == PlayerData::eMODE_SIMPLE);
+    return (playMode == PlayerData::eMODE_RANDOM);
 };
 
 bool PlayerData::isSimplePlayMode() 
@@ -54,6 +54,28 @@ bool PlayerData::isSmartExplorativePlayMode()
     return (playMode == PlayerData::eMODE_SMART_EXPLORE);
 };
 
+std::string PlayerData::getPlayModeName(int playMode)
+{
+    std::string name;
+    switch (playMode)
+    {
+        case eMODE_RANDOM:
+            name = "random";
+            break;
+        case eMODE_SIMPLE:
+            name = "simple";
+            break;
+        case eMODE_SMART:           
+            name = "smart";
+            break;
+        case eMODE_SMART_EXPLORE:
+            name = "explorative";
+            break;
+        default:
+            name = "invalid";
+    }
+    return name;
+}
 
 std::string PlayerData::toString()
 {

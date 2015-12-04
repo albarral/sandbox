@@ -16,19 +16,25 @@ log4cxx::LoggerPtr LineAnalyser::logger(log4cxx::Logger::getLogger("sam.player")
 
 LineAnalyser::LineAnalyser() 
 {
+    myMark = -1;       // default
     emptyMark = 0;     // default
     resetData();
 }
-
-void LineAnalyser::analyseLine(cv::Mat& matLine, int myMark, int playMode)
+    
+void LineAnalyser::setMarks(int mine, int empty) 
 {
-    LOG4CXX_INFO(logger, "analise line " << matLine);     
+    myMark = mine; 
+    emptyMark = empty;
+    LOG4CXX_INFO(logger, "New marks (mine, empty) = " << mine << ", " << empty);   
+};    
 
+void LineAnalyser::analyseLine(cv::Mat& matLine, int playMode)
+{
+    //LOG4CXX_INFO(logger, "analise " << matLine);     
     lineSize = std::max(matLine.rows, matLine.cols);
     
     // reset analysis result 
-    resetData();
-    
+    resetData();    
     // fast line check 
     checkLine(matLine, myMark);
     
@@ -50,18 +56,6 @@ void LineAnalyser::analyseLine(cv::Mat& matLine, int myMark, int playMode)
 void LineAnalyser::storeKnowledge()
 {
     LOG4CXX_INFO(logger, "store knowledge ... TO DO");         
-}
-
-void LineAnalyser::searchAttackMove(int playMode)
-{
-    LOG4CXX_INFO(logger, "attack move ... TO DO");     
-    Qattack = 1.0;
-}
-
-void LineAnalyser::searchDefenseMove(int playMode)
-{
-    LOG4CXX_INFO(logger, "defense move ... TO DO");     
-    Qdefense = 1.0;
 }
 
 void LineAnalyser::resetData()

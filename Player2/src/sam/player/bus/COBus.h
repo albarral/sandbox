@@ -22,7 +22,7 @@ class COBus
         // analyser module
         brooks::Control coAnalyserInhibit;
         brooks::Control coAnalyseFull;
-        
+        brooks::Control coChangePlayer;
         
     public:
         COBus();
@@ -32,6 +32,7 @@ class COBus
         // analyser module
         brooks::Control& getCO_ANALYSER_INHIBIT() {return coAnalyserInhibit;};           
         brooks::Control& getCO_ANALYSE_FULL() {return coAnalyseFull;};           
+        brooks::Control& getCO_CHANGE_PLAYER() {return coChangePlayer;};
 };
 
 }

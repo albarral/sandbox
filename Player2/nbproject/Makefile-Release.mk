@@ -49,6 +49,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/sam/player/main.o \
 	${OBJECTDIR}/src/sam/player/modules/analyse/GameAnalyser.o \
 	${OBJECTDIR}/src/sam/player/modules/analyse/LineAnalyser2.o \
+	${OBJECTDIR}/src/sam/player/modules/analyse/SimpleAnalyser2.o \
 	${OBJECTDIR}/src/sam/player/modules/analyse/Strategy.o \
 	${OBJECTDIR}/src/sam/player/modules/move/VirtualMover.o \
 	${OBJECTDIR}/src/sam/player/modules/watch/BoardWatcher.o \
@@ -151,6 +152,11 @@ ${OBJECTDIR}/src/sam/player/modules/analyse/LineAnalyser2.o: src/sam/player/modu
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules/analyse
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/analyse/LineAnalyser2.o src/sam/player/modules/analyse/LineAnalyser2.cpp
+
+${OBJECTDIR}/src/sam/player/modules/analyse/SimpleAnalyser2.o: src/sam/player/modules/analyse/SimpleAnalyser2.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules/analyse
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/analyse/SimpleAnalyser2.o src/sam/player/modules/analyse/SimpleAnalyser2.cpp
 
 ${OBJECTDIR}/src/sam/player/modules/analyse/Strategy.o: src/sam/player/modules/analyse/Strategy.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules/analyse

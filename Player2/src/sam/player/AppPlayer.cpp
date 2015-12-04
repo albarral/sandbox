@@ -53,7 +53,7 @@ void AppPlayer::startModules()
     // TEMP for test
     emptyBoard();
     oPlayerData.setEmptyMark(0);
-    oPlayerData.setMyMark(2);    
+    oPlayerData.setMyMark(1);    
     oPlayerData.setPlayMode(PlayerData::eMODE_SIMPLE);    
     
     pGameBoard = new GameBoard(3);

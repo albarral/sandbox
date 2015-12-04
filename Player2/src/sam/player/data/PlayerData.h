@@ -52,6 +52,8 @@ public:
     bool isSmartPlayMode();
     bool isSmartExplorativePlayMode();
 
+    // gets play mode name
+    static std::string getPlayModeName(int playMode);
     // returns member values in string form
     std::string toString();    
 };

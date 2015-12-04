@@ -7,8 +7,10 @@
 #include "log4cxx/ndc.h"
 
 #include "sam/player/modules/analyse/GameAnalyser.h"
+#include "sam/player/modules/analyse/SimpleAnalyser2.h"
 #include "sam/player/modules/watch/BoardWatcher.h"
 #include "sam/player/data/T3Board.h"
+#include "SimpleAnalyser2.h"
 
 namespace sam 
 {
@@ -20,8 +22,20 @@ GameAnalyser::GameAnalyser()
 {
     //  initial state must be Module2::state_OFF
     binitialized = false;
-    requiredStableTime = 2;
+    requiredStableTime = 0; 
     pGameBoard = 0;
+    pGameAction = 0;
+    pPlayerData = 0;
+    pLineAnalyser = 0;
+}
+
+GameAnalyser::~GameAnalyser() 
+{
+    if (pLineAnalyser != 0)
+    {
+        delete (pLineAnalyser);
+        pLineAnalyser = 0;
+    }
 }
 
 void GameAnalyser::init(GameBoard& oGameBoard, GameAction& oGameAction, PlayerData& oPlayerData)
@@ -30,16 +44,16 @@ void GameAnalyser::init(GameBoard& oGameBoard, GameAction& oGameAction, PlayerDa
     pGameAction = &oGameAction;
     pPlayerData = &oPlayerData;
     matBoard = pGameBoard->getMatrixClone();
-    // empty mark obtained here (will not change through the game)
-    oLineAnalyser.setEmptyMark(oPlayerData.getEmptyMark());
-    binitialized = true;
+    // change analyzer according to new play mode    
+    binitialized = changeAnalyser();  
+
     LOG4CXX_INFO(logger, "GameAnalyser initialized");     
 };
 
 void GameAnalyser::first()
 {    
     log4cxx::NDC::push("Analyser");   	
-    //log4cxx::NDC::push("()");   	
+    pGameAction->reset();	
 
     // we start in WAITING state
     if (binitialized && isConnected())
@@ -76,7 +90,7 @@ void GameAnalyser::loop()
         case GameAnalyser::eSTATE_WAIT:
                         
             // if board is stable (changes have finished)
-            if (checkBoardStable())
+            if (isBoardStable())
             {
                 // fetch new changed lines & add them to the check list
                 fetchBoardData();
@@ -88,10 +102,12 @@ void GameAnalyser::loop()
         case GameAnalyser::eSTATE_ANALYSE:
 
             // if board still stable 
-            if (checkBoardStable())
+            if (isBoardStable())
             {
                 // do analysis
                 doAnalysis();         
+                // and update game action with best moves
+                updateGameAction();
                 // and -> DONE
                 setState(GameAnalyser::eSTATE_DONE);              
             }
@@ -125,6 +141,12 @@ void GameAnalyser::senseBus()
     binhibited = pBus->getCOBus().getCO_ANALYSER_INHIBIT().checkRequested();
     // CO_ANALYSE_FULL
     bFullAnalysis = pBus->getCOBus().getCO_ANALYSE_FULL().checkRequested();
+    // CO_CHANGE_PLAYER
+    if (pBus->getCOBus().getCO_CHANGE_PLAYER().checkRequested())
+    {
+        // change analyzer according to new play mode
+        binitialized = changeAnalyser();  
+    }
     
     // read sensors IN: 
     // SO_WATCHER_STATE
@@ -140,7 +162,41 @@ void GameAnalyser::writeBus()
     pBus->getSOBus().getSO_ANALYSER_STATE().setValue(getState());
 }
 
-bool GameAnalyser::checkBoardStable()
+
+bool GameAnalyser::changeAnalyser()
+{
+    requiredStableTime = 2; // TEMP: should be included in PlayerData !!!
+
+    // eliminate previous analyser
+    if (pLineAnalyser != 0)
+    {
+        delete (pLineAnalyser);
+        pLineAnalyser = 0;
+    }
+    
+    // create new line analyser according to requested playmode       
+    switch (pPlayerData->getPlayMode())
+    {
+        case PlayerData::eMODE_SIMPLE:
+        case PlayerData::eMODE_RANDOM:
+            pLineAnalyser = new SimpleAnalyser();
+            break;            
+    }
+    
+    if (pLineAnalyser != 0)
+    {
+        // also update analysed marks
+        pLineAnalyser->setMarks(pPlayerData->getMyMark(), pPlayerData->getEmptyMark());
+        return true;
+    }
+    else 
+    {
+        LOG4CXX_ERROR(logger, "No LineAnalyser created!! Unknown playmode " << pPlayerData->getPlayMode());   
+        return false;
+    }
+}
+
+bool GameAnalyser::isBoardStable()
 {
     return (watcherState == BoardWatcher::eSTATE_STABLE && stableTime >= requiredStableTime);
 }
@@ -150,7 +206,7 @@ void GameAnalyser::fetchBoardData()
     // fetch the new board info 
     std::vector<BoardZone> listChangedLines;  
     pGameBoard->fetchInfo(matBoard, listChangedLines);
-    // update the list of lines to check
+    // all changed lines are added to the check list (keeping the existing ones)
     lines2Check.insert(lines2Check.end(), listChangedLines.begin(), listChangedLines.end());
     // inform the watcher module its change detection is being processed (through CO_WATCHER_ACK)
     pBus->getCOBus().getCO_WATCHER_ACK().request();    
@@ -158,10 +214,14 @@ void GameAnalyser::fetchBoardData()
 
 void GameAnalyser::doAnalysis()
 {
-    LOG4CXX_INFO(logger, "analyse ...");     
+    //LOG4CXX_INFO(logger, "analyse ...");     
     oAttackMove.reset();
     oDefenseMove.reset();    
 
+    // on first analysis, force check of whole board
+    if (pGameAction->getAttackMoveReward() == -1)
+        forceExhaustiveCheck();
+        
     // analyse each of the lines in the check list
     while (!lines2Check.empty())
     {        
@@ -171,21 +231,20 @@ void GameAnalyser::doAnalysis()
         cv::Mat matLine = getLineFromBoard(oZone);
         
         // analyse line ...
-        LOG4CXX_INFO(logger, "line ... " << oZone.getID());    
-        LOG4CXX_INFO(logger, matLine);    
-        oLineAnalyser.analyseLine(matLine, pPlayerData->getMyMark(), pPlayerData->getPlayMode());
+        LOG4CXX_INFO(logger, "- " << oZone.getID() << matLine);    
+        pLineAnalyser->analyseLine(matLine, pPlayerData->getPlayMode());
         
         // track best attack
-        if (oLineAnalyser.getAttackQ() > oAttackMove.getQ())
+        if (pLineAnalyser->getAttackQ() > oAttackMove.getQ())
         {
-            LOG4CXX_INFO(logger, "best attack updated");    
-            oAttackMove.update(oZone, oLineAnalyser.getAttackElement(), oLineAnalyser.getAttackQ());                        
+            LOG4CXX_INFO(logger, "best attack !!");    
+            oAttackMove.update(oZone, pLineAnalyser->getAttackElement(), pLineAnalyser->getAttackQ());                        
         }
         // track best defense
-        if (oLineAnalyser.getDefenseQ() > oDefenseMove.getQ())
+        if (pLineAnalyser->getDefenseQ() > oDefenseMove.getQ())
         {
-            LOG4CXX_INFO(logger, "best defense updated");    
-            oDefenseMove.update(oZone, oLineAnalyser.getDefenseElement(), oLineAnalyser.getDefenseQ());                        
+            LOG4CXX_INFO(logger, "best defense !!");    
+            oDefenseMove.update(oZone, pLineAnalyser->getDefenseElement(), pLineAnalyser->getDefenseQ());                        
         }
         
         // remove this line from check list
@@ -193,7 +252,24 @@ void GameAnalyser::doAnalysis()
     }
     
     // finally store learned data
-    oLineAnalyser.storeKnowledge();
+    pLineAnalyser->storeKnowledge();
+}
+
+ // updates game action with best moves
+void GameAnalyser::updateGameAction()
+{
+    // update attack move if this is better
+    if (oAttackMove.getQ() > pGameAction->getAttackMoveReward())
+    {
+        LOG4CXX_INFO(logger, "new attack action !!! " << oAttackMove.toString());
+        pGameAction->updateAttackInfo(oAttackMove);
+    }
+    // track best defense
+    if (oDefenseMove.getQ() > pGameAction->getDefenseMoveReward())
+    {
+        LOG4CXX_INFO(logger, "new defense action !!! " << oDefenseMove.toString());    
+        pGameAction->updateDefenseInfo(oDefenseMove);                        
+    }        
 }
 
 // Extract the proper line data from the board matrix
@@ -225,6 +301,19 @@ cv::Mat GameAnalyser::getLineFromBoard(BoardZone& oZone)
     }
 
     return matLine;    
+}
+
+// force a check of the whole board by putting all lines in the check list
+void GameAnalyser::forceExhaustiveCheck()
+{
+    LOG4CXX_INFO(logger, "exhaustive check forced");     
+    // get all lines in a tic-tac-toe board
+    T3Board oT3Board;
+    std::vector<BoardZone>& listBoardZones = oT3Board.getListZones();
+
+    // all board lines list inserted into check list  (can't copy vector to deque)    
+    lines2Check.clear();
+    lines2Check.insert(lines2Check.end(), listBoardZones.begin(), listBoardZones.end());
 }
 
 // Shows the state name

@@ -11,8 +11,16 @@ namespace player
 {     
 GameAction::GameAction() 
 {
+    reset();
  }
  
+void GameAction::reset()
+{
+    std::lock_guard<std::mutex> locker(mutex);
+    oAttackMove.reset();
+    oDefenseMove.reset();    
+}
+
 void GameAction::updateAttackInfo(GameMove& oMove)
 {
     std::lock_guard<std::mutex> locker(mutex);
@@ -25,6 +33,18 @@ void GameAction::updateDefenseInfo(GameMove& oMove)
     oDefenseMove = oMove;
 }
 
+float GameAction::getAttackMoveReward()
+{
+    std::lock_guard<std::mutex> locker(mutex);
+    return oAttackMove.getQ();    
+}
+
+float GameAction::getDefenseMoveReward()
+{
+    std::lock_guard<std::mutex> locker(mutex);
+    return oDefenseMove.getQ();    
+}
+    
 GameMove GameAction::getAttackMoveCopy()
 {
     std::lock_guard<std::mutex> locker(mutex);

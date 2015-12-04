@@ -6,6 +6,8 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include <string>
+
 #include "sam/player/utils/BoardZone.h"
 
 namespace sam
@@ -23,13 +25,16 @@ private:
 public:
     GameMove();
               
-    void reset() {Q = -1.0;};
+    void reset() {Q = -1.0; element = -1;};
         
     BoardZone& getZone() {return oZone;}    
     int getElement() {return element;};   
     int getQ() {return Q;};
     
     void update(BoardZone& oZone, int element, float Qvalue);
+    
+    // gets GameMove description
+    std::string toString();
 };
 
 }

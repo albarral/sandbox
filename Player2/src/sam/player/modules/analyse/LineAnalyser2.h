@@ -42,7 +42,8 @@ public:
 
 protected:
     static log4cxx::LoggerPtr logger;
-    int emptyMark;    // empty mark (obtained from PlayerMode)
+    int myMark;         // my mark
+    int emptyMark;    // empty mark
     std::vector<int>gameLine;   // analysed line converted to game domain (empty/mine/other)
     int lineSize;
     int numMines;       // number of cells marked as mine
@@ -58,12 +59,12 @@ protected:
 public:
     LineAnalyser();
     
-    // set mark for empty cells
-    void setEmptyMark(int value) {emptyMark = value;};    
+    // set marks for cells
+    void setMarks(int mine, int empty);
     // analyses the specified line using the given mark and play mode
-    void analyseLine(cv::Mat& matLine, int myMark, int playMode);
+    void analyseLine(cv::Mat& matLine, int playMode);
     // updates the stored knowledge about the task (for smart players)
-    virtual void storeKnowledge();// = 0; TO DO - become pure virtual              
+    virtual void storeKnowledge() = 0; 
     // gets name of check result
     static std::string getResultName(int checkResult);
     
@@ -86,9 +87,9 @@ protected:
     void setAttackElement(int value) {attackElement = value;};
     void setDefenseElement(int value) {defenseElement = value;};
     // searches the best attack move for the present board line
-    virtual void searchAttackMove(int playMode);// = 0;  TO DO - become pure virtual
+    virtual void searchAttackMove(int playMode) = 0;  
     // searches the best defense move for the present board line
-    virtual void searchDefenseMove(int playMode);// = 0; TO DO - become pure virtual
+    virtual void searchDefenseMove(int playMode) = 0; 
 };
 
 }

@@ -26,6 +26,8 @@ public:
     int getNumZones();
     void addZone(BoardZone& oBoardZone);
     
+    // returns a list of all the zones in the board
+    std::vector<BoardZone>& getListZones() {return listZones;};    
     // returns a list of zones of the specified type
     std::vector<BoardZone> getZonesOfType(int type);    
     // returns the zone in the specified position of the zones list

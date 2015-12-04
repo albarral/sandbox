@@ -41,7 +41,11 @@ public:
     // selects the attack move based on a simple predefined knowledge
     void attack(int numMines, int numOthers, int numEmpties, std::vector<int> listEmptyCells);
     // selects the attack move randomly among the available empty cells
-    void attackRandom(std::vector<int> listEmptyCells);
+    void moveRandom(std::vector<int> listEmptyCells);
+    
+private:    
+    // sets values to invalid attack (no chance, no move)
+    void setInvalidAttack();
 };
 }
 }

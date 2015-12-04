@@ -26,7 +26,7 @@ void SimpleAnalyser::searchBestAttack()
     // random play mode
     else if (pPlayerMode->getPlayMode() == PlayerMode::eMODE_RANDOM)
     {
-        oStrategy.attackRandom(listEmptyCells);
+        oStrategy.moveRandom(listEmptyCells);
     }
 
     pBoardLine->setBestAttackCell(oStrategy.getBestMove());

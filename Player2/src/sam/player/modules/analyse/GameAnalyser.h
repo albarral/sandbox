@@ -60,7 +60,7 @@ protected:
     // logic
     cv::Mat matBoard;              // matrix of present board
     std::deque<BoardZone> lines2Check;    // list of changed lines that need to be checked
-    LineAnalyser oLineAnalyser;    // tool for line analysis
+    LineAnalyser* pLineAnalyser;    // tool for line analysis
     GameMove oAttackMove;
     GameMove oDefenseMove;
     // controls & sensors
@@ -71,7 +71,8 @@ protected:
 
 public:
     GameAnalyser();
-    
+    ~GameAnalyser();
+            
     // initializes the module 
     void init(GameBoard& oGameBoard, GameAction& oGameAction, PlayerData& oPlayerData);
        
@@ -88,14 +89,22 @@ private:
     // update bus
     void writeBus();
     
+    // change line analyser (and other features) as defined by changed PlayerData
+    bool changeAnalyser();
+    
     // checks if board is stable (watcher stable for enough time)
-    bool checkBoardStable();
+    bool isBoardStable();
     // fetch board data (get the matrix and update the list of lines to be analysed)
     void fetchBoardData();
     // processes the board changes in a line by line basis
     void doAnalysis();
     // get the specified zone (line) from the board
     cv::Mat getLineFromBoard(BoardZone& oZone);
+    // updates game action with best moves
+    void updateGameAction();
+    
+    // force a check of the whole board by putting all lines in the check list
+    void forceExhaustiveCheck();
 
     // traces the changes in state
     void showStateName();     

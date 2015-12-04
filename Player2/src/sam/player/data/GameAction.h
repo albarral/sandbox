@@ -26,9 +26,14 @@ private:
     
 public:
     GameAction();
+    
+    void reset();
         
     void updateAttackInfo(GameMove& oMove);
     void updateDefenseInfo(GameMove& oMove);
+    
+    float getAttackMoveReward();
+    float getDefenseMoveReward();
     
     GameMove getAttackMoveCopy();
     GameMove getDefenseMoveCopy();

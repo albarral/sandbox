@@ -22,5 +22,13 @@ void GameMove::update(BoardZone& oZone, int element, float Qvalue)
     Q = Qvalue;
 }
 
+// gets GameMove description
+std::string GameMove::toString()
+{
+  return ("GameMove: [zone = " + oZone.getID() +  
+      ", element = " + std::to_string(element) + 
+      ", Q = " + std::to_string(Q) + "]");     
+}
+
 }
 }

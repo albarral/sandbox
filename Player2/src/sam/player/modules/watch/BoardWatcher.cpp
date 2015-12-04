@@ -139,7 +139,7 @@ void BoardWatcher::senseBus()
     if (pBus->getCOBus().getCO_WATCHER_ACK().checkRequested())
     {
         // on ack received, reset changed lines
-        LOG4CXX_INFO(logger, "ack received");     
+        //LOG4CXX_INFO(logger, "ack received");     
         pGameBoard->resetChangedLines();
     }
 }

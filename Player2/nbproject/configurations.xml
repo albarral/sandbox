@@ -42,6 +42,8 @@
             <itemPath>src/sam/player/modules/analyse/GameAnalyser.h</itemPath>
             <itemPath>src/sam/player/modules/analyse/LineAnalyser2.cpp</itemPath>
             <itemPath>src/sam/player/modules/analyse/LineAnalyser2.h</itemPath>
+            <itemPath>src/sam/player/modules/analyse/SimpleAnalyser2.cpp</itemPath>
+            <itemPath>src/sam/player/modules/analyse/SimpleAnalyser2.h</itemPath>
             <itemPath>src/sam/player/modules/analyse/Strategy.cpp</itemPath>
             <itemPath>src/sam/player/modules/analyse/Strategy.h</itemPath>
           </logicalFolder>
@@ -216,6 +218,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/sam/player/modules/analyse/SimpleAnalyser2.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/player/modules/analyse/SimpleAnalyser2.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/sam/player/modules/analyse/Strategy.cpp"
             ex="false"
             tool="1"
@@ -353,6 +365,16 @@
             flavor2="0">
       </item>
       <item path="src/sam/player/modules/analyse/LineAnalyser2.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/player/modules/analyse/SimpleAnalyser2.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/player/modules/analyse/SimpleAnalyser2.h"
             ex="false"
             tool="3"
             flavor2="0">

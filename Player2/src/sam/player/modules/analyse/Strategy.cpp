@@ -13,14 +13,13 @@ log4cxx::LoggerPtr Strategy::logger(log4cxx::Logger::getLogger("sam.player"));
 
 Strategy::Strategy() 
 {
-    bestChance = eCHANCES_ZERO;     
+    setInvalidAttack();
 }
 
-void Strategy::attackRandom(std::vector<int> listEmptyCells)
+void Strategy::moveRandom(std::vector<int> listEmptyCells)
 {
-    // we start the check with zero chances
-    bestChance = Strategy::eCHANCES_ZERO;  
-
+    setInvalidAttack();
+    
     // no attack if line is closed
     if (listEmptyCells.size() == 0)
         return;    
@@ -28,22 +27,22 @@ void Strategy::attackRandom(std::vector<int> listEmptyCells)
     // Choose one of the empty cells randomly
     int randNum = rand() % listEmptyCells.size();
     bestMove = listEmptyCells.at(randNum);
+    // low chances if you attack randomly
     bestChance = Strategy::eCHANCES_LOW;
 }
 
 
 // selects the attack move based on a simple predefined knowledge
 void Strategy::attack(int numMines, int numOthers, int numEmpties, std::vector<int> listEmptyCells)
-{    
-    // we start the check with zero chances
-    bestChance = Strategy::eCHANCES_ZERO;  
-
+{
+    setInvalidAttack();    
+    
     // no attack if line is closed
     if (listEmptyCells.size() == 0)
         return;    
     
     // open line & free of others
-    if (numEmpties > 0 && numOthers == 0)
+    if (numOthers == 0)
     {
         switch (numMines)
         {               
@@ -59,11 +58,20 @@ void Strategy::attack(int numMines, int numOthers, int numEmpties, std::vector<i
             case 2:
                 bestChance = Strategy::eCHANCES_WINNER;
                 break;                    
-        }          
-        
-        // select first empty cell in the line
-        bestMove = listEmptyCells.at(0);        
+        }                  
     }
+    // open line, but with others
+    else 
+        bestChance = Strategy::eCHANCES_ZERO;          
+
+    // select first empty cell in the line
+    bestMove = listEmptyCells.at(0);        
+}
+
+void Strategy::setInvalidAttack()
+{
+    bestChance = -1;
+    bestMove = -1;    
 }
 
 }
