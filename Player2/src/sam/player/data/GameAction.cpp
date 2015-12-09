@@ -36,13 +36,13 @@ void GameAction::updateDefenseInfo(GameMove& oMove)
 float GameAction::getAttackMoveReward()
 {
     std::lock_guard<std::mutex> locker(mutex);
-    return oAttackMove.getQ();    
+    return oAttackMove.getQattack(); 
 }
 
 float GameAction::getDefenseMoveReward()
 {
     std::lock_guard<std::mutex> locker(mutex);
-    return oDefenseMove.getQ();    
+    return oDefenseMove.getQdefense();
 }
     
 GameMove GameAction::getAttackMoveCopy()

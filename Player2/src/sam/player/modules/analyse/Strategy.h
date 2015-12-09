@@ -6,7 +6,6 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include <vector>
 #include <log4cxx/logger.h>
 
 namespace sam
@@ -29,33 +28,18 @@ public:
 
 private:
     static log4cxx::LoggerPtr logger;
-    int attackCell;           // selected cell for attack move (cell position in the board line)
-    int attackReward;        // best chance for attach move
-    int defenseCell;           // selected cell for attack move (cell position in the board line)
-    int defenseReward;        // best chance for attach move
     
 public:
     Strategy();
 
-    int getAttackElement() {return attackCell;}
-    int getAttackChance() {return attackReward;}
-    int getDefenseElement() {return defenseCell;}
-    int getDefenseChance() {return defenseReward;}
-        
     // selects the attack move based on a simple predefined knowledge
-    void attack(int numMines, int numOthers, int numEmpties, std::vector<int> listEmptyCells);
+    float attack(int numMines, int numOthers, int numEmpties);
     // selects the defense move based on a simple predefined knowledge
-    void defend(int numMines, int numOthers, int numEmpties, std::vector<int> listEmptyCells);
+    float defend(int numMines, int numOthers, int numEmpties);
     // random attack
-    void randomAttack(std::vector<int> listEmptyCells);
+    float randomAttack();
     // random defense
-    void randomDefense(std::vector<int> listEmptyCells);
-    
-private:    
-    // sets values to invalid attack (no chance, no move)
-    void setInvalidAttack();
-    // sets values to invalid attack (no chance, no move)
-    void setInvalidDefense();
+    float randomDefense();
 };
 }
 }

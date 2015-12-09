@@ -12,6 +12,9 @@
 
 #include "opencv2/core/core.hpp" //for the matrix
 
+#include "sam/player/utils/BoardZone.h"
+#include "sam/player/utils/GameMove.h"
+
 namespace sam 
 {
 namespace player
@@ -25,19 +28,19 @@ public:
     // result of line analysis
     enum eResult  
     {
-        eRESULT_UNDEFINED,
-        eRESULT_OPEN,        // open line (some empty cell)
-        eRESULT_CLOSED,    // closed line (filled line, no winner)
-        eRESULT_WON,        // winner line (3 mines)
-        eRESULT_LOST,       // lost line (3 other's)
-        eRESULT_DIM
+        eLINE_UNDEFINED,
+        eLINE_OPEN,        // open line (some empty cell)
+        eLINE_CLOSED,    // closed line (filled line, no winner)
+        eLINE_WON,        // winner line (3 mines)
+        eLINE_LOST,       // lost line (3 other's)
+        eLINE_DIM
     };
     // cell values
     enum eMark  
     {
-        eMARK_EMPTY,        // empty cell
-        eMARK_MINE,          // cell with my mark
-        eMARK_OTHER       // cell with other's mark
+        eCELL_EMPTY,        // empty cell
+        eCELL_MINE,          // cell with my mark
+        eCELL_OTHER       // cell with other's mark
     };
 
 protected:
@@ -49,12 +52,8 @@ protected:
     int numMines;       // number of cells marked as mine
     int numOthers;      // number of cells marked as others'
     int numEmpties;     // number of empty cells
-    std::vector<int> listEmptyCells;    // positions of empty cells (if any) in the line
+    std::vector<GameMove> listMoves;
     int result;             // result of line analysis (one of eResult)
-    float Qattack;              // attack reward
-    int attackElement;        // attack element in zone (cell)  
-    float Qdefense;            // defense reward 
-    int defenseElement;     // defense element in zone (cell)  
 
 public:
     LineAnalyser();
@@ -62,34 +61,27 @@ public:
     // set marks for cells
     void setMarks(int mine, int empty);
     // analyses the specified line using the given mark and play mode
-    void analyseLine(cv::Mat& matLine, int playMode);
+    void analyseLine(BoardZone& oZone, cv::Mat& matLine, int playMode);
     // updates the stored knowledge about the task (for smart players)
     virtual void storeKnowledge() = 0; 
     // gets name of check result
     static std::string getResultName(int checkResult);
-    
-    float getAttackQ() {return Qattack;};
-    float getDefenseQ() {return Qdefense;};
-    int getAttackElement() {return attackElement;};
-    int getDefenseElement() {return defenseElement;};
+    // gets the list of available moves
+    std::vector<GameMove>& getListMoves() {return listMoves;};
     
 private:
     // reset analysis data
     void resetData();
     // fast check of the line to determine if it's open or closed
-    void checkLine(cv::Mat& matLine, int myMark);
-    // analyzes the cell in the given position 
-    void checkCell(int pos, int cellValue, int myMark);
+    void checkLine(BoardZone& oZone, cv::Mat& matLine, int myMark);
+    // analyzes the given cell
+    int checkCell(int cellValue, int myMark);
     
 protected:    
-    void setAttackQ(float value) {Qattack = value;};
-    void setDefenseQ(float value) {Qdefense = value;};
-    void setAttackElement(int value) {attackElement = value;};
-    void setDefenseElement(int value) {defenseElement = value;};
     // searches the best attack move for the present board line
-    virtual void searchAttackMove(int playMode) = 0;  
+    virtual void checkMoves4Attack(int playMode) = 0;  
     // searches the best defense move for the present board line
-    virtual void searchDefenseMove(int playMode) = 0; 
+    virtual void checkMoves4Defense(int playMode) = 0; 
 };
 
 }

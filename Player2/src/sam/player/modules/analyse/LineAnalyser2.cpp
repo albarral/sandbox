@@ -28,23 +28,25 @@ void LineAnalyser::setMarks(int mine, int empty)
     LOG4CXX_INFO(logger, "New marks (mine, empty) = " << mine << ", " << empty);   
 };    
 
-void LineAnalyser::analyseLine(cv::Mat& matLine, int playMode)
+void LineAnalyser::analyseLine(BoardZone& oZone, cv::Mat& matLine, int playMode)
 {
     //LOG4CXX_INFO(logger, "analise " << matLine);     
     lineSize = std::max(matLine.rows, matLine.cols);
     
+    // reset moves
+    listMoves.clear();    
     // reset analysis result 
     resetData();    
     // fast line check 
-    checkLine(matLine, myMark);
+    checkLine(oZone, matLine, myMark);
     
     // if line open, search best move
-    if (result == LineAnalyser::eRESULT_OPEN)
+    if (result == LineAnalyser::eLINE_OPEN)
     {
         // search attack move
-        searchAttackMove(playMode);
+        checkMoves4Attack(playMode);
         // search defense move
-        searchDefenseMove(playMode);                
+        checkMoves4Defense(playMode);                
     }
     // line not open (closed, winner or looser)
     else
@@ -61,9 +63,7 @@ void LineAnalyser::storeKnowledge()
 void LineAnalyser::resetData()
 {
     numMines = numOthers = numEmpties = 0;
-    listEmptyCells.clear();        
-    result = LineAnalyser::eRESULT_UNDEFINED;    
-    Qattack = Qdefense = -1.0;    
+    result = LineAnalyser::eLINE_UNDEFINED;    
 }
 
 // checks the line state (open, closed, won or lost)
@@ -71,54 +71,66 @@ void LineAnalyser::resetData()
 // closed: no empty cells, no winner
 // won: all cells mine, winner
 // lost: all cells other's, looser
-void LineAnalyser::checkLine(cv::Mat& matLine, int myMark)
+void LineAnalyser::checkLine(BoardZone& oZone, cv::Mat& matLine, int myMark)
 {
     // reset game line
     gameLine.clear();
+    // default game move
+    GameMove* oGameMove = new GameMove(oZone);
     
-    // analyze line cell by cell
+    // analyze line cell by cell, filling the list of moves
     for (int i=0; i<lineSize; i++)
     {
-        checkCell(i, matLine.at<uchar>(i), myMark);
+        int res = checkCell(matLine.at<uchar>(i), myMark);
+        // update the game line with the cell's check result
+        gameLine.push_back(res);
+        // if empty cell, add new move to the list
+        if (res == LineAnalyser::eCELL_EMPTY)
+        {
+            oGameMove->setElement(i);
+            listMoves.push_back(*oGameMove);
+        }
     }
+    
+    if (oGameMove != 0)
+        delete (oGameMove);
     
     // classify the line 
     // empty cells -> open line
-    if (listEmptyCells.size() > 0)
-        result = LineAnalyser::eRESULT_OPEN;
+    if (listMoves.size() > 0)
+        result = LineAnalyser::eLINE_OPEN;
     // all cells mine -> winner line
     else if (numMines == lineSize)
-        result = LineAnalyser::eRESULT_WON;
+        result = LineAnalyser::eLINE_WON;
     // all cells other's -> looser line
     else if (numOthers == lineSize)
-        result = LineAnalyser::eRESULT_LOST;
+        result = LineAnalyser::eLINE_LOST;
     // no empty cells & mixed color -> closed line
     else
-        result = LineAnalyser::eRESULT_CLOSED;
+        result = LineAnalyser::eLINE_CLOSED;
 }
 
 
-// analyzes the cell in the given position 
-void LineAnalyser::checkCell(int pos, int cellValue, int myMark)
+// analyzes the given cell
+int LineAnalyser::checkCell(int cellValue, int myMark)
 {
     // empty cell (store empty position)
     if (cellValue == emptyMark)            
     {
         numEmpties++;
-        gameLine.push_back(LineAnalyser::eMARK_EMPTY);
-        listEmptyCells.push_back(pos);
+        return LineAnalyser::eCELL_EMPTY;
     }
     // my cell
     else if (cellValue == myMark)
     {
         numMines++;
-        gameLine.push_back(LineAnalyser::eMARK_MINE);
+        return LineAnalyser::eCELL_MINE;
     }
     // other's cell
     else
     {
         numOthers++;   
-        gameLine.push_back(LineAnalyser::eMARK_OTHER);
+        return LineAnalyser::eCELL_OTHER;
     }
 }
 
@@ -127,19 +139,19 @@ std::string LineAnalyser::getResultName(int result)
     std::string name;
     switch (result)
     {
-        case LineAnalyser::eRESULT_UNDEFINED:
+        case LineAnalyser::eLINE_UNDEFINED:
             name = "undefined";
             break;
-        case LineAnalyser::eRESULT_OPEN:
+        case LineAnalyser::eLINE_OPEN:
             name = "open";
             break;
-        case LineAnalyser::eRESULT_CLOSED:
+        case LineAnalyser::eLINE_CLOSED:
             name = "closed";
             break;
-        case LineAnalyser::eRESULT_WON:
+        case LineAnalyser::eLINE_WON:
             name = "won";
             break;
-        case LineAnalyser::eRESULT_LOST:
+        case LineAnalyser::eLINE_LOST:
             name = "lost";
             break;
         default:

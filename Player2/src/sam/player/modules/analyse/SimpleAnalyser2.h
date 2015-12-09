@@ -30,9 +30,9 @@ public:
             
 private:    
     // searches the best attack move for the present board line
-    virtual void searchAttackMove(int playMode);
+    virtual void checkMoves4Attack(int playMode);
     // searches the best defense move for the present board line
-    virtual void searchDefenseMove(int playMode);
+    virtual void checkMoves4Defense(int playMode);
     // updates the stored knowledge about the task (for smart players)
     virtual void storeKnowledge();
 };

@@ -13,49 +13,29 @@ log4cxx::LoggerPtr Strategy::logger(log4cxx::Logger::getLogger("sam.player"));
 
 Strategy::Strategy() 
 {
-    setInvalidAttack();
-    setInvalidDefense();
 }
 
-void Strategy::randomAttack(std::vector<int> listEmptyCells)
+float Strategy::randomAttack()
 {
-    setInvalidAttack();
-    
-    // no attack if line is closed
-    if (listEmptyCells.size() == 0)
-        return;    
-
-    // Choose one of the empty cells randomly
-    int randNum = rand() % listEmptyCells.size();
-    attackCell = listEmptyCells.at(randNum);
     // low chances if you attack randomly
-    attackReward = Strategy::eREWARD_LOW;
+    return Strategy::eREWARD_LOW;
 }
 
 
-void Strategy::randomDefense(std::vector<int> listEmptyCells)
+float Strategy::randomDefense()
 {
-    setInvalidDefense();
-    
-    // no defense if line is closed
-    if (listEmptyCells.size() == 0)
-        return;    
-
-    // Choose one of the empty cells randomly
-    int randNum = rand() % listEmptyCells.size();
-    defenseCell = listEmptyCells.at(randNum);
     // low chances if you defend randomly
-    defenseReward = Strategy::eREWARD_LOW;
+    return Strategy::eREWARD_LOW;
 }
 
 // selects the attack move based on a simple predefined knowledge
-void Strategy::attack(int numMines, int numOthers, int numEmpties, std::vector<int> listEmptyCells)
+float Strategy::attack(int numMines, int numOthers, int numEmpties)
 {
-    setInvalidAttack();    
+    float attackReward;
     
     // no attack if line is closed
-    if (listEmptyCells.size() == 0)
-        return;    
+    if (numEmpties == 0)
+        return Strategy::eREWARD_ZERO;    
     
     // open line & free of others
     if (numOthers == 0)
@@ -80,18 +60,17 @@ void Strategy::attack(int numMines, int numOthers, int numEmpties, std::vector<i
     else 
         attackReward = Strategy::eREWARD_ZERO;          
 
-    // select first empty cell in the line
-    attackCell = listEmptyCells.at(0);        
+    return attackReward;
 }
 
 // selects the attack move based on a simple predefined knowledge
-void Strategy::defend(int numMines, int numOthers, int numEmpties, std::vector<int> listEmptyCells)
+float Strategy::defend(int numMines, int numOthers, int numEmpties)
 {
-    setInvalidDefense();
+    float defenseReward;
     
     // no defense if line is closed
-    if (listEmptyCells.size() == 0)
-        return;    
+    if (numEmpties == 0)
+        return Strategy::eREWARD_ZERO;    
     
     // open line & free of mines
     if (numMines == 0)
@@ -116,21 +95,7 @@ void Strategy::defend(int numMines, int numOthers, int numEmpties, std::vector<i
     else 
         defenseReward = Strategy::eREWARD_ZERO;          
 
-    // select first empty cell in the line
-    defenseCell = listEmptyCells.at(0);        
-}
-
-
-void Strategy::setInvalidAttack()
-{
-    attackReward = -1;
-    attackCell = -1;    
-}
-
-void Strategy::setInvalidDefense()
-{
-    defenseReward = -1;
-    defenseCell = -1;    
+    return defenseReward;        
 }
 
 }

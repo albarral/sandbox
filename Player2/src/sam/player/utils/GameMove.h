@@ -20,18 +20,25 @@ class GameMove
 private:   
     BoardZone oZone;    // board zone (a line) where the move is done
     int element;               // element (a cell) where the move is done
-    float Q;                     // Q value (expected reward)
+    float Qattack;                     // Q value (expected reward)
+    float Qdefense;                     // Q value (expected reward)
     
 public:
     GameMove();
-              
-    void reset() {Q = -1.0; element = -1;};
+    GameMove(BoardZone& oZone);
+    
+    void reset();
         
     BoardZone& getZone() {return oZone;}    
     int getElement() {return element;};   
-    int getQ() {return Q;};
+    float getQattack() {return Qattack;};
+    float getQdefense() {return Qdefense;};
     
-    void update(BoardZone& oZone, int element, float Qvalue);
+    void update(BoardZone& oZone, int element, float Qattack, float Qdefense);
+
+    void setElement(int element) {this->element = element;};
+    void setQattack(float Qvalue) {Qattack = Qvalue;};
+    void setQdefense(float Qvalue) {Qdefense = Qvalue;};
     
     // gets GameMove description
     std::string toString();

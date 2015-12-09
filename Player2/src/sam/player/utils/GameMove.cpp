@@ -11,15 +11,28 @@ namespace player
 {
 GameMove::GameMove()
 {
-    Q = 0.0;
-    element = 0;
+    reset();
 }
 
-void GameMove::update(BoardZone& oZone, int element, float Qvalue)
+GameMove::GameMove(BoardZone& oZone)
+{
+    this->oZone = oZone;
+    reset();
+}
+
+void GameMove::reset()
+{
+    element = -1;
+    Qattack = -1.0;
+    Qdefense = -1.0;
+}
+
+void GameMove::update(BoardZone& oZone, int element, float Qattack, float Qdefense)
 {
     this->oZone = oZone;
     this->element = element;   
-    Q = Qvalue;
+    this->Qattack = Qattack;
+    this->Qdefense = Qdefense;
 }
 
 // gets GameMove description
@@ -27,7 +40,9 @@ std::string GameMove::toString()
 {
   return ("GameMove: [zone = " + oZone.getID() +  
       ", element = " + std::to_string(element) + 
-      ", Q = " + std::to_string(Q) + "]");     
+      ", Qattack = " + std::to_string(Qattack) + 
+      ", Qdefense = " + std::to_string(Qdefense) + 
+          "]");     
 }
 
 }

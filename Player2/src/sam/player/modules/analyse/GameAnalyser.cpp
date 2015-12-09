@@ -55,13 +55,15 @@ void GameAnalyser::first()
     log4cxx::NDC::push("Analyser");   	
     pGameAction->reset();	
 
-    // we start in WAITING state
+    // we start in DONE state
     if (binitialized && isConnected())
     {
         LOG4CXX_INFO(logger, "started");  
         setState(GameAnalyser::eSTATE_DONE);    
         setPrevState(GameAnalyser::eSTATE_DONE);    
-        showStateName();        
+        showStateName();
+        // force check of whole board on first analysis
+        bFullAnalysis = true;        
     }
     // if not initialized or not connected to bus -> OFF
     else
@@ -140,7 +142,8 @@ void GameAnalyser::senseBus()
     // CO_ANALYSER_INHIBIT
     binhibited = pBus->getCOBus().getCO_ANALYSER_INHIBIT().checkRequested();
     // CO_ANALYSE_FULL
-    bFullAnalysis = pBus->getCOBus().getCO_ANALYSE_FULL().checkRequested();
+    if (!bFullAnalysis && pBus->getCOBus().getCO_ANALYSE_FULL().checkRequested())            
+        bFullAnalysis = true;
     // CO_CHANGE_PLAYER
     if (pBus->getCOBus().getCO_CHANGE_PLAYER().checkRequested())
     {
@@ -206,21 +209,25 @@ void GameAnalyser::fetchBoardData()
     // fetch the new board info 
     std::vector<BoardZone> listChangedLines;  
     pGameBoard->fetchInfo(matBoard, listChangedLines);
-    // all changed lines are added to the check list (keeping the existing ones)
-    lines2Check.insert(lines2Check.end(), listChangedLines.begin(), listChangedLines.end());
-    // inform the watcher module its change detection is being processed (through CO_WATCHER_ACK)
+    // if full analysis requested, fill check list with whole board
+    if (bFullAnalysis)
+    {
+        LOG4CXX_INFO(logger, "full analysis requested");     
+        setCompleteCheckList();        
+        bFullAnalysis = false;
+    }
+    // otherwise, extend check list with changed lines (append)
+    else
+        lines2Check.insert(lines2Check.end(), listChangedLines.begin(), listChangedLines.end());
+
+    // confirm its change detection to the the watcher module (CO_WATCHER_ACK)
     pBus->getCOBus().getCO_WATCHER_ACK().request();    
 }
 
 void GameAnalyser::doAnalysis()
 {
     //LOG4CXX_INFO(logger, "analyse ...");     
-    oAttackMove.reset();
-    oDefenseMove.reset();    
-
-    // on first analysis, force check of whole board
-    if (pGameAction->getAttackMoveReward() == -1)
-        forceExhaustiveCheck();
+    listMoves.clear();
         
     // analyse each of the lines in the check list
     while (!lines2Check.empty())
@@ -231,21 +238,11 @@ void GameAnalyser::doAnalysis()
         cv::Mat matLine = getLineFromBoard(oZone);
         
         // analyse line ...
-        LOG4CXX_INFO(logger, "- " << oZone.getID() << matLine);    
-        pLineAnalyser->analyseLine(matLine, pPlayerData->getPlayMode());
+        LOG4CXX_INFO(logger, "- " << oZone.getID()); //  << matLine);    
+        pLineAnalyser->analyseLine(oZone, matLine, pPlayerData->getPlayMode());
         
-        // track best attack
-        if (pLineAnalyser->getAttackQ() > oAttackMove.getQ())
-        {
-            LOG4CXX_INFO(logger, "best attack !!");    
-            oAttackMove.update(oZone, pLineAnalyser->getAttackElement(), pLineAnalyser->getAttackQ());                        
-        }
-        // track best defense
-        if (pLineAnalyser->getDefenseQ() > oDefenseMove.getQ())
-        {
-            LOG4CXX_INFO(logger, "best defense !!");    
-            oDefenseMove.update(oZone, pLineAnalyser->getDefenseElement(), pLineAnalyser->getDefenseQ());                        
-        }
+        // extend list of moves with those from the analysed lane 
+        listMoves.insert(listMoves.end(), pLineAnalyser->getListMoves().begin(), pLineAnalyser->getListMoves().end());
         
         // remove this line from check list
         lines2Check.pop_front();
@@ -258,16 +255,39 @@ void GameAnalyser::doAnalysis()
  // updates game action with best moves
 void GameAnalyser::updateGameAction()
 {
-    // update attack move if this is better
-    if (oAttackMove.getQ() > pGameAction->getAttackMoveReward())
+    GameMove oAttackMove;
+    GameMove oDefenseMove;
+    LOG4CXX_INFO(logger, "possible moves ...");
+    // get best attack & defense moves from list moves
+    for (GameMove& oMove: listMoves) 
     {
-        LOG4CXX_INFO(logger, "new attack action !!! " << oAttackMove.toString());
+        LOG4CXX_INFO(logger, oMove.toString());
+        if (oMove.getQattack() > oAttackMove.getQattack())
+        {
+            oAttackMove = oMove;
+        }
+        if (oMove.getQdefense() > oDefenseMove.getQdefense())
+        {
+            oDefenseMove = oMove;
+        }
+    }
+
+    if (listMoves.size() > 0)
+    {
+        LOG4CXX_INFO(logger, "> best attack: " << oAttackMove.toString());
+        LOG4CXX_INFO(logger, "> best defense: " << oDefenseMove.toString());
+    }
+
+    // update attack move if this is better
+    if (oAttackMove.getQattack() > pGameAction->getAttackMoveReward())
+    {
+        LOG4CXX_INFO(logger, "new attack action !!!");
         pGameAction->updateAttackInfo(oAttackMove);
     }
     // track best defense
-    if (oDefenseMove.getQ() > pGameAction->getDefenseMoveReward())
+    if (oDefenseMove.getQdefense() > pGameAction->getDefenseMoveReward())
     {
-        LOG4CXX_INFO(logger, "new defense action !!! " << oDefenseMove.toString());    
+        LOG4CXX_INFO(logger, "new defense action !!!");
         pGameAction->updateDefenseInfo(oDefenseMove);                        
     }        
 }
@@ -304,9 +324,8 @@ cv::Mat GameAnalyser::getLineFromBoard(BoardZone& oZone)
 }
 
 // force a check of the whole board by putting all lines in the check list
-void GameAnalyser::forceExhaustiveCheck()
+void GameAnalyser::setCompleteCheckList()
 {
-    LOG4CXX_INFO(logger, "exhaustive check forced");     
     // get all lines in a tic-tac-toe board
     T3Board oT3Board;
     std::vector<BoardZone>& listBoardZones = oT3Board.getListZones();

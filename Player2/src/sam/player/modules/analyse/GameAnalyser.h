@@ -7,6 +7,7 @@
  ***************************************************************************/
 
 #include <deque>
+#include <vector>
 #include <log4cxx/logger.h>
 
 #include "opencv2/core/core.hpp" //for the matrix
@@ -61,8 +62,7 @@ protected:
     cv::Mat matBoard;              // matrix of present board
     std::deque<BoardZone> lines2Check;    // list of changed lines that need to be checked
     LineAnalyser* pLineAnalyser;    // tool for line analysis
-    GameMove oAttackMove;
-    GameMove oDefenseMove;
+    std::vector<GameMove> listMoves;
     // controls & sensors
     bool binhibited;                    // module inhibition
     bool bFullAnalysis;                 // requested analysis of the full board
@@ -104,7 +104,7 @@ private:
     void updateGameAction();
     
     // force a check of the whole board by putting all lines in the check list
-    void forceExhaustiveCheck();
+    void setCompleteCheckList();
 
     // traces the changes in state
     void showStateName();     
