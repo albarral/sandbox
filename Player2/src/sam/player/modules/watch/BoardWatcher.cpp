@@ -132,7 +132,7 @@ void BoardWatcher::loop()
 
 void BoardWatcher::senseBus()
 {
-    // read controls IN: 
+    // read CI's ....
     // CO_INHIBIT_WATCHER
     binhibited = pBus->getCOBus().getCO_WATCHER_INHIBIT().checkRequested();
     // CO_WATCHER_ACK
@@ -146,11 +146,11 @@ void BoardWatcher::senseBus()
 
 void BoardWatcher::writeBus()
 {
-    // write sensors OUT: 
+    // write SO's ... 
     // SO_WATCHER_STATE
     pBus->getSOBus().getSO_WATCHER_STATE().setValue(getState());
-    // SO_TIME_STABLE
-    pBus->getSOBus().getSO_STABLE_TIME().setValue(timeStable);
+    // SO_WATCHER_STABLETIME
+    pBus->getSOBus().getSO_WATCHER_STABLETIME().setValue(timeStable);
 }
 
 void BoardWatcher::processBoard()

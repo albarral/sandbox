@@ -65,9 +65,9 @@ protected:
     std::vector<GameMove> listMoves;
     // controls & sensors
     bool binhibited;                    // module inhibition
-    bool bFullAnalysis;                 // requested analysis of the full board
+    bool bFullCheck;                 // requested analysis of the full board
     int watcherState;                   // state of watcher module
-    int stableTime;                      // accumulated time of watcher stability           
+    int watcherStableTime;                      // accumulated time of watcher stability           
 
 public:
     GameAnalyser();

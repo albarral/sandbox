@@ -62,8 +62,8 @@ void GameAnalyser::first()
         setState(GameAnalyser::eSTATE_DONE);    
         setPrevState(GameAnalyser::eSTATE_DONE);    
         showStateName();
-        // force check of whole board on first analysis
-        bFullAnalysis = true;        
+        // force full check of the board on first analysis
+        bFullCheck = true;        
     }
     // if not initialized or not connected to bus -> OFF
     else
@@ -138,29 +138,29 @@ void GameAnalyser::loop()
 
 void GameAnalyser::senseBus()
 {
-    // read controls IN: 
+    // read CI's ...
     // CO_ANALYSER_INHIBIT
     binhibited = pBus->getCOBus().getCO_ANALYSER_INHIBIT().checkRequested();
-    // CO_ANALYSE_FULL
-    if (!bFullAnalysis && pBus->getCOBus().getCO_ANALYSE_FULL().checkRequested())            
-        bFullAnalysis = true;
-    // CO_CHANGE_PLAYER
-    if (pBus->getCOBus().getCO_CHANGE_PLAYER().checkRequested())
+    // CO_ANALYSER_FULLCHECK
+    if (!bFullCheck && pBus->getCOBus().getCO_ANALYSER_FULLCHECK().checkRequested())            
+        bFullCheck = true;
+    // CO_ANALYSER_NEWPLAYMODE
+    if (pBus->getCOBus().getCO_ANALYSER_NEWPLAYMODE().checkRequested())
     {
         // change analyzer according to new play mode
         binitialized = changeAnalyser();  
     }
     
-    // read sensors IN: 
+    // read SO's ... 
     // SO_WATCHER_STATE
     watcherState = pBus->getSOBus().getSO_WATCHER_STATE().getValue();
-    // SO_STABLE_TIME
-    stableTime = pBus->getSOBus().getSO_STABLE_TIME().getValue(); 
+    // SO_WATCHER_STABLETIME
+    watcherStableTime = pBus->getSOBus().getSO_WATCHER_STABLETIME().getValue(); 
 }
 
 void GameAnalyser::writeBus()
 {
-    // write sensors OUT: 
+    // write SO's ...: 
     // SO_ANALYSER_STATE    
     pBus->getSOBus().getSO_ANALYSER_STATE().setValue(getState());
 }
@@ -201,7 +201,7 @@ bool GameAnalyser::changeAnalyser()
 
 bool GameAnalyser::isBoardStable()
 {
-    return (watcherState == BoardWatcher::eSTATE_STABLE && stableTime >= requiredStableTime);
+    return (watcherState == BoardWatcher::eSTATE_STABLE && watcherStableTime >= requiredStableTime);
 }
 
 void GameAnalyser::fetchBoardData()
@@ -209,12 +209,12 @@ void GameAnalyser::fetchBoardData()
     // fetch the new board info 
     std::vector<BoardZone> listChangedLines;  
     pGameBoard->fetchInfo(matBoard, listChangedLines);
-    // if full analysis requested, fill check list with whole board
-    if (bFullAnalysis)
+    // if full check requested, fill check list with all board lines
+    if (bFullCheck)
     {
-        LOG4CXX_INFO(logger, "full analysis requested");     
+        LOG4CXX_INFO(logger, "full check requested");     
         setCompleteCheckList();        
-        bFullAnalysis = false;
+        bFullCheck = false;
     }
     // otherwise, extend check list with changed lines (append)
     else

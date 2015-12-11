@@ -17,22 +17,22 @@ class COBus
 {
     private:                
         // watcher module
-        brooks::Control coWatcherInhibit; 
-        brooks::Control coWatcherAck;     
+        brooks::Control CO_WATCHER_INHIBIT; 
+        brooks::Control CO_WATCHER_ACK;     
         // analyser module
-        brooks::Control coAnalyserInhibit;
-        brooks::Control coAnalyseFull;
-        brooks::Control coChangePlayer;
+        brooks::Control CO_ANALYSER_INHIBIT;
+        brooks::Control CO_ANALYSER_FULLCHECK;
+        brooks::Control CO_ANALYSER_NEWPLAYMODE;
         
     public:
         COBus();
         // watcher module        
-        brooks::Control& getCO_WATCHER_INHIBIT() {return coWatcherInhibit;};           
-        brooks::Control& getCO_WATCHER_ACK() {return coWatcherAck;};           
+        brooks::Control& getCO_WATCHER_INHIBIT() {return CO_WATCHER_INHIBIT;};           
+        brooks::Control& getCO_WATCHER_ACK() {return CO_WATCHER_ACK;};           
         // analyser module
-        brooks::Control& getCO_ANALYSER_INHIBIT() {return coAnalyserInhibit;};           
-        brooks::Control& getCO_ANALYSE_FULL() {return coAnalyseFull;};           
-        brooks::Control& getCO_CHANGE_PLAYER() {return coChangePlayer;};
+        brooks::Control& getCO_ANALYSER_INHIBIT() {return CO_ANALYSER_INHIBIT;};           
+        brooks::Control& getCO_ANALYSER_FULLCHECK() {return CO_ANALYSER_FULLCHECK;};           
+        brooks::Control& getCO_ANALYSER_NEWPLAYMODE() {return CO_ANALYSER_NEWPLAYMODE;};
 };
 
 }

@@ -41,7 +41,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/sam/player/bus/BusUser.o \
 	${OBJECTDIR}/src/sam/player/bus/COBus.o \
 	${OBJECTDIR}/src/sam/player/bus/SOBus.o \
-	${OBJECTDIR}/src/sam/player/data/BoardLine.o \
 	${OBJECTDIR}/src/sam/player/data/GameAction.o \
 	${OBJECTDIR}/src/sam/player/data/GameBoard.o \
 	${OBJECTDIR}/src/sam/player/data/PlayerData.o \
@@ -112,11 +111,6 @@ ${OBJECTDIR}/src/sam/player/bus/SOBus.o: src/sam/player/bus/SOBus.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/bus
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/bus/SOBus.o src/sam/player/bus/SOBus.cpp
-
-${OBJECTDIR}/src/sam/player/data/BoardLine.o: src/sam/player/data/BoardLine.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/sam/player/data
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/data/BoardLine.o src/sam/player/data/BoardLine.cpp
 
 ${OBJECTDIR}/src/sam/player/data/GameAction.o: src/sam/player/data/GameAction.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/data

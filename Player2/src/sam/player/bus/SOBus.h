@@ -17,18 +17,18 @@ class SOBus
 {
     private:        
         // watcher module
-        brooks::SensorT<int> soWatcherState; 
-        brooks::SensorT<int> soStableTime;         
+        brooks::SensorT<int> SO_WATCHER_STATE; 
+        brooks::SensorT<int> SO_WATCHER_STABLETIME;         
         // analyser module
-        brooks::SensorT<int> soAnalyserState; 
+        brooks::SensorT<int> SO_ANALYSER_STATE; 
         
     public:
         SOBus();
         // watcher module        
-        brooks::SensorT<int>& getSO_WATCHER_STATE(){return soWatcherState;};        
-        brooks::SensorT<int>& getSO_STABLE_TIME() {return soStableTime;};           
+        brooks::SensorT<int>& getSO_WATCHER_STATE(){return SO_WATCHER_STATE;};        
+        brooks::SensorT<int>& getSO_WATCHER_STABLETIME() {return SO_WATCHER_STABLETIME;};           
         // analyser module
-        brooks::SensorT<int>& getSO_ANALYSER_STATE(){return soAnalyserState;};        
+        brooks::SensorT<int>& getSO_ANALYSER_STATE(){return SO_ANALYSER_STATE;};        
 };
 
 }
