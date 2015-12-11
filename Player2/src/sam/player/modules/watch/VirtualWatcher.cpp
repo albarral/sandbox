@@ -6,6 +6,7 @@
 #include "opencv2/core/core.hpp" //for the matrix
 
 #include "sam/player/modules/watch/VirtualWatcher.h"
+#include "sam/player/PlayerConfig.h"
 
 namespace sam 
 {
@@ -13,7 +14,14 @@ namespace player
 {    
 VirtualWatcher::VirtualWatcher() 
 {
-    oDatabase.init("tcp://127.0.0.1:3306", "sam", "sam", "samMemo");
+    // read configuration
+    PlayerConfig oPlayerConfig;
+    
+    oDatabase.init(oPlayerConfig.getVirtualBoardAddress(),
+            oPlayerConfig.getVirtualBoardUser(),
+            oPlayerConfig.getVirtualBoardPwd(), 
+            oPlayerConfig.getVirtualBoardDB());
+    
     con = 0;
     selectBoard = "select * from TAB_VIRTUAL_BOARD";
 }

@@ -68,6 +68,8 @@
         <itemPath>src/sam/player/AppPlayer.h</itemPath>
         <itemPath>src/sam/player/ConsolePlayer.cpp</itemPath>
         <itemPath>src/sam/player/ConsolePlayer.h</itemPath>
+        <itemPath>src/sam/player/PlayerConfig.cpp</itemPath>
+        <itemPath>src/sam/player/PlayerConfig.h</itemPath>
         <itemPath>src/sam/player/main.cpp</itemPath>
       </logicalFolder>
     </logicalFolder>
@@ -155,6 +157,10 @@
       <item path="src/sam/player/ConsolePlayer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/sam/player/ConsolePlayer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/player/PlayerConfig.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/player/PlayerConfig.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/sam/player/bus/Bus.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -302,6 +308,10 @@
       <item path="src/sam/player/ConsolePlayer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/sam/player/ConsolePlayer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/sam/player/PlayerConfig.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/sam/player/PlayerConfig.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/sam/player/bus/Bus.cpp" ex="false" tool="1" flavor2="0">
       </item>

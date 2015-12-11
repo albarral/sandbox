@@ -89,8 +89,8 @@ private:
     // update bus
     void writeBus();
     
-    // change line analyser (and other features) as defined by changed PlayerData
-    bool changeAnalyser();
+    // changes the line analyser in concordance with the new play mode
+    bool changeLineAnalyser();
     
     // checks if board is stable (watcher stable for enough time)
     bool isBoardStable();

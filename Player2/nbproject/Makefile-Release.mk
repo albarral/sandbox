@@ -37,6 +37,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/src/sam/player/AppPlayer.o \
 	${OBJECTDIR}/src/sam/player/ConsolePlayer.o \
+	${OBJECTDIR}/src/sam/player/PlayerConfig.o \
 	${OBJECTDIR}/src/sam/player/bus/Bus.o \
 	${OBJECTDIR}/src/sam/player/bus/BusUser.o \
 	${OBJECTDIR}/src/sam/player/bus/COBus.o \
@@ -91,6 +92,11 @@ ${OBJECTDIR}/src/sam/player/ConsolePlayer.o: src/sam/player/ConsolePlayer.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/ConsolePlayer.o src/sam/player/ConsolePlayer.cpp
+
+${OBJECTDIR}/src/sam/player/PlayerConfig.o: src/sam/player/PlayerConfig.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/PlayerConfig.o src/sam/player/PlayerConfig.cpp
 
 ${OBJECTDIR}/src/sam/player/bus/Bus.o: src/sam/player/bus/Bus.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/bus

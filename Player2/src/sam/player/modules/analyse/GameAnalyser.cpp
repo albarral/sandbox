@@ -10,7 +10,7 @@
 #include "sam/player/modules/analyse/SimpleAnalyser2.h"
 #include "sam/player/modules/watch/BoardWatcher.h"
 #include "sam/player/data/T3Board.h"
-#include "SimpleAnalyser2.h"
+#include "sam/player/PlayerConfig.h"
 
 namespace sam 
 {
@@ -45,8 +45,10 @@ void GameAnalyser::init(GameBoard& oGameBoard, GameAction& oGameAction, PlayerDa
     pPlayerData = &oPlayerData;
     matBoard = pGameBoard->getMatrixClone();
     // change analyzer according to new play mode    
-    binitialized = changeAnalyser();  
-
+    binitialized = changeLineAnalyser();  
+    // read configuration
+    PlayerConfig oPlayerConfig;
+    requiredStableTime = oPlayerConfig.getRequiredLoops2TrustStability();
     LOG4CXX_INFO(logger, "GameAnalyser initialized");     
 };
 
@@ -148,7 +150,7 @@ void GameAnalyser::senseBus()
     if (pBus->getCOBus().getCO_ANALYSER_NEWPLAYMODE().checkRequested())
     {
         // change analyzer according to new play mode
-        binitialized = changeAnalyser();  
+        binitialized = changeLineAnalyser();  
     }
     
     // read SO's ... 
@@ -166,10 +168,9 @@ void GameAnalyser::writeBus()
 }
 
 
-bool GameAnalyser::changeAnalyser()
+// changes the line analyser in concordance with the new play mode
+bool GameAnalyser::changeLineAnalyser()
 {
-    requiredStableTime = 2; // TEMP: should be included in PlayerData !!!
-
     // eliminate previous analyser
     if (pLineAnalyser != 0)
     {
@@ -257,8 +258,9 @@ void GameAnalyser::updateGameAction()
 {
     GameMove oAttackMove;
     GameMove oDefenseMove;
-    LOG4CXX_INFO(logger, "possible moves ...");
+    
     // get best attack & defense moves from list moves
+    LOG4CXX_INFO(logger, "possible moves ...");
     for (GameMove& oMove: listMoves) 
     {
         LOG4CXX_INFO(logger, oMove.toString());
