@@ -18,19 +18,24 @@ namespace player
 class T3Board : public Board
 {
 public:
-    // zone types
-    enum eZones 
+    // game zone types
+    enum eGameZones 
     {
-        eTYPE_ROW,
-        eTYPE_COL,  
-        eTYPE_MAIN_DIAGONAL,    // diagonal going from top-left to bottom-right
-        eTYPE_ANTI_DIAGONAL,    // diagonal going from bottom-left to top-right
-        eTYPE_DIM   // dimension of eLine enum
+        eZONE_ROW,
+        eZONE_COL,  
+        eZONE_MAIN_DIAGONAL,    // diagonal going from top-left to bottom-right        
+        eZONE_ANTI_DIAGONAL,    // diagonal going from bottom-left to top-right
+        eZONE_DIM  
     };
-
-    T3Board();        
-    
-    virtual std::vector<int> getZoneTypes();
+    // extra zone types
+    enum eExtraZones 
+    {
+        eEXTRA_MY_HOME,             // my home zone (place for my unused pieces)
+        eEXTRA_RIVAL_HOME,          // rival's home zone (place for rival's unused pieces) 
+        eEXTRA_DIM                       // dimension of eLine enum
+    };
+        
+    T3Board();            
 };
 
 }

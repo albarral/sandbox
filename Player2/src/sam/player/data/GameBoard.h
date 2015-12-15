@@ -30,14 +30,17 @@ private:
 public:
     GameBoard(int size);
           
-    // both elements are updated together to grant coherence
+    // updates the matrix and the list of changed lines (updated together to grant coherence)
     void updateInfo(cv::Mat& mat, std::vector<BoardZone>& listChangedLines);    
-    // both elements are fetched together to grant coherence (returned values are copies, not permanent accesses to data)
-    void fetchInfo(cv::Mat& matCopy, std::vector<BoardZone>& listCopy);    
-    // returns matrix clone
-    cv::Mat getMatrixClone();
+    // gets a copy of the changed lines list
+    void getChangedLinesCopy(std::vector<BoardZone>& listCopy);    
+    // gets a copy of the matrix
+    cv::Mat getMatrixCopy();    
+    // get a copy of the specified board line
+    cv::Mat getLineCopy(BoardZone& oZone);
     
     int getNumChangedLines();  
+    // clears the changed lines list
     void resetChangedLines();
 };
 

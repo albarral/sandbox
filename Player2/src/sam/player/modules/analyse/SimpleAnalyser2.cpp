@@ -22,7 +22,7 @@ void SimpleAnalyser::checkMoves4Attack(int playMode)
     float Qattack;
     
     // skip if no moves available
-    if (listMoves.size() == 0)
+    if (listGameMoves.size() == 0)
         return;
     
     // simple play mode
@@ -36,7 +36,7 @@ void SimpleAnalyser::checkMoves4Attack(int playMode)
         Qattack = oStrategy.randomAttack();
     }
     // update the attack reward for all line moves
-    for (GameMove& oMove: listMoves) 
+    for (GameMove& oMove: listGameMoves) 
     {
         oMove.setQattack(Qattack);
     }
@@ -48,7 +48,7 @@ void SimpleAnalyser::checkMoves4Defense(int playMode)
     float Qdefense;
 
     // skip if no moves available
-    if (listMoves.size() == 0)
+    if (listGameMoves.size() == 0)
         return;
 
     // simple play mode
@@ -63,7 +63,7 @@ void SimpleAnalyser::checkMoves4Defense(int playMode)
     }
 
     // update the defense reward for all line moves
-    for (GameMove& oMove: listMoves) 
+    for (GameMove& oMove: listGameMoves) 
     {
         oMove.setQdefense(Qdefense);
     }

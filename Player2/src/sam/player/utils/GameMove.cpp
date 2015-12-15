@@ -11,35 +11,21 @@ namespace player
 {
 GameMove::GameMove()
 {
-    reset();
-}
-
-GameMove::GameMove(BoardZone& oZone)
-{
-    this->oZone = oZone;
+    // all game moves are of place type
+    type = Move::eMOVE_PLACE;
     reset();
 }
 
 void GameMove::reset()
 {
-    element = -1;
     Qattack = -1.0;
     Qdefense = -1.0;
-}
-
-void GameMove::update(BoardZone& oZone, int element, float Qattack, float Qdefense)
-{
-    this->oZone = oZone;
-    this->element = element;   
-    this->Qattack = Qattack;
-    this->Qdefense = Qdefense;
 }
 
 // gets GameMove description
 std::string GameMove::toString()
 {
-  return ("GameMove: [zone = " + oZone.getID() +  
-      ", element = " + std::to_string(element) + 
+  return ("GameMove: [" + oBoardPlace.toString() +  
       ", Qattack = " + std::to_string(Qattack) + 
       ", Qdefense = " + std::to_string(Qdefense) + 
           "]");     

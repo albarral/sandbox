@@ -14,16 +14,16 @@
 #include "sam/utils/Module.h"
 #include "sam/player/bus/BusUser.h"
 #include "sam/player/data/GameBoard.h"
-#include "sam/player/data/T3Board.h"
 #include "sam/player/utils/BoardZone.h"
 
 namespace sam 
 {
 namespace player
 {    
-// This module monitors the board and extracts the board matrix.
-// It also checks which lines have changed.
-// It stores this info in the shared GameBoard object.        
+// This module senses the real board and monitors its changes.
+// matrixSensed is used to store the sensed info
+// linesChanged is used to store the changed zones (since last check).
+// It uses the GameBoard object to share the obtained info with other modules.
 // Brooks IN:
 // CO_WATCHER_INHIBIT
 // CO_WATCHER_ACK         - acknowledges detected changes in game board (changed lines can be reset)
@@ -49,9 +49,12 @@ protected:
     // shared data
     GameBoard* pGameBoard;    // pointer to shared data object
     // logic
-    T3Board oT3Board;               // tic-tac-toe board structure (zone types)
-    cv::Mat matrixNow;                // matrix representing the present board cells 
-    cv::Mat matrixPrev;                // matrix representing the previous board cells 
+    std::vector<BoardZone> listBoardRows;      // list of rows
+    std::vector<BoardZone> listBoardColumns;      // list of columns
+    std::vector<BoardZone> listBoardDiagonals;      // list of diagonals
+    std::vector<BoardZone> listBoardAntidiagonals;      // list of antidiagonals
+    cv::Mat matrixSensed;            // matrix representing the sensed board
+    cv::Mat matrixPrev;                // matrix representing the previous board configuration
     std::vector<BoardZone> linesChanged;    // list of changed lines in the last check
     // controls & sensors
     bool binhibited;                    // module inhibition 
@@ -64,9 +67,9 @@ public:
     void init(GameBoard& oGameBoard);
        
 protected:    
-    // Search the board. Returns true if found, false otherwise.
+    // (pure virtual method) Search the board. Returns true if found, false otherwise.
     virtual bool searchBoard() = 0;
-    // Senses the game board and informs a representing matrix (matrixNow). Returns true if sensed, false otherwise.
+    // (pure virtual method) Senses the real board and stores its present configuration (in matrixSensed). Returns true if sensing ok, false otherwise.
     virtual bool senseBoard() = 0;
 
 private:

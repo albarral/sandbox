@@ -1,5 +1,5 @@
-#ifndef __SAM_PLAYER_BOARDZONE_H
-#define __SAM_PLAYER_BOARDZONE_H
+#ifndef __SAM_PLAYER_GAMEPIECE_H
+#define __SAM_PLAYER_GAMEPIECE_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
@@ -12,18 +12,17 @@ namespace sam
 {
 namespace player
 {    
-// Utility base class to represent a board zone (ie. a line in a tic-tac-toe board)
-// Used in Board class    
-class BoardZone
+// Utility class to represent a game piece
+class GamePiece
 {
 protected:   
     std::string ID;
     int type;
-    int ordinal;
-    int numElements;
+    int team;
+    int numInstances;
     
 public:
-    BoardZone();
+    GamePiece();
     
     std::string getID() {return ID;};
     void setID(std::string value) {ID = value;};
@@ -31,11 +30,11 @@ public:
     int getType() {return type;}
     void setType(int value) {type = value;};
     
-    int getOrdinal() {return ordinal;}
-    void setOrdinal(int value) {ordinal = value;};
+    int getTeam() {return team;}
+    void setTeam(int value) {team = value;};
 
-    int getNumElements() {return numElements;};    
-    void setNumElements(int value) {numElements = value;};    
+    int getNumInstances() {return numInstances;};    
+    void setNumInstances(int value) {numInstances = value;};    
     
     // gets description
     std::string toString();

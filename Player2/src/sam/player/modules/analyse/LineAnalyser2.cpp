@@ -7,6 +7,7 @@
 
 #include "sam/player/modules/analyse/LineAnalyser2.h"
 #include "sam/player/data/PlayerData.h"
+#include "sam/player/utils/BoardPlace.h"
 
 namespace sam 
 {
@@ -34,7 +35,7 @@ void LineAnalyser::analyseLine(BoardZone& oZone, cv::Mat& matLine, int playMode)
     lineSize = std::max(matLine.rows, matLine.cols);
     
     // reset moves
-    listMoves.clear();    
+    listGameMoves.clear();    
     // reset analysis result 
     resetData();    
     // fast line check 
@@ -73,31 +74,28 @@ void LineAnalyser::resetData()
 // lost: all cells other's, looser
 void LineAnalyser::checkLine(BoardZone& oZone, cv::Mat& matLine, int myMark)
 {
-    // reset game line
-    gameLine.clear();
     // default game move
-    GameMove* oGameMove = new GameMove(oZone);
+    GameMove oGameMove;
+    BoardPlace& oBoardPlace = oGameMove.getBoardPlace();
+    oBoardPlace.setZone(oZone);
     
     // analyze line cell by cell, filling the list of moves
     for (int i=0; i<lineSize; i++)
     {
         int res = checkCell(matLine.at<uchar>(i), myMark);
         // update the game line with the cell's check result
-        gameLine.push_back(res);
+        gameLine[i] = res;
         // if empty cell, add new move to the list
         if (res == LineAnalyser::eCELL_EMPTY)
         {
-            oGameMove->setElement(i);
-            listMoves.push_back(*oGameMove);
+            oBoardPlace.setElement(i);
+            listGameMoves.push_back(oGameMove);
         }
     }
-    
-    if (oGameMove != 0)
-        delete (oGameMove);
-    
+        
     // classify the line 
     // empty cells -> open line
-    if (listMoves.size() > 0)
+    if (listGameMoves.size() > 0)
         result = LineAnalyser::eLINE_OPEN;
     // all cells mine -> winner line
     else if (numMines == lineSize)

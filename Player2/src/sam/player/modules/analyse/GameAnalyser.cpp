@@ -43,7 +43,6 @@ void GameAnalyser::init(GameBoard& oGameBoard, GameAction& oGameAction, PlayerDa
     pGameBoard = &oGameBoard;
     pGameAction = &oGameAction;
     pPlayerData = &oPlayerData;
-    matBoard = pGameBoard->getMatrixClone();
     // change analyzer according to new play mode    
     binitialized = changeLineAnalyser();  
     // read configuration
@@ -209,7 +208,7 @@ void GameAnalyser::fetchBoardData()
 {
     // fetch the new board info 
     std::vector<BoardZone> listChangedLines;  
-    pGameBoard->fetchInfo(matBoard, listChangedLines);
+    pGameBoard->getChangedLinesCopy(listChangedLines);
     // if full check requested, fill check list with all board lines
     if (bFullCheck)
     {
@@ -228,22 +227,22 @@ void GameAnalyser::fetchBoardData()
 void GameAnalyser::doAnalysis()
 {
     //LOG4CXX_INFO(logger, "analyse ...");     
-    listMoves.clear();
+    listGameMoves.clear();
         
     // analyse each of the lines in the check list
     while (!lines2Check.empty())
     {        
         BoardZone& oZone = lines2Check.front();
                 
-        // extract proper line from board
-        cv::Mat matLine = getLineFromBoard(oZone);
+        // get specific board line
+        cv::Mat matLine = pGameBoard->getLineCopy(oZone);
         
         // analyse line ...
         LOG4CXX_INFO(logger, "- " << oZone.getID()); //  << matLine);    
         pLineAnalyser->analyseLine(oZone, matLine, pPlayerData->getPlayMode());
         
         // extend list of moves with those from the analysed lane 
-        listMoves.insert(listMoves.end(), pLineAnalyser->getListMoves().begin(), pLineAnalyser->getListMoves().end());
+        listGameMoves.insert(listGameMoves.end(), pLineAnalyser->getListMoves().begin(), pLineAnalyser->getListMoves().end());
         
         // remove this line from check list
         lines2Check.pop_front();
@@ -261,7 +260,7 @@ void GameAnalyser::updateGameAction()
     
     // get best attack & defense moves from list moves
     LOG4CXX_INFO(logger, "possible moves ...");
-    for (GameMove& oMove: listMoves) 
+    for (GameMove& oMove: listGameMoves) 
     {
         LOG4CXX_INFO(logger, oMove.toString());
         if (oMove.getQattack() > oAttackMove.getQattack())
@@ -274,7 +273,7 @@ void GameAnalyser::updateGameAction()
         }
     }
 
-    if (listMoves.size() > 0)
+    if (listGameMoves.size() > 0)
     {
         LOG4CXX_INFO(logger, "> best attack: " << oAttackMove.toString());
         LOG4CXX_INFO(logger, "> best defense: " << oDefenseMove.toString());
@@ -294,43 +293,13 @@ void GameAnalyser::updateGameAction()
     }        
 }
 
-// Extract the proper line data from the board matrix
-cv::Mat GameAnalyser::getLineFromBoard(BoardZone& oZone)
-{
-    cv::Mat matLine;
-    switch (oZone.getType())
-    {
-        case T3Board::eTYPE_ROW:
-            matLine = matBoard.row(oZone.getOrdinal());
-            break;
-
-        case T3Board::eTYPE_COL:
-            matLine = matBoard.col(oZone.getOrdinal());
-            break;
-
-        case T3Board::eTYPE_MAIN_DIAGONAL:
-            matLine = matBoard.diag(0);
-            break;
-
-        case T3Board::eTYPE_ANTI_DIAGONAL:
-            // a matrix antidiagonal is the main diagonal of the matrix's vertical flip
-            cv::Mat matFlip = matBoard.clone();
-            // fast vertical flip
-            matBoard.row(0).copyTo(matFlip.row(2));
-            matBoard.row(2).copyTo(matFlip.row(0));
-            matLine = matFlip.diag(0);
-            break;                
-    }
-
-    return matLine;    
-}
 
 // force a check of the whole board by putting all lines in the check list
 void GameAnalyser::setCompleteCheckList()
 {
     // get all lines in a tic-tac-toe board
     T3Board oT3Board;
-    std::vector<BoardZone>& listBoardZones = oT3Board.getListZones();
+    std::vector<BoardZone>& listBoardZones = oT3Board.getListGameZones();
 
     // all board lines list inserted into check list  (can't copy vector to deque)    
     lines2Check.clear();

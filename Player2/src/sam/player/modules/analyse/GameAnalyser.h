@@ -59,10 +59,9 @@ protected:
     GameAction* pGameAction;      // next move  
     PlayerData* pPlayerData;         // marks and play mode
     // logic
-    cv::Mat matBoard;              // matrix of present board
-    std::deque<BoardZone> lines2Check;    // list of changed lines that need to be checked
+    std::deque<BoardZone> lines2Check;    // list of changed lines (FIFO queue) that need to be checked
     LineAnalyser* pLineAnalyser;    // tool for line analysis
-    std::vector<GameMove> listMoves;
+    std::vector<GameMove> listGameMoves;
     // controls & sensors
     bool binhibited;                    // module inhibition
     bool bFullCheck;                 // requested analysis of the full board
@@ -98,8 +97,6 @@ private:
     void fetchBoardData();
     // processes the board changes in a line by line basis
     void doAnalysis();
-    // get the specified zone (line) from the board
-    cv::Mat getLineFromBoard(BoardZone& oZone);
     // updates game action with best moves
     void updateGameAction();
     

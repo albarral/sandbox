@@ -59,7 +59,7 @@ bool VirtualWatcher::senseBoard()
         int i = res->getInt("row_ID");
                 
         // update proper row in matrix
-        matRow = matrixNow.row(i);
+        matRow = matrixSensed.row(i);
         matRow.at<uchar>(0) = (uchar)res->getInt("Cell0");
         matRow.at<uchar>(1) = (uchar)res->getInt("Cell1");
         matRow.at<uchar>(2) = (uchar)res->getInt("Cell2");

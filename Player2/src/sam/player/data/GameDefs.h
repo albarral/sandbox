@@ -22,22 +22,6 @@ public:
         eCELL_THIRD,
         eCELL_DIM
     };
-    // result of line analysis
-    enum eResult  
-    {
-        eRESULT_OPEN,        // open line (some empty cell)
-        eRESULT_CLOSED,    // closed line (filled line, no winner)
-        eRESULT_WON,        // winner line (3 mines)
-        eRESULT_LOST,       // lost line (3 other's)
-        eRESULT_DIM
-    };
-    // cell values
-    enum eMark  
-    {
-        eMARK_EMPTY,        // empty cell
-        eMARK_MINE,          // cell with my mark
-        eMARK_OTHER       // cell with other's mark
-    };
     
     static const int INVALID_VALUE = -1;
 };

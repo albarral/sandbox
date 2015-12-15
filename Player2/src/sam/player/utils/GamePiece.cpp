@@ -3,28 +3,28 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "sam/player/utils/BoardZone.h"
+#include "sam/player/utils/GamePiece.h"
 
 namespace sam
 {   
 namespace player
 {
-BoardZone::BoardZone()
+GamePiece::GamePiece()
 {
     // initially the zone is invalid 
     ID = "";
     type = -1;
-    ordinal = 0;
-    numElements = 0;
+    team = 0;
+    numInstances = 0;
 }
 
 // gets description
-std::string BoardZone::toString()
+std::string GamePiece::toString()
 {
-  return ("BoardZone: [ID = " + ID +  
+  return ("GamePiece: [ID = " + ID +  
       ", type = " + std::to_string(type) + 
-      ", ordinal = " + std::to_string(ordinal) + 
-      ", numElements = " + std::to_string(numElements) + 
+      ", team = " + std::to_string(team) + 
+      ", numInstances = " + std::to_string(numInstances) + 
           "]");     
 }
 

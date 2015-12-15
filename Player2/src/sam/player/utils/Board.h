@@ -14,26 +14,33 @@ namespace sam
 {
 namespace player
 {    
-// Utility base class to represent a board (ie. a tic-tac-toe board)
+// Utility base class to represent a board.
+// It has board zones for playing (game zones) and extra zones for other purposes (like storing unused pieces)
 class Board
 {
 private:   
-    std::vector<BoardZone> listZones;      // list of zones in the board
+    std::vector<BoardZone> listGameZones;      // list of game zones (for playing)
+    std::vector<BoardZone> listExtraZones;      // list of extra zones (for other purposes)
     
 public:
     Board();
               
-    int getNumZones();
-    void addZone(BoardZone& oBoardZone);
+    int getNumGameZones() {return listGameZones.size();};
+    // add zone to list of game zones
+    void addGameZone(BoardZone& oBoardZone);
+
+    int getNumExtraZones() {return listExtraZones.size();};
+    // add zone to list of extra zones
+    void addExtraZone(BoardZone& oBoardZone);
     
-    // returns a list of all the zones in the board
-    std::vector<BoardZone>& getListZones() {return listZones;};    
+    // returns a list of all game zones in the board
+    std::vector<BoardZone>& getListGameZones() {return listGameZones;};    
+    // returns a list of all extra zones in the board
+    std::vector<BoardZone>& getListExtraZones() {return listExtraZones;};    
+
     // returns a list of zones of the specified type
-    std::vector<BoardZone> getZonesOfType(int type);    
-    // returns the zone in the specified position of the zones list
-    BoardZone& getZone(int index);
-    
-    virtual std::vector<int> getZoneTypes() = 0;
+    std::vector<BoardZone> getGameZonesOfType(int type);    
+       
 };
 
 }

@@ -12,6 +12,7 @@
 
 #include "opencv2/core/core.hpp" //for the matrix
 
+#include "sam/player/data/GameDefs.h"
 #include "sam/player/utils/BoardZone.h"
 #include "sam/player/utils/GameMove.h"
 
@@ -47,12 +48,12 @@ protected:
     static log4cxx::LoggerPtr logger;
     int myMark;         // my mark
     int emptyMark;    // empty mark
-    std::vector<int>gameLine;   // analysed line converted to game domain (empty/mine/other)
+    int gameLine[GameDefs::eCELL_DIM];   // analysed line converted to game domain (empty/mine/other)
     int lineSize;
     int numMines;       // number of cells marked as mine
     int numOthers;      // number of cells marked as others'
     int numEmpties;     // number of empty cells
-    std::vector<GameMove> listMoves;
+    std::vector<GameMove> listGameMoves;
     int result;             // result of line analysis (one of eResult)
 
 public:
@@ -67,7 +68,7 @@ public:
     // gets name of check result
     static std::string getResultName(int checkResult);
     // gets the list of available moves
-    std::vector<GameMove>& getListMoves() {return listMoves;};
+    std::vector<GameMove>& getListMoves() {return listGameMoves;};
     
 private:
     // reset analysis data

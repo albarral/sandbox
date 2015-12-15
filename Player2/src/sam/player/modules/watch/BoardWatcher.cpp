@@ -6,7 +6,7 @@
 #include "log4cxx/ndc.h"
 
 #include "sam/player/modules/watch/BoardWatcher.h"
- #include "sam/player/data/GameDefs.h"
+#include "sam/player/data/T3Board.h"
 
 namespace sam 
 {
@@ -24,8 +24,8 @@ BoardWatcher::BoardWatcher()
 void BoardWatcher::init(GameBoard& oGameBoard)
 {
     pGameBoard = &oGameBoard;    
-    matrixNow = pGameBoard->getMatrixClone();
-    matrixPrev = matrixNow.clone();
+    matrixSensed = pGameBoard->getMatrixCopy();
+    matrixPrev = matrixSensed.clone();
     binitialized = true;
     LOG4CXX_INFO(logger, "BoardWatcher initialized");     
 };
@@ -34,6 +34,13 @@ void BoardWatcher::first()
 {    
     log4cxx::NDC::push("Watcher");   	
     //log4cxx::NDC::push("");   	
+    
+    // get all zone lists from the tic-tac-toe board 
+    T3Board oT3Board;               
+    listBoardRows = oT3Board.getGameZonesOfType(T3Board::eZONE_ROW);
+    listBoardColumns = oT3Board.getGameZonesOfType(T3Board::eZONE_COL);
+    listBoardDiagonals = oT3Board.getGameZonesOfType(T3Board::eZONE_MAIN_DIAGONAL);
+    listBoardAntidiagonals = oT3Board.getGameZonesOfType(T3Board::eZONE_ANTI_DIAGONAL);
 
     // we start in LOST state
     if (binitialized && isConnected())
@@ -161,14 +168,14 @@ void BoardWatcher::processBoard()
     linesChanged.clear();
         
     // compare present & previous board configuration
-    cv::Mat matDif = matrixNow != matrixPrev;    
+    cv::Mat matDif = matrixSensed != matrixPrev;    
     // if board changed    
     if (cv::countNonZero(matDif) > 0)
     {
-        LOG4CXX_INFO(logger, "board changed \n " << matrixNow);     
+        LOG4CXX_INFO(logger, "board changed \n " << matrixSensed);     
                 
         // update matrix copy
-        matrixNow.copyTo(matrixPrev);
+        matrixSensed.copyTo(matrixPrev);
         
         // check rows
         checkChangedRows(matDif);
@@ -178,17 +185,14 @@ void BoardWatcher::processBoard()
         checkChangedDiagonals(matDif);
 
         // store changes in shared data object
-        pGameBoard->updateInfo(matrixNow, linesChanged);
+        pGameBoard->updateInfo(matrixSensed, linesChanged);
     }
-
 }
 
 // detect changes in rows
 void BoardWatcher::checkChangedRows(cv::Mat& matDif)
 {
-    // get board zones of type row
-    std::vector<BoardZone> listRows = oT3Board.getZonesOfType(T3Board::eTYPE_ROW);
-    int numRows = listRows.size();
+    int numRows = listBoardRows.size();
     
     // analyse each row in matDif
     for (int i=0; i<numRows; i++)
@@ -196,16 +200,14 @@ void BoardWatcher::checkChangedRows(cv::Mat& matDif)
         cv::Mat matRow = matDif.row(i);
         // detecting which rows have changed
         if (cv::countNonZero(matRow) > 0)
-            linesChanged.push_back(listRows.at(i));
+            linesChanged.push_back(listBoardRows.at(i));
     }        
 }
 
 // detect changes in columns
 void BoardWatcher::checkChangedColumns(cv::Mat& matDif)
 {
-    // get board zones of type column
-    std::vector<BoardZone> listColumns = oT3Board.getZonesOfType(T3Board::eTYPE_COL);
-    int numColumns = listColumns.size();
+    int numColumns = listBoardColumns.size();
     
     // analyse each column in matDif 
     for (int j=0; j<numColumns; j++)
@@ -213,36 +215,29 @@ void BoardWatcher::checkChangedColumns(cv::Mat& matDif)
         cv::Mat matCol = matDif.col(j);
         // detecting which columns have changed
         if (cv::countNonZero(matCol) > 0)
-            linesChanged.push_back(listColumns.at(j));
+            linesChanged.push_back(listBoardColumns.at(j));
     }        
 }
 
 // detect changes in both diagonals
 void BoardWatcher::checkChangedDiagonals(cv::Mat& matDif)
 {
-    // get board zone of type main diagonal
-    std::vector<BoardZone> listMainDiagonal = oT3Board.getZonesOfType(T3Board::eTYPE_MAIN_DIAGONAL);
-    
     // analyse the matDif main diagonal
     cv::Mat matDiagonal = matDif.diag(0);
     // detecting if it has changed
     if (cv::countNonZero(matDiagonal) > 0)
-        linesChanged.push_back(listMainDiagonal.at(0));
+        linesChanged.push_back(listBoardDiagonals.at(0));
     
-    // By doing a vertical flip of matDif, it's antidiagonal becomes the new main diagonal
-    // Rudimentary flip is ok for our small matrix (instead of using the more powerful cv::gpu::flip() method)
+    // Vertical flip of matDif: the antidiagonal becomes the new diagonal
     cv::Mat matDif2 = matDif.clone();
     matDif.row(0).copyTo(matDif2.row(2));
     matDif.row(2).copyTo(matDif2.row(0));
 
-    // get board zone of type anti diagonal
-    std::vector<BoardZone> listAntiDiagonal = oT3Board.getZonesOfType(T3Board::eTYPE_ANTI_DIAGONAL);
-    
     // analyse the matDif2 main diagonal (the antidiagonal of matDif)
     cv::Mat matAntiDiagonal = matDif2.diag(0);
     // detecting if it has changed
     if (cv::countNonZero(matAntiDiagonal) > 0)
-        linesChanged.push_back(listAntiDiagonal.at(0));            
+        linesChanged.push_back(listBoardAntidiagonals.at(0));            
 }
 
 

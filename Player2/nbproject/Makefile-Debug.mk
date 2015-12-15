@@ -46,6 +46,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/sam/player/data/GameBoard.o \
 	${OBJECTDIR}/src/sam/player/data/PlayerData.o \
 	${OBJECTDIR}/src/sam/player/data/T3Board.o \
+	${OBJECTDIR}/src/sam/player/data/T3Game.o \
 	${OBJECTDIR}/src/sam/player/main.o \
 	${OBJECTDIR}/src/sam/player/modules/analyse/GameAnalyser.o \
 	${OBJECTDIR}/src/sam/player/modules/analyse/LineAnalyser2.o \
@@ -55,8 +56,12 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/sam/player/modules/watch/BoardWatcher.o \
 	${OBJECTDIR}/src/sam/player/modules/watch/VirtualWatcher.o \
 	${OBJECTDIR}/src/sam/player/utils/Board.o \
+	${OBJECTDIR}/src/sam/player/utils/BoardPlace.o \
 	${OBJECTDIR}/src/sam/player/utils/BoardZone.o \
-	${OBJECTDIR}/src/sam/player/utils/GameMove.o
+	${OBJECTDIR}/src/sam/player/utils/Game.o \
+	${OBJECTDIR}/src/sam/player/utils/GameMove.o \
+	${OBJECTDIR}/src/sam/player/utils/GamePiece.o \
+	${OBJECTDIR}/src/sam/player/utils/Move.o
 
 
 # C Compiler Flags
@@ -144,6 +149,11 @@ ${OBJECTDIR}/src/sam/player/data/T3Board.o: src/sam/player/data/T3Board.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../utils/src -I../utilsDB/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/data/T3Board.o src/sam/player/data/T3Board.cpp
 
+${OBJECTDIR}/src/sam/player/data/T3Game.o: src/sam/player/data/T3Game.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/data
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../utils/src -I../utilsDB/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/data/T3Game.o src/sam/player/data/T3Game.cpp
+
 ${OBJECTDIR}/src/sam/player/main.o: src/sam/player/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player
 	${RM} "$@.d"
@@ -189,15 +199,35 @@ ${OBJECTDIR}/src/sam/player/utils/Board.o: src/sam/player/utils/Board.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../utils/src -I../utilsDB/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/utils/Board.o src/sam/player/utils/Board.cpp
 
+${OBJECTDIR}/src/sam/player/utils/BoardPlace.o: src/sam/player/utils/BoardPlace.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/utils
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../utils/src -I../utilsDB/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/utils/BoardPlace.o src/sam/player/utils/BoardPlace.cpp
+
 ${OBJECTDIR}/src/sam/player/utils/BoardZone.o: src/sam/player/utils/BoardZone.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/utils
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../utils/src -I../utilsDB/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/utils/BoardZone.o src/sam/player/utils/BoardZone.cpp
 
+${OBJECTDIR}/src/sam/player/utils/Game.o: src/sam/player/utils/Game.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/utils
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../utils/src -I../utilsDB/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/utils/Game.o src/sam/player/utils/Game.cpp
+
 ${OBJECTDIR}/src/sam/player/utils/GameMove.o: src/sam/player/utils/GameMove.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/utils
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../utils/src -I../utilsDB/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/utils/GameMove.o src/sam/player/utils/GameMove.cpp
+
+${OBJECTDIR}/src/sam/player/utils/GamePiece.o: src/sam/player/utils/GamePiece.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/utils
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../utils/src -I../utilsDB/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/utils/GamePiece.o src/sam/player/utils/GamePiece.cpp
+
+${OBJECTDIR}/src/sam/player/utils/Move.o: src/sam/player/utils/Move.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/utils
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../utils/src -I../utilsDB/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/utils/Move.o src/sam/player/utils/Move.cpp
 
 # Subprojects
 .build-subprojects:

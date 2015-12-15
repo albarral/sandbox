@@ -13,33 +13,28 @@ Board::Board()
 {
 }
 
-int Board::getNumZones()
+void Board::addGameZone(BoardZone& oBoardZone)
 {
-    return listZones.size();
+    listGameZones.push_back(oBoardZone);
 }
 
-void Board::addZone(BoardZone& oBoardZone)
+void Board::addExtraZone(BoardZone& oBoardZone)
 {
-    listZones.push_back(oBoardZone);
+    listExtraZones.push_back(oBoardZone);
 }
 
-std::vector<BoardZone> Board::getZonesOfType(int type)
+std::vector<BoardZone> Board::getGameZonesOfType(int type)
 {
     std::vector<BoardZone> listSpecificZones;
     
     // walk zones list and extract those of the specified type
-    for (BoardZone& oZone: listZones) 
+    for (BoardZone& oZone: listGameZones) 
     {
         if (oZone.getType() == type)
             listSpecificZones.push_back(oZone);
     }
 
     return listSpecificZones;
-}
-
-BoardZone& Board::getZone(int index)
-{
-    return listZones.at(index);
 }
 
 
