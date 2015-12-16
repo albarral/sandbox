@@ -52,6 +52,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/sam/player/modules/analyse/LineAnalyser2.o \
 	${OBJECTDIR}/src/sam/player/modules/analyse/SimpleAnalyser2.o \
 	${OBJECTDIR}/src/sam/player/modules/analyse/Strategy.o \
+	${OBJECTDIR}/src/sam/player/modules/attack/Attacker.o \
 	${OBJECTDIR}/src/sam/player/modules/move/VirtualMover.o \
 	${OBJECTDIR}/src/sam/player/modules/watch/BoardWatcher.o \
 	${OBJECTDIR}/src/sam/player/modules/watch/VirtualWatcher.o \
@@ -178,6 +179,11 @@ ${OBJECTDIR}/src/sam/player/modules/analyse/Strategy.o: src/sam/player/modules/a
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules/analyse
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../utils/src -I../utilsDB/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/analyse/Strategy.o src/sam/player/modules/analyse/Strategy.cpp
+
+${OBJECTDIR}/src/sam/player/modules/attack/Attacker.o: src/sam/player/modules/attack/Attacker.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules/attack
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../brooks/src -I../utils/src -I../utilsDB/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/sam/player/modules/attack/Attacker.o src/sam/player/modules/attack/Attacker.cpp
 
 ${OBJECTDIR}/src/sam/player/modules/move/VirtualMover.o: src/sam/player/modules/move/VirtualMover.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/sam/player/modules/move

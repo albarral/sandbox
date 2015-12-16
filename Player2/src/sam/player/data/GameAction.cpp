@@ -11,50 +11,63 @@ namespace player
 {     
 GameAction::GameAction() 
 {
-    reset();
  }
  
-void GameAction::reset()
+void GameAction::resetAvailableMoves()
 {
-    std::lock_guard<std::mutex> locker(mutex);
-    oAttackMove.reset();
-    oDefenseMove.reset();    
+    std::lock_guard<std::mutex> locker(mutex1);
+    listGameMoves.clear();
+    //listDefenseMoves.clear();
 }
 
-void GameAction::updateAttackInfo(GameMove& oMove)
+void GameAction::addGameMove(GameMove& oMove)
 {
-    std::lock_guard<std::mutex> locker(mutex);
-    oAttackMove = oMove;
+    std::lock_guard<std::mutex> locker(mutex1);
+    listGameMoves.push_back(oMove);
 }
 
-void GameAction::updateDefenseInfo(GameMove& oMove)
+//void GameAction::addDefenseMove(GameMove& oMove)
+//{
+//    std::lock_guard<std::mutex> locker(mutex1);
+//    listDefenseMoves.push_back(oMove);
+//}
+
+void GameAction::getCopyGameMoves(std::vector<GameMove>& listMoves)
 {
-    std::lock_guard<std::mutex> locker(mutex);
-    oDefenseMove = oMove;
+    std::lock_guard<std::mutex> locker(mutex1);
+    listMoves = listGameMoves;
 }
 
-float GameAction::getAttackMoveReward()
+//void GameAction::getCopyDefenseMoves(std::vector<GameMove>& listMoves)
+//{
+//    std::lock_guard<std::mutex> locker(mutex1);
+//    listMoves = listDefenseMoves;
+//}
+
+void GameAction::updateMovementInfo(Move& fromMove, Move& toMove, GamePiece& oGamePiece)
 {
-    std::lock_guard<std::mutex> locker(mutex);
-    return oAttackMove.getQattack(); 
+    std::lock_guard<std::mutex> locker(mutex2);
+    this->fromMove = fromMove;
+    this->toMove = toMove;
+    this->movedPiece = oGamePiece;
 }
 
-float GameAction::getDefenseMoveReward()
+Move GameAction::getFromMoveCopy()
 {
-    std::lock_guard<std::mutex> locker(mutex);
-    return oDefenseMove.getQdefense();
-}
-    
-GameMove GameAction::getAttackMoveCopy()
-{
-    std::lock_guard<std::mutex> locker(mutex);
-    return oAttackMove;
+    std::lock_guard<std::mutex> locker(mutex2);
+    return fromMove;
 }
 
-GameMove GameAction::getDefenseMoveCopy()
+Move GameAction::getToMoveCopy()
 {
-    std::lock_guard<std::mutex> locker(mutex);
-    return oDefenseMove;
+    std::lock_guard<std::mutex> locker(mutex2);
+    return toMove;
+}
+
+GamePiece GameAction::getGamePieceCopy()
+{
+    std::lock_guard<std::mutex> locker(mutex2);
+    return movedPiece;
 }
 
 }

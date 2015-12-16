@@ -23,5 +23,20 @@ void Game::addGamePiece(GamePiece& oGamePiece)
     listGamePieces.push_back(oGamePiece);
 }
 
+// returns a list of pieces of the specified type
+std::vector<GamePiece> Game::getPiecesOfType(int type)
+{
+    std::vector<GamePiece> listSpecificPieces;
+    
+    // walk zones list and extract those of the specified type
+    for (GamePiece& oGamePiece: listGamePieces) 
+    {
+        if (oGamePiece.getType() == type)
+            listSpecificPieces.push_back(oGamePiece);
+    }
+
+    return listSpecificPieces;
+}
+
 }
 }

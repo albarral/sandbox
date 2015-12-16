@@ -28,6 +28,9 @@ public:
     void addGamePiece(GamePiece& oGamePiece);    
     // returns the list of game pieces in the game
     std::vector<GamePiece>& getListGamePieces() {return listGamePieces;};    
+    // returns a list of pieces of the specified type
+    std::vector<GamePiece> getPiecesOfType(int type);
+
     // returns a list of piece types
 //    virtual std::vector<int> getPieceTypes() = 0;
     // returns a list of teams

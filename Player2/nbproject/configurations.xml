@@ -47,6 +47,10 @@
             <itemPath>src/sam/player/modules/analyse/Strategy.cpp</itemPath>
             <itemPath>src/sam/player/modules/analyse/Strategy.h</itemPath>
           </logicalFolder>
+          <logicalFolder name="attack" displayName="attack" projectFiles="true">
+            <itemPath>src/sam/player/modules/attack/Attacker.cpp</itemPath>
+            <itemPath>src/sam/player/modules/attack/Attacker.h</itemPath>
+          </logicalFolder>
           <logicalFolder name="move" displayName="move" projectFiles="true">
             <itemPath>src/sam/player/modules/move/VirtualMover.cpp</itemPath>
             <itemPath>src/sam/player/modules/move/VirtualMover.h</itemPath>
@@ -252,6 +256,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/sam/player/modules/attack/Attacker.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/player/modules/attack/Attacker.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/sam/player/modules/move/VirtualMover.cpp"
             ex="false"
             tool="1"
@@ -422,6 +436,16 @@
             flavor2="0">
       </item>
       <item path="src/sam/player/modules/analyse/Strategy.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/sam/player/modules/attack/Attacker.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/sam/player/modules/attack/Attacker.h"
             ex="false"
             tool="3"
             flavor2="0">

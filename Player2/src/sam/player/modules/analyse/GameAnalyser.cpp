@@ -54,7 +54,6 @@ void GameAnalyser::init(GameBoard& oGameBoard, GameAction& oGameAction, PlayerDa
 void GameAnalyser::first()
 {    
     log4cxx::NDC::push("Analyser");   	
-    pGameAction->reset();	
 
     // we start in DONE state
     if (binitialized && isConnected())
@@ -255,42 +254,15 @@ void GameAnalyser::doAnalysis()
  // updates game action with best moves
 void GameAnalyser::updateGameAction()
 {
-    GameMove oAttackMove;
-    GameMove oDefenseMove;
+    pGameAction->resetAvailableMoves();
     
-    // get best attack & defense moves from list moves
+    // store obtained moves
     LOG4CXX_INFO(logger, "possible moves ...");
     for (GameMove& oMove: listGameMoves) 
     {
         LOG4CXX_INFO(logger, oMove.shortDesc());
-        if (oMove.getQattack() > oAttackMove.getQattack())
-        {
-            oAttackMove = oMove;
-        }
-        if (oMove.getQdefense() > oDefenseMove.getQdefense())
-        {
-            oDefenseMove = oMove;
-        }
+        pGameAction->addGameMove(oMove);
     }
-
-    if (listGameMoves.size() > 0)
-    {
-        LOG4CXX_INFO(logger, "> best attack: " << oAttackMove.shortDesc());
-        LOG4CXX_INFO(logger, "> best defense: " << oDefenseMove.shortDesc());
-    }
-
-    // update attack move if this is better
-    if (oAttackMove.getQattack() > pGameAction->getAttackMoveReward())
-    {
-        LOG4CXX_INFO(logger, "new attack action !!!");
-        pGameAction->updateAttackInfo(oAttackMove);
-    }
-    // track best defense
-    if (oDefenseMove.getQdefense() > pGameAction->getDefenseMoveReward())
-    {
-        LOG4CXX_INFO(logger, "new defense action !!!");
-        pGameAction->updateDefenseInfo(oDefenseMove);                        
-    }        
 }
 
 
