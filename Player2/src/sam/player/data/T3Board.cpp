@@ -37,14 +37,14 @@ T3Board::T3Board()
     oColumn.setType(T3Board::eZONE_COL);    
     for (int i=0; i<3; i++)
     {
-        lineID = "column " + std::to_string(i);
+        lineID = "col " + std::to_string(i);
         oColumn.setID(lineID);
         oColumn.setOrdinal(i);
         addGameZone(oColumn);                
     }
     
     // add the main diagonal 
-    lineID = "main_diagonal";
+    lineID = "diagonal";
     BoardZone oDiagonal;
     oDiagonal.setNumElements(3);
     oDiagonal.setType(T3Board::eZONE_MAIN_DIAGONAL);  
@@ -53,7 +53,7 @@ T3Board::T3Board()
     addGameZone(oDiagonal);                
 
     // add the anti diagonal 
-    lineID = "anti_diagonal";
+    lineID = "antidiagonal";
     oDiagonal.setType(T3Board::eZONE_ANTI_DIAGONAL);  
     oDiagonal.setID(lineID);
     oDiagonal.setOrdinal(0);    // unchanged

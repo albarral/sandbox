@@ -33,8 +33,11 @@ public:
     float getQdefense() {return Qdefense;};
     void setQdefense(float Qvalue) {Qdefense = Qvalue;};
     
-    // gets GameMove description
+    // get full description
     virtual std::string toString();
+    // get short description
+    std::string shortDesc();
+
 };
 
 }

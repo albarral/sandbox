@@ -22,13 +22,21 @@ void GameMove::reset()
     Qdefense = -1.0;
 }
 
-// gets GameMove description
+// get full description
 std::string GameMove::toString()
 {
   return ("GameMove: [" + oBoardPlace.toString() +  
       ", Qattack = " + std::to_string(Qattack) + 
       ", Qdefense = " + std::to_string(Qdefense) + 
           "]");     
+}
+
+// get short description
+std::string GameMove::shortDesc()
+{
+  return (oBoardPlace.shortDesc() +  
+      ", Qattack = " + std::to_string(Qattack) + 
+      ", Qdefense = " + std::to_string(Qdefense));     
 }
 
 }

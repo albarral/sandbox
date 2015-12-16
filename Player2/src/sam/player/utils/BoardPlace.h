@@ -30,8 +30,10 @@ public:
     int getElement() {return element;};       
     void setElement(int element) {this->element = element;};
     
-    // gets description
+    // get full description
     std::string toString();
+    // get short description
+    std::string shortDesc();
 };
 
 }

@@ -262,7 +262,7 @@ void GameAnalyser::updateGameAction()
     LOG4CXX_INFO(logger, "possible moves ...");
     for (GameMove& oMove: listGameMoves) 
     {
-        LOG4CXX_INFO(logger, oMove.toString());
+        LOG4CXX_INFO(logger, oMove.shortDesc());
         if (oMove.getQattack() > oAttackMove.getQattack())
         {
             oAttackMove = oMove;
@@ -275,8 +275,8 @@ void GameAnalyser::updateGameAction()
 
     if (listGameMoves.size() > 0)
     {
-        LOG4CXX_INFO(logger, "> best attack: " << oAttackMove.toString());
-        LOG4CXX_INFO(logger, "> best defense: " << oDefenseMove.toString());
+        LOG4CXX_INFO(logger, "> best attack: " << oAttackMove.shortDesc());
+        LOG4CXX_INFO(logger, "> best defense: " << oDefenseMove.shortDesc());
     }
 
     // update attack move if this is better
