@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.grpc.examples.jointstest";
+option java_outer_classname = "JointsTestProto";
+option objc_class_prefix = "JTP";
+
+package jointstest;
+
+// Interface exported by the server.
+service JointsTest {
+
+  rpc GetJointsPosition(JointsRequest) returns (JointsPosition) {}
+
+}
+
+message JointsPosition {
+
+  float j1 = 1;
+  float j2 = 2;
+  float j3 = 3;
+  float j4 = 4;
+  float j5 = 5;
+  float j6 = 6;
+}
+
+message JointsRequest {
+  
+  bool request = 1;
+}
